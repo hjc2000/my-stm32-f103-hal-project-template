@@ -1,0 +1,17 @@
+﻿{
+	"version": 3,
+	"configurePresets": [
+		{
+			"name": "armcc",
+			"displayName": "armcc debug",
+			"generator": "Ninja",
+			"binaryDir": "${sourceDir}/out/build/${presetName}",
+			"installDir": "${sourceDir}/out/install/${presetName}",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"CMAKE_C_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armcc.exe",
+				"CMAKE_CXX_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armcc.exe"
+			}
+		}
+	]
+}

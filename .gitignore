@@ -1,0 +1,6 @@
+/.vs/
+/out/
+
+**/Output/
+*.o
+*.uvguix.huang
