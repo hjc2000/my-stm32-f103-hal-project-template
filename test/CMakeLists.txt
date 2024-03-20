@@ -10,6 +10,7 @@ function(setup_target target_name)
     target_compile_definitions(${target_name} PRIVATE USE_HAL_DRIVER)
     target_compile_definitions(${target_name} PRIVATE STM32F103xE)
     target_compile_definitions(${target_name} PRIVATE STM32F10X_HD)
+    target_compile_definitions(${target_name} PRIVATE __CC_ARM)
 
     target_add_source_recurse(${target_name} ${CMAKE_CURRENT_SOURCE_DIR}/src/)
 
