@@ -1,12 +1,12 @@
 ﻿# 基础配置
 if(1)
 	cmake_minimum_required (VERSION 3.8)
-	project ("video")
+	project ("stm32")
 endif()
 
 if(1)
 	# 安装时是否安装头文件
-	option(option_install_headers ON)
+	option(option_install_headers true)
 endif()
 
 # 导入我的 cmake 函数
