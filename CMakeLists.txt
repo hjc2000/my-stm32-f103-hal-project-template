@@ -4,11 +4,13 @@ if(1)
 	project ("video")
 endif()
 
-
+if(1)
+	# 安装时是否安装头文件
+	option(option_install_headers ON)
+endif()
 
 # 导入我的 cmake 函数
 if(1)
-	include(${CMAKE_SOURCE_DIR}/CMakeFunctions/setup.cmake)
 	include(${CMAKE_SOURCE_DIR}/CMakeFunctions/install.cmake)
 	include(${CMAKE_SOURCE_DIR}/CMakeFunctions/collect.cmake)
 	include(${CMAKE_SOURCE_DIR}/CMakeFunctions/link.cmake)

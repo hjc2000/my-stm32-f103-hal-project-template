@@ -2,8 +2,16 @@
 	"version": 3,
 	"configurePresets": [
 		{
+			"name": "options",
+			"hidden": true,
+			"cacheVariables": {
+				"option_install_headers": false
+			}
+		},
+		{
 			"name": "armcc",
 			"displayName": "armcc debug",
+			"inherits": "options",
 			"generator": "Ninja",
 			"binaryDir": "${sourceDir}/out/build/${presetName}",
 			"installDir": "${sourceDir}/out/install/${presetName}",
@@ -11,6 +19,8 @@
 				"CMAKE_BUILD_TYPE": "Debug",
 				"CMAKE_C_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armcc.exe",
 				"CMAKE_CXX_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armcc.exe",
+				"CMAKE_ASM_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armasm.exe",
+				"CMAKE_C_LINK_EXECUTABLE": "C:/Keil_v5/ARM/ARMCC/bin/armlinke.exe",
 				"CMAKE_SYSTEM_NAME": "Generic",
 				"CMAKE_SYSTEM_PROCESSOR": "Cortex-M3"
 			}
