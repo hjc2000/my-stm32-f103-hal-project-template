@@ -117,7 +117,7 @@ void sys_stm32_clock_init(uint32_t plln)
     rcc_osc_init.PLL.PLLState = RCC_PLL_ON;                     /* 打开PLL */
     rcc_osc_init.PLL.PLLSource = RCC_PLLSOURCE_HSE;             /* PLL时钟源选择HSE */
     rcc_osc_init.PLL.PLLMUL = plln;                             /* PLL倍频系数 */
-    ret = HAL_RCC_OscConfig(&rcc_osc_init);                     /* 初始化 */
+    ret = HAL_RCC_OscConfig(&rcc_osc_init);       /* 初始化 */
 
     if (ret != HAL_OK)
     {
