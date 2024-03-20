@@ -19,6 +19,5 @@ if(1)
 	include(${CMAKE_SOURCE_DIR}/CMakeFunctions/get-source-and-build.cmake)
 endif()
 
-
 # 包含子项目。
 add_subdirectory(${CMAKE_SOURCE_DIR}/test)

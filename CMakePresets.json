@@ -10,19 +10,19 @@
 		},
 		{
 			"name": "armcc",
-			"displayName": "armcc debug",
+			"displayName": "armcc",
 			"inherits": "options",
 			"generator": "Ninja",
 			"binaryDir": "${sourceDir}/out/build/${presetName}",
 			"installDir": "${sourceDir}/out/install/${presetName}",
 			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "Debug",
+				"CMAKE_BUILD_TYPE": "Release",
 				"CMAKE_C_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armcc.exe",
 				"CMAKE_CXX_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armcc.exe",
 				"CMAKE_ASM_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armasm.exe",
-				"CMAKE_C_LINK_EXECUTABLE": "C:/Keil_v5/ARM/ARMCC/bin/armlinke.exe",
-				"CMAKE_SYSTEM_NAME": "Generic",
-				"CMAKE_SYSTEM_PROCESSOR": "Cortex-M3"
+				"CMAKE_C_LINK_EXECUTABLE": "C:/Keil_v5/ARM/ARMCC/bin/armlink.exe",
+				"CMAKE_C_FLAGS": "--c99 --cpu Cortex-M3 -O0 --apcs=interwork --split_sections",
+				"CMAKE_CXX_FLAGS": "--cpp --cpu Cortex-M3 -O0 --apcs=interwork --split_sections"
 			}
 		}
 	]

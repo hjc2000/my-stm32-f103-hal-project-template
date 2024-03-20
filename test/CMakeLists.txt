@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 set(ProjectName test)
-project(${ProjectName} C)
-enable_language(ASM) ##启用汇编语言
-#set(CMAKE_CXX_STANDARD 20)
+project(${ProjectName})
+enable_language(ASM)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_C_STANDARD 99)
 
 function(setup_target target_name)
@@ -10,9 +10,6 @@ function(setup_target target_name)
     target_compile_definitions(${target_name} PRIVATE USE_HAL_DRIVER)
     target_compile_definitions(${target_name} PRIVATE STM32F103xE)
     target_compile_definitions(${target_name} PRIVATE STM32F10X_HD)
-
-    # -c99 -c --cpu Cortex-M3
-    target_compile_options(${target_name} PRIVATE "--cpu=Cortex-M3 -O0 --apcs=interwork --split_sections")
 
     target_add_source_recurse(${target_name} ${CMAKE_CURRENT_SOURCE_DIR}/src/)
 
@@ -27,7 +24,7 @@ endfunction()
 
 # 定义生成规则
 if(1)
-    add_executable(${ProjectName})
+    add_library(${ProjectName} STATIC)
     setup_target(${ProjectName})
 endif()
 
