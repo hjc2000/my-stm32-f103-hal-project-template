@@ -28,7 +28,7 @@
 #define __USART_H
 
 #include "stdio.h"
-#include "./SYSTEM/sys/sys.h"
+#include "SYSTEM/sys/sys.h"
 
 
 /******************************************************************************************/

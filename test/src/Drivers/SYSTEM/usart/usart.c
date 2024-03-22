@@ -24,8 +24,8 @@
  ****************************************************************************************************
  */
 
-#include "./SYSTEM/sys/sys.h"
-#include "./SYSTEM/usart/usart.h"
+#include "SYSTEM/sys/sys.h"
+#include "SYSTEM/usart/usart.h"
 
 
 /* 如果使用os,则包括下面的头文件即可. */
