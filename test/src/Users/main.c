@@ -17,26 +17,26 @@
  ******************************************************************************
  */
 
-#include "Drivers/SYSTEM/sys/sys.h"
-#include "Drivers/SYSTEM/usart/usart.h"
-#include "Drivers/SYSTEM/delay/delay.h"
+#include "SYSTEM/sys/sys.h"
+#include "SYSTEM/usart/usart.h"
+#include "SYSTEM/delay/delay.h"
 
 void led_init(void); /* LED初始化函数声明 */
 
 int main(void)
 {
-	HAL_Init();							/* 初始化HAL库 */
-	sys_stm32_clock_init(RCC_PLL_MUL9); /* 设置时钟, 72Mhz */
+	HAL_Init();									/* 初始化HAL库 */
+	sys_stm32_clock_init(RCC_PLL_MUL9);		/* 设置时钟, 72Mhz */
 	delay_init(72);						/* 延时初始化 */
-	led_init();							/* LED初始化 */
+	led_init();									/* LED初始化 */
 
 	while (1)
 	{
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);	  /* PB5置1 */
-		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_RESET); /* PE5置0 */
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);		/* PB5置1 */
+		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_RESET);	/* PE5置0 */
 		delay_ms(1000);
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET); /* PB5置0 */
-		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_SET);	  /* PE5置1 */
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);	/* PB5置0 */
+		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_SET);		/* PE5置1 */
 		delay_ms(1000);
 	}
 }
