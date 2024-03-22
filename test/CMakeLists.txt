@@ -15,8 +15,9 @@ function(setup_target target_name)
 
     target_add_source_recurse(${target_name} ${CMAKE_CURRENT_SOURCE_DIR}/src/)
 
+    add_and_install_headers_recurse(${target_name} ${CMAKE_CURRENT_SOURCE_DIR}/src/)
     add_and_install_include_dir(${target_name} ${CMAKE_CURRENT_SOURCE_DIR}/src/)
-    add_and_install_include_dir_recurse(${target_name} ${CMAKE_CURRENT_SOURCE_DIR}/src/Drivers)
+    add_and_install_headers_recurse(${target_name} ${CMAKE_CURRENT_SOURCE_DIR}/src/Drivers)
     add_and_install_include_dir(${target_name} ${CMAKE_CURRENT_SOURCE_DIR}/src/Drivers)
     add_and_install_include_dir(${target_name} ${CMAKE_CURRENT_SOURCE_DIR}/src/Users)
     add_and_install_include_dir(${target_name} "C:/Keil_v5/ARM/ARMCC/include")
