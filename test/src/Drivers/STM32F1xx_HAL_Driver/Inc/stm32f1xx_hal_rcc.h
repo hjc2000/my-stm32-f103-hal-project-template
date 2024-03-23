@@ -80,29 +80,53 @@ extern "C" {
 		uint32_t PLLMUL;
 	} RCC_PLLInitTypeDef;
 
-	/**
-	  * @brief  RCC System, AHB and APB busses clock configuration structure definition
-	  */
+
+	/// <summary>
+	///		RCC System, AHB and APB busses clock configuration structure definition。
+	/// 
+	///		简单来说就是用来初始化时钟信号的。（注意区分时钟源与时钟信号）
+	///		时钟信号有：SYSCLK, AHB, APB1, APB2。
+	/// 
+	///		时钟信号就是来自时钟源的方波经过分频器后再输出。
+	/// </summary>
 	typedef struct
 	{
 		/// <summary>
 		///		选择要设置的时钟类型。
+		/// 
 		///		可选值为 RCC_System_Clock_Type 中的一个。
 		///		RCC_System_Clock_Type 中的值可以按位或运算，也就是可以通过这种方式同时选中多个时钟类型。
 		/// </summary>
 		uint32_t ClockType;
 
-		uint32_t SYSCLKSource;          /*!< The clock source (SYSCLKS) used as system clock.
-											 This parameter can be a value of @ref RCC_System_Clock_Source */
+		/// <summary>
+		///		选择系统时钟的时钟源。可选值为 RCC_System_Clock_Source 中的一个。
+		/// </summary>
+		uint32_t SYSCLKSource;
 
-		uint32_t AHBCLKDivider;         /*!< The AHB clock (HCLK) divider. This clock is derived from the system clock (SYSCLK).
-											 This parameter can be a value of @ref RCC_AHB_Clock_Source */
+		/// <summary>
+		///		AHB 时钟（也叫做 HCLK）的分频系数。
+		///		AHB 时钟信号来自一个分频器。该分频器输入端直接连接着 SYSCLK 的输出端。
+		/// 
+		///		可选值为 RCC_AHB_Clock_Source 中的一个。
+		/// </summary>
+		uint32_t AHBCLKDivider;
 
-		uint32_t APB1CLKDivider;        /*!< The APB1 clock (PCLK1) divider. This clock is derived from the AHB clock (HCLK).
-											 This parameter can be a value of @ref RCC_APB1_APB2_Clock_Source */
+		/// <summary>
+		///		APB1 时钟（也叫 PCLK1）的分频系数。
+		///		这个时钟是给低速外设用的。APB1 时钟信号来自一个分频器。该分频器的输入端连接着 AHB 的输出端。
+		/// 
+		///		可选值为 RCC_APB1_APB2_Clock_Source 中的一个。
+		/// </summary>
+		uint32_t APB1CLKDivider;
 
-		uint32_t APB2CLKDivider;        /*!< The APB2 clock (PCLK2) divider. This clock is derived from the AHB clock (HCLK).
-											 This parameter can be a value of @ref RCC_APB1_APB2_Clock_Source */
+		/// <summary>
+		///		APB2 时钟（也叫 PCLK2）的分频系数。
+		///		APB2 是给高速外设用的。APB2 时钟信号来自一个分频器。该分频器的输入端连接着 AHB 的输出端。
+		/// 
+		///		可选值为 RCC_APB1_APB2_Clock_Source 中的一个。
+		/// </summary>
+		uint32_t APB2CLKDivider;
 	} RCC_ClkInitTypeDef;
 
 	/**
@@ -191,43 +215,38 @@ extern "C" {
 									* @}
 									*/
 
-/** @defgroup RCC_System_Clock_Type System Clock Type
-	* @{
-	*/
+									/** @defgroup RCC_System_Clock_Type System Clock Type
+										* @{
+										*/
 	#define RCC_CLOCKTYPE_SYSCLK             0x00000001U /*!< SYSCLK to configure */
 	#define RCC_CLOCKTYPE_HCLK               0x00000002U /*!< HCLK to configure */
 	#define RCC_CLOCKTYPE_PCLK1              0x00000004U /*!< PCLK1 to configure */
 	#define RCC_CLOCKTYPE_PCLK2              0x00000008U /*!< PCLK2 to configure */
 
-	/**
-	* @}
-	*/
+										/**
+										* @}
+										*/
 
-										/** @defgroup RCC_System_Clock_Source System Clock Source
-										  * @{
-										  */
+	#pragma region RCC_System_Clock_Source System Clock Source
 	#define RCC_SYSCLKSOURCE_HSI             RCC_CFGR_SW_HSI /*!< HSI selected as system clock */
 	#define RCC_SYSCLKSOURCE_HSE             RCC_CFGR_SW_HSE /*!< HSE selected as system clock */
 	#define RCC_SYSCLKSOURCE_PLLCLK          RCC_CFGR_SW_PLL /*!< PLL selected as system clock */
+	#pragma endregion
+
+
+										/** @defgroup RCC_System_Clock_Source_Status System Clock Source Status
+										  * @{
+										  */
+	#define RCC_SYSCLKSOURCE_STATUS_HSI      RCC_CFGR_SWS_HSI            /*!< HSI used as system clock */
+	#define RCC_SYSCLKSOURCE_STATUS_HSE      RCC_CFGR_SWS_HSE            /*!< HSE used as system clock */
+	#define RCC_SYSCLKSOURCE_STATUS_PLLCLK   RCC_CFGR_SWS_PLL            /*!< PLL used as system clock */
 
 										  /**
 											* @}
 											*/
 
-											/** @defgroup RCC_System_Clock_Source_Status System Clock Source Status
-											  * @{
-											  */
-	#define RCC_SYSCLKSOURCE_STATUS_HSI      RCC_CFGR_SWS_HSI            /*!< HSI used as system clock */
-	#define RCC_SYSCLKSOURCE_STATUS_HSE      RCC_CFGR_SWS_HSE            /*!< HSE used as system clock */
-	#define RCC_SYSCLKSOURCE_STATUS_PLLCLK   RCC_CFGR_SWS_PLL            /*!< PLL used as system clock */
 
-											  /**
-												* @}
-												*/
-
-												/** @defgroup RCC_AHB_Clock_Source AHB Clock Source
-												  * @{
-												  */
+	#pragma region RCC_AHB_Clock_Source AHB Clock Source
 	#define RCC_SYSCLK_DIV1                  RCC_CFGR_HPRE_DIV1   /*!< SYSCLK not divided */
 	#define RCC_SYSCLK_DIV2                  RCC_CFGR_HPRE_DIV2   /*!< SYSCLK divided by 2 */
 	#define RCC_SYSCLK_DIV4                  RCC_CFGR_HPRE_DIV4   /*!< SYSCLK divided by 4 */
@@ -237,78 +256,71 @@ extern "C" {
 	#define RCC_SYSCLK_DIV128                RCC_CFGR_HPRE_DIV128 /*!< SYSCLK divided by 128 */
 	#define RCC_SYSCLK_DIV256                RCC_CFGR_HPRE_DIV256 /*!< SYSCLK divided by 256 */
 	#define RCC_SYSCLK_DIV512                RCC_CFGR_HPRE_DIV512 /*!< SYSCLK divided by 512 */
+	#pragma endregion
 
-												  /**
-													* @}
-													*/
 
-													/** @defgroup RCC_APB1_APB2_Clock_Source APB1 APB2 Clock Source
-													  * @{
-													  */
-	#define RCC_HCLK_DIV1                    RCC_CFGR_PPRE1_DIV1  /*!< HCLK not divided */
-	#define RCC_HCLK_DIV2                    RCC_CFGR_PPRE1_DIV2  /*!< HCLK divided by 2 */
-	#define RCC_HCLK_DIV4                    RCC_CFGR_PPRE1_DIV4  /*!< HCLK divided by 4 */
-	#define RCC_HCLK_DIV8                    RCC_CFGR_PPRE1_DIV8  /*!< HCLK divided by 8 */
-	#define RCC_HCLK_DIV16                   RCC_CFGR_PPRE1_DIV16 /*!< HCLK divided by 16 */
 
-													  /**
-														* @}
-														*/
+	#pragma region RCC_APB1_APB2_Clock_Source APB1 APB2 Clock Source
+	#define RCC_HCLK_DIV1                    RCC_CFGR_PPRE1_DIV1	/*!< HCLK not divided */
+	#define RCC_HCLK_DIV2                    RCC_CFGR_PPRE1_DIV2	/*!< HCLK divided by 2 */
+	#define RCC_HCLK_DIV4                    RCC_CFGR_PPRE1_DIV4	/*!< HCLK divided by 4 */
+	#define RCC_HCLK_DIV8                    RCC_CFGR_PPRE1_DIV8	/*!< HCLK divided by 8 */
+	#define RCC_HCLK_DIV16                   RCC_CFGR_PPRE1_DIV16	/*!< HCLK divided by 16 */
+	#pragma endregion
 
-														/** @defgroup RCC_RTC_Clock_Source RTC Clock Source
-														  * @{
-														  */
+
+
+	#pragma region RCC_RTC_Clock_Source RTC Clock Source
 	#define RCC_RTCCLKSOURCE_NO_CLK          0x00000000U                 /*!< No clock */
-	#define RCC_RTCCLKSOURCE_LSE             RCC_BDCR_RTCSEL_LSE                  /*!< LSE oscillator clock used as RTC clock */
-	#define RCC_RTCCLKSOURCE_LSI             RCC_BDCR_RTCSEL_LSI                  /*!< LSI oscillator clock used as RTC clock */
-	#define RCC_RTCCLKSOURCE_HSE_DIV128      RCC_BDCR_RTCSEL_HSE                    /*!< HSE oscillator clock divided by 128 used as RTC clock */
-														  /**
-															* @}
-															*/
+	#define RCC_RTCCLKSOURCE_LSE             RCC_BDCR_RTCSEL_LSE         /*!< LSE oscillator clock used as RTC clock */
+	#define RCC_RTCCLKSOURCE_LSI             RCC_BDCR_RTCSEL_LSI         /*!< LSI oscillator clock used as RTC clock */
+	#define RCC_RTCCLKSOURCE_HSE_DIV128      RCC_BDCR_RTCSEL_HSE         /*!< HSE oscillator clock divided by 128 used as RTC clock */
+	#pragma endregion
 
 
-															/** @defgroup RCC_MCO_Index MCO Index
-															  * @{
-															  */
+
+											  /** @defgroup RCC_MCO_Index MCO Index
+												* @{
+												*/
 	#define RCC_MCO1                         0x00000000U
 	#define RCC_MCO                          RCC_MCO1               /*!< MCO1 to be compliant with other families with 2 MCOs*/
 
-															  /**
-																* @}
-																*/
+												/**
+												  * @}
+												  */
 
-																/** @defgroup RCC_MCOx_Clock_Prescaler MCO Clock Prescaler
-																  * @{
-																  */
+												  /** @defgroup RCC_MCOx_Clock_Prescaler MCO Clock Prescaler
+													* @{
+													*/
 	#define RCC_MCODIV_1                    0x00000000U
 
-																  /**
-																	* @}
-																	*/
+													/**
+													  * @}
+													  */
 
-																	/** @defgroup RCC_Interrupt Interrupts
-																	  * @{
-																	  */
+													  /** @defgroup RCC_Interrupt Interrupts
+														* @{
+														*/
 	#define RCC_IT_LSIRDY                    ((uint8_t)RCC_CIR_LSIRDYF)   /*!< LSI Ready Interrupt flag */
 	#define RCC_IT_LSERDY                    ((uint8_t)RCC_CIR_LSERDYF)   /*!< LSE Ready Interrupt flag */
 	#define RCC_IT_HSIRDY                    ((uint8_t)RCC_CIR_HSIRDYF)   /*!< HSI Ready Interrupt flag */
 	#define RCC_IT_HSERDY                    ((uint8_t)RCC_CIR_HSERDYF)   /*!< HSE Ready Interrupt flag */
 	#define RCC_IT_PLLRDY                    ((uint8_t)RCC_CIR_PLLRDYF)   /*!< PLL Ready Interrupt flag */
 	#define RCC_IT_CSS                       ((uint8_t)RCC_CIR_CSSF)      /*!< Clock Security System Interrupt flag */
-																	  /**
-																		* @}
-																		*/
+														/**
+														  * @}
+														  */
 
-																		/** @defgroup RCC_Flag Flags
-																		  *        Elements values convention: XXXYYYYYb
-																		  *           - YYYYY  : Flag position in the register
-																		  *           - XXX  : Register index
-																		  *                 - 001: CR register
-																		  *                 - 010: BDCR register
-																		  *                 - 011: CSR register
-																		  * @{
-																		  */
-																		  /* Flags in the CR register */
+														  /** @defgroup RCC_Flag Flags
+															*        Elements values convention: XXXYYYYYb
+															*           - YYYYY  : Flag position in the register
+															*           - XXX  : Register index
+															*                 - 001: CR register
+															*                 - 010: BDCR register
+															*                 - 011: CSR register
+															* @{
+															*/
+															/* Flags in the CR register */
 	#define RCC_FLAG_HSIRDY                  ((uint8_t)((CR_REG_INDEX << 5U) | RCC_CR_HSIRDY_Pos)) /*!< Internal High Speed clock ready flag */
 	#define RCC_FLAG_HSERDY                  ((uint8_t)((CR_REG_INDEX << 5U) | RCC_CR_HSERDY_Pos)) /*!< External High Speed clock ready flag */
 	#define RCC_FLAG_PLLRDY                  ((uint8_t)((CR_REG_INDEX << 5U) | RCC_CR_PLLRDY_Pos)) /*!< PLL clock ready flag */

@@ -21,7 +21,7 @@
 #include "SYSTEM/usart/usart.h"
 #include "SYSTEM/delay/delay.h"
 
-void led_init(void); /* LED初始化函数声明 */
+void led_init(void);
 
 int main(void)
 {

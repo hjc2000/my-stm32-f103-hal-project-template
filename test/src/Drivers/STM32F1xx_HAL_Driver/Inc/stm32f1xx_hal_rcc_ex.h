@@ -222,9 +222,13 @@ extern "C" {
 
 	#endif /* STM32F105xC || STM32F107xC */
 
-	/**
-	  * @brief  RCC Internal/External Oscillator (HSE, HSI, LSE and LSI) configuration structure definition
-	  */
+
+	/// <summary>
+	///		RCC Internal/External Oscillator (HSE, HSI, LSE and LSI) configuration structure definition。
+	/// 
+	///		简单来说就是用来初始化时钟源的。（注意区分时钟源与时钟信号）
+	///		时钟源有：HSE, HSI, LSE, LSI, PLL。其中，PLL 是二手的时钟源，它将一手的时钟源倍频。
+	/// </summary>
 	typedef struct
 	{
 		/// <summary>
@@ -244,13 +248,13 @@ extern "C" {
 		#endif /* STM32F105xC || STM32F107xC */
 
 
-		/// <summary>
-		///		配置 HSE 的状态。HSE 是外部高速时钟。
-		///		可以配置为 RCC_HSE_Config 中的一个值。RCC_HSE_Config 就是一组宏定义。（不如用枚举量）
-		/// 
-		///		The new state of the HSE.
-		///		This parameter can be a value of @ref RCC_HSE_Config
-		/// </summary>
+											 /// <summary>
+											 ///		配置 HSE 的状态。HSE 是外部高速时钟。
+											 ///		可以配置为 RCC_HSE_Config 中的一个值。RCC_HSE_Config 就是一组宏定义。（不如用枚举量）
+											 /// 
+											 ///		The new state of the HSE.
+											 ///		This parameter can be a value of @ref RCC_HSE_Config
+											 /// </summary>
 		uint32_t HSEState;
 
 		/// <summary>
@@ -314,7 +318,7 @@ extern "C" {
 											 This parameter can be a value of @ref RCCEx_ADC_Prescaler */
 
 		#if defined(STM32F103xE) || defined(STM32F103xG) || defined(STM32F105xC)\
- || defined(STM32F107xC)
+		 || defined(STM32F107xC)
 		uint32_t I2s2ClockSelection;         /*!< I2S2 clock source
 											 This parameter can be a value of @ref RCCEx_I2S2_Clock_Source */
 

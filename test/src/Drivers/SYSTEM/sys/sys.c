@@ -107,10 +107,7 @@ void sys_soft_reset(void)
  */
 void sys_stm32_clock_init(uint32_t plln)
 {
-    HAL_StatusTypeDef ret = HAL_ERROR;
     RCC_OscInitTypeDef rcc_osc_init = {0};
-    RCC_ClkInitTypeDef rcc_clk_init = {0};
-
     rcc_osc_init.OscillatorType = RCC_OSCILLATORTYPE_HSE;       /* 选择要配置HSE */
     rcc_osc_init.HSEState = RCC_HSE_ON;                         /* 打开HSE */
     rcc_osc_init.HSEPredivValue = RCC_HSE_PREDIV_DIV1;          /* HSE预分频系数 */
@@ -119,14 +116,15 @@ void sys_stm32_clock_init(uint32_t plln)
     rcc_osc_init.PLL.PLLMUL = plln;                             /* PLL倍频系数 */
 
     // 初始化振荡器
-    ret = HAL_RCC_OscConfig(&rcc_osc_init);
+    HAL_StatusTypeDef ret = HAL_RCC_OscConfig(&rcc_osc_init);
     if (ret != HAL_OK)
     {
         /* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
         while (1);
     }
 
-    /* 选中PLL作为系统时钟源并且配置HCLK,PCLK1和PCLK2*/
+    /* 选中PLL作为系统时钟源并且配置 HCLK ,PCLK1 和 PCLK2*/
+    RCC_ClkInitTypeDef rcc_clk_init = {0};
     rcc_clk_init.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
     rcc_clk_init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;        /* 设置系统时钟来自PLL */
     rcc_clk_init.AHBCLKDivider = RCC_SYSCLK_DIV1;               /* AHB分频系数为1 */
@@ -137,6 +135,7 @@ void sys_stm32_clock_init(uint32_t plln)
     ret = HAL_RCC_ClockConfig(&rcc_clk_init, FLASH_LATENCY_2);
     if (ret != HAL_OK)
     {
-        while (1);                                              /* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
+        /* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
+        while (1);
     }
 }
