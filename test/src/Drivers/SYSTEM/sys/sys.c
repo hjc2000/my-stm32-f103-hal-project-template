@@ -117,11 +117,13 @@ void sys_stm32_clock_init(uint32_t plln)
     rcc_osc_init.PLL.PLLState = RCC_PLL_ON;                     /* 打开PLL */
     rcc_osc_init.PLL.PLLSource = RCC_PLLSOURCE_HSE;             /* PLL时钟源选择HSE */
     rcc_osc_init.PLL.PLLMUL = plln;                             /* PLL倍频系数 */
-    ret = HAL_RCC_OscConfig(&rcc_osc_init);       /* 初始化 */
 
+    // 初始化振荡器
+    ret = HAL_RCC_OscConfig(&rcc_osc_init);
     if (ret != HAL_OK)
     {
-        while (1);                                              /* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
+        /* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
+        while (1);
     }
 
     /* 选中PLL作为系统时钟源并且配置HCLK,PCLK1和PCLK2*/
@@ -130,12 +132,11 @@ void sys_stm32_clock_init(uint32_t plln)
     rcc_clk_init.AHBCLKDivider = RCC_SYSCLK_DIV1;               /* AHB分频系数为1 */
     rcc_clk_init.APB1CLKDivider = RCC_HCLK_DIV2;                /* APB1分频系数为2 */
     rcc_clk_init.APB2CLKDivider = RCC_HCLK_DIV1;                /* APB2分频系数为1 */
-    ret = HAL_RCC_ClockConfig(&rcc_clk_init, FLASH_LATENCY_2);  /* 同时设置FLASH延时周期为2WS，也就是3个CPU周期。 */
 
+    /* 同时设置FLASH延时周期为2WS，也就是3个CPU周期。 */
+    ret = HAL_RCC_ClockConfig(&rcc_clk_init, FLASH_LATENCY_2);
     if (ret != HAL_OK)
     {
         while (1);                                              /* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
     }
 }
-
-

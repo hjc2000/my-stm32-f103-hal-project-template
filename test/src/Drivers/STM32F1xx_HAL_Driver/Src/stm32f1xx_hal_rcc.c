@@ -329,21 +329,6 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
 	return HAL_OK;
 }
 
-/**
-  * @brief  Initializes the RCC Oscillators according to the specified parameters in the
-  *         RCC_OscInitTypeDef.
-  * @param  RCC_OscInitStruct pointer to an RCC_OscInitTypeDef structure that
-  *         contains the configuration information for the RCC Oscillators.
-  * @note   The PLL is not disabled when used as system clock.
-  * @note   The PLL is not disabled when USB OTG FS clock is enabled (specific to devices with USB FS)
-  * @note   Transitions LSE Bypass to LSE On and LSE On to LSE Bypass are not
-  *         supported by this macro. User should request a transition to LSE Off
-  *         first and then LSE On or LSE Bypass.
-  * @note   Transition HSE Bypass to HSE On and HSE On to HSE Bypass are not
-  *         supported by this macro. User should request a transition to HSE Off
-  *         first and then HSE On or HSE Bypass.
-  * @retval HAL status
-  */
 HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef *RCC_OscInitStruct)
 {
 	uint32_t tickstart;

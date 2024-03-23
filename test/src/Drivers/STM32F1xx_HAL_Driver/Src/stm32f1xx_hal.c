@@ -298,7 +298,7 @@ __weak void HAL_IncTick(void)
 /**
   * @brief Provides a tick value in millisecond.
   * @note  This function is declared as __weak to be overwritten in case of other
-  *       implementations in user file.
+  *        implementations in user file.
   * @retval tick value
   */
 __weak uint32_t HAL_GetTick(void)
