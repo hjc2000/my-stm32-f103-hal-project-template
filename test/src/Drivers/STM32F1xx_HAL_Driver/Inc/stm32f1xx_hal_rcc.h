@@ -25,32 +25,15 @@
 extern "C" {
 	#endif
 
-	/* Includes ------------------------------------------------------------------*/
 	#include "stm32f1xx_hal_def.h"
 
-
-	/** @addtogroup STM32F1xx_HAL_Driver
-	  * @{
-	  */
-
-	  /** @addtogroup RCC
-		* @{
-		*/
-
-		/* Exported types ------------------------------------------------------------*/
-
-		/** @defgroup RCC_Exported_Types RCC Exported Types
-		  * @{
-		  */
-
-
-		  /// <summary>
-		  ///		管理 PLL 的配置的结构体
-		  ///		例如：
-		  ///			开启状态
-		  ///			时钟源
-		  ///			倍频系数
-		  /// </summary>
+	/// <summary>
+	///		管理 PLL 的配置的结构体
+	///		例如：
+	///			开启状态
+	///			时钟源
+	///			倍频系数
+	/// </summary>
 	typedef struct
 	{
 		/// <summary>
@@ -75,7 +58,7 @@ extern "C" {
 
 		/// <summary>
 		///		PLL 的倍频系数。
-		///		可选值为 RCCEx_PLL_Multiplication_Factor 宏组中的一个。
+		///		可选值为 RCCEx_PLL_Multiplication_Factor 中的一个。
 		/// </summary>
 		uint32_t PLLMUL;
 	} RCC_PLLInitTypeDef;
@@ -129,103 +112,99 @@ extern "C" {
 		uint32_t APB2CLKDivider;
 	} RCC_ClkInitTypeDef;
 
-	/**
-	  * @}
+	/* Exported constants --------------------------------------------------------*/
+	/** @defgroup RCC_Exported_Constants RCC Exported Constants
+	  * @{
 	  */
 
-	  /* Exported constants --------------------------------------------------------*/
-	  /** @defgroup RCC_Exported_Constants RCC Exported Constants
+	  /** @defgroup RCC_PLL_Clock_Source PLL Clock Source
 		* @{
 		*/
-
-		/** @defgroup RCC_PLL_Clock_Source PLL Clock Source
-		  * @{
-		  */
 
 	#define RCC_PLLSOURCE_HSI_DIV2      0x00000000U     /*!< HSI clock divided by 2 selected as PLL entry clock source */
 	#define RCC_PLLSOURCE_HSE           RCC_CFGR_PLLSRC            /*!< HSE clock selected as PLL entry clock source */
 
-		  /**
-			* @}
-			*/
+		/**
+		  * @}
+		  */
 
-			/** @defgroup RCC_Oscillator_Type Oscillator Type
-			  * @{
-			  */
+		  /** @defgroup RCC_Oscillator_Type Oscillator Type
+			* @{
+			*/
 	#define RCC_OSCILLATORTYPE_NONE            0x00000000U
 	#define RCC_OSCILLATORTYPE_HSE             0x00000001U
 	#define RCC_OSCILLATORTYPE_HSI             0x00000002U
 	#define RCC_OSCILLATORTYPE_LSE             0x00000004U
 	#define RCC_OSCILLATORTYPE_LSI             0x00000008U
-			  /**
-				* @}
-				*/
+			/**
+			  * @}
+			  */
 
-				/** @defgroup RCC_HSE_Config HSE Config
-				  * @{
-				  */
+			  /** @defgroup RCC_HSE_Config HSE Config
+				* @{
+				*/
 	#define RCC_HSE_OFF                      0x00000000U                                /*!< HSE clock deactivation */
 	#define RCC_HSE_ON                       RCC_CR_HSEON                               /*!< HSE clock activation */
 	#define RCC_HSE_BYPASS                   ((uint32_t)(RCC_CR_HSEBYP | RCC_CR_HSEON)) /*!< External clock source for HSE clock */
-				  /**
-					* @}
-					*/
+				/**
+				  * @}
+				  */
 
-					/** @defgroup RCC_LSE_Config LSE Config
-					  * @{
-					  */
+				  /** @defgroup RCC_LSE_Config LSE Config
+					* @{
+					*/
 	#define RCC_LSE_OFF                      0x00000000U                                    /*!< LSE clock deactivation */
 	#define RCC_LSE_ON                       RCC_BDCR_LSEON                                 /*!< LSE clock activation */
 	#define RCC_LSE_BYPASS                   ((uint32_t)(RCC_BDCR_LSEBYP | RCC_BDCR_LSEON)) /*!< External clock source for LSE clock */
 
-					  /**
-						* @}
-						*/
+					/**
+					  * @}
+					  */
 
-						/** @defgroup RCC_HSI_Config HSI Config
-						  * @{
-						  */
+					  /** @defgroup RCC_HSI_Config HSI Config
+						* @{
+						*/
 	#define RCC_HSI_OFF                      0x00000000U                      /*!< HSI clock deactivation */
 	#define RCC_HSI_ON                       RCC_CR_HSION                     /*!< HSI clock activation */
 
 	#define RCC_HSICALIBRATION_DEFAULT       0x10U         /* Default HSI calibration trimming value */
 
-						  /**
-							* @}
-							*/
+						/**
+						  * @}
+						  */
 
-							/** @defgroup RCC_LSI_Config LSI Config
-							  * @{
-							  */
+						  /** @defgroup RCC_LSI_Config LSI Config
+							* @{
+							*/
 	#define RCC_LSI_OFF                      0x00000000U              /*!< LSI clock deactivation */
 	#define RCC_LSI_ON                       RCC_CSR_LSION            /*!< LSI clock activation */
 
-							  /**
-								* @}
-								*/
+							/**
+							  * @}
+							  */
 
-								/** @defgroup RCC_PLL_Config PLL Config
-								  * @{
-								  */
+							  /** @defgroup RCC_PLL_Config PLL Config
+								* @{
+								*/
 	#define RCC_PLL_NONE                      0x00000000U  /*!< PLL is not configured */
 	#define RCC_PLL_OFF                       0x00000001U  /*!< PLL deactivation */
 	#define RCC_PLL_ON                        0x00000002U  /*!< PLL activation */
 
-								  /**
-									* @}
-									*/
+								/**
+								  * @}
+								  */
 
-									/** @defgroup RCC_System_Clock_Type System Clock Type
-										* @{
-										*/
+								  /** @defgroup RCC_System_Clock_Type System Clock Type
+									  * @{
+									  */
 	#define RCC_CLOCKTYPE_SYSCLK             0x00000001U /*!< SYSCLK to configure */
 	#define RCC_CLOCKTYPE_HCLK               0x00000002U /*!< HCLK to configure */
 	#define RCC_CLOCKTYPE_PCLK1              0x00000004U /*!< PCLK1 to configure */
 	#define RCC_CLOCKTYPE_PCLK2              0x00000008U /*!< PCLK2 to configure */
 
-										/**
-										* @}
-										*/
+									  /**
+									  * @}
+									  */
 
 	#pragma region RCC_System_Clock_Source System Clock Source
 	#define RCC_SYSCLKSOURCE_HSI             RCC_CFGR_SW_HSI /*!< HSI selected as system clock */
@@ -234,16 +213,16 @@ extern "C" {
 	#pragma endregion
 
 
-										/** @defgroup RCC_System_Clock_Source_Status System Clock Source Status
-										  * @{
-										  */
+									  /** @defgroup RCC_System_Clock_Source_Status System Clock Source Status
+										* @{
+										*/
 	#define RCC_SYSCLKSOURCE_STATUS_HSI      RCC_CFGR_SWS_HSI            /*!< HSI used as system clock */
 	#define RCC_SYSCLKSOURCE_STATUS_HSE      RCC_CFGR_SWS_HSE            /*!< HSE used as system clock */
 	#define RCC_SYSCLKSOURCE_STATUS_PLLCLK   RCC_CFGR_SWS_PLL            /*!< PLL used as system clock */
 
-										  /**
-											* @}
-											*/
+										/**
+										  * @}
+										  */
 
 
 	#pragma region RCC_AHB_Clock_Source AHB Clock Source
@@ -279,48 +258,48 @@ extern "C" {
 
 
 
-											  /** @defgroup RCC_MCO_Index MCO Index
-												* @{
-												*/
+										  /** @defgroup RCC_MCO_Index MCO Index
+											* @{
+											*/
 	#define RCC_MCO1                         0x00000000U
 	#define RCC_MCO                          RCC_MCO1               /*!< MCO1 to be compliant with other families with 2 MCOs*/
+
+											/**
+											  * @}
+											  */
+
+											  /** @defgroup RCC_MCOx_Clock_Prescaler MCO Clock Prescaler
+												* @{
+												*/
+	#define RCC_MCODIV_1                    0x00000000U
 
 												/**
 												  * @}
 												  */
 
-												  /** @defgroup RCC_MCOx_Clock_Prescaler MCO Clock Prescaler
+												  /** @defgroup RCC_Interrupt Interrupts
 													* @{
 													*/
-	#define RCC_MCODIV_1                    0x00000000U
-
-													/**
-													  * @}
-													  */
-
-													  /** @defgroup RCC_Interrupt Interrupts
-														* @{
-														*/
 	#define RCC_IT_LSIRDY                    ((uint8_t)RCC_CIR_LSIRDYF)   /*!< LSI Ready Interrupt flag */
 	#define RCC_IT_LSERDY                    ((uint8_t)RCC_CIR_LSERDYF)   /*!< LSE Ready Interrupt flag */
 	#define RCC_IT_HSIRDY                    ((uint8_t)RCC_CIR_HSIRDYF)   /*!< HSI Ready Interrupt flag */
 	#define RCC_IT_HSERDY                    ((uint8_t)RCC_CIR_HSERDYF)   /*!< HSE Ready Interrupt flag */
 	#define RCC_IT_PLLRDY                    ((uint8_t)RCC_CIR_PLLRDYF)   /*!< PLL Ready Interrupt flag */
 	#define RCC_IT_CSS                       ((uint8_t)RCC_CIR_CSSF)      /*!< Clock Security System Interrupt flag */
-														/**
-														  * @}
-														  */
+													/**
+													  * @}
+													  */
 
-														  /** @defgroup RCC_Flag Flags
-															*        Elements values convention: XXXYYYYYb
-															*           - YYYYY  : Flag position in the register
-															*           - XXX  : Register index
-															*                 - 001: CR register
-															*                 - 010: BDCR register
-															*                 - 011: CSR register
-															* @{
-															*/
-															/* Flags in the CR register */
+													  /** @defgroup RCC_Flag Flags
+														*        Elements values convention: XXXYYYYYb
+														*           - YYYYY  : Flag position in the register
+														*           - XXX  : Register index
+														*                 - 001: CR register
+														*                 - 010: BDCR register
+														*                 - 011: CSR register
+														* @{
+														*/
+														/* Flags in the CR register */
 	#define RCC_FLAG_HSIRDY                  ((uint8_t)((CR_REG_INDEX << 5U) | RCC_CR_HSIRDY_Pos)) /*!< Internal High Speed clock ready flag */
 	#define RCC_FLAG_HSERDY                  ((uint8_t)((CR_REG_INDEX << 5U) | RCC_CR_HSERDY_Pos)) /*!< External High Speed clock ready flag */
 	#define RCC_FLAG_PLLRDY                  ((uint8_t)((CR_REG_INDEX << 5U) | RCC_CR_PLLRDY_Pos)) /*!< PLL clock ready flag */
@@ -1209,6 +1188,33 @@ extern "C" {
 	/// <returns>HAL状态</returns>
 	HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef *RCC_OscInitStruct);
 
+
+	/// <summary>
+	///		根据在 RCC_ClkInitStruct 中指定的参数初始化CPU、AHB和APB总线时钟。
+	/// </summary>
+	/// 
+	/// <note>
+	///		SystemCoreClock CMSIS 变量用于存储系统时钟频率并通过在此函数中调用的
+	///		HAL_RCC_GetHCLKFreq() 函数中更新。
+	/// </note>
+	/// 
+	/// <note>
+	///		在从重置启动后、从 STOP 和 STANDBY 模式唤醒，或者在使用 HSE
+	///		作为系统时钟的直接或间接失败情况下（如果启用了时钟安全系统CSS），
+	///		HSI 将会被用作（由硬件启用的）系统时钟源。
+	/// </note>
+	/// 
+	/// <note>
+	///		仅当目标时钟源准备就绪（启动延迟后时钟稳定或PLL锁定）时，
+	///		才会从一个时钟源切换到另一个时钟源。
+	///		如果选择了一个尚未准备好的时钟源，当时钟源准备就绪时，切换将发生。
+	///		您可以使用 HAL_RCC_GetClockConfig() 函数来知道哪个时钟当前被用作系统时钟源。
+	/// </note>
+	/// 
+	/// <param name="RCC_ClkInitStruct">指向一个RCC_OscInitTypeDef 结构的指针，该结构包含 RCC 外设的配置信息。</param>
+	/// <param name="FLatency">FLASH延迟</param>
+	/// 
+	/// <returns>HAL状态</returns>
 	HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef *RCC_ClkInitStruct, uint32_t FLatency);
 
 	/**
@@ -1409,18 +1415,6 @@ extern "C" {
 										  ((__SOURCE__) == RCC_RTCCLKSOURCE_LSE) || \
 										  ((__SOURCE__) == RCC_RTCCLKSOURCE_LSI) || \
 										  ((__SOURCE__) == RCC_RTCCLKSOURCE_HSE_DIV128))
-
-			/**
-			  * @}
-			  */
-
-			  /**
-				* @}
-				*/
-
-				/**
-				  * @}
-				  */
 
 	#ifdef __cplusplus
 }

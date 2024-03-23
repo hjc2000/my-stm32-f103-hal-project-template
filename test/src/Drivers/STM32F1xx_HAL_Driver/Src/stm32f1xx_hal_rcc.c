@@ -772,29 +772,6 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef *RCC_OscInitStruct)
 	return HAL_OK;
 }
 
-/**
-  * @brief  Initializes the CPU, AHB and APB buses clocks according to the specified
-  *         parameters in the RCC_ClkInitStruct.
-  * @param  RCC_ClkInitStruct pointer to an RCC_OscInitTypeDef structure that
-  *         contains the configuration information for the RCC peripheral.
-  * @param  FLatency FLASH Latency
-  *          The value of this parameter depend on device used within the same series
-  * @note   The SystemCoreClock CMSIS variable is used to store System Clock Frequency
-  *         and updated by @ref HAL_RCC_GetHCLKFreq() function called within this function
-  *
-  * @note   The HSI is used (enabled by hardware) as system clock source after
-  *         start-up from Reset, wake-up from STOP and STANDBY mode, or in case
-  *         of failure of the HSE used directly or indirectly as system clock
-  *         (if the Clock Security System CSS is enabled).
-  *
-  * @note   A switch from one clock source to another occurs only if the target
-  *         clock source is ready (clock stable after start-up delay or PLL locked).
-  *         If a clock source which is not yet ready is selected, the switch will
-  *         occur when the clock source will be ready.
-  *         You can use @ref HAL_RCC_GetClockConfig() function to know which clock is
-  *         currently used as system clock source.
-  * @retval HAL status
-  */
 HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef *RCC_ClkInitStruct, uint32_t FLatency)
 {
 	uint32_t tickstart;

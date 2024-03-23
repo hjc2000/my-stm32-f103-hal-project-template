@@ -41,10 +41,6 @@ int main(void)
 	}
 }
 
-/**
- * @brief 初始化LED相关IO口, 并使能时钟
- *
- */
 void led_init(void)
 {
 	GPIO_InitTypeDef gpio_initstruct;
