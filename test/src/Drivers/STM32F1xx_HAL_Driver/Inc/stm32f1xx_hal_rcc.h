@@ -57,14 +57,27 @@ extern "C" {
 		///		PLL 的状态。可选值为 RCC_PLL_Config 中的一个。
 		///		RCC_PLL_Config 是一组宏定义。
 		/// </summary>
-		uint32_t PLLState;      /*!< PLLState: The new state of the PLL.
-									This parameter can be a value of @ref RCC_PLL_Config */
+		uint32_t PLLState;
 
-		uint32_t PLLSource;     /*!< PLLSource: PLL entry clock source.
-									This parameter must be a value of @ref RCC_PLL_Clock_Source */
+		/// <summary>
+		///		PLL 的时钟源选择。
+		///		可选值为 RCC_PLL_Clock_Source 中的一个。RCC_PLL_Clock_Source 为一组宏。
+		/// 
+		///		可选值：
+		///			RCC_PLLSOURCE_HSE - 外部高速时钟
+		///			RCC_PLLSOURCE_HSI_DIV2 - 内部高速时钟经过 2 分频。
+		/// 
+		///		其中，RCC_PLLSOURCE_HSI_DIV2 的二分频是强制的，它是一个直接连接的硬件分频器，
+		///		无法通过寄存器位来选择是否连接。这么做可能是因为内部高速时钟的信号不干净，必须经过
+		///		二分频后才能让 PLL 稳定工作。
+		/// </summary>
+		uint32_t PLLSource;
 
-		uint32_t PLLMUL;        /*!< PLLMUL: Multiplication factor for PLL VCO input clock
-									This parameter must be a value of @ref RCCEx_PLL_Multiplication_Factor */
+		/// <summary>
+		///		PLL 的倍频系数。
+		///		可选值为 RCCEx_PLL_Multiplication_Factor 宏组中的一个。
+		/// </summary>
+		uint32_t PLLMUL;
 	} RCC_PLLInitTypeDef;
 
 	/**
