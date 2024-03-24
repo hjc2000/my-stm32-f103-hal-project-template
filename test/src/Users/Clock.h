@@ -1,7 +1,8 @@
 #pragma once
-#include<CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h>
-#include<CMSIS/Include/core_cm3.h>
+#include<stm32f103xe.h>
+#include<core_cm3.h>
 #include<stdint.h>
+#include<stm32f1xx_hal.h>
 
 /// <summary>
 ///		获取 SysTick 寄存器组中的 CTRL 寄存器的 COUNTFLAG 位的值。
@@ -26,6 +27,15 @@ uint8_t systick_ctrl_get_count_flag();
 /// </summary>
 /// <returns></returns>
 uint8_t systick_ctrl_get_clock_source();
+
+/// <summary>
+///		选择 SysTick 的时钟源。
+/// </summary>
+/// <param name="div8">
+///		为 true 表示将 HCLK 8 分频后输入 SysTick。
+///		为 false 表示直接将 HCLK 输入 SysTick，不经过分频。
+/// </param>
+void systick_ctrl_set_clock_source(uint8_t div8);
 
 /// <summary>
 ///		获取 SysTick 的 LOAD 寄存器的 RELOAD 部分的值。

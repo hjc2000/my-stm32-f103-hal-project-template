@@ -1,4 +1,5 @@
 #include"Clock.h"
+#include<stm32f1xx_hal_cortex.h>
 
 uint8_t systick_ctrl_get_count_flag()
 {
@@ -10,6 +11,18 @@ uint8_t systick_ctrl_get_clock_source()
 {
 	uint32_t masked = SysTick->CTRL & SysTick_CTRL_CLKSOURCE_Msk;
 	return masked >> SysTick_CTRL_CLKSOURCE_Pos;
+}
+
+void systick_ctrl_set_clock_source(uint8_t div8)
+{
+	if (div8)
+	{
+		SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
+	}
+	else
+	{
+		SysTick->CTRL |= SYSTICK_CLKSOURCE_HCLK;
+	}
 }
 
 uint32_t systick_load_get_reload()
