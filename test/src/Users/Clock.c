@@ -13,6 +13,16 @@ uint8_t systick_ctrl_get_clock_source()
 	return masked >> SysTick_CTRL_CLKSOURCE_Pos;
 }
 
+uint8_t systick_ctrl_clock_source_is_hclk()
+{
+	return systick_ctrl_get_clock_source();
+}
+
+uint8_t systick_ctrl_clock_source_is_hclk_div8()
+{
+	return !systick_ctrl_get_clock_source();
+}
+
 void systick_ctrl_set_clock_source(uint8_t div8)
 {
 	/* 其实 HAL 中已经有一个 HAL_SYSTICK_CLKSourceConfig 函数用来干这个事了。
@@ -20,12 +30,25 @@ void systick_ctrl_set_clock_source(uint8_t div8)
 	*/
 	if (div8)
 	{
+		// 清 0 表示使用 8 分频
 		SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
 	}
 	else
 	{
+		// 置 1 表示不分频，让 HCLK 直接作为 Systick 的时钟源。
 		SysTick->CTRL |= SYSTICK_CLKSOURCE_HCLK;
 	}
+}
+
+uint32_t systick_get_clock_source_freq()
+{
+	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
+	if (systick_ctrl_clock_source_is_hclk_div8())
+	{
+		return hclk_freq / 8;
+	}
+
+	return hclk_freq;
 }
 
 uint32_t systick_load_get_reload()

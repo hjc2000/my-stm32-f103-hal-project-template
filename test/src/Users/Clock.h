@@ -1,8 +1,9 @@
 #pragma once
-#include<stm32f103xe.h>
+#include"stm32f1xx_hal.h"
 #include<core_cm3.h>
 #include<stdint.h>
-#include<stm32f1xx_hal.h>
+#include<stm32f103xe.h>
+#include<stm32f1xx_hal_rcc.h>
 
 /// <summary>
 ///		获取 SysTick 寄存器组中的 CTRL 寄存器的 COUNTFLAG 位的值。
@@ -21,12 +22,14 @@
 uint8_t systick_ctrl_get_count_flag();
 
 /// <summary>
-///		CLKSOURCE 位为 0 表示使用外部时钟源。
-///		CLKSOURCE 位为 1 表示使用内核时钟。
+///		CLKSOURCE 位为 0 表示使用 HCLK / 8 作为时钟源。
+///		CLKSOURCE 位为 1 表示使用 HCLK 直接作为时钟源。
 ///		CLKSOURCE 位是可读可写的。
 /// </summary>
 /// <returns></returns>
 uint8_t systick_ctrl_get_clock_source();
+uint8_t systick_ctrl_clock_source_is_hclk();
+uint8_t systick_ctrl_clock_source_is_hclk_div8();
 
 /// <summary>
 ///		选择 SysTick 的时钟源。
@@ -36,6 +39,12 @@ uint8_t systick_ctrl_get_clock_source();
 ///		为 false 表示直接将 HCLK 输入 SysTick，不经过分频。
 /// </param>
 void systick_ctrl_set_clock_source(uint8_t div8);
+
+/// <summary>
+///		获取 Systick 的时钟源的频率
+/// </summary>
+/// <returns></returns>
+uint32_t systick_get_clock_source_freq();
 
 /// <summary>
 ///		获取 SysTick 的 LOAD 寄存器的 RELOAD 部分的值。
