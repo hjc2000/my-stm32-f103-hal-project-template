@@ -21,6 +21,7 @@
 /// <returns>发生了回绕 返回非 0 值，没有发生回绕返回 0.</returns>
 uint8_t systick_ctrl_count_flag();
 
+#pragma region Systick时钟源相关
 /// <summary>
 ///		CLKSOURCE 位为 0 表示使用 HCLK / 8 作为时钟源。
 ///		CLKSOURCE 位为 1 表示使用 HCLK 直接作为时钟源。
@@ -45,6 +46,7 @@ void set_systick_ctrl_clock_source(uint8_t div8);
 /// </summary>
 /// <returns></returns>
 uint32_t systick_clock_source_freq();
+#pragma endregion
 
 /// <summary>
 ///		获取 SysTick 的 LOAD 寄存器的 RELOAD 部分的值。
