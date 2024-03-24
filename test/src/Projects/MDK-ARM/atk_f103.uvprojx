@@ -408,6 +408,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Drivers\CMSIS\Device\ST\STM32F1xx\Source\Templates\system_stm32f1xx.c</FilePath>
             </File>
+            <File>
+              <FileName>Clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Users\Clock.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
