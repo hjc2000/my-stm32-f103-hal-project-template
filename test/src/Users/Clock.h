@@ -48,6 +48,7 @@ uint32_t systick_load_get_reload();
 /// <returns>当前计数值</returns>
 uint32_t systick_val_get_current();
 
+#pragma region 利用SysTick进行延时
 /// <summary>
 ///		通过空指令循环来延时
 /// </summary>
@@ -59,3 +60,4 @@ void systick_nop_loop_delay_tick(uint32_t tick_count);
 /// </summary>
 /// <param name="us_count">要延时多少微秒</param>
 void systick_nop_loop_delay_us(uint32_t us_count);
+#pragma endregion

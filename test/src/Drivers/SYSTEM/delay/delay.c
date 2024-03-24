@@ -145,9 +145,7 @@ void delay_init(uint16_t sysclk)
  */
 void delay_us(uint32_t nus)
 {
-	uint32_t ticks;
-	uint32_t told, tnow, tcnt = 0;
-	ticks = nus * g_fac_us;                 /* 需要的节拍数 */
+	uint32_t ticks = nus * g_fac_us;                 /* 需要的节拍数 */
 
 	#if SYS_SUPPORT_OS
 	/* 如果需要支持OS */
