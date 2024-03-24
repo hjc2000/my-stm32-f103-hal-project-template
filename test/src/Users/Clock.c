@@ -116,3 +116,8 @@ void systick_nop_loop_delay_ms(uint32_t ms_count)
 		systick_nop_loop_delay_us(1000);
 	}
 }
+
+void HAL_Delay(uint32_t Delay)
+{
+	systick_nop_loop_delay_ms(Delay);
+}

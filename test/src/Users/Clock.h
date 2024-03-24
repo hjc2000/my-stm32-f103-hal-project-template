@@ -81,4 +81,10 @@ void systick_nop_loop_delay_tick(uint32_t tick_count);
 void systick_nop_loop_delay_us(uint32_t us_count);
 
 void systick_nop_loop_delay_ms(uint32_t ms_count);
+
+/// <summary>
+///		重写 __weak 的 HAL_Delay 函数
+/// </summary>
+/// <param name="Delay"></param>
+void HAL_Delay(uint32_t Delay);
 #pragma endregion
