@@ -147,14 +147,14 @@ void delay_us(uint32_t nus)
 {
 	uint32_t ticks;
 	uint32_t told, tnow, tcnt = 0;
-	uint32_t reload = SysTick->LOAD;        /* LOAD的值 */
 	ticks = nus * g_fac_us;                 /* 需要的节拍数 */
 
-	#if SYS_SUPPORT_OS                          /* 如果需要支持OS */
+	#if SYS_SUPPORT_OS
+	/* 如果需要支持OS */
 	delay_osschedlock();                    /* 锁定 OS 的任务调度器 */
 	#endif
 
-	told = SysTick->VAL;                    /* 刚进入时的计数器值 */
+	told = systick_val_get_current();
 	while (1)
 	{
 		tnow = SysTick->VAL;
@@ -166,8 +166,9 @@ void delay_us(uint32_t nus)
 			}
 			else
 			{
-				tcnt += reload - tnow + told;
+				tcnt += systick_load_get_reload() - tnow + told;
 			}
+
 			told = tnow;
 			if (tcnt >= ticks)
 			{

@@ -26,7 +26,8 @@
 #ifndef __DELAY_H
 #define __DELAY_H
 
-#include "./SYSTEM/sys/sys.h"
+#include "SYSTEM/sys/sys.h"
+#include<Clock.h>
 
 
 void delay_init(uint16_t sysclk);       /* 初始化延迟函数 */
