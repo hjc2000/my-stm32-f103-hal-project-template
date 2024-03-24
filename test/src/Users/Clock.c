@@ -15,6 +15,9 @@ uint8_t systick_ctrl_get_clock_source()
 
 void systick_ctrl_set_clock_source(uint8_t div8)
 {
+	/* 其实 HAL 中已经有一个 HAL_SYSTICK_CLKSourceConfig 函数用来干这个事了。
+	* 只不过 HAL_SYSTICK_CLKSourceConfig 函数不太清晰。
+	*/
 	if (div8)
 	{
 		SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
@@ -39,6 +42,9 @@ uint32_t systick_val_get_current()
 
 void systick_nop_loop_delay_tick(uint32_t tick_count)
 {
+	/* 这里不禁用操作系统的调度。不要让此函数耦合性太强。
+	* 如果需要的话，禁用操作系统的调度这个操作应该放到本函数外，调用者自己执行。
+	*/
 	uint32_t old_tick = systick_val_get_current();
 	uint32_t total_tick = 0;
 	while (1)
