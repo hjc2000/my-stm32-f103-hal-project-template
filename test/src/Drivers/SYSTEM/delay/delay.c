@@ -154,28 +154,7 @@ void delay_us(uint32_t nus)
 	delay_osschedlock();                    /* 锁定 OS 的任务调度器 */
 	#endif
 
-	told = systick_val_get_current();
-	while (1)
-	{
-		tnow = SysTick->VAL;
-		if (tnow != told)
-		{
-			if (tnow < told)
-			{
-				tcnt += told - tnow;        /* 这里注意一下SYSTICK是一个递减的计数器就可以了 */
-			}
-			else
-			{
-				tcnt += systick_load_get_reload() - tnow + told;
-			}
-
-			told = tnow;
-			if (tcnt >= ticks)
-			{
-				break;                      /* 时间超过/等于要延迟的时间,则退出 */
-			}
-		}
-	}
+	systick_nop_loop_delay_tick(ticks);
 
 	#if SYS_SUPPORT_OS
 	/* 如果需要支持OS */

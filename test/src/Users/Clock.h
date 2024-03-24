@@ -51,5 +51,11 @@ uint32_t systick_val_get_current();
 /// <summary>
 ///		通过空指令循环来延时
 /// </summary>
+/// <param name="tick_count">要延时的 SysTick 计数值</param>
+void systick_nop_loop_delay_tick(uint32_t tick_count);
+
+/// <summary>
+///		通过空指令循环来延时
+/// </summary>
 /// <param name="us_count">要延时多少微秒</param>
 void systick_nop_loop_delay_us(uint32_t us_count);
