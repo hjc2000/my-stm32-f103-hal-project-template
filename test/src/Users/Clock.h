@@ -80,6 +80,11 @@ void systick_nop_loop_delay_tick(uint32_t tick_count);
 /// <param name="us_count">要延时多少微秒</param>
 void systick_nop_loop_delay_us(uint32_t us_count);
 
+/// <summary>
+///		通过无操作的循环来延时指定的毫秒数。
+///		此函数效率较低，如果有操作系统，尽量不要用此函数。
+/// </summary>
+/// <param name="ms_count"></param>
 void systick_nop_loop_delay_ms(uint32_t ms_count);
 
 /// <summary>
