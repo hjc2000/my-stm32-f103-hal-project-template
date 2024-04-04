@@ -6,6 +6,11 @@
 			"hidden": true,
 			"cacheVariables": {
 				"option_install_headers": false
+			},
+			"vendor": {
+				"microsoft.com/VisualStudioSettings/CMake/1.0": {
+					"intelliSenseMode": "linux-gcc-arm"
+				}
 			}
 		},
 		{
