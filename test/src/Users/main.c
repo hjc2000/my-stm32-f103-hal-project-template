@@ -1,5 +1,5 @@
-#include "SYSTEM/sys/sys.h"
-#include "SYSTEM/usart/usart.h"
+#include "sys.h"
+#include "usart.h"
 #include<Clock.h>
 
 void led_init(void);
