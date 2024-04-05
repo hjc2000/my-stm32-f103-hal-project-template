@@ -3,7 +3,7 @@
   * @file    Templates/Src/stm32f1xx.c
   * @author  MCD Application Team
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -19,36 +19,36 @@
   ******************************************************************************
   */
 
-/* Includes ------------------------------------------------------------------*/
+  /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
 #include "stm32f1xx_it.h"
 #include "./sys.h"
-   
+
 /** @addtogroup STM32F1xx_HAL_Examples
   * @{
   */
 
-/** @addtogroup Templates
-  * @{
-  */
+  /** @addtogroup Templates
+	* @{
+	*/
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
+	/* Private typedef -----------------------------------------------------------*/
+	/* Private define ------------------------------------------------------------*/
+	/* Private macro -------------------------------------------------------------*/
+	/* Private variables ---------------------------------------------------------*/
 
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
+	/* Private function prototypes -----------------------------------------------*/
+	/* Private functions ---------------------------------------------------------*/
 
-/******************************************************************************/
-/*            Cortex-M3 Processor Exceptions Handlers                         */
-/******************************************************************************/
+	/******************************************************************************/
+	/*            Cortex-M3 Processor Exceptions Handlers                         */
+	/******************************************************************************/
 
-/**
-  * @brief   This function handles NMI exception.
-  * @param  None
-  * @retval None
-  */
+	/**
+	  * @brief   This function handles NMI exception.
+	  * @param  None
+	  * @retval None
+	  */
 void NMI_Handler(void)
 {
 }
@@ -60,10 +60,10 @@ void NMI_Handler(void)
   */
 void HardFault_Handler(void)
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+	/* Go to infinite loop when Hard Fault exception occurs */
+	while (1)
+	{
+	}
 }
 
 /**
@@ -73,10 +73,10 @@ void HardFault_Handler(void)
   */
 void MemManage_Handler(void)
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+	/* Go to infinite loop when Memory Manage exception occurs */
+	while (1)
+	{
+	}
 }
 
 /**
@@ -86,10 +86,10 @@ void MemManage_Handler(void)
   */
 void BusFault_Handler(void)
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+	/* Go to infinite loop when Bus Fault exception occurs */
+	while (1)
+	{
+	}
 }
 
 /**
@@ -99,10 +99,10 @@ void BusFault_Handler(void)
   */
 void UsageFault_Handler(void)
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+	/* Go to infinite loop when Usage Fault exception occurs */
+	while (1)
+	{
+	}
 }
 
 /**
@@ -139,7 +139,7 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
-  HAL_IncTick();
+	HAL_IncTick();
 }
 
 /******************************************************************************/
@@ -154,17 +154,17 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-/*void PPP_IRQHandler(void)
-{
-}*/
+  /*void PPP_IRQHandler(void)
+  {
+  }*/
 
 
-/**
-  * @}
-  */ 
+  /**
+	* @}
+	*/
 
-/**
-  * @}
-  */
+	/**
+	  * @}
+	  */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+	  /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
