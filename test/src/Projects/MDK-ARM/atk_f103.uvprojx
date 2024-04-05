@@ -328,7 +328,7 @@
             <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
-            <v6Lang>5</v6Lang>
+            <v6Lang>3</v6Lang>
             <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
@@ -409,28 +409,9 @@
               <FilePath>..\..\Users\Clock.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f103-hal.lib</FileName>
+              <FileName>libstm32f103-hal.a</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\out\install\armcc\lib\stm32f103-hal.lib</FilePath>
-              <FileOption>
-                <CommonProperty>
-                  <UseCPPCompiler>2</UseCPPCompiler>
-                  <RVCTCodeConst>0</RVCTCodeConst>
-                  <RVCTZI>0</RVCTZI>
-                  <RVCTOtherData>0</RVCTOtherData>
-                  <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
-                  <AlwaysBuild>2</AlwaysBuild>
-                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
-                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
-                  <PublicsOnly>2</PublicsOnly>
-                  <StopOnExitCode>11</StopOnExitCode>
-                  <CustomArgument></CustomArgument>
-                  <IncludeLibraryModules>system_stm32f1xx.o|1|0|0|0,stm32f1xx_hal_can.o|1|0|0|0,stm32f1xx_hal.o|1|0|0|0,stm32f1xx_hal_adc.o|1|0|0|0,stm32f1xx_hal_adc_ex.o|1|0|0|0,stm32f1xx_hal_cec.o|1|0|0|0,stm32f1xx_hal_cortex.o|1|0|0|0,stm32f1xx_hal_crc.o|1|0|0|0,stm32f1xx_hal_dac.o|1|0|0|0,stm32f1xx_hal_dac_ex.o|1|0|0|0,stm32f1xx_hal_dma.o|1|0|0|0,stm32f1xx_hal_eth.o|1|0|0|0,stm32f1xx_hal_exti.o|1|0|0|0,stm32f1xx_hal_flash.o|1|0|0|0,stm32f1xx_hal_flash_ex.o|1|0|0|0,stm32f1xx_hal_gpio.o|1|0|0|0,stm32f1xx_hal_gpio_ex.o|1|0|0|0,stm32f1xx_hal_hcd.o|1|0|0|0,stm32f1xx_hal_i2c.o|1|0|0|0,stm32f1xx_hal_i2s.o|1|0|0|0,stm32f1xx_hal_irda.o|1|0|0|0,stm32f1xx_hal_iwdg.o|1|0|0|0,stm32f1xx_hal_mmc.o|1|0|0|0,stm32f1xx_hal_msp_template.o|1|0|0|0,stm32f1xx_hal_nand.o|1|0|0|0,stm32f1xx_hal_nor.o|1|0|0|0,stm32f1xx_hal_pccard.o|1|0|0|0,stm32f1xx_hal_pcd.o|1|0|0|0,stm32f1xx_hal_pcd_ex.o|1|0|0|0,stm32f1xx_hal_pwr.o|1|0|0|0,stm32f1xx_hal_rcc.o|1|0|0|0,stm32f1xx_hal_rcc_ex.o|1|0|0|0,stm32f1xx_hal_rtc.o|1|0|0|0,stm32f1xx_hal_rtc_ex.o|1|0|0|0,stm32f1xx_hal_sd.o|1|0|0|0,stm32f1xx_hal_smartcard.o|1|0|0|0,stm32f1xx_hal_spi.o|1|0|0|0,stm32f1xx_hal_sram.o|1|0|0|0,stm32f1xx_hal_tim.o|1|0|0|0,stm32f1xx_hal_tim_ex.o|1|0|0|0,stm32f1xx_hal_timebase_rtc_alarm_template.o|1|0|0|0,stm32f1xx_hal_timebase_tim_template.o|1|0|0|0,stm32f1xx_hal_uart.o|1|0|0|0,stm32f1xx_hal_usart.o|1|0|0|0,stm32f1xx_hal_wwdg.o|1|0|0|0,stm32f1xx_ll_adc.o|1|0|0|0,stm32f1xx_ll_crc.o|1|0|0|0,stm32f1xx_ll_dac.o|1|0|0|0,stm32f1xx_ll_dma.o|1|0|0|0,stm32f1xx_ll_exti.o|1|0|0|0,stm32f1xx_ll_fsmc.o|1|0|0|0,stm32f1xx_ll_gpio.o|1|0|0|0,stm32f1xx_ll_i2c.o|1|0|0|0,stm32f1xx_ll_pwr.o|1|0|0|0,stm32f1xx_ll_rcc.o|1|0|0|0,stm32f1xx_ll_rtc.o|1|0|0|0,stm32f1xx_ll_sdmmc.o|1|0|0|0,stm32f1xx_ll_spi.o|1|0|0|0,stm32f1xx_ll_tim.o|1|0|0|0,stm32f1xx_ll_usart.o|1|0|0|0,stm32f1xx_ll_usb.o|1|0|0|0,stm32f1xx_ll_utils.o|1|0|0|0,sys.o|1|0|0|0,usart.o|1|0|0|0</IncludeLibraryModules>
-                  <ComprImg>1</ComprImg>
-                </CommonProperty>
-                <FileArmAds/>
-              </FileOption>
+              <FilePath>..\..\..\..\out\install\gcc\lib\libstm32f103-hal.a</FilePath>
             </File>
           </Files>
         </Group>

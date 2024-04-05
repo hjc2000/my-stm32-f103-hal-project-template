@@ -275,8 +275,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\out\install\armcc\lib\stm32f103-hal.lib</PathWithFileName>
-      <FilenameWithoutPath>stm32f103-hal.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\out\install\gcc\lib\libstm32f103-hal.a</PathWithFileName>
+      <FilenameWithoutPath>libstm32f103-hal.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
