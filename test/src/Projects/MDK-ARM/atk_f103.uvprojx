@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Users;..\..\..\..\out\install\armcc\include</IncludePath>
+              <IncludePath>..\..\Users;..\..\..\..\out\install\gcc\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
