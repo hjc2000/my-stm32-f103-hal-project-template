@@ -10,46 +10,49 @@
 			},
 			"vendor": {
 				"microsoft.com/VisualStudioSettings/CMake/1.0": {
-					"intelliSenseMode": "linux-gcc-arm"
+					"intelliSenseMode": "linux-gcc-arm",
+					"intelliSenseOptions": {
+						"additionalCompilerArgs": "-nostdlib -nodefaultlibs -mcpu=cortex-m3 -Wl,--gc-sections -mthumb-interwork -ffunction-sections -fdata-sections -fshort-wchar"
+					}
 				}
 			}
 		},
-		{
-			"name": "armcc",
-			"displayName": "armcc",
-			"inherits": "options",
-			"generator": "Ninja",
-			"binaryDir": "${sourceDir}/out/build/${presetName}",
-			"installDir": "${sourceDir}/out/install/${presetName}",
-			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "Release",
-				"CMAKE_C_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armcc.exe",
-				"CMAKE_CXX_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armcc.exe",
-				"CMAKE_ASM_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armasm.exe",
-				"CMAKE_C_FLAGS": "--c99 --cpu Cortex-M3 -O0 --apcs=interwork --split_sections",
-				"CMAKE_CXX_FLAGS": "--cpp --cpu Cortex-M3 -O0 --apcs=interwork --split_sections"
-			}
-		},
-		{
-			"name": "armclang",
-			"displayName": "armclang",
-			"inherits": "options",
-			"generator": "Ninja",
-			"binaryDir": "${sourceDir}/out/build/${presetName}",
-			"installDir": "${sourceDir}/out/install/${presetName}",
-			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "Release",
-				"CMAKE_SYSTEM_PROCESSOR": "cortex-m3",
-				"CMAKE_SYSTEM_ARCH": "armv7-m",
-				"CMAKE_SYSTEM_NAME": "Generic",
-				"CMAKE_C_COMPILER": "C:/Keil_v5/ARM/ARMCLANG/bin/armclang.exe",
-				"CMAKE_CXX_COMPILER": "C:/Keil_v5/ARM/ARMCLANG/bin/armclang.exe",
-				"CMAKE_ASM_COMPILER": "C:/Keil_v5/ARM/ARMCLANG/bin/armasm.exe",
-				"CMAKE_C_FLAGS": "-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c -fno-rtti -funsigned-char -fshort-enums -fshort-wchar -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -MD",
-				"CMAKE_CXX_FLAGS": "-std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m3 -fno-rtti -funsigned-char -fshort-enums -fshort-wchar -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -MD",
-				"CMAKE_EXE_LINKER_FLAGS": "--cpu Cortex-M3 --strict --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols --info sizes --info totals --info unused --info veneers"
-			}
-		},
+		//{
+		//	"name": "armcc",
+		//	"displayName": "armcc",
+		//	"inherits": "options",
+		//	"generator": "Ninja",
+		//	"binaryDir": "${sourceDir}/out/build/${presetName}",
+		//	"installDir": "${sourceDir}/out/install/${presetName}",
+		//	"cacheVariables": {
+		//		"CMAKE_BUILD_TYPE": "Release",
+		//		"CMAKE_C_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armcc.exe",
+		//		"CMAKE_CXX_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armcc.exe",
+		//		"CMAKE_ASM_COMPILER": "C:/Keil_v5/ARM/ARMCC/bin/armasm.exe",
+		//		"CMAKE_C_FLAGS": "--c99 --cpu Cortex-M3 -O0 --apcs=interwork --split_sections",
+		//		"CMAKE_CXX_FLAGS": "--cpp --cpu Cortex-M3 -O0 --apcs=interwork --split_sections"
+		//	}
+		//},
+		//{
+		//	"name": "armclang",
+		//	"displayName": "armclang",
+		//	"inherits": "options",
+		//	"generator": "Ninja",
+		//	"binaryDir": "${sourceDir}/out/build/${presetName}",
+		//	"installDir": "${sourceDir}/out/install/${presetName}",
+		//	"cacheVariables": {
+		//		"CMAKE_BUILD_TYPE": "Release",
+		//		"CMAKE_SYSTEM_PROCESSOR": "cortex-m3",
+		//		"CMAKE_SYSTEM_ARCH": "armv7-m",
+		//		"CMAKE_SYSTEM_NAME": "Generic",
+		//		"CMAKE_C_COMPILER": "C:/Keil_v5/ARM/ARMCLANG/bin/armclang.exe",
+		//		"CMAKE_CXX_COMPILER": "C:/Keil_v5/ARM/ARMCLANG/bin/armclang.exe",
+		//		"CMAKE_ASM_COMPILER": "C:/Keil_v5/ARM/ARMCLANG/bin/armasm.exe",
+		//		"CMAKE_C_FLAGS": "-xc -std=c11 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c -fno-rtti -funsigned-char -fshort-enums -fshort-wchar -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -MD",
+		//		"CMAKE_CXX_FLAGS": "-std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m3 -fno-rtti -funsigned-char -fshort-enums -fshort-wchar -gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -MD",
+		//		"CMAKE_EXE_LINKER_FLAGS": "--cpu Cortex-M3 --strict --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols --info sizes --info totals --info unused --info veneers"
+		//	}
+		//},
 		{
 			"name": "gcc",
 			"displayName": "gcc",
