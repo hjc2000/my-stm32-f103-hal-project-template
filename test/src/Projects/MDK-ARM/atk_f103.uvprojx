@@ -404,14 +404,14 @@
               <FilePath>..\..\Users\main.c</FilePath>
             </File>
             <File>
-              <FileName>Clock.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Users\Clock.c</FilePath>
-            </File>
-            <File>
               <FileName>libstm32f103-hal.a</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\out\install\gcc\lib\libstm32f103-hal.a</FilePath>
+            </File>
+            <File>
+              <FileName>libjc-stm32-lib.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\out\install\gcc\lib\libjc-stm32-lib.a</FilePath>
             </File>
           </Files>
         </Group>

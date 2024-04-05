@@ -259,12 +259,12 @@
     <File>
       <GroupNumber>2</GroupNumber>
       <FileNumber>4</FileNumber>
-      <FileType>1</FileType>
+      <FileType>4</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Users\Clock.c</PathWithFileName>
-      <FilenameWithoutPath>Clock.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\out\install\gcc\lib\libstm32f103-hal.a</PathWithFileName>
+      <FilenameWithoutPath>libstm32f103-hal.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -275,8 +275,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\out\install\gcc\lib\libstm32f103-hal.a</PathWithFileName>
-      <FilenameWithoutPath>libstm32f103-hal.a</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\out\install\gcc\lib\libjc-stm32-lib.a</PathWithFileName>
+      <FilenameWithoutPath>libjc-stm32-lib.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

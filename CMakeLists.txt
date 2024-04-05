@@ -7,4 +7,5 @@ endif()
 
 # 包含子项目。
 add_subdirectory(${CMAKE_SOURCE_DIR}/stm32f103-hal)
+add_subdirectory(${CMAKE_SOURCE_DIR}/jc-stm32-lib)
 add_subdirectory(${CMAKE_SOURCE_DIR}/test)
