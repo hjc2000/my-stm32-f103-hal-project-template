@@ -316,27 +316,9 @@ extern "C" {
 	/* Flags in the BDCR register */
 	#define RCC_FLAG_LSERDY                  ((uint8_t)((BDCR_REG_INDEX << 5U) | RCC_BDCR_LSERDY_Pos)) /*!< External Low Speed oscillator Ready */
 
-	/**
-	  * @}
-	  */
 
-	  /**
-		* @}
-		*/
 
-		/* Exported macro ------------------------------------------------------------*/
-
-		/** @defgroup RCC_Exported_Macros RCC Exported Macros
-		  * @{
-		  */
-
-		  /** @defgroup RCC_Peripheral_Clock_Enable_Disable Peripheral Clock Enable Disable
-			* @brief  Enable or disable the AHB1 peripheral clock.
-			* @note   After reset, the peripheral clock (used for registers read/write access)
-			*         is disabled and the application software has to enable this clock before
-			*         using it.
-			* @{
-			*/
+	#pragma region 使能，禁用外设时钟
 	#define __HAL_RCC_DMA1_CLK_ENABLE()   do { \
 										__IO uint32_t tmpreg; \
 										SET_BIT(RCC->AHBENR, RCC_AHBENR_DMA1EN);\
@@ -374,38 +356,14 @@ extern "C" {
 	#define __HAL_RCC_FLITF_CLK_DISABLE()     (RCC->AHBENR &= ~(RCC_AHBENR_FLITFEN))
 	#define __HAL_RCC_CRC_CLK_DISABLE()       (RCC->AHBENR &= ~(RCC_AHBENR_CRCEN))
 
-			/**
-			  * @}
-			  */
 
-			  /** @defgroup RCC_AHB_Peripheral_Clock_Enable_Disable_Status AHB Peripheral Clock Enable Disable Status
-				* @brief  Get the enable or disable status of the AHB peripheral clock.
-				* @note   After reset, the peripheral clock (used for registers read/write access)
-				*         is disabled and the application software has to enable this clock before
-				*         using it.
-				* @{
-				*/
-
-	#define __HAL_RCC_DMA1_IS_CLK_ENABLED()       ((RCC->AHBENR & (RCC_AHBENR_DMA1EN)) != RESET)
-	#define __HAL_RCC_DMA1_IS_CLK_DISABLED()      ((RCC->AHBENR & (RCC_AHBENR_DMA1EN)) == RESET)
-	#define __HAL_RCC_SRAM_IS_CLK_ENABLED()       ((RCC->AHBENR & (RCC_AHBENR_SRAMEN)) != RESET)
-	#define __HAL_RCC_SRAM_IS_CLK_DISABLED()      ((RCC->AHBENR & (RCC_AHBENR_SRAMEN)) == RESET)
-	#define __HAL_RCC_FLITF_IS_CLK_ENABLED()       ((RCC->AHBENR & (RCC_AHBENR_FLITFEN)) != RESET)
-	#define __HAL_RCC_FLITF_IS_CLK_DISABLED()      ((RCC->AHBENR & (RCC_AHBENR_FLITFEN)) == RESET)
-	#define __HAL_RCC_CRC_IS_CLK_ENABLED()       ((RCC->AHBENR & (RCC_AHBENR_CRCEN)) != RESET)
-	#define __HAL_RCC_CRC_IS_CLK_DISABLED()      ((RCC->AHBENR & (RCC_AHBENR_CRCEN)) == RESET)
-
-				/**
-				  * @}
-				  */
-
-				  /** @defgroup RCC_APB1_Clock_Enable_Disable APB1 Clock Enable Disable
-					* @brief  Enable or disable the Low Speed APB (APB1) peripheral clock.
-					* @note   After reset, the peripheral clock (used for registers read/write access)
-					*         is disabled and the application software has to enable this clock before
-					*         using it.
-					* @{
-					*/
+		  /** @defgroup RCC_APB1_Clock_Enable_Disable APB1 Clock Enable Disable
+		  * @brief  Enable or disable the Low Speed APB (APB1) peripheral clock.
+		  * @note   After reset, the peripheral clock (used for registers read/write access)
+		  *         is disabled and the application software has to enable this clock before
+		  *         using it.
+		  * @{
+		  */
 	#define __HAL_RCC_TIM2_CLK_ENABLE()   do { \
 										__IO uint32_t tmpreg; \
 										SET_BIT(RCC->APB1ENR, RCC_APB1ENR_TIM2EN);\
@@ -471,17 +429,17 @@ extern "C" {
 	#define __HAL_RCC_BKP_CLK_DISABLE()       (RCC->APB1ENR &= ~(RCC_APB1ENR_BKPEN))
 	#define __HAL_RCC_PWR_CLK_DISABLE()       (RCC->APB1ENR &= ~(RCC_APB1ENR_PWREN))
 
-					/**
-					  * @}
-					  */
+		  /**
+		  * @}
+		  */
 
-					  /** @defgroup RCC_APB1_Peripheral_Clock_Enable_Disable_Status APB1 Peripheral Clock Enable Disable Status
-						* @brief  Get the enable or disable status of the APB1 peripheral clock.
-						* @note   After reset, the peripheral clock (used for registers read/write access)
-						*         is disabled and the application software has to enable this clock before
-						*         using it.
-						* @{
-						*/
+		  /** @defgroup RCC_APB1_Peripheral_Clock_Enable_Disable_Status APB1 Peripheral Clock Enable Disable Status
+		  * @brief  Get the enable or disable status of the APB1 peripheral clock.
+		  * @note   After reset, the peripheral clock (used for registers read/write access)
+		  *         is disabled and the application software has to enable this clock before
+		  *         using it.
+		  * @{
+		  */
 
 	#define __HAL_RCC_TIM2_IS_CLK_ENABLED()       ((RCC->APB1ENR & (RCC_APB1ENR_TIM2EN)) != RESET)
 	#define __HAL_RCC_TIM2_IS_CLK_DISABLED()      ((RCC->APB1ENR & (RCC_APB1ENR_TIM2EN)) == RESET)
@@ -498,17 +456,17 @@ extern "C" {
 	#define __HAL_RCC_PWR_IS_CLK_ENABLED()        ((RCC->APB1ENR & (RCC_APB1ENR_PWREN)) != RESET)
 	#define __HAL_RCC_PWR_IS_CLK_DISABLED()       ((RCC->APB1ENR & (RCC_APB1ENR_PWREN)) == RESET)
 
-						/**
-						  * @}
-						  */
+		  /**
+		  * @}
+		  */
 
-						  /** @defgroup RCC_APB2_Clock_Enable_Disable APB2 Clock Enable Disable
-							* @brief  Enable or disable the High Speed APB (APB2) peripheral clock.
-							* @note   After reset, the peripheral clock (used for registers read/write access)
-							*         is disabled and the application software has to enable this clock before
-							*         using it.
-							* @{
-							*/
+		  /** @defgroup RCC_APB2_Clock_Enable_Disable APB2 Clock Enable Disable
+		  * @brief  Enable or disable the High Speed APB (APB2) peripheral clock.
+		  * @note   After reset, the peripheral clock (used for registers read/write access)
+		  *         is disabled and the application software has to enable this clock before
+		  *         using it.
+		  * @{
+		  */
 	#define __HAL_RCC_AFIO_CLK_ENABLE()   do { \
 										__IO uint32_t tmpreg; \
 										SET_BIT(RCC->APB2ENR, RCC_APB2ENR_AFIOEN);\
@@ -591,19 +549,13 @@ extern "C" {
 	#define __HAL_RCC_TIM1_CLK_DISABLE()      (RCC->APB2ENR &= ~(RCC_APB2ENR_TIM1EN))
 	#define __HAL_RCC_SPI1_CLK_DISABLE()      (RCC->APB2ENR &= ~(RCC_APB2ENR_SPI1EN))
 	#define __HAL_RCC_USART1_CLK_DISABLE()    (RCC->APB2ENR &= ~(RCC_APB2ENR_USART1EN))
+	#pragma endregion
 
-							/**
-							  * @}
-							  */
+		  /**
+			* @}
+			*/
 
-							  /** @defgroup RCC_APB2_Peripheral_Clock_Enable_Disable_Status APB2 Peripheral Clock Enable Disable Status
-								* @brief  Get the enable or disable status of the APB2 peripheral clock.
-								* @note   After reset, the peripheral clock (used for registers read/write access)
-								*         is disabled and the application software has to enable this clock before
-								*         using it.
-								* @{
-								*/
-
+	#pragma region 检查外设时钟是否使能
 	#define __HAL_RCC_AFIO_IS_CLK_ENABLED()       ((RCC->APB2ENR & (RCC_APB2ENR_AFIOEN)) != RESET)
 	#define __HAL_RCC_AFIO_IS_CLK_DISABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_AFIOEN)) == RESET)
 	#define __HAL_RCC_GPIOA_IS_CLK_ENABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_IOPAEN)) != RESET)
@@ -622,15 +574,23 @@ extern "C" {
 	#define __HAL_RCC_SPI1_IS_CLK_DISABLED()      ((RCC->APB2ENR & (RCC_APB2ENR_SPI1EN)) == RESET)
 	#define __HAL_RCC_USART1_IS_CLK_ENABLED()     ((RCC->APB2ENR & (RCC_APB2ENR_USART1EN)) != RESET)
 	#define __HAL_RCC_USART1_IS_CLK_DISABLED()    ((RCC->APB2ENR & (RCC_APB2ENR_USART1EN)) == RESET)
+	#define __HAL_RCC_DMA1_IS_CLK_ENABLED()       ((RCC->AHBENR & (RCC_AHBENR_DMA1EN)) != RESET)
+	#define __HAL_RCC_DMA1_IS_CLK_DISABLED()      ((RCC->AHBENR & (RCC_AHBENR_DMA1EN)) == RESET)
+	#define __HAL_RCC_SRAM_IS_CLK_ENABLED()       ((RCC->AHBENR & (RCC_AHBENR_SRAMEN)) != RESET)
+	#define __HAL_RCC_SRAM_IS_CLK_DISABLED()      ((RCC->AHBENR & (RCC_AHBENR_SRAMEN)) == RESET)
+	#define __HAL_RCC_FLITF_IS_CLK_ENABLED()       ((RCC->AHBENR & (RCC_AHBENR_FLITFEN)) != RESET)
+	#define __HAL_RCC_FLITF_IS_CLK_DISABLED()      ((RCC->AHBENR & (RCC_AHBENR_FLITFEN)) == RESET)
+	#define __HAL_RCC_CRC_IS_CLK_ENABLED()       ((RCC->AHBENR & (RCC_AHBENR_CRCEN)) != RESET)
+	#define __HAL_RCC_CRC_IS_CLK_DISABLED()      ((RCC->AHBENR & (RCC_AHBENR_CRCEN)) == RESET)
+	#pragma endregion
 
-								/**
-								  * @}
-								  */
 
-								  /** @defgroup RCC_APB1_Force_Release_Reset APB1 Force Release Reset
-									* @brief  Force or release APB1 peripheral reset.
-									* @{
-									*/
+			/** @defgroup RCC_APB1_Force_Release_Reset APB1 Force Release Reset
+			  * @brief  Force or release APB1 peripheral reset.
+			  * @{
+			  */
+
+	#pragma region 强制复位，解除复位
 	#define __HAL_RCC_APB1_FORCE_RESET()       (RCC->APB2RSTR = 0xFFFFFFFFU)
 	#define __HAL_RCC_TIM2_FORCE_RESET()       (RCC->APB1RSTR |= (RCC_APB1RSTR_TIM2RST))
 	#define __HAL_RCC_TIM3_FORCE_RESET()       (RCC->APB1RSTR |= (RCC_APB1RSTR_TIM3RST))
@@ -651,14 +611,6 @@ extern "C" {
 	#define __HAL_RCC_BKP_RELEASE_RESET()        (RCC->APB1RSTR &= ~(RCC_APB1RSTR_BKPRST))
 	#define __HAL_RCC_PWR_RELEASE_RESET()        (RCC->APB1RSTR &= ~(RCC_APB1RSTR_PWRRST))
 
-									/**
-									  * @}
-									  */
-
-									  /** @defgroup RCC_APB2_Force_Release_Reset APB2 Force Release Reset
-										* @brief  Force or release APB2 peripheral reset.
-										* @{
-										*/
 	#define __HAL_RCC_APB2_FORCE_RESET()       (RCC->APB2RSTR = 0xFFFFFFFFU)
 	#define __HAL_RCC_AFIO_FORCE_RESET()       (RCC->APB2RSTR |= (RCC_APB2RSTR_AFIORST))
 	#define __HAL_RCC_GPIOA_FORCE_RESET()      (RCC->APB2RSTR |= (RCC_APB2RSTR_IOPARST))
@@ -682,90 +634,88 @@ extern "C" {
 	#define __HAL_RCC_TIM1_RELEASE_RESET()       (RCC->APB2RSTR &= ~(RCC_APB2RSTR_TIM1RST))
 	#define __HAL_RCC_SPI1_RELEASE_RESET()       (RCC->APB2RSTR &= ~(RCC_APB2RSTR_SPI1RST))
 	#define __HAL_RCC_USART1_RELEASE_RESET()     (RCC->APB2RSTR &= ~(RCC_APB2RSTR_USART1RST))
+	#pragma endregion
 
-										/**
-										  * @}
-										  */
 
-										  /** @defgroup RCC_HSI_Configuration HSI Configuration
-											* @{
-											*/
+			  /** @defgroup RCC_HSI_Configuration HSI Configuration
+				* @{
+				*/
 
-											/** @brief  Macros to enable or disable the Internal High Speed oscillator (HSI).
-											  * @note   The HSI is stopped by hardware when entering STOP and STANDBY modes.
-											  * @note   HSI can not be stopped if it is used as system clock source. In this case,
-											  *         you have to select another source of the system clock then stop the HSI.
-											  * @note   After enabling the HSI, the application software should wait on HSIRDY
-											  *         flag to be set indicating that HSI clock is stable and can be used as
-											  *         system clock source.
-											  * @note   When the HSI is stopped, HSIRDY flag goes low after 6 HSI oscillator
-											  *         clock cycles.
-											  */
+				/** @brief  Macros to enable or disable the Internal High Speed oscillator (HSI).
+				  * @note   The HSI is stopped by hardware when entering STOP and STANDBY modes.
+				  * @note   HSI can not be stopped if it is used as system clock source. In this case,
+				  *         you have to select another source of the system clock then stop the HSI.
+				  * @note   After enabling the HSI, the application software should wait on HSIRDY
+				  *         flag to be set indicating that HSI clock is stable and can be used as
+				  *         system clock source.
+				  * @note   When the HSI is stopped, HSIRDY flag goes low after 6 HSI oscillator
+				  *         clock cycles.
+				  */
 	#define __HAL_RCC_HSI_ENABLE()  (*(__IO uint32_t *) RCC_CR_HSION_BB = ENABLE)
 	#define __HAL_RCC_HSI_DISABLE() (*(__IO uint32_t *) RCC_CR_HSION_BB = DISABLE)
 
-											  /** @brief  Macro to adjust the Internal High Speed oscillator (HSI) calibration value.
-												* @note   The calibration is used to compensate for the variations in voltage
-												*         and temperature that influence the frequency of the internal HSI RC.
-												* @param  _HSICALIBRATIONVALUE_ specifies the calibration trimming value.
-												*         (default is RCC_HSICALIBRATION_DEFAULT).
-												*         This parameter must be a number between 0 and 0x1F.
-												*/
+				  /** @brief  Macro to adjust the Internal High Speed oscillator (HSI) calibration value.
+					* @note   The calibration is used to compensate for the variations in voltage
+					*         and temperature that influence the frequency of the internal HSI RC.
+					* @param  _HSICALIBRATIONVALUE_ specifies the calibration trimming value.
+					*         (default is RCC_HSICALIBRATION_DEFAULT).
+					*         This parameter must be a number between 0 and 0x1F.
+					*/
 	#define __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(_HSICALIBRATIONVALUE_) \
 		  (MODIFY_REG(RCC->CR, RCC_CR_HSITRIM, (uint32_t)(_HSICALIBRATIONVALUE_) << RCC_CR_HSITRIM_Pos))
 
-												/**
-												  * @}
-												  */
+					/**
+					  * @}
+					  */
 
-												  /** @defgroup RCC_LSI_Configuration  LSI Configuration
-													* @{
-													*/
+					  /** @defgroup RCC_LSI_Configuration  LSI Configuration
+						* @{
+						*/
 
-													/** @brief Macro to enable the Internal Low Speed oscillator (LSI).
-													  * @note   After enabling the LSI, the application software should wait on
-													  *         LSIRDY flag to be set indicating that LSI clock is stable and can
-													  *         be used to clock the IWDG and/or the RTC.
-													  */
+						/** @brief Macro to enable the Internal Low Speed oscillator (LSI).
+						  * @note   After enabling the LSI, the application software should wait on
+						  *         LSIRDY flag to be set indicating that LSI clock is stable and can
+						  *         be used to clock the IWDG and/or the RTC.
+						  */
 	#define __HAL_RCC_LSI_ENABLE()  (*(__IO uint32_t *) RCC_CSR_LSION_BB = ENABLE)
 
-													  /** @brief Macro to disable the Internal Low Speed oscillator (LSI).
-														* @note   LSI can not be disabled if the IWDG is running.
-														* @note   When the LSI is stopped, LSIRDY flag goes low after 6 LSI oscillator
-														*         clock cycles.
-														*/
+						  /** @brief Macro to disable the Internal Low Speed oscillator (LSI).
+							* @note   LSI can not be disabled if the IWDG is running.
+							* @note   When the LSI is stopped, LSIRDY flag goes low after 6 LSI oscillator
+							*         clock cycles.
+							*/
 	#define __HAL_RCC_LSI_DISABLE() (*(__IO uint32_t *) RCC_CSR_LSION_BB = DISABLE)
 
-														/**
-														  * @}
-														  */
+							/**
+							  * @}
+							  */
 
-														  /** @defgroup RCC_HSE_Configuration HSE Configuration
-															* @{
-															*/
+							  /** @defgroup RCC_HSE_Configuration HSE Configuration
+								* @{
+								*/
 
-															/**
-															  * @brief  Macro to configure the External High Speed oscillator (HSE).
-															  * @note   Transition HSE Bypass to HSE On and HSE On to HSE Bypass are not
-															  *         supported by this macro. User should request a transition to HSE Off
-															  *         first and then HSE On or HSE Bypass.
-															  * @note   After enabling the HSE (RCC_HSE_ON or RCC_HSE_Bypass), the application
-															  *         software should wait on HSERDY flag to be set indicating that HSE clock
-															  *         is stable and can be used to clock the PLL and/or system clock.
-															  * @note   HSE state can not be changed if it is used directly or through the
-															  *         PLL as system clock. In this case, you have to select another source
-															  *         of the system clock then change the HSE state (ex. disable it).
-															  * @note   The HSE is stopped by hardware when entering STOP and STANDBY modes.
-															  * @note   This function reset the CSSON bit, so if the clock security system(CSS)
-															  *         was previously enabled you have to enable it again after calling this
-															  *         function.
-															  * @param  __STATE__ specifies the new state of the HSE.
-															  *          This parameter can be one of the following values:
-															  *            @arg @ref RCC_HSE_OFF turn OFF the HSE oscillator, HSERDY flag goes low after
-															  *                              6 HSE oscillator clock cycles.
-															  *            @arg @ref RCC_HSE_ON turn ON the HSE oscillator
-															  *            @arg @ref RCC_HSE_BYPASS HSE oscillator bypassed with external clock
-															  */
+								/**
+								  * @brief  Macro to configure the External High Speed oscillator (HSE).
+								  * @note   Transition HSE Bypass to HSE On and HSE On to HSE Bypass are not
+								  *         supported by this macro. User should request a transition to HSE Off
+								  *         first and then HSE On or HSE Bypass.
+								  * @note   After enabling the HSE (RCC_HSE_ON or RCC_HSE_Bypass), the application
+								  *         software should wait on HSERDY flag to be set indicating that HSE clock
+								  *         is stable and can be used to clock the PLL and/or system clock.
+								  * @note   HSE state can not be changed if it is used directly or through the
+								  *         PLL as system clock. In this case, you have to select another source
+								  *         of the system clock then change the HSE state (ex. disable it).
+								  * @note   The HSE is stopped by hardware when entering STOP and STANDBY modes.
+								  * @note   This function reset the CSSON bit, so if the clock security system(CSS)
+								  *         was previously enabled you have to enable it again after calling this
+								  *         function.
+								  * @param  __STATE__ specifies the new state of the HSE.
+								  *          This parameter can be one of the following values:
+								  *            @arg @ref RCC_HSE_OFF turn OFF the HSE oscillator, HSERDY flag goes low after
+								  *                              6 HSE oscillator clock cycles.
+								  *            @arg @ref RCC_HSE_ON turn ON the HSE oscillator
+								  *            @arg @ref RCC_HSE_BYPASS HSE oscillator bypassed with external clock
+								  */
 	#define __HAL_RCC_HSE_CONFIG(__STATE__)                                     \
 					do{                                                     \
 					  if ((__STATE__) == RCC_HSE_ON)                        \
@@ -789,31 +739,31 @@ extern "C" {
 					  }                                                     \
 					}while(0U)
 
-															  /**
-																* @}
-																*/
+								  /**
+									* @}
+									*/
 
-																/** @defgroup RCC_LSE_Configuration LSE Configuration
-																  * @{
-																  */
+									/** @defgroup RCC_LSE_Configuration LSE Configuration
+									  * @{
+									  */
 
-																  /**
-																	* @brief  Macro to configure the External Low Speed oscillator (LSE).
-																	* @note Transitions LSE Bypass to LSE On and LSE On to LSE Bypass are not supported by this macro.
-																	* @note   As the LSE is in the Backup domain and write access is denied to
-																	*         this domain after reset, you have to enable write access using
-																	*         @ref HAL_PWR_EnableBkUpAccess() function before to configure the LSE
-																	*         (to be done once after reset).
-																	* @note   After enabling the LSE (RCC_LSE_ON or RCC_LSE_BYPASS), the application
-																	*         software should wait on LSERDY flag to be set indicating that LSE clock
-																	*         is stable and can be used to clock the RTC.
-																	* @param  __STATE__ specifies the new state of the LSE.
-																	*         This parameter can be one of the following values:
-																	*            @arg @ref RCC_LSE_OFF turn OFF the LSE oscillator, LSERDY flag goes low after
-																	*                              6 LSE oscillator clock cycles.
-																	*            @arg @ref RCC_LSE_ON turn ON the LSE oscillator.
-																	*            @arg @ref RCC_LSE_BYPASS LSE oscillator bypassed with external clock.
-																	*/
+									  /**
+										* @brief  Macro to configure the External Low Speed oscillator (LSE).
+										* @note Transitions LSE Bypass to LSE On and LSE On to LSE Bypass are not supported by this macro.
+										* @note   As the LSE is in the Backup domain and write access is denied to
+										*         this domain after reset, you have to enable write access using
+										*         @ref HAL_PWR_EnableBkUpAccess() function before to configure the LSE
+										*         (to be done once after reset).
+										* @note   After enabling the LSE (RCC_LSE_ON or RCC_LSE_BYPASS), the application
+										*         software should wait on LSERDY flag to be set indicating that LSE clock
+										*         is stable and can be used to clock the RTC.
+										* @param  __STATE__ specifies the new state of the LSE.
+										*         This parameter can be one of the following values:
+										*            @arg @ref RCC_LSE_OFF turn OFF the LSE oscillator, LSERDY flag goes low after
+										*                              6 LSE oscillator clock cycles.
+										*            @arg @ref RCC_LSE_ON turn ON the LSE oscillator.
+										*            @arg @ref RCC_LSE_BYPASS LSE oscillator bypassed with external clock.
+										*/
 	#define __HAL_RCC_LSE_CONFIG(__STATE__)                                     \
 					do{                                                     \
 					  if ((__STATE__) == RCC_LSE_ON)                        \
@@ -837,327 +787,327 @@ extern "C" {
 					  }                                                     \
 					}while(0U)
 
-																	/**
-																	  * @}
-																	  */
+										/**
+										  * @}
+										  */
 
-																	  /** @defgroup RCC_PLL_Configuration PLL Configuration
-																		* @{
-																		*/
+										  /** @defgroup RCC_PLL_Configuration PLL Configuration
+											* @{
+											*/
 
-																		/** @brief Macro to enable the main PLL.
-																		  * @note   After enabling the main PLL, the application software should wait on
-																		  *         PLLRDY flag to be set indicating that PLL clock is stable and can
-																		  *         be used as system clock source.
-																		  * @note   The main PLL is disabled by hardware when entering STOP and STANDBY modes.
-																		  */
+											/** @brief Macro to enable the main PLL.
+											  * @note   After enabling the main PLL, the application software should wait on
+											  *         PLLRDY flag to be set indicating that PLL clock is stable and can
+											  *         be used as system clock source.
+											  * @note   The main PLL is disabled by hardware when entering STOP and STANDBY modes.
+											  */
 	#define __HAL_RCC_PLL_ENABLE()          (*(__IO uint32_t *) RCC_CR_PLLON_BB = ENABLE)
 
-																		  /** @brief Macro to disable the main PLL.
-																			* @note   The main PLL can not be disabled if it is used as system clock source
-																			*/
+											  /** @brief Macro to disable the main PLL.
+												* @note   The main PLL can not be disabled if it is used as system clock source
+												*/
 	#define __HAL_RCC_PLL_DISABLE()         (*(__IO uint32_t *) RCC_CR_PLLON_BB = DISABLE)
 
-																			/** @brief Macro to configure the main PLL clock source and multiplication factors.
-																			  * @note   This function must be used only when the main PLL is disabled.
-																			  *
-																			  * @param  __RCC_PLLSOURCE__ specifies the PLL entry clock source.
-																			  *          This parameter can be one of the following values:
-																			  *            @arg @ref RCC_PLLSOURCE_HSI_DIV2 HSI oscillator clock selected as PLL clock entry
-																			  *            @arg @ref RCC_PLLSOURCE_HSE HSE oscillator clock selected as PLL clock entry
-																			  * @param  __PLLMUL__ specifies the multiplication factor for PLL VCO output clock
-																			  *          This parameter can be one of the following values:
-																			  *             @arg @ref RCC_PLL_MUL4   PLLVCO = PLL clock entry x 4
-																			  *             @arg @ref RCC_PLL_MUL6   PLLVCO = PLL clock entry x 6
-																			  @if STM32F105xC
-																			  *             @arg @ref RCC_PLL_MUL6_5 PLLVCO = PLL clock entry x 6.5
-																			  @elseif STM32F107xC
-																			  *             @arg @ref RCC_PLL_MUL6_5 PLLVCO = PLL clock entry x 6.5
-																			  @else
-																			  *             @arg @ref RCC_PLL_MUL2   PLLVCO = PLL clock entry x 2
-																			  *             @arg @ref RCC_PLL_MUL3   PLLVCO = PLL clock entry x 3
-																			  *             @arg @ref RCC_PLL_MUL10  PLLVCO = PLL clock entry x 10
-																			  *             @arg @ref RCC_PLL_MUL11  PLLVCO = PLL clock entry x 11
-																			  *             @arg @ref RCC_PLL_MUL12  PLLVCO = PLL clock entry x 12
-																			  *             @arg @ref RCC_PLL_MUL13  PLLVCO = PLL clock entry x 13
-																			  *             @arg @ref RCC_PLL_MUL14  PLLVCO = PLL clock entry x 14
-																			  *             @arg @ref RCC_PLL_MUL15  PLLVCO = PLL clock entry x 15
-																			  *             @arg @ref RCC_PLL_MUL16  PLLVCO = PLL clock entry x 16
-																			  @endif
-																			  *             @arg @ref RCC_PLL_MUL8   PLLVCO = PLL clock entry x 8
-																			  *             @arg @ref RCC_PLL_MUL9   PLLVCO = PLL clock entry x 9
-																			  *
-																			  */
+												/** @brief Macro to configure the main PLL clock source and multiplication factors.
+												  * @note   This function must be used only when the main PLL is disabled.
+												  *
+												  * @param  __RCC_PLLSOURCE__ specifies the PLL entry clock source.
+												  *          This parameter can be one of the following values:
+												  *            @arg @ref RCC_PLLSOURCE_HSI_DIV2 HSI oscillator clock selected as PLL clock entry
+												  *            @arg @ref RCC_PLLSOURCE_HSE HSE oscillator clock selected as PLL clock entry
+												  * @param  __PLLMUL__ specifies the multiplication factor for PLL VCO output clock
+												  *          This parameter can be one of the following values:
+												  *             @arg @ref RCC_PLL_MUL4   PLLVCO = PLL clock entry x 4
+												  *             @arg @ref RCC_PLL_MUL6   PLLVCO = PLL clock entry x 6
+												  @if STM32F105xC
+												  *             @arg @ref RCC_PLL_MUL6_5 PLLVCO = PLL clock entry x 6.5
+												  @elseif STM32F107xC
+												  *             @arg @ref RCC_PLL_MUL6_5 PLLVCO = PLL clock entry x 6.5
+												  @else
+												  *             @arg @ref RCC_PLL_MUL2   PLLVCO = PLL clock entry x 2
+												  *             @arg @ref RCC_PLL_MUL3   PLLVCO = PLL clock entry x 3
+												  *             @arg @ref RCC_PLL_MUL10  PLLVCO = PLL clock entry x 10
+												  *             @arg @ref RCC_PLL_MUL11  PLLVCO = PLL clock entry x 11
+												  *             @arg @ref RCC_PLL_MUL12  PLLVCO = PLL clock entry x 12
+												  *             @arg @ref RCC_PLL_MUL13  PLLVCO = PLL clock entry x 13
+												  *             @arg @ref RCC_PLL_MUL14  PLLVCO = PLL clock entry x 14
+												  *             @arg @ref RCC_PLL_MUL15  PLLVCO = PLL clock entry x 15
+												  *             @arg @ref RCC_PLL_MUL16  PLLVCO = PLL clock entry x 16
+												  @endif
+												  *             @arg @ref RCC_PLL_MUL8   PLLVCO = PLL clock entry x 8
+												  *             @arg @ref RCC_PLL_MUL9   PLLVCO = PLL clock entry x 9
+												  *
+												  */
 	#define __HAL_RCC_PLL_CONFIG(__RCC_PLLSOURCE__, __PLLMUL__)\
 		  MODIFY_REG(RCC->CFGR, (RCC_CFGR_PLLSRC | RCC_CFGR_PLLMULL),((__RCC_PLLSOURCE__) | (__PLLMUL__) ))
 
-																			  /** @brief  Get oscillator clock selected as PLL input clock
-																				* @retval The clock source used for PLL entry. The returned value can be one
-																				*         of the following:
-																				*             @arg @ref RCC_PLLSOURCE_HSI_DIV2 HSI oscillator clock selected as PLL input clock
-																				*             @arg @ref RCC_PLLSOURCE_HSE HSE oscillator clock selected as PLL input clock
-																				*/
+												  /** @brief  Get oscillator clock selected as PLL input clock
+													* @retval The clock source used for PLL entry. The returned value can be one
+													*         of the following:
+													*             @arg @ref RCC_PLLSOURCE_HSI_DIV2 HSI oscillator clock selected as PLL input clock
+													*             @arg @ref RCC_PLLSOURCE_HSE HSE oscillator clock selected as PLL input clock
+													*/
 	#define __HAL_RCC_GET_PLL_OSCSOURCE() ((uint32_t)(READ_BIT(RCC->CFGR, RCC_CFGR_PLLSRC)))
 
-																				/**
-																				  * @}
-																				  */
+													/**
+													  * @}
+													  */
 
-																				  /** @defgroup RCC_Get_Clock_source Get Clock source
-																					* @{
-																					*/
+													  /** @defgroup RCC_Get_Clock_source Get Clock source
+														* @{
+														*/
 
-																					/**
-																					  * @brief  Macro to configure the system clock source.
-																					  * @param  __SYSCLKSOURCE__ specifies the system clock source.
-																					  *          This parameter can be one of the following values:
-																					  *              @arg @ref RCC_SYSCLKSOURCE_HSI HSI oscillator is used as system clock source.
-																					  *              @arg @ref RCC_SYSCLKSOURCE_HSE HSE oscillator is used as system clock source.
-																					  *              @arg @ref RCC_SYSCLKSOURCE_PLLCLK PLL output is used as system clock source.
-																					  */
+														/**
+														  * @brief  Macro to configure the system clock source.
+														  * @param  __SYSCLKSOURCE__ specifies the system clock source.
+														  *          This parameter can be one of the following values:
+														  *              @arg @ref RCC_SYSCLKSOURCE_HSI HSI oscillator is used as system clock source.
+														  *              @arg @ref RCC_SYSCLKSOURCE_HSE HSE oscillator is used as system clock source.
+														  *              @arg @ref RCC_SYSCLKSOURCE_PLLCLK PLL output is used as system clock source.
+														  */
 	#define __HAL_RCC_SYSCLK_CONFIG(__SYSCLKSOURCE__) \
 				  MODIFY_REG(RCC->CFGR, RCC_CFGR_SW, (__SYSCLKSOURCE__))
 
-																					  /** @brief  Macro to get the clock source used as system clock.
-																						* @retval The clock source used as system clock. The returned value can be one
-																						*         of the following:
-																						*             @arg @ref RCC_SYSCLKSOURCE_STATUS_HSI HSI used as system clock
-																						*             @arg @ref RCC_SYSCLKSOURCE_STATUS_HSE HSE used as system clock
-																						*             @arg @ref RCC_SYSCLKSOURCE_STATUS_PLLCLK PLL used as system clock
-																						*/
+														  /** @brief  Macro to get the clock source used as system clock.
+															* @retval The clock source used as system clock. The returned value can be one
+															*         of the following:
+															*             @arg @ref RCC_SYSCLKSOURCE_STATUS_HSI HSI used as system clock
+															*             @arg @ref RCC_SYSCLKSOURCE_STATUS_HSE HSE used as system clock
+															*             @arg @ref RCC_SYSCLKSOURCE_STATUS_PLLCLK PLL used as system clock
+															*/
 	#define __HAL_RCC_GET_SYSCLK_SOURCE() ((uint32_t)(READ_BIT(RCC->CFGR,RCC_CFGR_SWS)))
 
-																						/**
-																						  * @}
-																						  */
+															/**
+															  * @}
+															  */
 
-																						  /** @defgroup RCCEx_MCOx_Clock_Config RCC Extended MCOx Clock Config
-																							* @{
-																							*/
+															  /** @defgroup RCCEx_MCOx_Clock_Config RCC Extended MCOx Clock Config
+																* @{
+																*/
 
 	#if   defined(RCC_CFGR_MCO_3)
-																							/** @brief  Macro to configure the MCO clock.
-																							  * @param  __MCOCLKSOURCE__ specifies the MCO clock source.
-																							  *         This parameter can be one of the following values:
-																							  *            @arg @ref RCC_MCO1SOURCE_NOCLOCK      No clock selected as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_SYSCLK       System clock (SYSCLK) selected as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_HSI          HSI selected as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_HSE          HSE selected as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_PLLCLK       PLL clock divided by 2 selected as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_PLL2CLK      PLL2 clock selected by 2 selected as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_PLL3CLK_DIV2 PLL3 clock divided by 2 selected as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_EXT_HSE XT1  external 3-25 MHz oscillator clock selected (for Ethernet) as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_PLL3CLK      PLL3 clock selected (for Ethernet) as MCO clock
-																							  * @param  __MCODIV__ specifies the MCO clock prescaler.
-																							  *         This parameter can be one of the following values:
-																							  *            @arg @ref RCC_MCODIV_1 No division applied on MCO clock source
-																							  */
+																/** @brief  Macro to configure the MCO clock.
+																  * @param  __MCOCLKSOURCE__ specifies the MCO clock source.
+																  *         This parameter can be one of the following values:
+																  *            @arg @ref RCC_MCO1SOURCE_NOCLOCK      No clock selected as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_SYSCLK       System clock (SYSCLK) selected as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_HSI          HSI selected as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_HSE          HSE selected as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_PLLCLK       PLL clock divided by 2 selected as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_PLL2CLK      PLL2 clock selected by 2 selected as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_PLL3CLK_DIV2 PLL3 clock divided by 2 selected as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_EXT_HSE XT1  external 3-25 MHz oscillator clock selected (for Ethernet) as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_PLL3CLK      PLL3 clock selected (for Ethernet) as MCO clock
+																  * @param  __MCODIV__ specifies the MCO clock prescaler.
+																  *         This parameter can be one of the following values:
+																  *            @arg @ref RCC_MCODIV_1 No division applied on MCO clock source
+																  */
 	#else
-																							/** @brief  Macro to configure the MCO clock.
-																							  * @param  __MCOCLKSOURCE__ specifies the MCO clock source.
-																							  *         This parameter can be one of the following values:
-																							  *            @arg @ref RCC_MCO1SOURCE_NOCLOCK No clock selected as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_SYSCLK  System clock (SYSCLK) selected as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_HSI HSI selected as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_HSE HSE selected as MCO clock
-																							  *            @arg @ref RCC_MCO1SOURCE_PLLCLK  PLL clock divided by 2 selected as MCO clock
-																							  * @param  __MCODIV__ specifies the MCO clock prescaler.
-																							  *         This parameter can be one of the following values:
-																							  *            @arg @ref RCC_MCODIV_1 No division applied on MCO clock source
-																							  */
+																/** @brief  Macro to configure the MCO clock.
+																  * @param  __MCOCLKSOURCE__ specifies the MCO clock source.
+																  *         This parameter can be one of the following values:
+																  *            @arg @ref RCC_MCO1SOURCE_NOCLOCK No clock selected as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_SYSCLK  System clock (SYSCLK) selected as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_HSI HSI selected as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_HSE HSE selected as MCO clock
+																  *            @arg @ref RCC_MCO1SOURCE_PLLCLK  PLL clock divided by 2 selected as MCO clock
+																  * @param  __MCODIV__ specifies the MCO clock prescaler.
+																  *         This parameter can be one of the following values:
+																  *            @arg @ref RCC_MCODIV_1 No division applied on MCO clock source
+																  */
 	#endif
 
 	#define __HAL_RCC_MCO1_CONFIG(__MCOCLKSOURCE__, __MCODIV__) \
 				 MODIFY_REG(RCC->CFGR, RCC_CFGR_MCO, (__MCOCLKSOURCE__))
 
 
-																							  /**
-																								* @}
-																								*/
+																  /**
+																	* @}
+																	*/
 
-																								/** @defgroup RCC_RTC_Clock_Configuration RCC RTC Clock Configuration
-																								* @{
-																								*/
+																	/** @defgroup RCC_RTC_Clock_Configuration RCC RTC Clock Configuration
+																	* @{
+																	*/
 
-																								/** @brief Macro to configure the RTC clock (RTCCLK).
-																								  * @note   As the RTC clock configuration bits are in the Backup domain and write
-																								  *         access is denied to this domain after reset, you have to enable write
-																								  *         access using the Power Backup Access macro before to configure
-																								  *         the RTC clock source (to be done once after reset).
-																								  * @note   Once the RTC clock is configured it can't be changed unless the
-																								  *         Backup domain is reset using @ref __HAL_RCC_BACKUPRESET_FORCE() macro, or by
-																								  *         a Power On Reset (POR).
-																								  *
-																								  * @param  __RTC_CLKSOURCE__ specifies the RTC clock source.
-																								  *          This parameter can be one of the following values:
-																								  *             @arg @ref RCC_RTCCLKSOURCE_NO_CLK No clock selected as RTC clock
-																								  *             @arg @ref RCC_RTCCLKSOURCE_LSE LSE selected as RTC clock
-																								  *             @arg @ref RCC_RTCCLKSOURCE_LSI LSI selected as RTC clock
-																								  *             @arg @ref RCC_RTCCLKSOURCE_HSE_DIV128 HSE divided by 128 selected as RTC clock
-																								  * @note   If the LSE or LSI is used as RTC clock source, the RTC continues to
-																								  *         work in STOP and STANDBY modes, and can be used as wakeup source.
-																								  *         However, when the HSE clock is used as RTC clock source, the RTC
-																								  *         cannot be used in STOP and STANDBY modes.
-																								  * @note   The maximum input clock frequency for RTC is 1MHz (when using HSE as
-																								  *         RTC clock source).
-																								  */
+																	/** @brief Macro to configure the RTC clock (RTCCLK).
+																	  * @note   As the RTC clock configuration bits are in the Backup domain and write
+																	  *         access is denied to this domain after reset, you have to enable write
+																	  *         access using the Power Backup Access macro before to configure
+																	  *         the RTC clock source (to be done once after reset).
+																	  * @note   Once the RTC clock is configured it can't be changed unless the
+																	  *         Backup domain is reset using @ref __HAL_RCC_BACKUPRESET_FORCE() macro, or by
+																	  *         a Power On Reset (POR).
+																	  *
+																	  * @param  __RTC_CLKSOURCE__ specifies the RTC clock source.
+																	  *          This parameter can be one of the following values:
+																	  *             @arg @ref RCC_RTCCLKSOURCE_NO_CLK No clock selected as RTC clock
+																	  *             @arg @ref RCC_RTCCLKSOURCE_LSE LSE selected as RTC clock
+																	  *             @arg @ref RCC_RTCCLKSOURCE_LSI LSI selected as RTC clock
+																	  *             @arg @ref RCC_RTCCLKSOURCE_HSE_DIV128 HSE divided by 128 selected as RTC clock
+																	  * @note   If the LSE or LSI is used as RTC clock source, the RTC continues to
+																	  *         work in STOP and STANDBY modes, and can be used as wakeup source.
+																	  *         However, when the HSE clock is used as RTC clock source, the RTC
+																	  *         cannot be used in STOP and STANDBY modes.
+																	  * @note   The maximum input clock frequency for RTC is 1MHz (when using HSE as
+																	  *         RTC clock source).
+																	  */
 	#define __HAL_RCC_RTC_CONFIG(__RTC_CLKSOURCE__) MODIFY_REG(RCC->BDCR, RCC_BDCR_RTCSEL, (__RTC_CLKSOURCE__))
 
-																								  /** @brief Macro to get the RTC clock source.
-																									* @retval The clock source can be one of the following values:
-																									*            @arg @ref RCC_RTCCLKSOURCE_NO_CLK No clock selected as RTC clock
-																									*            @arg @ref RCC_RTCCLKSOURCE_LSE LSE selected as RTC clock
-																									*            @arg @ref RCC_RTCCLKSOURCE_LSI LSI selected as RTC clock
-																									*            @arg @ref RCC_RTCCLKSOURCE_HSE_DIV128 HSE divided by 128 selected as RTC clock
-																									*/
+																	  /** @brief Macro to get the RTC clock source.
+																		* @retval The clock source can be one of the following values:
+																		*            @arg @ref RCC_RTCCLKSOURCE_NO_CLK No clock selected as RTC clock
+																		*            @arg @ref RCC_RTCCLKSOURCE_LSE LSE selected as RTC clock
+																		*            @arg @ref RCC_RTCCLKSOURCE_LSI LSI selected as RTC clock
+																		*            @arg @ref RCC_RTCCLKSOURCE_HSE_DIV128 HSE divided by 128 selected as RTC clock
+																		*/
 	#define __HAL_RCC_GET_RTC_SOURCE() (READ_BIT(RCC->BDCR, RCC_BDCR_RTCSEL))
 
-																									/** @brief Macro to enable the the RTC clock.
-																									  * @note   These macros must be used only after the RTC clock source was selected.
-																									  */
+																		/** @brief Macro to enable the the RTC clock.
+																		  * @note   These macros must be used only after the RTC clock source was selected.
+																		  */
 	#define __HAL_RCC_RTC_ENABLE()          (*(__IO uint32_t *) RCC_BDCR_RTCEN_BB = ENABLE)
 
-																									  /** @brief Macro to disable the the RTC clock.
-																										* @note  These macros must be used only after the RTC clock source was selected.
-																										*/
+																		  /** @brief Macro to disable the the RTC clock.
+																			* @note  These macros must be used only after the RTC clock source was selected.
+																			*/
 	#define __HAL_RCC_RTC_DISABLE()         (*(__IO uint32_t *) RCC_BDCR_RTCEN_BB = DISABLE)
 
-																										/** @brief  Macro to force the Backup domain reset.
-																										  * @note   This function resets the RTC peripheral (including the backup registers)
-																										  *         and the RTC clock source selection in RCC_BDCR register.
-																										  */
+																			/** @brief  Macro to force the Backup domain reset.
+																			  * @note   This function resets the RTC peripheral (including the backup registers)
+																			  *         and the RTC clock source selection in RCC_BDCR register.
+																			  */
 	#define __HAL_RCC_BACKUPRESET_FORCE()   (*(__IO uint32_t *) RCC_BDCR_BDRST_BB = ENABLE)
 
-																										  /** @brief  Macros to release the Backup domain reset.
-																											*/
+																			  /** @brief  Macros to release the Backup domain reset.
+																				*/
 	#define __HAL_RCC_BACKUPRESET_RELEASE() (*(__IO uint32_t *) RCC_BDCR_BDRST_BB = DISABLE)
 
-																											/**
-																											  * @}
-																											  */
+																				/**
+																				  * @}
+																				  */
 
-																											  /** @defgroup RCC_Flags_Interrupts_Management Flags Interrupts Management
-																												* @brief macros to manage the specified RCC Flags and interrupts.
-																												* @{
-																												*/
+																				  /** @defgroup RCC_Flags_Interrupts_Management Flags Interrupts Management
+																					* @brief macros to manage the specified RCC Flags and interrupts.
+																					* @{
+																					*/
 
-																												/** @brief Enable RCC interrupt.
-																												  * @param  __INTERRUPT__ specifies the RCC interrupt sources to be enabled.
-																												  *          This parameter can be any combination of the following values:
-																												  *            @arg @ref RCC_IT_LSIRDY LSI ready interrupt
-																												  *            @arg @ref RCC_IT_LSERDY LSE ready interrupt
-																												  *            @arg @ref RCC_IT_HSIRDY HSI ready interrupt
-																												  *            @arg @ref RCC_IT_HSERDY HSE ready interrupt
-																												  *            @arg @ref RCC_IT_PLLRDY main PLL ready interrupt
-																												  @if STM32F105xx
-																												  *            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
-																												  *            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
-																												  @elsif STM32F107xx
-																												  *            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
-																												  *            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
-																												  @endif
-																												  */
+																					/** @brief Enable RCC interrupt.
+																					  * @param  __INTERRUPT__ specifies the RCC interrupt sources to be enabled.
+																					  *          This parameter can be any combination of the following values:
+																					  *            @arg @ref RCC_IT_LSIRDY LSI ready interrupt
+																					  *            @arg @ref RCC_IT_LSERDY LSE ready interrupt
+																					  *            @arg @ref RCC_IT_HSIRDY HSI ready interrupt
+																					  *            @arg @ref RCC_IT_HSERDY HSE ready interrupt
+																					  *            @arg @ref RCC_IT_PLLRDY main PLL ready interrupt
+																					  @if STM32F105xx
+																					  *            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
+																					  *            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
+																					  @elsif STM32F107xx
+																					  *            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
+																					  *            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
+																					  @endif
+																					  */
 	#define __HAL_RCC_ENABLE_IT(__INTERRUPT__) (*(__IO uint8_t *) RCC_CIR_BYTE1_ADDRESS |= (__INTERRUPT__))
 
-																												  /** @brief Disable RCC interrupt.
-																													* @param  __INTERRUPT__ specifies the RCC interrupt sources to be disabled.
-																													*          This parameter can be any combination of the following values:
-																													*            @arg @ref RCC_IT_LSIRDY LSI ready interrupt
-																													*            @arg @ref RCC_IT_LSERDY LSE ready interrupt
-																													*            @arg @ref RCC_IT_HSIRDY HSI ready interrupt
-																													*            @arg @ref RCC_IT_HSERDY HSE ready interrupt
-																													*            @arg @ref RCC_IT_PLLRDY main PLL ready interrupt
-																													@if STM32F105xx
-																													*            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
-																													*            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
-																													@elsif STM32F107xx
-																													*            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
-																													*            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
-																													@endif
-																													*/
+																					  /** @brief Disable RCC interrupt.
+																						* @param  __INTERRUPT__ specifies the RCC interrupt sources to be disabled.
+																						*          This parameter can be any combination of the following values:
+																						*            @arg @ref RCC_IT_LSIRDY LSI ready interrupt
+																						*            @arg @ref RCC_IT_LSERDY LSE ready interrupt
+																						*            @arg @ref RCC_IT_HSIRDY HSI ready interrupt
+																						*            @arg @ref RCC_IT_HSERDY HSE ready interrupt
+																						*            @arg @ref RCC_IT_PLLRDY main PLL ready interrupt
+																						@if STM32F105xx
+																						*            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
+																						*            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
+																						@elsif STM32F107xx
+																						*            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
+																						*            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
+																						@endif
+																						*/
 	#define __HAL_RCC_DISABLE_IT(__INTERRUPT__) (*(__IO uint8_t *) RCC_CIR_BYTE1_ADDRESS &= (uint8_t)(~(__INTERRUPT__)))
 
-																													/** @brief Clear the RCC's interrupt pending bits.
-																													  * @param  __INTERRUPT__ specifies the interrupt pending bit to clear.
-																													  *          This parameter can be any combination of the following values:
-																													  *            @arg @ref RCC_IT_LSIRDY LSI ready interrupt.
-																													  *            @arg @ref RCC_IT_LSERDY LSE ready interrupt.
-																													  *            @arg @ref RCC_IT_HSIRDY HSI ready interrupt.
-																													  *            @arg @ref RCC_IT_HSERDY HSE ready interrupt.
-																													  *            @arg @ref RCC_IT_PLLRDY Main PLL ready interrupt.
-																													  @if STM32F105xx
-																													  *            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
-																													  *            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
-																													  @elsif STM32F107xx
-																													  *            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
-																													  *            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
-																													  @endif
-																													  *            @arg @ref RCC_IT_CSS Clock Security System interrupt
-																													  */
+																						/** @brief Clear the RCC's interrupt pending bits.
+																						  * @param  __INTERRUPT__ specifies the interrupt pending bit to clear.
+																						  *          This parameter can be any combination of the following values:
+																						  *            @arg @ref RCC_IT_LSIRDY LSI ready interrupt.
+																						  *            @arg @ref RCC_IT_LSERDY LSE ready interrupt.
+																						  *            @arg @ref RCC_IT_HSIRDY HSI ready interrupt.
+																						  *            @arg @ref RCC_IT_HSERDY HSE ready interrupt.
+																						  *            @arg @ref RCC_IT_PLLRDY Main PLL ready interrupt.
+																						  @if STM32F105xx
+																						  *            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
+																						  *            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
+																						  @elsif STM32F107xx
+																						  *            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
+																						  *            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
+																						  @endif
+																						  *            @arg @ref RCC_IT_CSS Clock Security System interrupt
+																						  */
 	#define __HAL_RCC_CLEAR_IT(__INTERRUPT__) (*(__IO uint8_t *) RCC_CIR_BYTE2_ADDRESS = (__INTERRUPT__))
 
-																													  /** @brief Check the RCC's interrupt has occurred or not.
-																														* @param  __INTERRUPT__ specifies the RCC interrupt source to check.
-																														*          This parameter can be one of the following values:
-																														*            @arg @ref RCC_IT_LSIRDY LSI ready interrupt.
-																														*            @arg @ref RCC_IT_LSERDY LSE ready interrupt.
-																														*            @arg @ref RCC_IT_HSIRDY HSI ready interrupt.
-																														*            @arg @ref RCC_IT_HSERDY HSE ready interrupt.
-																														*            @arg @ref RCC_IT_PLLRDY Main PLL ready interrupt.
-																														@if STM32F105xx
-																														*            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
-																														*            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
-																														@elsif STM32F107xx
-																														*            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
-																														*            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
-																														@endif
-																														*            @arg @ref RCC_IT_CSS Clock Security System interrupt
-																														* @retval The new state of __INTERRUPT__ (TRUE or FALSE).
-																														*/
+																						  /** @brief Check the RCC's interrupt has occurred or not.
+																							* @param  __INTERRUPT__ specifies the RCC interrupt source to check.
+																							*          This parameter can be one of the following values:
+																							*            @arg @ref RCC_IT_LSIRDY LSI ready interrupt.
+																							*            @arg @ref RCC_IT_LSERDY LSE ready interrupt.
+																							*            @arg @ref RCC_IT_HSIRDY HSI ready interrupt.
+																							*            @arg @ref RCC_IT_HSERDY HSE ready interrupt.
+																							*            @arg @ref RCC_IT_PLLRDY Main PLL ready interrupt.
+																							@if STM32F105xx
+																							*            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
+																							*            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
+																							@elsif STM32F107xx
+																							*            @arg @ref RCC_IT_PLL2RDY Main PLL2 ready interrupt.
+																							*            @arg @ref RCC_IT_PLLI2S2RDY Main PLLI2S ready interrupt.
+																							@endif
+																							*            @arg @ref RCC_IT_CSS Clock Security System interrupt
+																							* @retval The new state of __INTERRUPT__ (TRUE or FALSE).
+																							*/
 	#define __HAL_RCC_GET_IT(__INTERRUPT__) ((RCC->CIR & (__INTERRUPT__)) == (__INTERRUPT__))
 
-																														/** @brief Set RMVF bit to clear the reset flags.
-																														  *         The reset flags are RCC_FLAG_PINRST, RCC_FLAG_PORRST, RCC_FLAG_SFTRST,
-																														  *         RCC_FLAG_IWDGRST, RCC_FLAG_WWDGRST, RCC_FLAG_LPWRRST
-																														  */
+																							/** @brief Set RMVF bit to clear the reset flags.
+																							  *         The reset flags are RCC_FLAG_PINRST, RCC_FLAG_PORRST, RCC_FLAG_SFTRST,
+																							  *         RCC_FLAG_IWDGRST, RCC_FLAG_WWDGRST, RCC_FLAG_LPWRRST
+																							  */
 	#define __HAL_RCC_CLEAR_RESET_FLAGS() (*(__IO uint32_t *)RCC_CSR_RMVF_BB = ENABLE)
 
-																														  /** @brief  Check RCC flag is set or not.
-																															* @param  __FLAG__ specifies the flag to check.
-																															*          This parameter can be one of the following values:
-																															*            @arg @ref RCC_FLAG_HSIRDY HSI oscillator clock ready.
-																															*            @arg @ref RCC_FLAG_HSERDY HSE oscillator clock ready.
-																															*            @arg @ref RCC_FLAG_PLLRDY Main PLL clock ready.
-																															@if STM32F105xx
-																															*            @arg @ref RCC_FLAG_PLL2RDY Main PLL2 clock ready.
-																															*            @arg @ref RCC_FLAG_PLLI2SRDY Main PLLI2S clock ready.
-																															@elsif STM32F107xx
-																															*            @arg @ref RCC_FLAG_PLL2RDY Main PLL2 clock ready.
-																															*            @arg @ref RCC_FLAG_PLLI2SRDY Main PLLI2S clock ready.
-																															@endif
-																															*            @arg @ref RCC_FLAG_LSERDY LSE oscillator clock ready.
-																															*            @arg @ref RCC_FLAG_LSIRDY LSI oscillator clock ready.
-																															*            @arg @ref RCC_FLAG_PINRST  Pin reset.
-																															*            @arg @ref RCC_FLAG_PORRST  POR/PDR reset.
-																															*            @arg @ref RCC_FLAG_SFTRST  Software reset.
-																															*            @arg @ref RCC_FLAG_IWDGRST Independent Watchdog reset.
-																															*            @arg @ref RCC_FLAG_WWDGRST Window Watchdog reset.
-																															*            @arg @ref RCC_FLAG_LPWRRST Low Power reset.
-																															* @retval The new state of __FLAG__ (TRUE or FALSE).
-																															*/
+																							  /** @brief  Check RCC flag is set or not.
+																								* @param  __FLAG__ specifies the flag to check.
+																								*          This parameter can be one of the following values:
+																								*            @arg @ref RCC_FLAG_HSIRDY HSI oscillator clock ready.
+																								*            @arg @ref RCC_FLAG_HSERDY HSE oscillator clock ready.
+																								*            @arg @ref RCC_FLAG_PLLRDY Main PLL clock ready.
+																								@if STM32F105xx
+																								*            @arg @ref RCC_FLAG_PLL2RDY Main PLL2 clock ready.
+																								*            @arg @ref RCC_FLAG_PLLI2SRDY Main PLLI2S clock ready.
+																								@elsif STM32F107xx
+																								*            @arg @ref RCC_FLAG_PLL2RDY Main PLL2 clock ready.
+																								*            @arg @ref RCC_FLAG_PLLI2SRDY Main PLLI2S clock ready.
+																								@endif
+																								*            @arg @ref RCC_FLAG_LSERDY LSE oscillator clock ready.
+																								*            @arg @ref RCC_FLAG_LSIRDY LSI oscillator clock ready.
+																								*            @arg @ref RCC_FLAG_PINRST  Pin reset.
+																								*            @arg @ref RCC_FLAG_PORRST  POR/PDR reset.
+																								*            @arg @ref RCC_FLAG_SFTRST  Software reset.
+																								*            @arg @ref RCC_FLAG_IWDGRST Independent Watchdog reset.
+																								*            @arg @ref RCC_FLAG_WWDGRST Window Watchdog reset.
+																								*            @arg @ref RCC_FLAG_LPWRRST Low Power reset.
+																								* @retval The new state of __FLAG__ (TRUE or FALSE).
+																								*/
 	#define __HAL_RCC_GET_FLAG(__FLAG__) (((((__FLAG__) >> 5U) == CR_REG_INDEX)?   RCC->CR   : \
 									  ((((__FLAG__) >> 5U) == BDCR_REG_INDEX)? RCC->BDCR : \
 																			  RCC->CSR)) & (1U << ((__FLAG__) & RCC_FLAG_MASK)))
 
-																															/**
-																															  * @}
-																															  */
+																								/**
+																								  * @}
+																								  */
 
-																															  /**
-																																* @}
-																																*/
+																								  /**
+																									* @}
+																									*/
 
-																																/* Include RCC HAL Extension module */
+																									/* Include RCC HAL Extension module */
 	#include "stm32f1xx_hal_rcc_ex.h"
 
 	/* Exported functions --------------------------------------------------------*/
