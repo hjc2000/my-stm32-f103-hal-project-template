@@ -4,13 +4,13 @@
 #include<Peripheral.h>
 #include<SysticOperator.h>
 
-void led_init(void);
+void init_gpio(void);
 
 void Main()
 {
 	HAL_Init();									/* 初始化HAL库 */
 	sys_stm32_clock_init(RCC_PLL_MUL9);		/* 设置时钟, 72Mhz */
-	led_init();									/* LED初始化 */
+	init_gpio();									/* LED初始化 */
 
 	while (1)
 	{
@@ -25,7 +25,7 @@ void Main()
 	}
 }
 
-void led_init(void)
+void init_gpio(void)
 {
 	g_gpio_port_a.EnableClock();
 	g_gpio_port_b.EnableClock();
