@@ -1,15 +1,16 @@
 #pragma once
+#include"stm32f1xx_hal.h"
 #include<Peripheral.h>
+#include<core_cm3.h>
+#include<stdint.h>
+#include<stm32f103xe.h>
+#include<stm32f1xx_hal_cortex.h>
+#include<stm32f1xx_hal_rcc.h>
 
 #ifdef __cplusplus
 extern "C" {
 	#endif
 
-	#include"stm32f1xx_hal.h"
-	#include<core_cm3.h>
-	#include<stdint.h>
-	#include<stm32f103xe.h>
-	#include<stm32f1xx_hal_rcc.h>
 
 	/// <summary>
 	///		获取 SysTick 寄存器组中的 CTRL 寄存器的 COUNTFLAG 位的值。
@@ -101,16 +102,6 @@ extern "C" {
 	/// <param name="Delay"></param>
 	void HAL_Delay(uint32_t Delay);
 	#pragma endregion
-
-	#pragma region 检查外设的时钟是否使能
-	/// <summary>
-	///		检查指定的外设时钟是否使能
-	/// </summary>
-	/// <param name="p"></param>
-	/// <returns></returns>
-	uint8_t peripheral_clock_enabled(Peripheral p);
-	#pragma endregion
-
 
 	#ifdef __cplusplus
 }
