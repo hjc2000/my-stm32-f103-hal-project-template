@@ -38,8 +38,8 @@ void led_init(void)
 	gpio_initstruct.Pin = GPIO_PIN_8;			  /* LED0引脚 */
 	gpio_initstruct.Mode = GPIO_MODE_OUTPUT_PP;
 	gpio_initstruct.Pull = GPIO_PULLDOWN;
-	gpio_initstruct.Speed = GPIO_SPEED_FREQ_HIGH; /* 高速 */
-	HAL_GPIO_Init(GPIOB, &gpio_initstruct);		  /* 初始化LED0引脚 */
+	gpio_initstruct.Speed = GPIO_SPEED_FREQ_HIGH;
+	//HAL_GPIO_Init(GPIOB, &gpio_initstruct);
 
 
 	gpio_initstruct.Pin = GPIO_PIN_5;		/* LED1引脚 */
