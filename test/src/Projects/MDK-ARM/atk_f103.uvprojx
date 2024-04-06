@@ -413,6 +413,11 @@
               <FileType>4</FileType>
               <FilePath>..\..\..\..\out\install\gcc\lib\libjc-stm32-lib.a</FilePath>
             </File>
+            <File>
+              <FileName>libMain.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\out\install\gcc\lib\libMain.a</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
