@@ -18,7 +18,7 @@ public:
 	void InitPin(GpioPin pin, GpioPinOptions const &options) override;
 
 	// 通过 GpioPort 继承
-	void WritePin(GpioPin pin, bool value) override;
+	void DigitalWritePin(GpioPin pin, bool value) override;
 };
 
 extern GpioPortA g_gpio_port_a;
@@ -41,7 +41,7 @@ public:
 	void InitPin(GpioPin pin, GpioPinOptions const &options) override;
 
 	// 通过 GpioPort 继承
-	void WritePin(GpioPin pin, bool value) override;
+	void DigitalWritePin(GpioPin pin, bool value) override;
 };
 
 extern GpioPortB g_gpio_port_b;
@@ -64,7 +64,7 @@ public:
 	void InitPin(GpioPin pin, GpioPinOptions const &options) override;
 
 	// 通过 GpioPort 继承
-	void WritePin(GpioPin pin, bool value) override;
+	void DigitalWritePin(GpioPin pin, bool value) override;
 };
 
 extern GpioPortE g_gpio_port_e;

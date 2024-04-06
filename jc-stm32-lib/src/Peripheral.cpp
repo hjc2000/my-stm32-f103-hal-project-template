@@ -25,7 +25,7 @@ void GpioPortA::InitPin(GpioPin pin, GpioPinOptions const &options)
 	HAL_GPIO_Init(port_addr, &gpio_init_options);
 }
 
-void GpioPortA::WritePin(GpioPin pin, bool value)
+void GpioPortA::DigitalWritePin(GpioPin pin, bool value)
 {
 	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
 	HAL_GPIO_WritePin(port_addr, (uint16_t)pin, state);
@@ -62,7 +62,7 @@ void GpioPortB::InitPin(GpioPin pin, GpioPinOptions const &options)
 	HAL_GPIO_Init(port_addr, &gpio_init_options);
 }
 
-void GpioPortB::WritePin(GpioPin pin, bool value)
+void GpioPortB::DigitalWritePin(GpioPin pin, bool value)
 {
 	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
 	HAL_GPIO_WritePin(port_addr, (uint16_t)pin, state);
@@ -99,7 +99,7 @@ void GpioPortE::InitPin(GpioPin pin, GpioPinOptions const &options)
 	HAL_GPIO_Init(port_addr, &gpio_init_options);
 }
 
-void GpioPortE::WritePin(GpioPin pin, bool value)
+void GpioPortE::DigitalWritePin(GpioPin pin, bool value)
 {
 	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
 	HAL_GPIO_WritePin(port_addr, (uint16_t)pin, state);
