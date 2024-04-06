@@ -1,33 +1,31 @@
-#include"Clock.h"
+#include"SysticOperator.h"
 
-uint8_t systick_count_flag()
+SysticOperator g_systic_operator{};
+
+bool SysticOperator::CountFlag()
 {
 	uint32_t masked = SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk;
 	return masked >> SysTick_CTRL_COUNTFLAG_Pos;
 }
 
-uint8_t systick_clock_source()
+SysticClockSource SysticOperator::ClockSource()
 {
 	uint32_t masked = SysTick->CTRL & SysTick_CTRL_CLKSOURCE_Msk;
-	return masked >> SysTick_CTRL_CLKSOURCE_Pos;
+	masked >> SysTick_CTRL_CLKSOURCE_Pos;
+	if (masked)
+	{
+		return SysticClockSource::Hclk;
+	}
+
+	return SysticClockSource::HclkDiv8;
 }
 
-uint8_t systick_clock_source_is_hclk()
-{
-	return systick_clock_source();
-}
-
-uint8_t systick_clock_source_is_hclk_div8()
-{
-	return !systick_clock_source();
-}
-
-void systick_set_clock_source(uint8_t div8)
+void SysticOperator::SetClockSource(SysticClockSource value)
 {
 	/* 其实 HAL 中已经有一个 HAL_SYSTICK_CLKSourceConfig 函数用来干这个事了。
 	* 只不过 HAL_SYSTICK_CLKSourceConfig 函数不太清晰。
 	*/
-	if (div8)
+	if (value == SysticClockSource::HclkDiv8)
 	{
 		// 清 0 表示使用 8 分频
 		SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
@@ -39,10 +37,10 @@ void systick_set_clock_source(uint8_t div8)
 	}
 }
 
-uint32_t systick_clock_source_freq()
+uint32_t SysticOperator::ClockSourceFreq()
 {
 	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
-	if (systick_clock_source_is_hclk_div8())
+	if (ClockSource() == SysticClockSource::HclkDiv8)
 	{
 		return hclk_freq / 8;
 	}
@@ -50,28 +48,28 @@ uint32_t systick_clock_source_freq()
 	return hclk_freq;
 }
 
-uint32_t systick_reload_num()
+uint32_t SysticOperator::ReloadNum()
 {
 	uint32_t masked = SysTick->LOAD & SysTick_LOAD_RELOAD_Msk;
 	return masked >> SysTick_LOAD_RELOAD_Pos;
 }
 
-uint32_t systick_current_value()
+uint32_t SysticOperator::CurrentValue()
 {
 	uint32_t masked = SysTick->VAL & SysTick_VAL_CURRENT_Msk;
 	return masked >> SysTick_VAL_CURRENT_Pos;
 }
 
-void systick_nop_loop_delay_tick(uint32_t tick_count)
+void SysticOperator::NopLoopDelayForTicks(uint32_t tick_count)
 {
 	/* 这里不禁用操作系统的调度。不要让此函数耦合性太强。
 	* 如果需要的话，禁用操作系统的调度这个操作应该放到本函数外，调用者自己执行。
 	*/
-	uint32_t old_tick = systick_current_value();
+	uint32_t old_tick = CurrentValue();
 	uint32_t total_tick = 0;
 	while (1)
 	{
-		uint32_t now_tick = systick_current_value();
+		uint32_t now_tick = CurrentValue();
 		if (old_tick == now_tick)
 		{
 			// CPU 太快了，导致再次进入循环后 old_tick == now_tick
@@ -89,7 +87,7 @@ void systick_nop_loop_delay_tick(uint32_t tick_count)
 			// 发生了环绕
 			// delta_tick = old_tick - (now_tick - reload)
 			// delta_tick = old_tick - now_tick + reload
-			delta_tick = old_tick - now_tick + systick_reload_num();
+			delta_tick = old_tick - now_tick + ReloadNum();
 		}
 
 		total_tick += delta_tick;
@@ -102,21 +100,21 @@ void systick_nop_loop_delay_tick(uint32_t tick_count)
 	}
 }
 
-void systick_nop_loop_delay_us(uint32_t us_count)
+void SysticOperator::NopLoopDelayForUs(uint32_t us_count)
 {
-	uint32_t freq = systick_clock_source_freq();
-	systick_nop_loop_delay_tick(freq / (uint32_t)1e6 * us_count);
+	uint32_t freq = ClockSourceFreq();
+	NopLoopDelayForTicks(freq / (uint32_t)1e6 * us_count);
 }
 
-void systick_nop_loop_delay_ms(uint32_t ms_count)
+void SysticOperator::NopLoopDelayForMs(uint32_t ms_count)
 {
 	for (uint32_t i = 0; i < ms_count; i++)
 	{
-		systick_nop_loop_delay_us(1000);
+		NopLoopDelayForUs(1000);
 	}
 }
 
 void HAL_Delay(uint32_t Delay)
 {
-	systick_nop_loop_delay_ms(Delay);
+	g_systic_operator.NopLoopDelayForMs(Delay);
 }

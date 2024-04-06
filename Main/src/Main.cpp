@@ -1,8 +1,8 @@
 #include"Main.h"
 #include"sys.h"
 #include"usart.h"
-#include<Clock.h>
 #include<Peripheral.h>
+#include<SysticOperator.h>
 
 void led_init(void);
 
@@ -17,11 +17,11 @@ void Main()
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);		/* PB5置1 */
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_SET);		/* PB5置1 */
 		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_RESET);	/* PE5置0 */
-		systick_nop_loop_delay_ms(1000);
+		g_systic_operator.NopLoopDelayForMs(1000);
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);	/* PB5置0 */
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_RESET);	/* PB5置0 */
 		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_SET);		/* PE5置1 */
-		systick_nop_loop_delay_ms(1000);
+		g_systic_operator.NopLoopDelayForMs(1000);
 	}
 }
 
