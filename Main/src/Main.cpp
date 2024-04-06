@@ -29,16 +29,16 @@ void led_init(void)
 {
 	g_gpio_port_a.EnableClock();
 	g_gpio_port_b.EnableClock();
-	__HAL_RCC_GPIOB_CLK_ENABLE(); /* IO口PB时钟使能 */
 	__HAL_RCC_GPIOE_CLK_ENABLE(); /* IO口PE时钟使能 */
 
-	GPIO_InitTypeDef gpio_init_options;
-	gpio_init_options.Pin = GPIO_PIN_5;			  /* LED0引脚 */
-	gpio_init_options.Mode = GPIO_MODE_OUTPUT_PP;
-	gpio_init_options.Pull = GPIO_PULLUP;
-	gpio_init_options.Speed = GPIO_SPEED_FREQ_HIGH; /* 高速 */
-	HAL_GPIO_Init(GPIOB, &gpio_init_options);		  /* 初始化LED0引脚 */
+	g_gpio_port_b.InitPin(
+		GpioPin::Pin5,
+		GpioPinMode::Output_PushPull,
+		GpioPinPull::PullUp,
+		GpioPinSpeed::High
+	);
 
+	GPIO_InitTypeDef gpio_init_options;
 	gpio_init_options.Pin = GPIO_PIN_8;			  /* LED0引脚 */
 	gpio_init_options.Mode = GPIO_MODE_OUTPUT_PP;
 	gpio_init_options.Pull = GPIO_PULLDOWN;
