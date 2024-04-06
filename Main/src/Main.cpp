@@ -29,22 +29,21 @@ void led_init(void)
 {
 	g_gpio_port_a.EnableClock();
 	g_gpio_port_b.EnableClock();
-	__HAL_RCC_GPIOE_CLK_ENABLE(); /* IO口PE时钟使能 */
+	g_gpio_port_e.EnableClock();
 
 	GpioPinOptions options;
 	options.mode = GpioPinMode::Output_PushPull;
-	options.pull_mode = GpioPinPull::PullUp;
+	options.pull_mode = GpioPinPull::PullDown;
 	options.speed = GpioPinSpeed::High;
 	g_gpio_port_b.InitPin(GpioPin::Pin5, options);
 
-	GPIO_InitTypeDef gpio_init_options;
-	gpio_init_options.Pin = GPIO_PIN_8;			  /* LED0引脚 */
-	gpio_init_options.Mode = GPIO_MODE_OUTPUT_PP;
-	gpio_init_options.Pull = GPIO_PULLDOWN;
-	gpio_init_options.Speed = GPIO_SPEED_FREQ_HIGH;
-	//HAL_GPIO_Init(GPIOB, &gpio_init_options);
+	options.mode = GpioPinMode::Output_PushPull;
+	options.pull_mode = GpioPinPull::PullDown;
+	options.speed = GpioPinSpeed::High;
+	g_gpio_port_b.InitPin(GpioPin::Pin8, options);
 
-
-	gpio_init_options.Pin = GPIO_PIN_5;		/* LED1引脚 */
-	HAL_GPIO_Init(GPIOE, &gpio_init_options); /* 初始化LED1引脚 */
+	options.mode = GpioPinMode::Output_PushPull;
+	options.pull_mode = GpioPinPull::PullDown;
+	options.speed = GpioPinSpeed::High;
+	g_gpio_port_e.InitPin(GpioPin::Pin5, options);
 }

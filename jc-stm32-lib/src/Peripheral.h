@@ -33,3 +33,20 @@ public:
 };
 
 extern GpioPortB g_gpio_port_b;
+
+
+
+class GpioPortE :public GpioPort
+{
+public:
+	bool IsClockEnabled() override;
+	using GpioPort::IsClockDisabled;
+
+	void EnableClock() override;
+	void DisableClock() override;
+
+	// 通过 GpioPort 继承
+	void InitPin(GpioPin pin, GpioPinOptions const &options) override;
+};
+
+extern GpioPortE g_gpio_port_e;
