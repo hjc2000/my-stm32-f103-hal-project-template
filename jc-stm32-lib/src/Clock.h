@@ -23,7 +23,7 @@ extern "C" {
 	/// </note>
 	/// 
 	/// <returns>发生了回绕 返回非 0 值，没有发生回绕返回 0.</returns>
-	uint8_t systick_ctrl_count_flag();
+	uint8_t systick_count_flag();
 
 	#pragma region Systick时钟源相关
 	/// <summary>
@@ -32,9 +32,9 @@ extern "C" {
 	///		CLKSOURCE 位是可读可写的。
 	/// </summary>
 	/// <returns></returns>
-	uint8_t systick_ctrl_clock_source();
-	uint8_t systick_ctrl_clock_source_is_hclk();
-	uint8_t systick_ctrl_clock_source_is_hclk_div8();
+	uint8_t systick_clock_source();
+	uint8_t systick_clock_source_is_hclk();
+	uint8_t systick_clock_source_is_hclk_div8();
 
 	/// <summary>
 	///		选择 SysTick 的时钟源。
@@ -43,7 +43,7 @@ extern "C" {
 	///		为 true 表示将 HCLK 8 分频后输入 SysTick。
 	///		为 false 表示直接将 HCLK 输入 SysTick，不经过分频。
 	/// </param>
-	void set_systick_ctrl_clock_source(uint8_t div8);
+	void systick_set_clock_source(uint8_t div8);
 
 	/// <summary>
 	///		获取 Systick 的时钟源的频率
@@ -59,7 +59,7 @@ extern "C" {
 	///		RELOAD 是用来在计数值递减到 0 后，下一个时钟周期装载到计数器中的。
 	/// </summary>
 	/// <returns></returns>
-	uint32_t systick_load_reload();
+	uint32_t systick_reload_num();
 
 	/// <summary>
 	///		获取 SysTick 的 VAL 寄存器的 CURRENT 部分的值。
@@ -71,7 +71,7 @@ extern "C" {
 	///		COUNTFLAG 位清零。
 	/// </note>
 	/// <returns>当前计数值</returns>
-	uint32_t systick_val_current();
+	uint32_t systick_current_value();
 
 	#pragma region 利用SysTick进行延时
 	/// <summary>
