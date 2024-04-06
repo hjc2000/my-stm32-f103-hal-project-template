@@ -1,4 +1,6 @@
 #pragma once
+#include<Peripheral.h>
+
 #ifdef __cplusplus
 extern "C" {
 	#endif
@@ -99,6 +101,16 @@ extern "C" {
 	/// <param name="Delay"></param>
 	void HAL_Delay(uint32_t Delay);
 	#pragma endregion
+
+	#pragma region 检查外设的时钟是否使能
+	/// <summary>
+	///		检查指定的外设时钟是否使能
+	/// </summary>
+	/// <param name="p"></param>
+	/// <returns></returns>
+	uint8_t peripheral_clock_enabled(Peripheral p);
+	#pragma endregion
+
 
 	#ifdef __cplusplus
 }
