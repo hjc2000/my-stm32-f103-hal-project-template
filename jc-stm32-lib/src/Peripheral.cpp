@@ -1,5 +1,6 @@
 #include"Peripheral.h"
 
+#ifdef GPIOA
 bool GpioPortA::IsClockEnabled()
 {
 	return __HAL_RCC_GPIOA_IS_CLK_ENABLED();
@@ -25,18 +26,10 @@ void GpioPortA::InitPin(GpioPin pin, GpioPinOptions const &options)
 	HAL_GPIO_Init(port_addr, &gpio_init_options);
 }
 
-void GpioPortA::DigitalWritePin(GpioPin pin, bool value)
-{
-	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
-	HAL_GPIO_WritePin(port_addr, (uint16_t)pin, state);
-}
-
 GpioPortA g_gpio_port_a{};
+#endif // GPIOA
 
-
-
-
-
+#ifdef GPIOB
 bool GpioPortB::IsClockEnabled()
 {
 	return __HAL_RCC_GPIOB_IS_CLK_ENABLED();
@@ -62,18 +55,10 @@ void GpioPortB::InitPin(GpioPin pin, GpioPinOptions const &options)
 	HAL_GPIO_Init(port_addr, &gpio_init_options);
 }
 
-void GpioPortB::DigitalWritePin(GpioPin pin, bool value)
-{
-	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
-	HAL_GPIO_WritePin(port_addr, (uint16_t)pin, state);
-}
-
 GpioPortB g_gpio_port_b{};
+#endif // GPIOB
 
-
-
-
-
+#ifdef GPIOE
 bool GpioPortE::IsClockEnabled()
 {
 	return __HAL_RCC_GPIOE_IS_CLK_ENABLED();
@@ -99,10 +84,5 @@ void GpioPortE::InitPin(GpioPin pin, GpioPinOptions const &options)
 	HAL_GPIO_Init(port_addr, &gpio_init_options);
 }
 
-void GpioPortE::DigitalWritePin(GpioPin pin, bool value)
-{
-	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
-	HAL_GPIO_WritePin(port_addr, (uint16_t)pin, state);
-}
-
 GpioPortE g_gpio_port_e{};
+#endif // GPIOE

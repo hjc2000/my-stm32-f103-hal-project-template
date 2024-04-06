@@ -85,6 +85,12 @@ struct GpioPinOptions
 /// </summary>
 class GpioPort
 {
+protected:
+	/// <summary>
+	///		派生类需要在构造函数中为此字段赋值。
+	/// </summary>
+	GPIO_TypeDef *port_addr = nullptr;
+
 public:
 	virtual bool IsClockEnabled() = 0;
 	bool IsClockDisabled();
@@ -93,5 +99,5 @@ public:
 	virtual void DisableClock() = 0;
 
 	virtual void InitPin(GpioPin pin, GpioPinOptions const &options) = 0;
-	virtual void DigitalWritePin(GpioPin pin, bool value) = 0;
+	void DigitalWritePin(GpioPin pin, bool value);
 };
