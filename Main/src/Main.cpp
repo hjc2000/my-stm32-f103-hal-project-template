@@ -1,11 +1,8 @@
-#include "sys.h"
-#include "usart.h"
-#include<Clock.h>
-#include<Peripheral.h>
+#include"Main.h"
 
 void led_init(void);
 
-int main(void)
+void Main()
 {
 	HAL_Init();									/* 初始化HAL库 */
 	sys_stm32_clock_init(RCC_PLL_MUL9);		/* 设置时钟, 72Mhz */
