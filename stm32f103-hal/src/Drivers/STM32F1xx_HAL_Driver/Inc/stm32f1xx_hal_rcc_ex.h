@@ -243,18 +243,18 @@ extern "C" {
 		uint32_t OscillatorType;
 
 		#if defined(STM32F105xC) || defined(STM32F107xC)
-		uint32_t Prediv1Source;       /*!<  The Prediv1 source value.
-											 This parameter can be a value of @ref RCCEx_Prediv1_Source */
+		/*!<  The Prediv1 source value. This parameter can be a value of @ref RCCEx_Prediv1_Source */
+		uint32_t Prediv1Source;
 		#endif /* STM32F105xC || STM32F107xC */
 
 
-											 /// <summary>
-											 ///		配置 HSE 的状态。HSE 是外部高速时钟。
-											 ///		可以配置为 RCC_HSE_Config 中的一个值。RCC_HSE_Config 就是一组宏定义。（不如用枚举量）
-											 /// 
-											 ///		The new state of the HSE.
-											 ///		This parameter can be a value of @ref RCC_HSE_Config
-											 /// </summary>
+		/// <summary>
+		///		配置 HSE 的状态。HSE 是外部高速时钟。
+		///		可以配置为 RCC_HSE_Config 中的一个值。RCC_HSE_Config 就是一组宏定义。（不如用枚举量）
+		/// 
+		///		The new state of the HSE.
+		///		This parameter can be a value of @ref RCC_HSE_Config
+		/// </summary>
 		uint32_t HSEState;
 
 		/// <summary>
