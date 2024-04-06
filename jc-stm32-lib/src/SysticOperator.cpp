@@ -100,21 +100,24 @@ void SysticOperator::NopLoopDelayForTicks(uint32_t tick_count)
 	}
 }
 
-void SysticOperator::NopLoopDelayForUs(uint32_t us_count)
+void SysticOperator::NopLoopDelay(std::chrono::microseconds microseconds)
 {
+	uint32_t count = microseconds.count();
 	uint32_t freq = ClockSourceFreq();
-	NopLoopDelayForTicks(freq / (uint32_t)1e6 * us_count);
+	NopLoopDelayForTicks(freq / (uint32_t)1e6 * count);
 }
 
-void SysticOperator::NopLoopDelayForMs(uint32_t ms_count)
+void SysticOperator::NopLoopDelay(std::chrono::milliseconds milliseconds)
 {
-	for (uint32_t i = 0; i < ms_count; i++)
-	{
-		NopLoopDelayForUs(1000);
-	}
+	NopLoopDelay(std::chrono::microseconds{ milliseconds });
+}
+
+void SysticOperator::NopLoopDelay(std::chrono::seconds seconds)
+{
+	NopLoopDelay(std::chrono::milliseconds{ seconds });
 }
 
 void HAL_Delay(uint32_t Delay)
 {
-	g_systic_operator.NopLoopDelayForMs(Delay);
+	g_systic_operator.NopLoopDelay(std::chrono::milliseconds{ Delay });
 }

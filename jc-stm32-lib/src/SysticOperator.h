@@ -1,6 +1,7 @@
 #pragma once
 #include"stm32f1xx_hal.h"
 #include<Peripheral.h>
+#include<chrono>
 #include<core_cm3.h>
 #include<stdint.h>
 #include<stm32f103xe.h>
@@ -63,19 +64,9 @@ public:
 	/// </summary>
 	/// <param name="tick_count">要延时的 SysTick 计数值</param>
 	void NopLoopDelayForTicks(uint32_t tick_count);
-
-	/// <summary>
-	///		通过空指令循环来延时
-	/// </summary>
-	/// <param name="us_count">要延时多少微秒</param>
-	void NopLoopDelayForUs(uint32_t us_count);
-
-	/// <summary>
-	///		通过无操作的循环来延时指定的毫秒数。
-	///		此函数效率较低，如果有操作系统，尽量不要用此函数。
-	/// </summary>
-	/// <param name="ms_count"></param>
-	void NopLoopDelayForMs(uint32_t ms_count);
+	void NopLoopDelay(std::chrono::microseconds microseconds);
+	void NopLoopDelay(std::chrono::milliseconds milliseconds);
+	void NopLoopDelay(std::chrono::seconds seconds);
 };
 
 extern SysticOperator g_systic_operator;

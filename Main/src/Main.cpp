@@ -17,11 +17,11 @@ void Main()
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);		/* PB5置1 */
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_SET);		/* PB5置1 */
 		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_RESET);	/* PE5置0 */
-		g_systic_operator.NopLoopDelayForMs(1000);
+		g_systic_operator.NopLoopDelay(std::chrono::seconds(1));
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);	/* PB5置0 */
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_RESET);	/* PB5置0 */
 		HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_SET);		/* PE5置1 */
-		g_systic_operator.NopLoopDelayForMs(1000);
+		g_systic_operator.NopLoopDelay(std::chrono::seconds(1));
 	}
 }
 
