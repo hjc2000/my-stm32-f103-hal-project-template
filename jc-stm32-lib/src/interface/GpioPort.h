@@ -5,6 +5,9 @@
 #include<stm32f1xx_hal_def.h>
 #include<stm32f1xx_hal_gpio.h>
 
+/// <summary>
+///		定义 GPIO 引脚。
+/// </summary>
 enum class GpioPin : uint16_t
 {
 	Pin0 = GPIO_PIN_0,
@@ -25,6 +28,9 @@ enum class GpioPin : uint16_t
 	Pin15 = GPIO_PIN_15,
 };
 
+/// <summary>
+///		定义 GPIO 引脚模式。
+/// </summary>
 enum class GpioPinMode :uint32_t
 {
 	Input = GPIO_MODE_INPUT,
@@ -47,6 +53,9 @@ enum class GpioPinMode :uint32_t
 	Event_BothEdgeTrigger = GPIO_MODE_EVT_RISING_FALLING,
 };
 
+/// <summary>
+///		定义 GPIO 引脚的上下拉模式。
+/// </summary>
 enum class GpioPinPull :uint32_t
 {
 	NoPull = GPIO_NOPULL,
@@ -54,11 +63,21 @@ enum class GpioPinPull :uint32_t
 	PullDown = GPIO_PULLDOWN,
 };
 
+/// <summary>
+///		定义 GPIO 引脚的最大速度。
+/// </summary>
 enum GpioPinSpeed :uint32_t
 {
 	Low = GPIO_SPEED_FREQ_LOW,
 	Medium = GPIO_SPEED_FREQ_MEDIUM,
 	High = GPIO_SPEED_FREQ_HIGH,
+};
+
+struct GpioPinOptions
+{
+	GpioPinMode mode = GpioPinMode::Input;
+	GpioPinPull pull_mode = GpioPinPull::NoPull;
+	GpioPinSpeed speed = GpioPinSpeed::High;
 };
 
 /// <summary>
@@ -73,5 +92,5 @@ public:
 	virtual void EnableClock() = 0;
 	virtual void DisableClock() = 0;
 
-	virtual void InitPin(GpioPin pin, GpioPinMode mode, GpioPinPull pull_mode, GpioPinSpeed speed) = 0;
+	virtual void InitPin(GpioPin pin, GpioPinOptions const &options) = 0;
 };

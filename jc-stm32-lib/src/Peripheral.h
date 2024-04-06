@@ -12,7 +12,7 @@ public:
 	void DisableClock() override;
 
 	// 通过 GpioPort 继承
-	void InitPin(GpioPin pin, GpioPinMode mode, GpioPinPull pull_mode, GpioPinSpeed speed) override;
+	void InitPin(GpioPin pin, GpioPinOptions const &options) override;
 };
 
 extern GpioPortA g_gpio_port_a;
@@ -29,7 +29,7 @@ public:
 	void DisableClock() override;
 
 	// 通过 GpioPort 继承
-	void InitPin(GpioPin pin, GpioPinMode mode, GpioPinPull pull_mode, GpioPinSpeed speed) override;
+	void InitPin(GpioPin pin, GpioPinOptions const &options) override;
 };
 
 extern GpioPortB g_gpio_port_b;
