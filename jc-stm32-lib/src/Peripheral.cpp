@@ -22,7 +22,13 @@ void GpioPortA::InitPin(GpioPin pin, GpioPinOptions const &options)
 	gpio_init_options.Mode = (uint32_t)options.mode;
 	gpio_init_options.Pull = (uint32_t)options.pull_mode;
 	gpio_init_options.Speed = (uint32_t)options.speed;
-	HAL_GPIO_Init(GPIOA, &gpio_init_options);
+	HAL_GPIO_Init(port_addr, &gpio_init_options);
+}
+
+void GpioPortA::WritePin(GpioPin pin, bool value)
+{
+	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
+	HAL_GPIO_WritePin(port_addr, (uint16_t)pin, state);
 }
 
 GpioPortA g_gpio_port_a{};
@@ -53,7 +59,13 @@ void GpioPortB::InitPin(GpioPin pin, GpioPinOptions const &options)
 	gpio_init_options.Mode = (uint32_t)options.mode;
 	gpio_init_options.Pull = (uint32_t)options.pull_mode;
 	gpio_init_options.Speed = (uint32_t)options.speed;
-	HAL_GPIO_Init(GPIOB, &gpio_init_options);
+	HAL_GPIO_Init(port_addr, &gpio_init_options);
+}
+
+void GpioPortB::WritePin(GpioPin pin, bool value)
+{
+	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
+	HAL_GPIO_WritePin(port_addr, (uint16_t)pin, state);
 }
 
 GpioPortB g_gpio_port_b{};
@@ -84,7 +96,13 @@ void GpioPortE::InitPin(GpioPin pin, GpioPinOptions const &options)
 	gpio_init_options.Mode = (uint32_t)options.mode;
 	gpio_init_options.Pull = (uint32_t)options.pull_mode;
 	gpio_init_options.Speed = (uint32_t)options.speed;
-	HAL_GPIO_Init(GPIOE, &gpio_init_options);
+	HAL_GPIO_Init(port_addr, &gpio_init_options);
+}
+
+void GpioPortE::WritePin(GpioPin pin, bool value)
+{
+	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
+	HAL_GPIO_WritePin(port_addr, (uint16_t)pin, state);
 }
 
 GpioPortE g_gpio_port_e{};

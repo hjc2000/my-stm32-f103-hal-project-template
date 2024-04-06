@@ -93,4 +93,5 @@ public:
 	virtual void DisableClock() = 0;
 
 	virtual void InitPin(GpioPin pin, GpioPinOptions const &options) = 0;
+	virtual void WritePin(GpioPin pin, bool value) = 0;
 };
