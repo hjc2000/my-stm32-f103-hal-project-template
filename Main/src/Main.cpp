@@ -27,7 +27,8 @@ void Main()
 
 void led_init(void)
 {
-	__HAL_RCC_GPIOA_CLK_ENABLE();
+	g_gpio_port_a.EnableClock();
+	g_gpio_port_b.EnableClock();
 	__HAL_RCC_GPIOB_CLK_ENABLE(); /* IO口PB时钟使能 */
 	__HAL_RCC_GPIOE_CLK_ENABLE(); /* IO口PE时钟使能 */
 
