@@ -10,10 +10,7 @@
 			},
 			"vendor": {
 				"microsoft.com/VisualStudioSettings/CMake/1.0": {
-					"intelliSenseMode": "linux-gcc-arm",
-					"intelliSenseOptions": {
-						"additionalCompilerArgs": "-nostdlib -nodefaultlibs -mcpu=cortex-m3 -Wl,--gc-sections -mthumb-interwork -ffunction-sections -fdata-sections -fshort-wchar"
-					}
+					"intelliSenseMode": "linux-gcc-arm"
 				}
 			}
 		},
@@ -68,8 +65,8 @@
 				"CMAKE_C_COMPILER": "F:/bin/arm-gnu-toolchain-13.2.Rel1-mingw-w64-i686-arm-none-eabi/bin/arm-none-eabi-gcc.exe",
 				"CMAKE_CXX_COMPILER": "F:/bin/arm-gnu-toolchain-13.2.Rel1-mingw-w64-i686-arm-none-eabi/bin/arm-none-eabi-g++.exe",
 				"CMAKE_ASM_COMPILER": "F:/bin/arm-gnu-toolchain-13.2.Rel1-mingw-w64-i686-arm-none-eabi/bin/arm-none-eabi-as.exe",
-				"CMAKE_C_FLAGS": "-nostdlib -nodefaultlibs -mcpu=cortex-m3 -Wl,--gc-sections -mthumb-interwork -ffunction-sections -fdata-sections -fshort-wchar",
-				"CMAKE_CXX_FLAGS": "-nostdlib -nodefaultlibs -mcpu=cortex-m3 -Wl,--gc-sections -mthumb-interwork -ffunction-sections -fdata-sections -fshort-wchar"
+				"CMAKE_C_FLAGS": "-nostdlib -nodefaultlibs -mcpu=cortex-m3 -Wl,--gc-sections -mthumb-interwork -ffunction-sections -fdata-sections -fshort-wchar -funsigned-char -fshort-enums",
+				"CMAKE_CXX_FLAGS": "-nostdlib -nodefaultlibs -mcpu=cortex-m3 -Wl,--gc-sections -mthumb-interwork -ffunction-sections -fdata-sections -fshort-wchar -fno-rtti -funsigned-char -fshort-enums"
 			}
 		}
 	]

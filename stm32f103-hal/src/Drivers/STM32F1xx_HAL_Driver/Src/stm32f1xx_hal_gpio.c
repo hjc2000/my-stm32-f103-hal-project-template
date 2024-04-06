@@ -99,27 +99,12 @@
   *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
-  */
+*/
 
-  /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
-
-/** @addtogroup STM32F1xx_HAL_Driver
-  * @{
-  */
-
-  /** @defgroup GPIO GPIO
-	* @brief GPIO HAL module driver
-	* @{
-	*/
 
 #ifdef HAL_GPIO_MODULE_ENABLED
 
-	/* Private typedef -----------------------------------------------------------*/
-	/* Private define ------------------------------------------------------------*/
-	/** @addtogroup GPIO_Private_Constants GPIO Private Constants
-	  * @{
-	  */
 #define GPIO_MODE             0x00000003u
 #define EXTI_MODE             0x10000000u
 #define GPIO_MODE_IT          0x00010000u
@@ -130,7 +115,7 @@
 
 #define GPIO_NUMBER           16u
 
-	  /* Definitions for bit manipulation of CRL and CRH register */
+/* Definitions for bit manipulation of CRL and CRH register */
 #define  GPIO_CR_MODE_INPUT         0x00000000u /*!< 00: Input mode (reset state)  */
 #define  GPIO_CR_CNF_ANALOG         0x00000000u /*!< 00: Analog mode  */
 #define  GPIO_CR_CNF_INPUT_FLOATING 0x00000004u /*!< 01: Floating input (reset state)  */
@@ -139,34 +124,6 @@
 #define  GPIO_CR_CNF_GP_OUTPUT_OD   0x00000004u /*!< 01: General purpose output Open-drain  */
 #define  GPIO_CR_CNF_AF_OUTPUT_PP   0x00000008u /*!< 10: Alternate function output Push-pull  */
 #define  GPIO_CR_CNF_AF_OUTPUT_OD   0x0000000Cu /*!< 11: Alternate function output Open-drain  */
-
-/**
-  * @}
-  */
-  /* Private macro -------------------------------------------------------------*/
-  /* Private variables ---------------------------------------------------------*/
-  /* Private function prototypes -----------------------------------------------*/
-  /* Private functions ---------------------------------------------------------*/
-  /* Exported functions --------------------------------------------------------*/
-  /** @defgroup GPIO_Exported_Functions GPIO Exported Functions
-	* @{
-	*/
-
-	/** @defgroup GPIO_Exported_Functions_Group1 Initialization and de-initialization functions
-	 *  @brief    Initialization and Configuration functions
-	 *
-	@verbatim
-	 ===============================================================================
-				  ##### Initialization and de-initialization functions #####
-	 ===============================================================================
-	  [..]
-		This section provides functions allowing to initialize and de-initialize the GPIOs
-		to be ready for use.
-
-	@endverbatim
-	  * @{
-	  */
-
 
 void HAL_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *GPIO_Init)
 {
@@ -389,31 +346,7 @@ void HAL_GPIO_DeInit(GPIO_TypeDef *GPIOx, uint32_t GPIO_Pin)
 	}
 }
 
-/**
-  * @}
-  */
 
-  /** @defgroup GPIO_Exported_Functions_Group2 IO operation functions
-   *  @brief   GPIO Read and Write
-   *
-  @verbatim
-   ===============================================================================
-						 ##### IO operation functions #####
-   ===============================================================================
-	[..]
-	  This subsection provides a set of functions allowing to manage the GPIOs.
-
-  @endverbatim
-	* @{
-	*/
-
-	/**
-	  * @brief  Reads the specified input port pin.
-	  * @param  GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
-	  * @param  GPIO_Pin: specifies the port bit to read.
-	  *         This parameter can be GPIO_PIN_x where x can be (0..15).
-	  * @retval The input port pin value.
-	  */
 GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 {
 	GPIO_PinState bitstatus;
@@ -429,25 +362,10 @@ GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 	{
 		bitstatus = GPIO_PIN_RESET;
 	}
+
 	return bitstatus;
 }
 
-/**
-  * @brief  Sets or clears the selected data port bit.
-  *
-  * @note   This function uses GPIOx_BSRR register to allow atomic read/modify
-  *         accesses. In this way, there is no risk of an IRQ occurring between
-  *         the read and the modify access.
-  *
-  * @param  GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
-  * @param  GPIO_Pin: specifies the port bit to be written.
-  *          This parameter can be one of GPIO_PIN_x where x can be (0..15).
-  * @param  PinState: specifies the value to be written to the selected bit.
-  *          This parameter can be one of the GPIO_PinState enum values:
-  *            @arg GPIO_PIN_RESET: to clear the port pin
-  *            @arg GPIO_PIN_SET: to set the port pin
-  * @retval None
-  */
 void HAL_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState)
 {
 	/* Check the parameters */
@@ -470,12 +388,6 @@ void HAL_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState Pin
 	}
 }
 
-/**
-  * @brief  Toggles the specified GPIO pin
-  * @param  GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral
-  * @param  GPIO_Pin: Specifies the pins to be toggled.
-  * @retval None
-  */
 void HAL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 {
 	uint32_t odr;
@@ -559,21 +471,4 @@ __weak void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	 */
 }
 
-/**
-  * @}
-  */
-
-  /**
-	* @}
-	*/
-
 #endif /* HAL_GPIO_MODULE_ENABLED */
-	/**
-	  * @}
-	  */
-
-	  /**
-		* @}
-		*/
-
-		/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

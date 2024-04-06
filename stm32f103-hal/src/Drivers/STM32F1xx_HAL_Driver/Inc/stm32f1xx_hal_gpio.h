@@ -43,7 +43,7 @@ extern "C" {
 
 
 	/// <summary>
-	///		GPIO 置位复位枚举量。
+	///		表示 GPIO 引脚状态。有置位和复位两种状态。
 	/// </summary>
 	typedef enum
 	{
