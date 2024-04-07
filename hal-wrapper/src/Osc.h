@@ -199,6 +199,9 @@ public:
 
 class Osc
 {
+private:
+	Osc() = delete;
+
 public:
 	/// <summary>
 	///		配置时钟源

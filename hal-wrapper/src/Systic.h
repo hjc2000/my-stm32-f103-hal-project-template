@@ -10,6 +10,9 @@ enum class SysticClockSource
 	HCLK_DIV8
 };
 
+/// <summary>
+///		Systic 只有 1 个，所以实现为静态类。
+/// </summary>
 class Systic
 {
 private:
