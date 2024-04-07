@@ -6,9 +6,28 @@
 #include<stm32f1xx_hal_rcc.h>
 
 /// <summary>
+///		PLL 状态
+/// </summary>
+enum class PllState :uint32_t
+{
+	NotConfigured = RCC_PLL_NONE,
+	Off = RCC_PLL_OFF,
+	On = RCC_PLL_ON,
+};
+
+/// <summary>
+///		PLL 时钟源
+/// </summary>
+enum class PllClockSource :uint32_t
+{
+	HSI_DIV2 = RCC_PLLSOURCE_HSI_DIV2,
+	HSE = RCC_PLLSOURCE_HSE,
+};
+
+/// <summary>
 ///		PLL 倍频系数
 /// </summary>
-enum class PllMul
+enum class PllMul :uint32_t
 {
 	#ifdef RCC_PLL_MUL2
 	Mul2 = RCC_PLL_MUL2,
@@ -69,4 +88,16 @@ enum class PllMul
 	#ifdef RCC_PLL_MUL16
 	Mul16 = RCC_PLL_MUL16,
 	#endif // RCC_PLL_MUL16
+};
+
+struct PllInitOptions
+{
+	PllState state;
+
+	PllClockSource clock_source;
+
+	/// <summary>
+	///		倍频系数
+	/// </summary>
+	PllMul mul;
 };
