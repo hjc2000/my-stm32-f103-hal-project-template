@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-set(ProjectName jc-stm32-lib)
+set(ProjectName hal-wrapper)
 project(${ProjectName})
 enable_language(ASM)
 set(CMAKE_CXX_STANDARD 20)

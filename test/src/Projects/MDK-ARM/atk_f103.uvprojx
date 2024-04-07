@@ -409,14 +409,14 @@
               <FilePath>..\..\..\..\out\install\gcc\lib\libstm32f103-hal.a</FilePath>
             </File>
             <File>
-              <FileName>libjc-stm32-lib.a</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\out\install\gcc\lib\libjc-stm32-lib.a</FilePath>
-            </File>
-            <File>
               <FileName>libMain.a</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\out\install\gcc\lib\libMain.a</FilePath>
+            </File>
+            <File>
+              <FileName>libhal-wrapper.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\out\install\gcc\lib\libhal-wrapper.a</FilePath>
             </File>
           </Files>
         </Group>

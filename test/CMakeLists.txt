@@ -14,6 +14,6 @@ target_link_libraries(
 	${ProjectName}
 	PUBLIC
 	stm32f103-hal
-	jc-stm32-lib
+	hal-wrapper
 	Main
 )

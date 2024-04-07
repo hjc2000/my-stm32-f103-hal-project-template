@@ -275,8 +275,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\out\install\gcc\lib\libjc-stm32-lib.a</PathWithFileName>
-      <FilenameWithoutPath>libjc-stm32-lib.a</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\out\install\gcc\lib\libMain.a</PathWithFileName>
+      <FilenameWithoutPath>libMain.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -287,8 +287,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\out\install\gcc\lib\libMain.a</PathWithFileName>
-      <FilenameWithoutPath>libMain.a</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\out\install\gcc\lib\libhal-wrapper.a</PathWithFileName>
+      <FilenameWithoutPath>libhal-wrapper.a</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
