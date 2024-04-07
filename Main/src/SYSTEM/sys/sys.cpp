@@ -112,15 +112,14 @@ void sys_stm32_clock_init(uint32_t plln)
 	pll_init_options._clock_source = PllClockSource::HSE;
 	pll_init_options._mul = PllMul::Mul9;
 
-	RCC_OscInitTypeDef rcc_osc_init = { 0 };
-	rcc_osc_init.OscillatorType = RCC_OSCILLATORTYPE_HSE;       /* 选择要配置HSE */
-	rcc_osc_init.HSEState = RCC_HSE_ON;                         /* 打开HSE */
-	rcc_osc_init.HSEPredivValue = RCC_HSE_PREDIV_DIV1;          /* HSE预分频系数 */
-	rcc_osc_init.PLL = pll_init_options;
+	OscInitOptions osc_init_options;
+	osc_init_options._oscillator_type = OscillatorType::HSE;
+	osc_init_options._hse_state = HseState::On;
+	osc_init_options._hse_prediv = HsePrediv::DIV1;
+	osc_init_options._pll_init_options = pll_init_options;
 
 	// 初始化振荡器
-	HAL_StatusTypeDef ret = HAL_RCC_OscConfig(&rcc_osc_init);
-	if (ret != HAL_OK)
+	if (osc_init_options.ConfigOsc() != HAL_OK)
 	{
 		/* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
 		while (1);
@@ -135,7 +134,7 @@ void sys_stm32_clock_init(uint32_t plln)
 	rcc_clk_init.APB2CLKDivider = RCC_HCLK_DIV1;                /* APB2分频系数为1 */
 
 	/* 同时设置FLASH延时周期为2WS，也就是3个CPU周期。 */
-	ret = HAL_RCC_ClockConfig(&rcc_clk_init, FLASH_LATENCY_2);
+	HAL_StatusTypeDef ret = HAL_RCC_ClockConfig(&rcc_clk_init, FLASH_LATENCY_2);
 	if (ret != HAL_OK)
 	{
 		/* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
