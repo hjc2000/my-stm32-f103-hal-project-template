@@ -14,10 +14,10 @@ SysticClockSource SysticOperator::ClockSource()
 	masked >> SysTick_CTRL_CLKSOURCE_Pos;
 	if (masked)
 	{
-		return SysticClockSource::Hclk;
+		return SysticClockSource::HCLK;
 	}
 
-	return SysticClockSource::HclkDiv8;
+	return SysticClockSource::HCLK_DIV8;
 }
 
 void SysticOperator::SetClockSource(SysticClockSource value)
@@ -25,7 +25,7 @@ void SysticOperator::SetClockSource(SysticClockSource value)
 	/* 其实 HAL 中已经有一个 HAL_SYSTICK_CLKSourceConfig 函数用来干这个事了。
 	* 只不过 HAL_SYSTICK_CLKSourceConfig 函数不太清晰。
 	*/
-	if (value == SysticClockSource::HclkDiv8)
+	if (value == SysticClockSource::HCLK_DIV8)
 	{
 		// 清 0 表示使用 8 分频
 		SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
@@ -40,7 +40,7 @@ void SysticOperator::SetClockSource(SysticClockSource value)
 uint32_t SysticOperator::ClockSourceFreq()
 {
 	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
-	if (ClockSource() == SysticClockSource::HclkDiv8)
+	if (ClockSource() == SysticClockSource::HCLK_DIV8)
 	{
 		return hclk_freq / 8;
 	}

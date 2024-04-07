@@ -10,8 +10,8 @@
 
 enum class SysticClockSource
 {
-	Hclk,
-	HclkDiv8
+	HCLK,
+	HCLK_DIV8
 };
 
 class SysticOperator
