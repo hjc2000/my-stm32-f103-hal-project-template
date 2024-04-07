@@ -117,94 +117,63 @@ extern "C" {
 	  * @{
 	  */
 
-	  /** @defgroup RCC_PLL_Clock_Source PLL Clock Source
-		* @{
-		*/
-
+	#pragma region RCC_PLL_Clock_Source
 	#define RCC_PLLSOURCE_HSI_DIV2      0x00000000U     /*!< HSI clock divided by 2 selected as PLL entry clock source */
 	#define RCC_PLLSOURCE_HSE           RCC_CFGR_PLLSRC            /*!< HSE clock selected as PLL entry clock source */
+	#pragma endregion
 
-		/**
-		  * @}
-		  */
 
-		  /** @defgroup RCC_Oscillator_Type Oscillator Type
-			* @{
-			*/
+	#pragma region RCC_Oscillator_Type
 	#define RCC_OSCILLATORTYPE_NONE            0x00000000U
 	#define RCC_OSCILLATORTYPE_HSE             0x00000001U
 	#define RCC_OSCILLATORTYPE_HSI             0x00000002U
 	#define RCC_OSCILLATORTYPE_LSE             0x00000004U
 	#define RCC_OSCILLATORTYPE_LSI             0x00000008U
-			/**
-			  * @}
-			  */
+	#pragma endregion
 
-			  /** @defgroup RCC_HSE_Config HSE Config
-				* @{
-				*/
+
+	#pragma region RCC_HSE_Config
 	#define RCC_HSE_OFF                      0x00000000U                                /*!< HSE clock deactivation */
 	#define RCC_HSE_ON                       RCC_CR_HSEON                               /*!< HSE clock activation */
 	#define RCC_HSE_BYPASS                   ((uint32_t)(RCC_CR_HSEBYP | RCC_CR_HSEON)) /*!< External clock source for HSE clock */
-				/**
-				  * @}
-				  */
+	#pragma endregion
 
-				  /** @defgroup RCC_LSE_Config LSE Config
-					* @{
-					*/
+
+	#pragma region RCC_LSE_Config
 	#define RCC_LSE_OFF                      0x00000000U                                    /*!< LSE clock deactivation */
 	#define RCC_LSE_ON                       RCC_BDCR_LSEON                                 /*!< LSE clock activation */
 	#define RCC_LSE_BYPASS                   ((uint32_t)(RCC_BDCR_LSEBYP | RCC_BDCR_LSEON)) /*!< External clock source for LSE clock */
+	#pragma endregion
 
-					/**
-					  * @}
-					  */
 
-					  /** @defgroup RCC_HSI_Config HSI Config
-						* @{
-						*/
+	#pragma region RCC_HSI_Config
 	#define RCC_HSI_OFF                      0x00000000U                      /*!< HSI clock deactivation */
 	#define RCC_HSI_ON                       RCC_CR_HSION                     /*!< HSI clock activation */
 
 	#define RCC_HSICALIBRATION_DEFAULT       0x10U         /* Default HSI calibration trimming value */
+	#pragma endregion
 
-						/**
-						  * @}
-						  */
 
-						  /** @defgroup RCC_LSI_Config LSI Config
-							* @{
-							*/
+	#pragma region RCC_LSI_Config
 	#define RCC_LSI_OFF                      0x00000000U              /*!< LSI clock deactivation */
 	#define RCC_LSI_ON                       RCC_CSR_LSION            /*!< LSI clock activation */
+	#pragma endregion
 
-							/**
-							  * @}
-							  */
 
-							  /** @defgroup RCC_PLL_Config PLL Config
-								* @{
-								*/
+	#pragma region RCC_PLL_Config
 	#define RCC_PLL_NONE                      0x00000000U  /*!< PLL is not configured */
 	#define RCC_PLL_OFF                       0x00000001U  /*!< PLL deactivation */
 	#define RCC_PLL_ON                        0x00000002U  /*!< PLL activation */
+	#pragma endregion
 
-								/**
-								  * @}
-								  */
 
-								  /** @defgroup RCC_System_Clock_Type System Clock Type
-									  * @{
-									  */
+	#pragma region RCC_System_Clock_Type
 	#define RCC_CLOCKTYPE_SYSCLK             0x00000001U /*!< SYSCLK to configure */
 	#define RCC_CLOCKTYPE_HCLK               0x00000002U /*!< HCLK to configure */
 	#define RCC_CLOCKTYPE_PCLK1              0x00000004U /*!< PCLK1 to configure */
 	#define RCC_CLOCKTYPE_PCLK2              0x00000008U /*!< PCLK2 to configure */
+	#pragma endregion
 
-									  /**
-									  * @}
-									  */
 
 	#pragma region RCC_System_Clock_Source System Clock Source
 	#define RCC_SYSCLKSOURCE_HSI             RCC_CFGR_SW_HSI /*!< HSI selected as system clock */
@@ -213,16 +182,12 @@ extern "C" {
 	#pragma endregion
 
 
-									  /** @defgroup RCC_System_Clock_Source_Status System Clock Source Status
-										* @{
-										*/
+	#pragma region RCC_System_Clock_Source_Status
 	#define RCC_SYSCLKSOURCE_STATUS_HSI      RCC_CFGR_SWS_HSI            /*!< HSI used as system clock */
 	#define RCC_SYSCLKSOURCE_STATUS_HSE      RCC_CFGR_SWS_HSE            /*!< HSE used as system clock */
 	#define RCC_SYSCLKSOURCE_STATUS_PLLCLK   RCC_CFGR_SWS_PLL            /*!< PLL used as system clock */
+	#pragma endregion
 
-										/**
-										  * @}
-										  */
 
 
 	#pragma region RCC_AHB_Clock_Source AHB Clock Source
@@ -258,48 +223,37 @@ extern "C" {
 
 
 
-										  /** @defgroup RCC_MCO_Index MCO Index
-											* @{
-											*/
+	#pragma region RCC_MCO_Index
 	#define RCC_MCO1                         0x00000000U
 	#define RCC_MCO                          RCC_MCO1               /*!< MCO1 to be compliant with other families with 2 MCOs*/
+	#pragma endregion
 
-											/**
-											  * @}
-											  */
 
-											  /** @defgroup RCC_MCOx_Clock_Prescaler MCO Clock Prescaler
-												* @{
-												*/
+	#pragma region RCC_MCOx_Clock_Prescaler
 	#define RCC_MCODIV_1                    0x00000000U
+	#pragma endregion
 
-												/**
-												  * @}
-												  */
 
-												  /** @defgroup RCC_Interrupt Interrupts
-													* @{
-													*/
+	#pragma region RCC_Interrupt
 	#define RCC_IT_LSIRDY                    ((uint8_t)RCC_CIR_LSIRDYF)   /*!< LSI Ready Interrupt flag */
 	#define RCC_IT_LSERDY                    ((uint8_t)RCC_CIR_LSERDYF)   /*!< LSE Ready Interrupt flag */
 	#define RCC_IT_HSIRDY                    ((uint8_t)RCC_CIR_HSIRDYF)   /*!< HSI Ready Interrupt flag */
 	#define RCC_IT_HSERDY                    ((uint8_t)RCC_CIR_HSERDYF)   /*!< HSE Ready Interrupt flag */
 	#define RCC_IT_PLLRDY                    ((uint8_t)RCC_CIR_PLLRDYF)   /*!< PLL Ready Interrupt flag */
 	#define RCC_IT_CSS                       ((uint8_t)RCC_CIR_CSSF)      /*!< Clock Security System Interrupt flag */
-													/**
-													  * @}
-													  */
+	#pragma endregion
 
-													  /** @defgroup RCC_Flag Flags
-														*        Elements values convention: XXXYYYYYb
-														*           - YYYYY  : Flag position in the register
-														*           - XXX  : Register index
-														*                 - 001: CR register
-														*                 - 010: BDCR register
-														*                 - 011: CSR register
-														* @{
-														*/
-														/* Flags in the CR register */
+
+	  /** @defgroup RCC_Flag Flags
+		*        Elements values convention: XXXYYYYYb
+		*           - YYYYY  : Flag position in the register
+		*           - XXX  : Register index
+		*                 - 001: CR register
+		*                 - 010: BDCR register
+		*                 - 011: CSR register
+		* @{
+		*/
+		/* Flags in the CR register */
 	#define RCC_FLAG_HSIRDY                  ((uint8_t)((CR_REG_INDEX << 5U) | RCC_CR_HSIRDY_Pos)) /*!< Internal High Speed clock ready flag */
 	#define RCC_FLAG_HSERDY                  ((uint8_t)((CR_REG_INDEX << 5U) | RCC_CR_HSERDY_Pos)) /*!< External High Speed clock ready flag */
 	#define RCC_FLAG_PLLRDY                  ((uint8_t)((CR_REG_INDEX << 5U) | RCC_CR_PLLRDY_Pos)) /*!< PLL clock ready flag */
