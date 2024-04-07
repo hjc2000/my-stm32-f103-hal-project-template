@@ -8,9 +8,9 @@ void init_gpio(void);
 
 void Main()
 {
-	HAL_Init();									/* 初始化HAL库 */
-	sys_stm32_clock_init(RCC_PLL_MUL9);		/* 设置时钟, 72Mhz */
-	init_gpio();									/* LED初始化 */
+	HAL_Init();
+	sys_stm32_clock_init(RCC_PLL_MUL9);
+	init_gpio();
 
 	while (1)
 	{
