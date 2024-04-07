@@ -112,7 +112,7 @@ void sys_stm32_clock_init(uint32_t plln)
 	pll_init_options._clock_source = PllClockSource::HSE;
 	pll_init_options._mul = PllMul::Mul9;
 
-	OscInitOptions osc_init_options;
+	Osc osc_init_options;
 	osc_init_options._oscillator_type = OscillatorType::HSE;
 	osc_init_options._hse_state = HseState::On;
 	osc_init_options._hse_prediv = HsePrediv::DIV1;

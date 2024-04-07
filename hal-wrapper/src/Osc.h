@@ -168,17 +168,17 @@ enum class LsiState
 /// <summary>
 ///		振荡器配置。（或者说时钟源配置）
 /// </summary>
-class OscInitOptions
+class Osc
 {
 public:
-	OscInitOptions() {}
+	Osc() {}
 
-	OscInitOptions(RCC_OscInitTypeDef def)
+	Osc(RCC_OscInitTypeDef def)
 	{
 		*this = def;
 	}
 
-	OscInitOptions &operator=(RCC_OscInitTypeDef value);
+	Osc &operator=(RCC_OscInitTypeDef value);
 
 public:
 	OscillatorType _oscillator_type = OscillatorType::HSI;
