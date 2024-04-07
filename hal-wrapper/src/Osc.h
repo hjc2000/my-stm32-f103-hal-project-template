@@ -197,6 +197,9 @@ public:
 	operator RCC_OscInitTypeDef() const;
 };
 
+/// <summary>
+///		时钟系统只有一个，所以实现为静态类
+/// </summary>
 class Osc
 {
 private:
