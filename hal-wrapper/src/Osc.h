@@ -147,33 +147,47 @@ enum class HseState
 	Bypass = RCC_HSE_BYPASS,
 };
 
+enum class HsePrediv
+{
+	DIV1 = RCC_HSE_PREDIV_DIV1,
+	DIV2 = RCC_HSE_PREDIV_DIV2,
+};
+
+enum class LseState
+{
+	Off = RCC_LSE_OFF,
+	On = RCC_LSE_ON,
+	Bypass = RCC_LSE_BYPASS,
+};
+
+enum class HsiState
+{
+	Off = RCC_HSI_OFF,
+	On = RCC_HSI_ON,
+};
+
+enum class LsiState
+{
+	Off = RCC_LSI_OFF,
+	On = RCC_LSI_ON,
+};
+
 class OscInitOptions
 {
 public:
 	OscillatorType _oscillator_type = OscillatorType::HSI;
+
 	HseState _hse_state = HseState::Off;
+	HsePrediv _hse_prediv = HsePrediv::DIV1;
+	LseState _lse_state = LseState::Off;
+	HsiState _hsi_state = HsiState::On;
 
 	/// <summary>
-	///		HSE 预分频系数。
-	///		可选值：
-	///			RCC_HSE_PREDIV_DIV1
-	///			RCC_HSE_PREDIV_DIV2
+	///		必须在区间 [0x00, 0x1f] 上
 	/// </summary>
-	uint32_t HSEPredivValue;       /*!<  The Prediv1 factor value (named PREDIV1 or PLLXTPRE in RM)
-	This parameter can be a value of @ref RCCEx_Prediv1_Factor */
+	uint32_t _hsi_calibration_value = RCC_HSICALIBRATION_DEFAULT;
 
-	uint32_t LSEState;              /*!<  The new state of the LSE.
-	This parameter can be a value of @ref RCC_LSE_Config */
-
-	uint32_t HSIState;              /*!< The new state of the HSI.
-	This parameter can be a value of @ref RCC_HSI_Config */
-
-	uint32_t HSICalibrationValue;   /*!< The HSI calibration trimming value (default is RCC_HSICALIBRATION_DEFAULT).
-	This parameter must be a number between Min_Data = 0x00 and Max_Data = 0x1F */
-
-	uint32_t LSIState;              /*!<  The new state of the LSI.
-	This parameter can be a value of @ref RCC_LSI_Config */
-
+	LsiState _lsi_state = LsiState::Off;
 
 	PllInitOptions _pll_init_options;
 };
