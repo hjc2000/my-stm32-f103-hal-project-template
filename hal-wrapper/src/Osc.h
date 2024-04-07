@@ -174,6 +174,11 @@ public:
 		*this = def;
 	}
 
+	/// <summary>
+	///		提供用 hal 库中的 RCC_OscInitTypeDef 类对象来初始化本类对象的方法。
+	/// </summary>
+	/// <param name="value"></param>
+	/// <returns></returns>
 	OscInitOptions &operator=(RCC_OscInitTypeDef const &value);
 
 public:

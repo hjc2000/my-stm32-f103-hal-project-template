@@ -63,22 +63,10 @@ extern "C" {
 		uint32_t PLLMUL;
 	} RCC_PLLInitTypeDef;
 
-
-	/// <summary>
-	///		RCC System, AHB and APB busses clock configuration structure definition。
-	/// 
-	///		简单来说就是用来初始化时钟信号的。（注意区分时钟源与时钟信号）
-	///		时钟信号有：SYSCLK, AHB, APB1, APB2。
-	/// 
-	///		时钟信号就是来自时钟源的方波经过分频器后再输出。
-	/// </summary>
 	typedef struct
 	{
 		/// <summary>
 		///		选择要设置的时钟类型。
-		/// 
-		///		可选值为 RCC_System_Clock_Type 中的一个。
-		///		RCC_System_Clock_Type 中的值可以按位或运算，也就是可以通过这种方式同时选中多个时钟类型。
 		/// </summary>
 		uint32_t ClockType;
 
@@ -86,29 +74,8 @@ extern "C" {
 		///		选择系统时钟的时钟源。可选值为 RCC_System_Clock_Source 中的一个。
 		/// </summary>
 		uint32_t SYSCLKSource;
-
-		/// <summary>
-		///		AHB 时钟（也叫做 HCLK）的分频系数。
-		///		AHB 时钟信号来自一个分频器。该分频器输入端直接连接着 SYSCLK 的输出端。
-		/// 
-		///		可选值为 RCC_AHB_Clock_Source 中的一个。
-		/// </summary>
 		uint32_t AHBCLKDivider;
-
-		/// <summary>
-		///		APB1 时钟（也叫 PCLK1）的分频系数。
-		///		这个时钟是给低速外设用的。APB1 时钟信号来自一个分频器。该分频器的输入端连接着 AHB 的输出端。
-		/// 
-		///		可选值为 RCC_APB1_APB2_Clock_Source 中的一个。
-		/// </summary>
 		uint32_t APB1CLKDivider;
-
-		/// <summary>
-		///		APB2 时钟（也叫 PCLK2）的分频系数。
-		///		APB2 是给高速外设用的。APB2 时钟信号来自一个分频器。该分频器的输入端连接着 AHB 的输出端。
-		/// 
-		///		可选值为 RCC_APB1_APB2_Clock_Source 中的一个。
-		/// </summary>
 		uint32_t APB2CLKDivider;
 	} RCC_ClkInitTypeDef;
 

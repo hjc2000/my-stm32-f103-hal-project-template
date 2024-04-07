@@ -13,6 +13,3 @@
 #include<stm32f1xx_hal_cortex.h>
 #include<stm32f1xx_hal_def.h>
 #include<stm32f1xx_hal_rcc.h>
-
-// 包含一些标准库的头文件
-#include<stdint.h>

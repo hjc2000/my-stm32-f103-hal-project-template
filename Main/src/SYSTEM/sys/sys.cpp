@@ -24,6 +24,7 @@
 
 #include "sys.h"
 #include<Osc.h>
+#include<Clock.h>
 
  /**
   * @brief       设置中断向量表偏移地址
