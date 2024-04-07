@@ -1,12 +1,8 @@
 #pragma once
-#include"stm32f1xx_hal.h"
 #include<Peripheral.h>
 #include<chrono>
-#include<core_cm3.h>
+#include<hal.h>
 #include<stdint.h>
-#include<stm32f103xe.h>
-#include<stm32f1xx_hal_cortex.h>
-#include<stm32f1xx_hal_rcc.h>
 
 enum class SysticClockSource
 {
