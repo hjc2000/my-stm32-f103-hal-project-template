@@ -8,7 +8,7 @@ PllInitOptions &PllInitOptions::operator=(RCC_PLLInitTypeDef value)
 	return *this;
 }
 
-PllInitOptions::operator RCC_PLLInitTypeDef()
+PllInitOptions::operator RCC_PLLInitTypeDef() const
 {
 	RCC_PLLInitTypeDef def;
 	def.PLLState = (uint32_t)_state;
@@ -17,7 +17,7 @@ PllInitOptions::operator RCC_PLLInitTypeDef()
 	return def;
 }
 
-Osc &Osc::operator=(RCC_OscInitTypeDef value)
+OscInitOptions &OscInitOptions::operator=(RCC_OscInitTypeDef value)
 {
 	_oscillator_type = (OscillatorType)value.OscillatorType;
 	_hse_state = (HseState)value.HSEState;
@@ -30,7 +30,7 @@ Osc &Osc::operator=(RCC_OscInitTypeDef value)
 	return *this;
 }
 
-Osc::operator RCC_OscInitTypeDef()
+OscInitOptions::operator RCC_OscInitTypeDef() const
 {
 	RCC_OscInitTypeDef def;
 	def.OscillatorType = (uint32_t)_oscillator_type;

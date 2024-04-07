@@ -112,14 +112,14 @@ void sys_stm32_clock_init(uint32_t plln)
 	pll_init_options._clock_source = PllClockSource::HSE;
 	pll_init_options._mul = PllMul::Mul9;
 
-	Osc osc;
-	osc._oscillator_type = OscillatorType::HSE;
-	osc._hse_state = HseState::On;
-	osc._hse_prediv = HsePrediv::DIV1;
-	osc._pll_init_options = pll_init_options;
+	OscInitOptions osc_init_options;
+	osc_init_options._oscillator_type = OscillatorType::HSE;
+	osc_init_options._hse_state = HseState::On;
+	osc_init_options._hse_prediv = HsePrediv::DIV1;
+	osc_init_options._pll_init_options = pll_init_options;
 
 	// 初始化振荡器
-	if (osc.ConfigOsc() != HAL_OK)
+	if (Osc::Config(osc_init_options) != HAL_OK)
 	{
 		/* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
 		while (1);

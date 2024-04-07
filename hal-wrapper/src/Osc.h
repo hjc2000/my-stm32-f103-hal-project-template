@@ -112,7 +112,7 @@ public:
 	PllMul _mul = PllMul::Mul9;
 
 public:
-	operator RCC_PLLInitTypeDef();
+	operator RCC_PLLInitTypeDef() const;
 };
 
 
@@ -164,17 +164,17 @@ enum class LsiState
 /// <summary>
 ///		振荡器配置。（或者说时钟源配置）
 /// </summary>
-class Osc
+class OscInitOptions
 {
 public:
-	Osc() {}
+	OscInitOptions() {}
 
-	Osc(RCC_OscInitTypeDef def)
+	OscInitOptions(RCC_OscInitTypeDef def)
 	{
 		*this = def;
 	}
 
-	Osc &operator=(RCC_OscInitTypeDef value);
+	OscInitOptions &operator=(RCC_OscInitTypeDef value);
 
 public:
 	OscillatorType _oscillator_type = OscillatorType::HSI;
@@ -194,15 +194,15 @@ public:
 	PllInitOptions _pll_init_options;
 
 public:
-	operator RCC_OscInitTypeDef();
+	operator RCC_OscInitTypeDef() const;
+};
 
-	/// <summary>
-	///		用本类的字段储存的信息配置时钟
-	/// </summary>
-	/// <returns></returns>
-	HAL_StatusTypeDef ConfigOsc()
+class Osc
+{
+public:
+	static HAL_StatusTypeDef Config(OscInitOptions const &options)
 	{
-		RCC_OscInitTypeDef rcc_osc_init = *this;
+		RCC_OscInitTypeDef rcc_osc_init = options;
 		return HAL_RCC_OscConfig(&rcc_osc_init);
 	}
 };
