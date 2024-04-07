@@ -2,7 +2,7 @@
 #include"sys.h"
 #include"usart.h"
 #include<Peripheral.h>
-#include<SysticOperator.h>
+#include<Systic.h>
 
 void init_gpio(void);
 
@@ -17,11 +17,11 @@ void Main()
 		g_gpio_port_b.DigitalWritePin(GpioPin::Pin5, 1);
 		g_gpio_port_b.DigitalWritePin(GpioPin::Pin8, 1);
 		g_gpio_port_e.DigitalWritePin(GpioPin::Pin5, 0);
-		g_systic_operator.NopLoopDelay(std::chrono::seconds(1));
+		Systic::NopLoopDelay(std::chrono::seconds(1));
 		g_gpio_port_b.DigitalWritePin(GpioPin::Pin5, 0);
 		g_gpio_port_b.DigitalWritePin(GpioPin::Pin8, 0);
 		g_gpio_port_e.DigitalWritePin(GpioPin::Pin5, 1);
-		g_systic_operator.NopLoopDelay(std::chrono::seconds(1));
+		Systic::NopLoopDelay(std::chrono::seconds(1));
 	}
 }
 

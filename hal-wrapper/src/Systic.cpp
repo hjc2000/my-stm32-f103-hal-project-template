@@ -1,14 +1,12 @@
-#include"SysticOperator.h"
+#include"Systic.h"
 
-SysticOperator g_systic_operator{};
-
-bool SysticOperator::CountFlag()
+bool Systic::CountFlag()
 {
 	uint32_t masked = SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk;
 	return masked >> SysTick_CTRL_COUNTFLAG_Pos;
 }
 
-SysticClockSource SysticOperator::ClockSource()
+SysticClockSource Systic::ClockSource()
 {
 	uint32_t masked = SysTick->CTRL & SysTick_CTRL_CLKSOURCE_Msk;
 	masked >> SysTick_CTRL_CLKSOURCE_Pos;
@@ -20,7 +18,7 @@ SysticClockSource SysticOperator::ClockSource()
 	return SysticClockSource::HCLK_DIV8;
 }
 
-void SysticOperator::SetClockSource(SysticClockSource value)
+void Systic::SetClockSource(SysticClockSource value)
 {
 	/* 其实 HAL 中已经有一个 HAL_SYSTICK_CLKSourceConfig 函数用来干这个事了。
 	* 只不过 HAL_SYSTICK_CLKSourceConfig 函数不太清晰。
@@ -37,7 +35,7 @@ void SysticOperator::SetClockSource(SysticClockSource value)
 	}
 }
 
-uint32_t SysticOperator::ClockSourceFreq()
+uint32_t Systic::ClockSourceFreq()
 {
 	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
 	if (ClockSource() == SysticClockSource::HCLK_DIV8)
@@ -48,19 +46,19 @@ uint32_t SysticOperator::ClockSourceFreq()
 	return hclk_freq;
 }
 
-uint32_t SysticOperator::ReloadNum()
+uint32_t Systic::ReloadNum()
 {
 	uint32_t masked = SysTick->LOAD & SysTick_LOAD_RELOAD_Msk;
 	return masked >> SysTick_LOAD_RELOAD_Pos;
 }
 
-uint32_t SysticOperator::CurrentValue()
+uint32_t Systic::CurrentValue()
 {
 	uint32_t masked = SysTick->VAL & SysTick_VAL_CURRENT_Msk;
 	return masked >> SysTick_VAL_CURRENT_Pos;
 }
 
-void SysticOperator::NopLoopDelayForTicks(uint32_t tick_count)
+void Systic::NopLoopDelayForTicks(uint32_t tick_count)
 {
 	/* 这里不禁用操作系统的调度。不要让此函数耦合性太强。
 	* 如果需要的话，禁用操作系统的调度这个操作应该放到本函数外，调用者自己执行。
@@ -100,24 +98,24 @@ void SysticOperator::NopLoopDelayForTicks(uint32_t tick_count)
 	}
 }
 
-void SysticOperator::NopLoopDelay(std::chrono::microseconds microseconds)
+void Systic::NopLoopDelay(std::chrono::microseconds microseconds)
 {
 	uint32_t count = microseconds.count();
 	uint32_t freq = ClockSourceFreq();
 	NopLoopDelayForTicks(freq / (uint32_t)1e6 * count);
 }
 
-void SysticOperator::NopLoopDelay(std::chrono::milliseconds milliseconds)
+void Systic::NopLoopDelay(std::chrono::milliseconds milliseconds)
 {
 	NopLoopDelay(std::chrono::microseconds{ milliseconds });
 }
 
-void SysticOperator::NopLoopDelay(std::chrono::seconds seconds)
+void Systic::NopLoopDelay(std::chrono::seconds seconds)
 {
 	NopLoopDelay(std::chrono::milliseconds{ seconds });
 }
 
 void HAL_Delay(uint32_t Delay)
 {
-	g_systic_operator.NopLoopDelay(std::chrono::milliseconds{ Delay });
+	Systic::NopLoopDelay(std::chrono::milliseconds{ Delay });
 }

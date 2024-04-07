@@ -200,6 +200,11 @@ public:
 class Osc
 {
 public:
+	/// <summary>
+	///		配置时钟源
+	/// </summary>
+	/// <param name="options"></param>
+	/// <returns></returns>
 	static HAL_StatusTypeDef Config(OscInitOptions const &options)
 	{
 		RCC_OscInitTypeDef rcc_osc_init = options;

@@ -10,8 +10,11 @@ enum class SysticClockSource
 	HCLK_DIV8
 };
 
-class SysticOperator
+class Systic
 {
+private:
+	Systic() = delete;
+
 public:
 	/// <summary>
 	///		获取 SysTick 寄存器组中的 CTRL 寄存器的 COUNTFLAG 位的值。
@@ -27,12 +30,12 @@ public:
 	/// </note>
 	/// 
 	/// <returns>发生了回绕 返回非 0 值，没有发生回绕返回 0.</returns>
-	bool CountFlag();
+	static bool CountFlag();
 
-	SysticClockSource ClockSource();
-	void SetClockSource(SysticClockSource value);
+	static SysticClockSource ClockSource();
+	static void SetClockSource(SysticClockSource value);
 
-	uint32_t ClockSourceFreq();
+	static uint32_t ClockSourceFreq();
 
 	/// <summary>
 	///		获取 SysTick 的 LOAD 寄存器的 RELOAD 部分的值。
@@ -41,7 +44,7 @@ public:
 	///		RELOAD 是用来在计数值递减到 0 后，下一个时钟周期装载到计数器中的。
 	/// </summary>
 	/// <returns></returns>
-	uint32_t ReloadNum();
+	static uint32_t ReloadNum();
 
 	/// <summary>
 	///		获取 SysTick 的 VAL 寄存器的 CURRENT 部分的值。
@@ -53,20 +56,17 @@ public:
 	///		COUNTFLAG 位清零。
 	/// </note>
 	/// <returns>当前计数值</returns>
-	uint32_t CurrentValue();
+	static uint32_t CurrentValue();
 
 	/// <summary>
 	///		通过空指令循环来延时
 	/// </summary>
 	/// <param name="tick_count">要延时的 SysTick 计数值</param>
-	void NopLoopDelayForTicks(uint32_t tick_count);
-	void NopLoopDelay(std::chrono::microseconds microseconds);
-	void NopLoopDelay(std::chrono::milliseconds milliseconds);
-	void NopLoopDelay(std::chrono::seconds seconds);
+	static void NopLoopDelayForTicks(uint32_t tick_count);
+	static void NopLoopDelay(std::chrono::microseconds microseconds);
+	static void NopLoopDelay(std::chrono::milliseconds milliseconds);
+	static void NopLoopDelay(std::chrono::seconds seconds);
 };
-
-extern SysticOperator g_systic_operator;
-
 
 extern "C"
 {
