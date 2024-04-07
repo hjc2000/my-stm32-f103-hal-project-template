@@ -93,14 +93,35 @@ enum class PllMul :uint32_t
 /// <summary>
 ///		PLL 初始化选项
 /// </summary>
-struct PllInitOptions
+class PllInitOptions
 {
-	PllState state;
+public:
+	PllInitOptions() {}
 
-	PllClockSource clock_source;
+	PllInitOptions(RCC_PLLInitTypeDef def)
+	{
+		_state = (PllState)def.PLLState;
+		_clock_source = (PllClockSource)def.PLLSource;
+		_mul = (PllMul)def.PLLMUL;
+	}
+
+public:
+	PllState _state;
+
+	PllClockSource _clock_source;
 
 	/// <summary>
 	///		倍频系数
 	/// </summary>
-	PllMul mul;
+	PllMul _mul;
+
+public:
+	operator RCC_PLLInitTypeDef()
+	{
+		RCC_PLLInitTypeDef def;
+		def.PLLState = (uint32_t)_state;
+		def.PLLSource = (uint32_t)_clock_source;
+		def.PLLMUL = (uint32_t)_mul;
+		return def;
+	}
 };
