@@ -126,17 +126,17 @@ void sys_stm32_clock_init(uint32_t plln)
 		while (1);
 	}
 
-	/* 选中PLL作为系统时钟源并且配置 HCLK ,PCLK1 和 PCLK2*/
-	RCC_ClkInitTypeDef rcc_clk_init = { 0 };
-	rcc_clk_init.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
-	rcc_clk_init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;        /* 设置系统时钟来自PLL */
-	rcc_clk_init.AHBCLKDivider = RCC_SYSCLK_DIV1;               /* AHB分频系数为1 */
-	rcc_clk_init.APB1CLKDivider = RCC_HCLK_DIV2;                /* APB1分频系数为2 */
-	rcc_clk_init.APB2CLKDivider = RCC_HCLK_DIV1;                /* APB2分频系数为1 */
+	ClockInitOptions clock_init_options;
+	clock_init_options._clock_type = ClockType::SYSCLK
+		| ClockType::HCLK
+		| ClockType::PCLK1
+		| ClockType::PCLK2;
 
-	/* 同时设置FLASH延时周期为2WS，也就是3个CPU周期。 */
-	HAL_StatusTypeDef ret = HAL_RCC_ClockConfig(&rcc_clk_init, FLASH_LATENCY_2);
-	if (ret != HAL_OK)
+	clock_init_options._sysclk_source = SysclkSource::PLLCLK;
+	clock_init_options._ahb_clk_divider = AHBDivider::DIV1;
+	clock_init_options._apb1_divider = APBDivider::DIV2;
+	clock_init_options._apb2_divider = APBDivider::DIV1;
+	if (Clock::InitClock(clock_init_options, FlashLatency::Latency2) != HAL_OK)
 	{
 		/* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
 		while (1);
