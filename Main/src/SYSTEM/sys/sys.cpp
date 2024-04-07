@@ -118,8 +118,6 @@ void sys_stm32_clock_init(uint32_t plln)
 	osc_init_options._hse_state = HseState::On;
 	osc_init_options._hse_prediv = HsePrediv::DIV1;
 	osc_init_options._pll_init_options = pll_init_options;
-
-	// 初始化振荡器
 	if (Osc::Config(osc_init_options) != HAL_OK)
 	{
 		/* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
@@ -131,7 +129,6 @@ void sys_stm32_clock_init(uint32_t plln)
 		| ClockType::HCLK
 		| ClockType::PCLK1
 		| ClockType::PCLK2;
-
 	clock_init_options._sysclk_source = SysclkSource::PLLCLK;
 	clock_init_options._ahb_clk_divider = AHBDivider::DIV1;
 	clock_init_options._apb1_divider = APBDivider::DIV2;
