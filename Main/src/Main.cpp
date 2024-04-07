@@ -32,18 +32,18 @@ void init_gpio(void)
 	g_gpio_port_e.EnableClock();
 
 	GpioPinOptions gpio_pin_options;
-	gpio_pin_options.mode = GpioPinMode::Output_PushPull;
-	gpio_pin_options.pull_mode = GpioPinPull::PullDown;
-	gpio_pin_options.speed = GpioPinSpeed::High;
+	gpio_pin_options._mode = GpioPinMode::Output_PushPull;
+	gpio_pin_options._pull_mode = GpioPinPull::PullDown;
+	gpio_pin_options._speed = GpioPinSpeed::High;
 	g_gpio_port_b.InitPin(GpioPin::Pin5, gpio_pin_options);
 
-	gpio_pin_options.mode = GpioPinMode::Output_PushPull;
-	gpio_pin_options.pull_mode = GpioPinPull::PullDown;
-	gpio_pin_options.speed = GpioPinSpeed::High;
+	gpio_pin_options._mode = GpioPinMode::Output_PushPull;
+	gpio_pin_options._pull_mode = GpioPinPull::PullDown;
+	gpio_pin_options._speed = GpioPinSpeed::High;
 	//g_gpio_port_b.InitPin(GpioPin::Pin8, gpio_pin_options);
 
-	gpio_pin_options.mode = GpioPinMode::Output_PushPull;
-	gpio_pin_options.pull_mode = GpioPinPull::PullDown;
-	gpio_pin_options.speed = GpioPinSpeed::High;
+	gpio_pin_options._mode = GpioPinMode::Output_PushPull;
+	gpio_pin_options._pull_mode = GpioPinPull::PullDown;
+	gpio_pin_options._speed = GpioPinSpeed::High;
 	g_gpio_port_e.InitPin(GpioPin::Pin5, gpio_pin_options);
 }

@@ -106,14 +106,14 @@ public:
 	}
 
 public:
-	PllState _state;
+	PllState _state = PllState::On;
 
-	PllClockSource _clock_source;
+	PllClockSource _clock_source = PllClockSource::HSE;
 
 	/// <summary>
 	///		倍频系数
 	/// </summary>
-	PllMul _mul;
+	PllMul _mul = PllMul::Mul9;
 
 public:
 	operator RCC_PLLInitTypeDef()

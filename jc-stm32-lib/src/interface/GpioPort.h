@@ -75,9 +75,9 @@ enum GpioPinSpeed :uint32_t
 
 struct GpioPinOptions
 {
-	GpioPinMode mode = GpioPinMode::Input;
-	GpioPinPull pull_mode = GpioPinPull::NoPull;
-	GpioPinSpeed speed = GpioPinSpeed::High;
+	GpioPinMode _mode = GpioPinMode::Input;
+	GpioPinPull _pull_mode = GpioPinPull::NoPull;
+	GpioPinSpeed _speed = GpioPinSpeed::High;
 };
 
 /// <summary>
