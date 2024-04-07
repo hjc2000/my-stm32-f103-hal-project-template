@@ -90,6 +90,9 @@ enum class PllMul :uint32_t
 	#endif // RCC_PLL_MUL16
 };
 
+/// <summary>
+///		PLL 初始化选项
+/// </summary>
 struct PllInitOptions
 {
 	PllState state;
