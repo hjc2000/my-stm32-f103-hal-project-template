@@ -1,6 +1,6 @@
 #include"Osc.h"
 
-PllInitOptions &PllInitOptions::operator=(RCC_PLLInitTypeDef value)
+PllInitOptions &PllInitOptions::operator=(RCC_PLLInitTypeDef const &value)
 {
 	_state = (PllState)value.PLLState;
 	_clock_source = (PllClockSource)value.PLLSource;
@@ -17,7 +17,7 @@ PllInitOptions::operator RCC_PLLInitTypeDef() const
 	return def;
 }
 
-OscInitOptions &OscInitOptions::operator=(RCC_OscInitTypeDef value)
+OscInitOptions &OscInitOptions::operator=(RCC_OscInitTypeDef const &value)
 {
 	_oscillator_type = (OscillatorType)value.OscillatorType;
 	_hse_state = (HseState)value.HSEState;

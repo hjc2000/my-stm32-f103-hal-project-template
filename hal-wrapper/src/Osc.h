@@ -94,12 +94,12 @@ class PllInitOptions
 public:
 	PllInitOptions() {}
 
-	PllInitOptions(RCC_PLLInitTypeDef def)
+	PllInitOptions(RCC_PLLInitTypeDef const &def)
 	{
 		*this = def;
 	}
 
-	PllInitOptions &operator=(RCC_PLLInitTypeDef value);
+	PllInitOptions &operator=(RCC_PLLInitTypeDef const &value);
 
 public:
 	PllState _state = PllState::On;
@@ -169,12 +169,12 @@ class OscInitOptions
 public:
 	OscInitOptions() {}
 
-	OscInitOptions(RCC_OscInitTypeDef def)
+	OscInitOptions(RCC_OscInitTypeDef const &def)
 	{
 		*this = def;
 	}
 
-	OscInitOptions &operator=(RCC_OscInitTypeDef value);
+	OscInitOptions &operator=(RCC_OscInitTypeDef const &value);
 
 public:
 	OscillatorType _oscillator_type = OscillatorType::HSI;
