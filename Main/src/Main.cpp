@@ -10,7 +10,7 @@ void init_gpio(void);
 void Main()
 {
 	HAL_Init();
-	config_72mhz_hclk();
+	atk::config_72mhz_hclk();
 	init_gpio();
 
 	while (1)
