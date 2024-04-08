@@ -16,8 +16,10 @@ namespace atk
 	public:
 		void Initialize() override;
 		void Deinitialize() override;
-		void SwitchOn() override;
-		void SwitchOff() override;
+
+		void TurnOn() override;
+		void TurnOff() override;
+		void Toggle() override;
 	};
 
 	class GreenDigitalLed :public hal::DigitalLed
@@ -32,7 +34,9 @@ namespace atk
 	public:
 		void Initialize() override;
 		void Deinitialize() override;
-		void SwitchOn() override;
-		void SwitchOff() override;
+
+		void TurnOn() override;
+		void TurnOff() override;
+		void Toggle() override;
 	};
 }

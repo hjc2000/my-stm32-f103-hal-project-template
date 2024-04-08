@@ -16,11 +16,11 @@ void Main()
 
 	while (1)
 	{
-		RedDigitalLed::Instance().SwitchOff();
-		GreenDigitalLed::Instance().SwitchOn();
+		RedDigitalLed::Instance().TurnOff();
+		GreenDigitalLed::Instance().TurnOn();
 		Systic::NopLoopDelay(std::chrono::seconds(1));
-		RedDigitalLed::Instance().SwitchOn();
-		GreenDigitalLed::Instance().SwitchOff();
+		RedDigitalLed::Instance().TurnOn();
+		GreenDigitalLed::Instance().TurnOff();
 		Systic::NopLoopDelay(std::chrono::seconds(1));
 	}
 }

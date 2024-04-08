@@ -10,7 +10,9 @@ namespace hal
 	public:
 		virtual void Initialize() = 0;
 		virtual void Deinitialize() = 0;
-		virtual void SwitchOn() = 0;
-		virtual void SwitchOff() = 0;
+
+		virtual void TurnOn() = 0;
+		virtual void TurnOff() = 0;
+		virtual void Toggle() = 0;
 	};
 }

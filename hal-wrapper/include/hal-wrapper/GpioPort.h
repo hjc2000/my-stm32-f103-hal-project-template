@@ -89,7 +89,7 @@ namespace hal
 		/// <summary>
 		///		派生类需要在构造函数中为此字段赋值。
 		/// </summary>
-		GPIO_TypeDef *port_addr = nullptr;
+		GPIO_TypeDef *_port_addr = nullptr;
 
 	public:
 		virtual bool IsClockEnabled() = 0;
@@ -110,6 +110,7 @@ namespace hal
 		void InitPin(GpioPin pin, GpioPinOptions const &options);
 		void DigitalWritePin(GpioPin pin, bool value);
 		bool DigitalReadPin(GpioPin pin);
+		void DigitalTogglePin(GpioPin pin);
 	};
 
 	#pragma region GpioPortA
@@ -119,7 +120,7 @@ namespace hal
 	public:
 		GpioPortA()
 		{
-			port_addr = GPIOA;
+			_port_addr = GPIOA;
 		}
 
 		static GpioPortA &Instance()
@@ -143,7 +144,7 @@ namespace hal
 	public:
 		GpioPortB()
 		{
-			port_addr = GPIOB;
+			_port_addr = GPIOB;
 		}
 
 		static GpioPortB &Instance()
@@ -167,7 +168,7 @@ namespace hal
 	public:
 		GpioPortC()
 		{
-			port_addr = GPIOC;
+			_port_addr = GPIOC;
 		}
 
 		static GpioPortC &Instance()
@@ -191,7 +192,7 @@ namespace hal
 	public:
 		GpioPortD()
 		{
-			port_addr = GPIOD;
+			_port_addr = GPIOD;
 		}
 
 		static GpioPortD &Instance()
@@ -215,7 +216,7 @@ namespace hal
 	public:
 		GpioPortE()
 		{
-			port_addr = GPIOE;
+			_port_addr = GPIOE;
 		}
 
 		static GpioPortE &Instance()
