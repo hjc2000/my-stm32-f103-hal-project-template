@@ -109,6 +109,7 @@ namespace hal
 
 		void InitPin(GpioPin pin, GpioPinOptions const &options);
 		void DigitalWritePin(GpioPin pin, bool value);
+		bool DigitalReadPin(GpioPin pin);
 	};
 
 	#pragma region GpioPortA

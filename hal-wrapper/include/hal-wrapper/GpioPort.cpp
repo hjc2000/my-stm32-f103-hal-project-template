@@ -23,6 +23,17 @@ void GpioPort::DigitalWritePin(GpioPin pin, bool value)
 	HAL_GPIO_WritePin(port_addr, (uint16_t)pin, state);
 }
 
+bool GpioPort::DigitalReadPin(GpioPin pin)
+{
+	GPIO_PinState pin_state = HAL_GPIO_ReadPin(port_addr, (uint16_t)pin);
+	if (pin_state == GPIO_PinState::GPIO_PIN_SET)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 #pragma region GpioPortA
 bool GpioPortA::IsClockEnabled()
 {
