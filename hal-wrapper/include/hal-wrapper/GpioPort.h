@@ -94,7 +94,7 @@ public:
 	virtual void EnableClock() = 0;
 	virtual void DisableClock() = 0;
 
-	virtual void InitPin(GpioPin pin, GpioPinOptions const &options) = 0;
+	void InitPin(GpioPin pin, GpioPinOptions const &options);
 	void DigitalWritePin(GpioPin pin, bool value);
 };
 
@@ -105,6 +105,14 @@ extern GpioPort &g_gpio_port_a;
 #ifdef GPIOB
 extern GpioPort &g_gpio_port_b;
 #endif // GPIOB
+
+#ifdef GPIOC
+extern GpioPort &g_gpio_port_c;
+#endif // GPIOC
+
+#ifdef GPIOD
+extern GpioPort &g_gpio_port_d;
+#endif // GPIOD
 
 #ifdef GPIOE
 extern GpioPort &g_gpio_port_e;
