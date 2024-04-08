@@ -22,3 +22,138 @@ void GpioPort::DigitalWritePin(GpioPin pin, bool value)
 	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
 	HAL_GPIO_WritePin(port_addr, (uint16_t)pin, state);
 }
+
+#pragma region GpioPortA
+bool GpioPortA::IsClockEnabled()
+{
+	return __HAL_RCC_GPIOA_IS_CLK_ENABLED();
+}
+
+void GpioPortA::EnableClock()
+{
+	if (IsClockEnabled())
+	{
+		return;
+	}
+
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+}
+
+void GpioPortA::DisableClock()
+{
+	if (IsClockDisabled())
+	{
+		return;
+	}
+
+	__HAL_RCC_GPIOA_CLK_DISABLE();
+}
+#pragma endregion
+
+#pragma region GpioPortB
+bool GpioPortB::IsClockEnabled()
+{
+	return __HAL_RCC_GPIOB_IS_CLK_ENABLED();
+}
+
+void GpioPortB::EnableClock()
+{
+	if (IsClockEnabled())
+	{
+		return;
+	}
+
+	__HAL_RCC_GPIOB_CLK_ENABLE();
+}
+
+void GpioPortB::DisableClock()
+{
+	if (IsClockDisabled())
+	{
+		return;
+	}
+
+	__HAL_RCC_GPIOB_CLK_DISABLE();
+}
+#pragma endregion
+
+#pragma region GpioPortC
+bool GpioPortC::IsClockEnabled()
+{
+	return __HAL_RCC_GPIOC_IS_CLK_ENABLED();
+}
+
+void GpioPortC::EnableClock()
+{
+	if (IsClockEnabled())
+	{
+		return;
+	}
+
+	__HAL_RCC_GPIOC_CLK_ENABLE();
+}
+
+void GpioPortC::DisableClock()
+{
+	if (IsClockDisabled())
+	{
+		return;
+	}
+
+	__HAL_RCC_GPIOC_CLK_DISABLE();
+}
+#pragma endregion
+
+#pragma region GpioPortD
+bool GpioPortD::IsClockEnabled()
+{
+	return __HAL_RCC_GPIOD_IS_CLK_ENABLED();
+}
+
+void GpioPortD::EnableClock()
+{
+	if (IsClockEnabled())
+	{
+		return;
+	}
+
+	__HAL_RCC_GPIOD_CLK_ENABLE();
+}
+
+void GpioPortD::DisableClock()
+{
+	if (IsClockDisabled())
+	{
+		return;
+	}
+
+	__HAL_RCC_GPIOD_CLK_DISABLE();
+}
+#pragma endregion
+
+#pragma region GpioPortE
+bool GpioPortE::IsClockEnabled()
+{
+	return __HAL_RCC_GPIOE_IS_CLK_ENABLED();
+}
+
+void GpioPortE::EnableClock()
+{
+	if (IsClockEnabled())
+	{
+		return;
+	}
+
+	__HAL_RCC_GPIOE_CLK_ENABLE();
+}
+
+void GpioPortE::DisableClock()
+{
+	if (IsClockDisabled())
+	{
+		return;
+	}
+
+	__HAL_RCC_GPIOE_CLK_DISABLE();
+}
+#pragma endregion

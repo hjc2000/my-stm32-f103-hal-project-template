@@ -12,7 +12,7 @@ using namespace atk;
 void Main()
 {
 	HAL_Init();
-	atk::config_72mhz_hclk();
+	config_72mhz_hclk();
 	RedDigitalLed::Instance().Initialize();
 	GreenDigitalLed::Instance().Initialize();
 

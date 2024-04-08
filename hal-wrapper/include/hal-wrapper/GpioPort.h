@@ -95,14 +95,23 @@ namespace hal
 		virtual bool IsClockEnabled() = 0;
 		bool IsClockDisabled();
 
+		/// <summary>
+		///		使能时钟。
+		///		派生类实现时需要注意，在执行使能的操作前要先判断是否已经使能了。
+		/// </summary>
 		virtual void EnableClock() = 0;
+
+		/// <summary>
+		///		失能时钟。
+		///		派生类实现时需要注意，在执行失能的操作前要先判断是否已经失能了。
+		/// </summary>
 		virtual void DisableClock() = 0;
 
 		void InitPin(GpioPin pin, GpioPinOptions const &options);
 		void DigitalWritePin(GpioPin pin, bool value);
 	};
 
-	#pragma region GPIOA
+	#pragma region GpioPortA
 	#ifdef GPIOA
 	class GpioPortA :public GpioPort
 	{
@@ -119,25 +128,14 @@ namespace hal
 		}
 
 	public:
-		bool IsClockEnabled() override
-		{
-			return __HAL_RCC_GPIOA_IS_CLK_ENABLED();
-		}
-
-		void EnableClock() override
-		{
-			__HAL_RCC_GPIOA_CLK_ENABLE();
-		}
-
-		void DisableClock() override
-		{
-			__HAL_RCC_GPIOA_CLK_DISABLE();
-		}
+		bool IsClockEnabled() override;
+		void EnableClock() override;
+		void DisableClock() override;
 	};
 	#endif // GPIOA
 	#pragma endregion
 
-	#pragma region GPIOB
+	#pragma region GpioPortB
 	#ifdef GPIOB
 	class GpioPortB :public GpioPort
 	{
@@ -154,25 +152,14 @@ namespace hal
 		}
 
 	public:
-		bool IsClockEnabled() override
-		{
-			return __HAL_RCC_GPIOB_IS_CLK_ENABLED();
-		}
-
-		void EnableClock() override
-		{
-			__HAL_RCC_GPIOB_CLK_ENABLE();
-		}
-
-		void DisableClock() override
-		{
-			__HAL_RCC_GPIOB_CLK_DISABLE();
-		}
+		bool IsClockEnabled() override;
+		void EnableClock() override;
+		void DisableClock() override;
 	};
 	#endif // GPIOB
 	#pragma endregion
 
-	#pragma region GPIOC
+	#pragma region GpioPortC
 	#ifdef GPIOC
 	class GpioPortC :public GpioPort
 	{
@@ -189,25 +176,14 @@ namespace hal
 		}
 
 	public:
-		bool IsClockEnabled() override
-		{
-			return __HAL_RCC_GPIOC_IS_CLK_ENABLED();
-		}
-
-		void EnableClock() override
-		{
-			__HAL_RCC_GPIOC_CLK_ENABLE();
-		}
-
-		void DisableClock() override
-		{
-			__HAL_RCC_GPIOC_CLK_DISABLE();
-		}
+		bool IsClockEnabled() override;
+		void EnableClock() override;
+		void DisableClock() override;
 	};
 	#endif // GPIOC
 	#pragma endregion
 
-	#pragma region GPIOD
+	#pragma region GpioPortD
 	#ifdef GPIOD
 	class GpioPortD :public GpioPort
 	{
@@ -224,25 +200,14 @@ namespace hal
 		}
 
 	public:
-		bool IsClockEnabled() override
-		{
-			return __HAL_RCC_GPIOD_IS_CLK_ENABLED();
-		}
-
-		void EnableClock() override
-		{
-			__HAL_RCC_GPIOD_CLK_ENABLE();
-		}
-
-		void DisableClock() override
-		{
-			__HAL_RCC_GPIOD_CLK_DISABLE();
-		}
+		bool IsClockEnabled() override;
+		void EnableClock() override;
+		void DisableClock() override;
 	};
 	#endif // GPIOD
 	#pragma endregion
 
-	#pragma region GPIOE
+	#pragma region GpioPortE
 	#ifdef GPIOE
 	class GpioPortE :public GpioPort
 	{
@@ -259,20 +224,9 @@ namespace hal
 		}
 
 	public:
-		bool IsClockEnabled() override
-		{
-			return __HAL_RCC_GPIOE_IS_CLK_ENABLED();
-		}
-
-		void EnableClock() override
-		{
-			__HAL_RCC_GPIOE_CLK_ENABLE();
-		}
-
-		void DisableClock() override
-		{
-			__HAL_RCC_GPIOE_CLK_DISABLE();
-		}
+		bool IsClockEnabled() override;
+		void EnableClock() override;
+		void DisableClock() override;
 	};
 	#endif // GPIOE
 	#pragma endregion
