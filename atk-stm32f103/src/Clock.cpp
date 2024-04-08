@@ -1,5 +1,8 @@
 #include"atk-stm32f103/Clock.h"
 
+using namespace hal;
+using namespace atk;
+
 void atk::config_72mhz_hclk()
 {
 	PllInitOptions pll_init_options;

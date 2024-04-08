@@ -1,5 +1,7 @@
 #include"hal-wrapper/GpioPort.h"
 
+using namespace hal;
+
 bool GpioPort::IsClockDisabled()
 {
 	return !IsClockEnabled();
@@ -54,7 +56,7 @@ public:
 	}
 };
 
-GpioPort &g_gpio_port_a = GpioPortA::Instance();
+GpioPort &hal::g_gpio_port_a = GpioPortA::Instance();
 #endif // GPIOA
 #pragma endregion
 
@@ -91,7 +93,7 @@ public:
 	}
 };
 
-GpioPort &g_gpio_port_b = GpioPortB::Instance();
+GpioPort &hal::g_gpio_port_b = GpioPortB::Instance();
 #endif // GPIOB
 #pragma endregion
 
@@ -128,7 +130,7 @@ public:
 	}
 };
 
-GpioPort &g_gpio_port_c = GpioPortC::Instance();
+GpioPort &hal::g_gpio_port_c = GpioPortC::Instance();
 #endif // GPIOC
 #pragma endregion
 
@@ -165,7 +167,7 @@ public:
 	}
 };
 
-GpioPort &g_gpio_port_d = GpioPortD::Instance();
+GpioPort &hal::g_gpio_port_d = GpioPortD::Instance();
 #endif // GPIOD
 #pragma endregion
 
@@ -202,6 +204,6 @@ public:
 	}
 };
 
-GpioPort &g_gpio_port_e = GpioPortE::Instance();
+GpioPort &hal::g_gpio_port_e = GpioPortE::Instance();
 #endif // GPIOE
 #pragma endregion

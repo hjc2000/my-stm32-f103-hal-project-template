@@ -1,5 +1,7 @@
 #include"hal-wrapper/Osc.h"
 
+using namespace hal;
+
 PllInitOptions &PllInitOptions::operator=(RCC_PLLInitTypeDef const &value)
 {
 	_state = (PllState)value.PLLState;

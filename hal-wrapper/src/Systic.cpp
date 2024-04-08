@@ -1,5 +1,7 @@
 #include"hal-wrapper/Systic.h"
 
+using namespace hal;
+
 bool Systic::CountFlag()
 {
 	uint32_t masked = SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk;

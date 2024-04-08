@@ -5,6 +5,8 @@
 #include<hal-wrapper/GpioPort.h>
 #include<hal-wrapper/Systic.h>
 
+using namespace hal;
+
 void init_gpio(void);
 
 void Main()
