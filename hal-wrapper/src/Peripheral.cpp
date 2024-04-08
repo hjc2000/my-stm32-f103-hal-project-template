@@ -1,88 +1,136 @@
 #include"Peripheral.h"
 
 #ifdef GPIOA
-bool GpioPortA::IsClockEnabled()
+class GpioPortA :public GpioPort
 {
-	return __HAL_RCC_GPIOA_IS_CLK_ENABLED();
-}
+public:
+	GpioPortA()
+	{
+		port_addr = GPIOA;
+	}
 
-void GpioPortA::EnableClock()
-{
-	__HAL_RCC_GPIOA_CLK_ENABLE();
-}
+	static GpioPortA &Instance()
+	{
+		static GpioPortA port{};
+		return port;
+	}
 
-void GpioPortA::DisableClock()
-{
-	__HAL_RCC_GPIOA_CLK_DISABLE();
-}
+public:
+	bool IsClockEnabled() override
+	{
+		return __HAL_RCC_GPIOA_IS_CLK_ENABLED();
+	}
 
-void GpioPortA::InitPin(GpioPin pin, GpioPinOptions const &options)
-{
-	GPIO_InitTypeDef gpio_init_options;
-	gpio_init_options.Pin = (uint32_t)pin;
-	gpio_init_options.Mode = (uint32_t)options._mode;
-	gpio_init_options.Pull = (uint32_t)options._pull_mode;
-	gpio_init_options.Speed = (uint32_t)options._speed;
-	HAL_GPIO_Init(port_addr, &gpio_init_options);
-}
+	void EnableClock() override
+	{
+		__HAL_RCC_GPIOA_CLK_ENABLE();
+	}
 
-GpioPortA g_gpio_port_a{};
+	void DisableClock() override
+	{
+		__HAL_RCC_GPIOA_CLK_DISABLE();
+	}
+
+	void InitPin(GpioPin pin, GpioPinOptions const &options) override
+	{
+		GPIO_InitTypeDef gpio_init_options;
+		gpio_init_options.Pin = (uint32_t)pin;
+		gpio_init_options.Mode = (uint32_t)options._mode;
+		gpio_init_options.Pull = (uint32_t)options._pull_mode;
+		gpio_init_options.Speed = (uint32_t)options._speed;
+		HAL_GPIO_Init(port_addr, &gpio_init_options);
+	}
+};
+
+GpioPort &g_gpio_port_a = GpioPortA::Instance();
 #endif // GPIOA
 
 #ifdef GPIOB
-bool GpioPortB::IsClockEnabled()
+class GpioPortB :public GpioPort
 {
-	return __HAL_RCC_GPIOB_IS_CLK_ENABLED();
-}
+public:
+	GpioPortB()
+	{
+		port_addr = GPIOB;
+	}
 
-void GpioPortB::EnableClock()
-{
-	__HAL_RCC_GPIOB_CLK_ENABLE();
-}
+	static GpioPortB &Instance()
+	{
+		static GpioPortB port{};
+		return port;
+	}
 
-void GpioPortB::DisableClock()
-{
-	__HAL_RCC_GPIOB_CLK_DISABLE();
-}
+public:
+	bool IsClockEnabled() override
+	{
+		return __HAL_RCC_GPIOB_IS_CLK_ENABLED();
+	}
 
-void GpioPortB::InitPin(GpioPin pin, GpioPinOptions const &options)
-{
-	GPIO_InitTypeDef gpio_init_options;
-	gpio_init_options.Pin = (uint32_t)pin;
-	gpio_init_options.Mode = (uint32_t)options._mode;
-	gpio_init_options.Pull = (uint32_t)options._pull_mode;
-	gpio_init_options.Speed = (uint32_t)options._speed;
-	HAL_GPIO_Init(port_addr, &gpio_init_options);
-}
+	void EnableClock() override
+	{
+		__HAL_RCC_GPIOB_CLK_ENABLE();
+	}
 
-GpioPortB g_gpio_port_b{};
+	void DisableClock() override
+	{
+		__HAL_RCC_GPIOB_CLK_DISABLE();
+	}
+
+	void InitPin(GpioPin pin, GpioPinOptions const &options) override
+	{
+		GPIO_InitTypeDef gpio_init_options;
+		gpio_init_options.Pin = (uint32_t)pin;
+		gpio_init_options.Mode = (uint32_t)options._mode;
+		gpio_init_options.Pull = (uint32_t)options._pull_mode;
+		gpio_init_options.Speed = (uint32_t)options._speed;
+		HAL_GPIO_Init(port_addr, &gpio_init_options);
+	}
+};
+
+GpioPort &g_gpio_port_b = GpioPortB::Instance();
 #endif // GPIOB
 
 #ifdef GPIOE
-bool GpioPortE::IsClockEnabled()
+class GpioPortE :public GpioPort
 {
-	return __HAL_RCC_GPIOE_IS_CLK_ENABLED();
-}
+public:
+	GpioPortE()
+	{
+		port_addr = GPIOE;
+	}
 
-void GpioPortE::EnableClock()
-{
-	__HAL_RCC_GPIOE_CLK_ENABLE();
-}
+	static GpioPortE &Instance()
+	{
+		static GpioPortE port{};
+		return port;
+	}
 
-void GpioPortE::DisableClock()
-{
-	__HAL_RCC_GPIOE_CLK_DISABLE();
-}
+public:
+	bool IsClockEnabled() override
+	{
+		return __HAL_RCC_GPIOE_IS_CLK_ENABLED();
+	}
 
-void GpioPortE::InitPin(GpioPin pin, GpioPinOptions const &options)
-{
-	GPIO_InitTypeDef gpio_init_options;
-	gpio_init_options.Pin = (uint32_t)pin;
-	gpio_init_options.Mode = (uint32_t)options._mode;
-	gpio_init_options.Pull = (uint32_t)options._pull_mode;
-	gpio_init_options.Speed = (uint32_t)options._speed;
-	HAL_GPIO_Init(port_addr, &gpio_init_options);
-}
+	void EnableClock() override
+	{
+		__HAL_RCC_GPIOE_CLK_ENABLE();
+	}
 
-GpioPortE g_gpio_port_e{};
+	void DisableClock() override
+	{
+		__HAL_RCC_GPIOE_CLK_DISABLE();
+	}
+
+	void InitPin(GpioPin pin, GpioPinOptions const &options) override
+	{
+		GPIO_InitTypeDef gpio_init_options;
+		gpio_init_options.Pin = (uint32_t)pin;
+		gpio_init_options.Mode = (uint32_t)options._mode;
+		gpio_init_options.Pull = (uint32_t)options._pull_mode;
+		gpio_init_options.Speed = (uint32_t)options._speed;
+		HAL_GPIO_Init(port_addr, &gpio_init_options);
+	}
+};
+
+GpioPort &g_gpio_port_e = GpioPortE::Instance();
 #endif // GPIOE
