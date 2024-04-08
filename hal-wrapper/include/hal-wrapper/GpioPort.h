@@ -1,6 +1,7 @@
 #pragma once
 #include<hal.h>
 
+#pragma region GPIO相关的枚举
 /// <summary>
 ///		定义 GPIO 引脚。
 /// </summary>
@@ -68,6 +69,7 @@ enum GpioPinSpeed :uint32_t
 	Medium = GPIO_SPEED_FREQ_MEDIUM,
 	High = GPIO_SPEED_FREQ_HIGH,
 };
+#pragma endregion
 
 struct GpioPinOptions
 {
@@ -98,6 +100,7 @@ public:
 	void DigitalWritePin(GpioPin pin, bool value);
 };
 
+#pragma region 每个GPIO端口对应一个GpioPort实例
 #ifdef GPIOA
 extern GpioPort &g_gpio_port_a;
 #endif // GPIOA
@@ -117,3 +120,4 @@ extern GpioPort &g_gpio_port_d;
 #ifdef GPIOE
 extern GpioPort &g_gpio_port_e;
 #endif // GPIOE
+#pragma endregion
