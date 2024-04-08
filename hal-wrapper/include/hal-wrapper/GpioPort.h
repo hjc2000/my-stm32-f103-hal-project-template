@@ -102,25 +102,178 @@ namespace hal
 		void DigitalWritePin(GpioPin pin, bool value);
 	};
 
-	#pragma region 每个GPIO端口对应一个GpioPort实例
+	#pragma region GPIOA
 	#ifdef GPIOA
-	extern GpioPort &g_gpio_port_a;
+	class GpioPortA :public GpioPort
+	{
+	public:
+		GpioPortA()
+		{
+			port_addr = GPIOA;
+		}
+
+		static GpioPortA &Instance()
+		{
+			static GpioPortA port{};
+			return port;
+		}
+
+	public:
+		bool IsClockEnabled() override
+		{
+			return __HAL_RCC_GPIOA_IS_CLK_ENABLED();
+		}
+
+		void EnableClock() override
+		{
+			__HAL_RCC_GPIOA_CLK_ENABLE();
+		}
+
+		void DisableClock() override
+		{
+			__HAL_RCC_GPIOA_CLK_DISABLE();
+		}
+	};
 	#endif // GPIOA
+	#pragma endregion
 
+	#pragma region GPIOB
 	#ifdef GPIOB
-	extern GpioPort &g_gpio_port_b;
+	class GpioPortB :public GpioPort
+	{
+	public:
+		GpioPortB()
+		{
+			port_addr = GPIOB;
+		}
+
+		static GpioPortB &Instance()
+		{
+			static GpioPortB port{};
+			return port;
+		}
+
+	public:
+		bool IsClockEnabled() override
+		{
+			return __HAL_RCC_GPIOB_IS_CLK_ENABLED();
+		}
+
+		void EnableClock() override
+		{
+			__HAL_RCC_GPIOB_CLK_ENABLE();
+		}
+
+		void DisableClock() override
+		{
+			__HAL_RCC_GPIOB_CLK_DISABLE();
+		}
+	};
 	#endif // GPIOB
+	#pragma endregion
 
+	#pragma region GPIOC
 	#ifdef GPIOC
-	extern GpioPort &g_gpio_port_c;
+	class GpioPortC :public GpioPort
+	{
+	public:
+		GpioPortC()
+		{
+			port_addr = GPIOC;
+		}
+
+		static GpioPortC &Instance()
+		{
+			static GpioPortC port{};
+			return port;
+		}
+
+	public:
+		bool IsClockEnabled() override
+		{
+			return __HAL_RCC_GPIOC_IS_CLK_ENABLED();
+		}
+
+		void EnableClock() override
+		{
+			__HAL_RCC_GPIOC_CLK_ENABLE();
+		}
+
+		void DisableClock() override
+		{
+			__HAL_RCC_GPIOC_CLK_DISABLE();
+		}
+	};
 	#endif // GPIOC
+	#pragma endregion
 
+	#pragma region GPIOD
 	#ifdef GPIOD
-	extern GpioPort &g_gpio_port_d;
-	#endif // GPIOD
+	class GpioPortD :public GpioPort
+	{
+	public:
+		GpioPortD()
+		{
+			port_addr = GPIOD;
+		}
 
+		static GpioPortD &Instance()
+		{
+			static GpioPortD port{};
+			return port;
+		}
+
+	public:
+		bool IsClockEnabled() override
+		{
+			return __HAL_RCC_GPIOD_IS_CLK_ENABLED();
+		}
+
+		void EnableClock() override
+		{
+			__HAL_RCC_GPIOD_CLK_ENABLE();
+		}
+
+		void DisableClock() override
+		{
+			__HAL_RCC_GPIOD_CLK_DISABLE();
+		}
+	};
+	#endif // GPIOD
+	#pragma endregion
+
+	#pragma region GPIOE
 	#ifdef GPIOE
-	extern GpioPort &g_gpio_port_e;
+	class GpioPortE :public GpioPort
+	{
+	public:
+		GpioPortE()
+		{
+			port_addr = GPIOE;
+		}
+
+		static GpioPortE &Instance()
+		{
+			static GpioPortE port{};
+			return port;
+		}
+
+	public:
+		bool IsClockEnabled() override
+		{
+			return __HAL_RCC_GPIOE_IS_CLK_ENABLED();
+		}
+
+		void EnableClock() override
+		{
+			__HAL_RCC_GPIOE_CLK_ENABLE();
+		}
+
+		void DisableClock() override
+		{
+			__HAL_RCC_GPIOE_CLK_DISABLE();
+		}
+	};
 	#endif // GPIOE
 	#pragma endregion
 }
