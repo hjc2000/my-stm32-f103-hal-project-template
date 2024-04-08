@@ -1,7 +1,10 @@
 #pragma once
-#include<Clock.h>
-#include<Osc.h>
+#include<hal-wrapper/Clock.h>
+#include<hal-wrapper/Osc.h>
 
+/// <summary>
+///		将 HCLK 配置为 72MHz
+/// </summary>
 inline void config_72mhz_hclk()
 {
 	PllInitOptions pll_init_options;

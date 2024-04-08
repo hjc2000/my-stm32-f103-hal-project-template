@@ -1,6 +1,6 @@
 #pragma once
-#include<Peripheral.h>
 #include<chrono>
+#include<hal-wrapper/GpioPort.h>
 #include<hal.h>
 #include<stdint.h>
 

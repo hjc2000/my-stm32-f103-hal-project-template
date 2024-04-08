@@ -1,9 +1,9 @@
 #include"Main.h"
 #include"sys.h"
 #include"usart.h"
-#include<Peripheral.h>
-#include<Systic.h>
-#include<atk-stm32f103_Clock.h>
+#include<atk-stm32f103/Clock.h>
+#include<hal-wrapper/GpioPort.h>
+#include<hal-wrapper/Systic.h>
 
 void init_gpio(void);
 

@@ -23,8 +23,8 @@
  */
 
 #include "sys.h"
-#include<Osc.h>
-#include<Clock.h>
+#include<hal-wrapper/Osc.h>
+#include<hal-wrapper/Clock.h>
 
  /**
   * @brief       设置中断向量表偏移地址
