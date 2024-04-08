@@ -22,7 +22,7 @@
   /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
 #include "stm32f1xx_it.h"
-#include "./sys.h"
+#include<atk-stm32f103/sys/sys.h>
 
 /** @addtogroup STM32F1xx_HAL_Examples
   * @{

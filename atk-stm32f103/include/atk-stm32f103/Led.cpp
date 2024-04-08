@@ -3,6 +3,7 @@
 using namespace hal;
 using namespace atk;
 
+#pragma region RedDigitalLed
 void atk::RedDigitalLed::Initialize()
 {
 	GpioPortB::Instance().EnableClock();
@@ -34,7 +35,9 @@ void atk::RedDigitalLed::SwitchOff()
 	// GPIO 引脚连接着 LED 的阴极，所以写 1 是关闭。
 	GpioPortB::Instance().DigitalWritePin(GpioPin::Pin5, 1);
 }
+#pragma endregion
 
+#pragma region GreenDigitalLed
 void atk::GreenDigitalLed::Initialize()
 {
 	GpioPortE::Instance().EnableClock();
@@ -66,3 +69,4 @@ void atk::GreenDigitalLed::SwitchOff()
 	// GPIO 引脚连接着 LED 的阴极，所以写 1 是关闭。
 	GpioPortE::Instance().DigitalWritePin(GpioPin::Pin5, 1);
 }
+#pragma endregion
