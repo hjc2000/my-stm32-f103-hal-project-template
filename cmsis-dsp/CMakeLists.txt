@@ -11,6 +11,3 @@ include($ENV{cpp_lib_build_scripts_path}/cmake-module/setup.cmake)
 add_library(${ProjectName} STATIC)
 target_import_src(${ProjectName})
 target_link_libraries(${ProjectName} PUBLIC stm32f103-hal)
-
-# 单独安装一下 dsp 文件夹，因为有的地方是通过 #include<dsp/xxx.h> 来包含这里面的头文件。
-install_dir(${CMAKE_CURRENT_SOURCE_DIR}/src/Include/dsp include/dsp "*")
