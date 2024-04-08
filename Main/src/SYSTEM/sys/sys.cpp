@@ -133,7 +133,7 @@ void sys_stm32_clock_init(uint32_t plln)
 	clock_init_options._ahb_clk_divider = AHBDivider::DIV1;
 	clock_init_options._apb1_divider = APBDivider::DIV2;
 	clock_init_options._apb2_divider = APBDivider::DIV1;
-	if (Clock::InitClock(clock_init_options, FlashLatency::Latency2) != HAL_OK)
+	if (Clock::Config(clock_init_options, FlashLatency::Latency2) != HAL_OK)
 	{
 		/* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
 		while (1);

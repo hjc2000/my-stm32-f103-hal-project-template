@@ -160,7 +160,7 @@ public:
 	/// <param name="options"></param>
 	/// <param name="flash_latency"></param>
 	/// <returns></returns>
-	static HAL_StatusTypeDef InitClock(ClockInitOptions const &options, FlashLatency flash_latency)
+	static HAL_StatusTypeDef Config(ClockInitOptions const &options, FlashLatency flash_latency)
 	{
 		RCC_ClkInitTypeDef rcc_clk_init = options;
 		return HAL_RCC_ClockConfig(&rcc_clk_init, (uint32_t)flash_latency);
