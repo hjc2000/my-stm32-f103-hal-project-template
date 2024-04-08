@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-set(ProjectName atk-stm32f103-dev-board-lib)
+set(ProjectName atk-stm32f103)
 project(${ProjectName})
 enable_language(ASM)
 set(CMAKE_CXX_STANDARD 20)

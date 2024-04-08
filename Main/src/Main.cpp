@@ -3,13 +3,14 @@
 #include"usart.h"
 #include<Peripheral.h>
 #include<Systic.h>
+#include<atk-stm32f103_Clock.h>
 
 void init_gpio(void);
 
 void Main()
 {
 	HAL_Init();
-	sys_stm32_clock_init(RCC_PLL_MUL9);
+	config_72mhz_hclk();
 	init_gpio();
 
 	while (1)

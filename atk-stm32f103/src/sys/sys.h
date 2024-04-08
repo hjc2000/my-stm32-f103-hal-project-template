@@ -47,7 +47,6 @@ extern "C" {
 	void sys_standby(void);                                                         /* 进入待机模式 */
 	void sys_soft_reset(void);                                                      /* 系统软复位 */
 	uint8_t sys_clock_set(uint32_t plln);                                           /* 时钟设置函数 */
-	void sys_stm32_clock_init(uint32_t plln);                                       /* 系统时钟初始化函数 */
 
 	/* 以下为汇编函数 */
 	void sys_wfi_set(void);                                                         /* 执行WFI指令 */
