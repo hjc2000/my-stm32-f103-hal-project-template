@@ -1,6 +1,6 @@
 #pragma once
 #include<chrono>
-#include<hal-wrapper/GpioPort.h>
+#include<hal-wrapper/peripheral/GpioPort.h>
 #include<hal.h>
 #include<stdint.h>
 
@@ -19,6 +19,8 @@ namespace hal
 	{
 	private:
 		Systic() = delete;
+		Systic(Systic const &another) = delete;
+		Systic &operator=(Systic const &value) = delete;
 
 	public:
 		/// <summary>

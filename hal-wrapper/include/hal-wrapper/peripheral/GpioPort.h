@@ -1,4 +1,5 @@
 #pragma once
+#include<hal-wrapper/peripheral/IPeripheral.h>
 #include<hal.h>
 
 namespace hal
@@ -73,7 +74,7 @@ namespace hal
 	};
 	#pragma endregion
 
-	struct GpioPinOptions
+	struct GpioPinOptions :public IPeripheral
 	{
 		GpioPinMode _mode = GpioPinMode::Input;
 		GpioPinPull _pull_mode = GpioPinPull::NoPull;
