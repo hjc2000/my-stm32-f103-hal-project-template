@@ -1,5 +1,6 @@
 #include"Main.h"
 #include<atk-stm32f103/Clock.h>
+#include<atk-stm32f103/Key.h>
 #include<atk-stm32f103/Led.h>
 #include<hal-wrapper/GpioPort.h>
 #include<hal-wrapper/Systic.h>
@@ -13,6 +14,7 @@ void Main()
 	config_72mhz_hclk();
 	RedDigitalLed::Instance().Initialize();
 	GreenDigitalLed::Instance().Initialize();
+	Key0::Instance().Initialize();
 
 	while (1)
 	{
