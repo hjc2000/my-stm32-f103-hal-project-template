@@ -16,13 +16,18 @@ void Main()
 	GreenDigitalLed::Instance().Initialize();
 	Key0::Instance().Initialize();
 
+	bool key0_has_been_handled = false;
 	while (1)
 	{
-		RedDigitalLed::Instance().TurnOff();
-		GreenDigitalLed::Instance().TurnOn();
-		Systic::NopLoopDelay(std::chrono::seconds(1));
-		RedDigitalLed::Instance().TurnOn();
-		GreenDigitalLed::Instance().TurnOff();
-		Systic::NopLoopDelay(std::chrono::seconds(1));
+		if (Key0::Instance().KeyIsReallyDown() && !key0_has_been_handled)
+		{
+			key0_has_been_handled = true;
+			RedDigitalLed::Instance().Toggle();
+		}
+
+		if (Key0::Instance().KeyIsReallyUp())
+		{
+			key0_has_been_handled = false;
+		}
 	}
 }

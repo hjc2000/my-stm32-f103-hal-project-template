@@ -7,6 +7,11 @@ using namespace atk;
 void atk::RedDigitalLed::Initialize()
 {
 	GpioPortB::Instance().EnableClock();
+
+	/* 使能时钟后写输出寄存器的操作就有效了。先关闭 LED，然后配置为输出模式，
+	* 这样 LED 的初始状态就是关闭的。
+	*/
+	TurnOff();
 	GpioPinOptions gpio_pin_options;
 	gpio_pin_options._mode = GpioPinMode::Output_PushPull;
 	gpio_pin_options._pull_mode = GpioPinPull::PullUp;
@@ -46,6 +51,11 @@ void atk::RedDigitalLed::Toggle()
 void atk::GreenDigitalLed::Initialize()
 {
 	GpioPortE::Instance().EnableClock();
+
+	/* 使能时钟后写输出寄存器的操作就有效了。先关闭 LED，然后配置为输出模式，
+	* 这样 LED 的初始状态就是关闭的。
+	*/
+	TurnOff();
 	GpioPinOptions gpio_pin_options;
 	gpio_pin_options._mode = GpioPinMode::Output_PushPull;
 	gpio_pin_options._pull_mode = GpioPinPull::PullUp;

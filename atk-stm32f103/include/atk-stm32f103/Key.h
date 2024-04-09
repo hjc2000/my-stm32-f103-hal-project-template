@@ -18,6 +18,9 @@ namespace atk
 	public:
 		void Initialize() override;
 		void Deinitialize() override;
-		bool IsPressed() override;
+
+		bool KeyIsDown() override;
+		bool KeyIsReallyDown() override;
+		bool KeyIsReallyUp() override;
 	};
 }
