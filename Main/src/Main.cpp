@@ -19,6 +19,9 @@ void Main()
 	bool key0_has_been_handled = false;
 	while (1)
 	{
+		/* 实现一个循环队列，检测到按键被按下，就将相应的事件入队，队列满后移除最开始的那个事件。
+		* 这样检测按键事件时就能通过退队来检测了。
+		*/
 		if (Key0::Instance().KeyIsReallyDown() && !key0_has_been_handled)
 		{
 			key0_has_been_handled = true;
