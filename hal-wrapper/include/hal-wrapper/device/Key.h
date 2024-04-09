@@ -28,6 +28,10 @@ namespace hal
 			return !KeyIsDown();
 		}
 
+		/// <summary>
+		///		经过如按键消抖，确定按键确实是处于起来的状态。
+		/// </summary>
+		/// <returns></returns>
 		virtual bool KeyIsReallyUp() = 0;
 	};
 }
