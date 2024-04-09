@@ -20,7 +20,17 @@ namespace atk
 		void Deinitialize() override;
 
 		bool KeyIsDown() override;
+
+		/// <summary>
+		///		内部使用延时消抖来确认按键确实是被按下，所以调用此函数会阻塞一段时间。
+		/// </summary>
+		/// <returns></returns>
 		bool KeyIsReallyDown() override;
+
+		/// <summary>
+		///		内部使用延时消抖来确认按键确实是起来了，所以调用此函数会阻塞一段时间。
+		/// </summary>
+		/// <returns></returns>
 		bool KeyIsReallyUp() override;
 	};
 }

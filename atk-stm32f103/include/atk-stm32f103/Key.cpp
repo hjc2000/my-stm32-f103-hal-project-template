@@ -4,6 +4,7 @@
 
 using namespace hal;
 
+#pragma region Key0
 void atk::Key0::Initialize()
 {
 	GpioPortE::Instance().EnableClock();
@@ -46,3 +47,4 @@ bool atk::Key0::KeyIsReallyUp()
 	Systic::NopLoopDelay(std::chrono::milliseconds(10));
 	return KeyIsUp();
 }
+#pragma endregion
