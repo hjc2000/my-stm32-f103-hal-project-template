@@ -2,11 +2,6 @@
 
 using namespace hal;
 
-bool GpioPort::IsClockDisabled()
-{
-	return !IsClockEnabled();
-}
-
 void GpioPort::InitPin(GpioPin pin, GpioPinOptions const &options)
 {
 	GPIO_InitTypeDef gpio_init_options;

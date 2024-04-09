@@ -74,7 +74,7 @@ namespace hal
 	};
 	#pragma endregion
 
-	struct GpioPinOptions :public IPeripheral
+	struct GpioPinOptions
 	{
 		GpioPinMode _mode = GpioPinMode::Input;
 		GpioPinPull _pull_mode = GpioPinPull::NoPull;
@@ -84,7 +84,7 @@ namespace hal
 	/// <summary>
 	///		GPIO 端口抽象类，有几组 GPIO 端口就派生几个本类。
 	/// </summary>
-	class GpioPort
+	class GpioPort :public IPeripheral
 	{
 	protected:
 		/// <summary>
@@ -93,21 +93,6 @@ namespace hal
 		GPIO_TypeDef *_port_addr = nullptr;
 
 	public:
-		virtual bool IsClockEnabled() = 0;
-		bool IsClockDisabled();
-
-		/// <summary>
-		///		使能时钟。
-		///		派生类实现时需要注意，在执行使能的操作前要先判断是否已经使能了。
-		/// </summary>
-		virtual void EnableClock() = 0;
-
-		/// <summary>
-		///		失能时钟。
-		///		派生类实现时需要注意，在执行失能的操作前要先判断是否已经失能了。
-		/// </summary>
-		virtual void DisableClock() = 0;
-
 		void InitPin(GpioPin pin, GpioPinOptions const &options);
 		void DigitalWritePin(GpioPin pin, bool value);
 		bool DigitalReadPin(GpioPin pin);
