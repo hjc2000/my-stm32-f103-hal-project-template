@@ -4,6 +4,9 @@
 
 namespace atk
 {
+	/// <summary>
+	///		红色 LED
+	/// </summary>
 	class RedDigitalLed :public hal::DigitalLed
 	{
 	public:
@@ -22,6 +25,9 @@ namespace atk
 		void Toggle() override;
 	};
 
+	/// <summary>
+	///		绿色 LED
+	/// </summary>
 	class GreenDigitalLed :public hal::DigitalLed
 	{
 	public:
