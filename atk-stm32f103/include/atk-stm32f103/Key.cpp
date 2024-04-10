@@ -38,6 +38,7 @@ void atk::Key1::Initialize()
 
 void atk::Key1::Deinitialize()
 {
+
 }
 
 bool atk::Key1::KeyIsDown()
@@ -60,6 +61,7 @@ void atk::KeyWakeUp::Initialize()
 
 void atk::KeyWakeUp::Deinitialize()
 {
+
 }
 
 bool atk::KeyWakeUp::KeyIsDown()
