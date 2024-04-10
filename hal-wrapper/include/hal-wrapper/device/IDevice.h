@@ -8,7 +8,7 @@ namespace hal
 		IDevice(IDevice const &another) = delete;
 
 	protected:
-		IDevice() {}
+		IDevice() = default;
 
 	public:
 		virtual void Initialize() = 0;

@@ -1,4 +1,5 @@
 #pragma once
+#include<hal-wrapper/Delayer.h>
 #include<hal-wrapper/device/IDevice.h>
 
 namespace hal
@@ -9,7 +10,24 @@ namespace hal
 	/// </summary>
 	class Key :public IDevice
 	{
+	private:
+		Delayer *_delayer = &Delayer::Instance();
+
 	public:
+		/// <summary>
+		///		设置本类所使用的延时器
+		/// </summary>
+		/// <param name="delayer"></param>
+		void SetDelayer(Delayer *delayer)
+		{
+			if (delayer == nullptr)
+			{
+				return;
+			}
+
+			_delayer = delayer;
+		}
+
 		/// <summary>
 		///		按键处于被按下的状态。
 		///		此函数内部不会进行按键消抖，抖动会引起此函数返回值的变化。
@@ -21,7 +39,16 @@ namespace hal
 		///		经过软件消抖，确定按键确实是处于被按下的状态。
 		/// </summary>
 		/// <returns>按键处于被按下的状态则返回 true，按键不处于被按下的状态则返回 false。</returns>
-		virtual bool KeyIsReallyDown() = 0;
+		virtual bool KeyIsReallyDown()
+		{
+			if (!KeyIsDown())
+			{
+				return false;
+			}
+
+			_delayer->Delay(std::chrono::milliseconds(10));
+			return KeyIsDown();
+		}
 
 		bool KeyIsUp()
 		{
@@ -32,6 +59,15 @@ namespace hal
 		///		经过如按键消抖，确定按键确实是处于起来的状态。
 		/// </summary>
 		/// <returns></returns>
-		virtual bool KeyIsReallyUp() = 0;
+		virtual bool KeyIsReallyUp()
+		{
+			if (!KeyIsUp())
+			{
+				return false;
+			}
+
+			_delayer->Delay(std::chrono::milliseconds(10));
+			return KeyIsUp();
+		}
 	};
 }

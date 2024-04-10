@@ -9,7 +9,7 @@ namespace hal
 		IPeripheral &operator=(IPeripheral const &value) = delete;
 
 	protected:
-		IPeripheral() {}
+		IPeripheral() = default;
 
 	public:
 		virtual bool IsClockEnabled() = 0;
