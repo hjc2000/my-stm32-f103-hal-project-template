@@ -55,6 +55,7 @@ namespace hal
 
 			_buffer[_pos] = element;
 			_pos++;
+			return true;
 		}
 
 		bool Remove(T const &element)
@@ -75,6 +76,24 @@ namespace hal
 		void Clear()
 		{
 			_pos = 0;
+		}
+
+		bool Contains(T const &element)
+		{
+			for (uint16_t i = 0; i < _pos; i++)
+			{
+				if (_buffer[i] == element)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		T &operator[](uint16_t index)
+		{
+			return _buffer[index];
 		}
 	};
 }

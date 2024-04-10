@@ -19,6 +19,9 @@ void Main()
 	Key1::Instance().Initialize();
 	KeyWakeUp::Instance().Initialize();
 	KeyScanner<3> key_scanner;
+	key_scanner._key_list.TryAdd(&Key0::Instance());
+	key_scanner._key_list.TryAdd(&Key1::Instance());
+	key_scanner._key_list.TryAdd(&KeyWakeUp::Instance());
 
 	bool key0_has_been_handled = false;
 	bool key1_has_been_handled = false;
