@@ -1,7 +1,7 @@
 #pragma once
 #include<stdint.h>
 
-namespace noos
+namespace hal
 {
 	/// <summary>
 	///		循环队列
