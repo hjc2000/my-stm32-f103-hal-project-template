@@ -91,6 +91,11 @@ namespace hal
 			return false;
 		}
 
+		uint16_t Count()
+		{
+			return _pos;
+		}
+
 		T &operator[](uint16_t index)
 		{
 			return _buffer[index];
