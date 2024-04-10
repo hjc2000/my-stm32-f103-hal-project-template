@@ -3,6 +3,7 @@
 #include<atk-stm32f103/Key.h>
 #include<atk-stm32f103/Led.h>
 #include<hal-wrapper/Systic.h>
+#include<hal-wrapper/device/KeyScanner.h>
 #include<hal-wrapper/peripheral/GpioPort.h>
 
 using namespace hal;
@@ -17,6 +18,7 @@ void Main()
 	Key0::Instance().Initialize();
 	Key1::Instance().Initialize();
 	KeyWakeUp::Instance().Initialize();
+	KeyScanner<3> key_scanner;
 
 	bool key0_has_been_handled = false;
 	bool key1_has_been_handled = false;
