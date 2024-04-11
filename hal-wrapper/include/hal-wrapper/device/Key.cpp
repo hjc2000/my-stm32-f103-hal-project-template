@@ -2,16 +2,6 @@
 
 using namespace hal;
 
-void Key::SetDelayer(Delayer *delayer)
-{
-	if (delayer == nullptr)
-	{
-		return;
-	}
-
-	_delayer = delayer;
-}
-
 bool Key::KeyIsReallyDown()
 {
 	if (!KeyIsDown())
@@ -19,7 +9,7 @@ bool Key::KeyIsReallyDown()
 		return false;
 	}
 
-	_delayer->Delay(std::chrono::milliseconds(10));
+	Delayer::Instance().Delay(std::chrono::milliseconds(10));
 	return KeyIsDown();
 }
 
@@ -30,6 +20,6 @@ bool Key::KeyIsReallyUp()
 		return false;
 	}
 
-	_delayer->Delay(std::chrono::milliseconds(10));
+	Delayer::Instance().Delay(std::chrono::milliseconds(10));
 	return KeyIsUp();
 }

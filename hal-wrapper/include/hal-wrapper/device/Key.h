@@ -10,16 +10,7 @@ namespace hal
 	/// </summary>
 	class Key :public IDevice
 	{
-	private:
-		Delayer *_delayer = &Delayer::Instance();
-
 	public:
-		/// <summary>
-		///		设置本类所使用的延时器
-		/// </summary>
-		/// <param name="delayer"></param>
-		void SetDelayer(Delayer *delayer);
-
 		/// <summary>
 		///		按键处于被按下的状态。
 		///		此函数内部不会进行按键消抖，抖动会引起此函数返回值的变化。

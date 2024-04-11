@@ -18,8 +18,19 @@ namespace hal
 		static Delayer &Instance()
 		{
 			static Delayer delayer{};
+			if (_global_delayer != nullptr)
+			{
+				return *_global_delayer;
+			}
+
 			return delayer;
 		}
+
+		/// <summary>
+		///		设置后 Instance 方法将会返回此对象，否则会返回 Delayer
+		///		的默认实现。
+		/// </summary>
+		static Delayer *_global_delayer;
 
 	public:
 		virtual void Delay(std::chrono::microseconds microseconds);
