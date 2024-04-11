@@ -18,46 +18,31 @@ void Main()
 	Key0::Instance().Initialize();
 	Key1::Instance().Initialize();
 	KeyWakeUp::Instance().Initialize();
+	Key *keys[] = {
+		&Key0::Instance(),
+		&Key1::Instance(),
+		&KeyWakeUp::Instance(),
+	};
+	KeyScanner<sizeof(keys) / sizeof(Key *)> key_scanner{ keys };
 
-	bool key0_has_been_handled = false;
-	bool key1_has_been_handled = false;
-	bool key_wake_up_has_been_handled = false;
 	while (1)
 	{
-		/* 实现一个循环队列，检测到按键被按下，就将相应的事件入队，队列满后移除最开始的那个事件。
-		* 这样检测按键事件时就能通过退队来检测了。
-		*/
-		if (Key0::Instance().KeyIsReallyDown() && !key0_has_been_handled)
+		key_scanner.ScanKeys();
+		auto key_events = key_scanner.GetKeyDownEvents();
+
+		if (key_events[0])
 		{
-			key0_has_been_handled = true;
 			RedDigitalLed::Instance().Toggle();
 		}
 
-		if (Key0::Instance().KeyIsReallyUp())
+		if (key_events[1])
 		{
-			key0_has_been_handled = false;
-		}
-
-		if (Key1::Instance().KeyIsReallyDown() && !key1_has_been_handled)
-		{
-			key1_has_been_handled = true;
 			GreenDigitalLed::Instance().Toggle();
 		}
 
-		if (Key1::Instance().KeyIsReallyUp())
+		if (key_events[2])
 		{
-			key1_has_been_handled = false;
-		}
-
-		if (KeyWakeUp::Instance().KeyIsReallyDown() && !key_wake_up_has_been_handled)
-		{
-			key_wake_up_has_been_handled = true;
 			GreenDigitalLed::Instance().Toggle();
-		}
-
-		if (KeyWakeUp::Instance().KeyIsReallyUp())
-		{
-			key_wake_up_has_been_handled = false;
 		}
 	}
 }
