@@ -18,6 +18,7 @@ void Main()
 	Key0::Instance().Initialize();
 	Key1::Instance().Initialize();
 	KeyWakeUp::Instance().Initialize();
+
 	Key *keys[] = {
 		&Key0::Instance(),
 		&Key1::Instance(),
