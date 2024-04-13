@@ -29,19 +29,19 @@ void Main()
 	while (1)
 	{
 		key_scanner.ScanKeys();
-		auto key_events = key_scanner.GetKeyDownEvents();
+		auto key_down_events = key_scanner.GetKeyDownEvents();
 
-		if (key_events[0])
+		if (key_down_events[0])
 		{
 			RedDigitalLed::Instance().Toggle();
 		}
 
-		if (key_events[1])
+		if (key_down_events[1])
 		{
 			GreenDigitalLed::Instance().Toggle();
 		}
 
-		if (key_events[2])
+		if (key_down_events[2])
 		{
 			GreenDigitalLed::Instance().Toggle();
 		}
