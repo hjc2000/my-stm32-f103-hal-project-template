@@ -92,7 +92,6 @@ namespace hal
 			return *this;
 		}
 
-	public:
 		ClockType _clock_type;
 		SysclkSource _sysclk_source;
 
@@ -111,7 +110,6 @@ namespace hal
 		/// </summary>
 		APBDivider _apb2_divider;
 
-	public:
 		operator RCC_ClkInitTypeDef() const
 		{
 			RCC_ClkInitTypeDef def;

@@ -103,7 +103,6 @@ namespace hal
 
 		PllInitOptions &operator=(RCC_PLLInitTypeDef const &value);
 
-	public:
 		PllState _state = PllState::On;
 
 		PllClockSource _clock_source = PllClockSource::HSE;
@@ -113,7 +112,6 @@ namespace hal
 		/// </summary>
 		PllMul _mul = PllMul::Mul9;
 
-	public:
 		operator RCC_PLLInitTypeDef() const;
 	};
 
@@ -183,7 +181,6 @@ namespace hal
 		/// <returns></returns>
 		OscInitOptions &operator=(RCC_OscInitTypeDef const &value);
 
-	public:
 		OscillatorType _oscillator_type = OscillatorType::HSI;
 
 		HseState _hse_state = HseState::Off;
@@ -200,7 +197,6 @@ namespace hal
 
 		PllInitOptions _pll_init_options;
 
-	public:
 		operator RCC_OscInitTypeDef() const;
 	};
 

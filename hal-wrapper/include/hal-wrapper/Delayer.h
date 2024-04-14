@@ -32,7 +32,6 @@ namespace hal
 		/// </summary>
 		static Delayer *_global_delayer;
 
-	public:
 		virtual void Delay(std::chrono::microseconds microseconds);
 		virtual void Delay(std::chrono::milliseconds milliseconds);
 		virtual void Delay(std::chrono::seconds seconds);
