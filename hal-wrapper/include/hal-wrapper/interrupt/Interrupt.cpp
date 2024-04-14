@@ -13,34 +13,3 @@ void hal::Interrupt::SetPriorityGroup(PreemptionPriorityGroup group)
 	have_set = true;
 	HAL_NVIC_SetPriorityGrouping((uint32_t)group);
 }
-
-/// <summary>
-///		中断处理函数
-/// </summary>
-extern "C"
-{
-	void EXTI0_IRQHandler()
-	{
-
-	}
-
-	void EXTI1_IRQHandler()
-	{
-
-	}
-
-	void EXTI2_IRQHandler()
-	{
-
-	}
-
-	void EXTI3_IRQHandler()
-	{
-
-	}
-
-	void EXTI4_IRQHandler()
-	{
-
-	}
-}
