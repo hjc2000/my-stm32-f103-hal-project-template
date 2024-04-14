@@ -18,7 +18,7 @@ namespace hal
 	class GpioPort :public IPeripheral
 	{
 	public:
-		virtual GPIO_TypeDef *Port() = 0;
+		virtual GPIO_TypeDef *const Port() = 0;
 		void InitPin(GpioPin pin, GpioPinOptions const &options);
 		void DigitalWritePin(GpioPin pin, bool value);
 		bool DigitalReadPin(GpioPin pin);
@@ -36,7 +36,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *Port() override
+		GPIO_TypeDef *const Port() override
 		{
 			return GPIOA;
 		}
@@ -59,7 +59,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *Port() override
+		GPIO_TypeDef *const Port() override
 		{
 			return GPIOB;
 		}
@@ -82,7 +82,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *Port() override
+		GPIO_TypeDef *const Port() override
 		{
 			return GPIOC;
 		}
@@ -105,7 +105,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *Port() override
+		GPIO_TypeDef *const Port() override
 		{
 			return GPIOD;
 		}
@@ -128,7 +128,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *Port() override
+		GPIO_TypeDef *const Port() override
 		{
 			return GPIOE;
 		}
