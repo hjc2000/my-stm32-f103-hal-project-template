@@ -8,16 +8,6 @@ namespace hal
 	template<uint16_t KeyCount>
 	class KeyScanner
 	{
-	public:
-		/// <summary>
-		///		将按键对象的指针放到数组里，将数组头指针传进来。
-		/// </summary>
-		/// <param name="keys"></param>
-		KeyScanner(Key **keys)
-		{
-			_keys = keys;
-		}
-
 	private:
 		Key **_keys = nullptr;
 		std::bitset<KeyCount> _last_scan_result;
@@ -40,6 +30,15 @@ namespace hal
 		}
 
 	public:
+		/// <summary>
+		///		将按键对象的指针放到数组里，将数组头指针传进来。
+		/// </summary>
+		/// <param name="keys"></param>
+		KeyScanner(Key **keys)
+		{
+			_keys = keys;
+		}
+
 		/// <summary>
 		///		执行键盘扫描，更新内部状态。此函数应该被不断调用。
 		/// </summary>

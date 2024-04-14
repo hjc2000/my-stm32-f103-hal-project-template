@@ -115,7 +115,6 @@ namespace hal
 			return port;
 		}
 
-	public:
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -139,7 +138,6 @@ namespace hal
 			return port;
 		}
 
-	public:
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -163,7 +161,6 @@ namespace hal
 			return port;
 		}
 
-	public:
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -187,7 +184,6 @@ namespace hal
 			return port;
 		}
 
-	public:
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -211,7 +207,6 @@ namespace hal
 			return port;
 		}
 
-	public:
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
