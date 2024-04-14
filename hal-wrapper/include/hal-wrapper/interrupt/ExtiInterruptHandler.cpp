@@ -2,4 +2,4 @@
 
 using namespace hal;
 
-ExtiInterruptHandler *ExtiInterruptHandler::_default_handler = nullptr;
+ExtiInterruptHandler *ExtiInterruptHandler::custom_handler = nullptr;

@@ -31,7 +31,7 @@ namespace hal
 }
 
 /// <summary>
-///		中断处理函数
+///		中断处理函数。将中断处理转发到 ExtiInterruptHandler。
 /// </summary>
 extern "C"
 {
