@@ -35,11 +35,13 @@ namespace hal
 /// </summary>
 extern "C"
 {
+	#pragma region 中断向量表函数
 	void EXTI0_IRQHandler();
 	void EXTI1_IRQHandler();
 	void EXTI2_IRQHandler();
 	void EXTI3_IRQHandler();
 	void EXTI4_IRQHandler();
+	#pragma endregion
 
 	/// <summary>
 	///		覆盖 hal 中的 weak 版本。
