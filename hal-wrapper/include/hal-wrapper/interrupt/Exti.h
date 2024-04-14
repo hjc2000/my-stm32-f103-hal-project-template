@@ -1,9 +1,14 @@
 #pragma once
-#include<functional>
 #include<hal-wrapper/peripheral/GpioPort.h>
 
 namespace hal
 {
+	class ExtiIrqHandler
+	{
+	public:
+		virtual void Handle() = 0;
+	};
+
 	class Exti
 	{
 		Exti() = delete;
@@ -33,11 +38,12 @@ namespace hal
 		* 所以不要多次赋值，最好是初始化赋值一次后就永远不变，除非复位。
 		*/
 
-		static std::function<void()> _handle_exti0_irq;
-		static std::function<void()> _handle_exti1_irq;
-		static std::function<void()> _handle_exti2_irq;
-		static std::function<void()> _handle_exti3_irq;
-		static std::function<void()> _handle_exti4_irq;
+		static ExtiIrqHandler *exti0_irq_handler;
+		static ExtiIrqHandler *exti1_irq_handler;
+		static ExtiIrqHandler *exti2_irq_handler;
+		static ExtiIrqHandler *exti3_irq_handler;
+		static ExtiIrqHandler *exti4_irq_handler;
 		#pragma endregion
+
 	};
 }
