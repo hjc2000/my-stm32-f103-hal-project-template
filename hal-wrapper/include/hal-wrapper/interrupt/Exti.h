@@ -1,4 +1,5 @@
 #pragma once
+#include<hal-wrapper/interrupt/ExtiInterruptHandler.h>
 #include<hal-wrapper/peripheral/GpioPort.h>
 
 namespace hal
