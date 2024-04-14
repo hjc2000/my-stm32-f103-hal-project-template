@@ -28,10 +28,16 @@ namespace hal
 			__HAL_GPIO_EXTI_CLEAR_IT((uint32_t)pin);
 		}
 
+		#pragma region 回调函数
+		/* 这里使用的是 std::function，他有可能引起动态内存分配。
+		* 所以不要多次赋值，最好是初始化赋值一次后就永远不变，除非复位。
+		*/
+
 		static std::function<void()> _handle_exti0_irq;
 		static std::function<void()> _handle_exti1_irq;
 		static std::function<void()> _handle_exti2_irq;
 		static std::function<void()> _handle_exti3_irq;
 		static std::function<void()> _handle_exti4_irq;
+		#pragma endregion
 	};
 }
