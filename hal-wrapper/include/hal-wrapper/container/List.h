@@ -51,6 +51,7 @@ namespace hal
 
 			_buffer[index] = item;
 			_tail++;
+			return true;
 		}
 
 		bool Remove(const T &item) override
