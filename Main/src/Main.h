@@ -4,7 +4,8 @@
 extern "C" {
 	#endif
 
-	void Main();
+	void TestKeyScanner();
+	void TestInterrupt();
 
 	#ifdef __cplusplus
 }

@@ -9,7 +9,7 @@
 using namespace hal;
 using namespace atk;
 
-void Main()
+void TestKeyScanner()
 {
 	HAL_Init();
 	config_72mhz_hclk();
@@ -45,5 +45,13 @@ void Main()
 		{
 			GreenDigitalLed::Instance().Toggle();
 		}
+	}
+}
+
+void TestInterrupt()
+{
+	while (true)
+	{
+
 	}
 }
