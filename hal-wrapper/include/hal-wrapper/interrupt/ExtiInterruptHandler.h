@@ -1,4 +1,5 @@
 #pragma once
+#include<hal-wrapper/peripheral/GpioPort.h>
 
 namespace hal
 {
@@ -24,10 +25,15 @@ namespace hal
 		/// </summary>
 		static ExtiInterruptHandler *custom_handler;
 
-		virtual void HandleExti0Irq() {}
-		virtual void HandleExti1Irq() {}
-		virtual void HandleExti2Irq() {}
-		virtual void HandleExti3Irq() {}
-		virtual void HandleExti4Irq() {}
+		/// <summary>
+		///		发生中断时会被回调。
+		/// </summary>
+		/// <param name="pin">
+		///		中断来自哪个 EXTI 的线，会利用 GpioPin 枚举值来表示。
+		///		- 例如传入 GpioPin::Pin0 表示 EXTI 的 line0 发生了中断。
+		///		  这么做是因为 pin 和 line 就是一一对应的，无论来自哪个地方的
+		///		  pin0 都会接到 line0 上。
+		/// </param>
+		virtual void HandleInterrupt(GpioPin pin) {}
 	};
 }

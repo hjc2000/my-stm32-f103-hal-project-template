@@ -4,25 +4,30 @@ using namespace hal;
 
 void EXTI0_IRQHandler()
 {
-	ExtiInterruptHandler::Instance().HandleExti0Irq();
+	HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin0);
 }
 
 void EXTI1_IRQHandler()
 {
-	ExtiInterruptHandler::Instance().HandleExti1Irq();
+	HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin1);
 }
 
 void EXTI2_IRQHandler()
 {
-	ExtiInterruptHandler::Instance().HandleExti2Irq();
+	HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin2);
 }
 
 void EXTI3_IRQHandler()
 {
-	ExtiInterruptHandler::Instance().HandleExti3Irq();
+	HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin3);
 }
 
 void EXTI4_IRQHandler()
 {
-	ExtiInterruptHandler::Instance().HandleExti4Irq();
+	HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin4);
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	ExtiInterruptHandler::Instance().HandleInterrupt((GpioPin)GPIO_Pin);
 }

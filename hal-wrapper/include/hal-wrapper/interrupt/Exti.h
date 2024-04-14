@@ -40,4 +40,10 @@ extern "C"
 	void EXTI2_IRQHandler();
 	void EXTI3_IRQHandler();
 	void EXTI4_IRQHandler();
+
+	/// <summary>
+	///		覆盖 hal 中的 weak 版本。
+	/// </summary>
+	/// <param name="GPIO_Pin"></param>
+	void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 }
