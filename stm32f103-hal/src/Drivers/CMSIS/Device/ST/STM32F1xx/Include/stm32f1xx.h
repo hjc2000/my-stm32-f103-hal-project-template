@@ -8,8 +8,8 @@
   *          is using in the C source code, usually in main.c. This file contains:
   *            - Configuration section that allows to select:
   *              - The STM32F1xx device used in the target application
-  *              - To use or not the peripheral√Üs drivers in application code(i.e. 
-  *                code will be based on direct access to peripheral√Üs registers 
+  *              - To use or not the peripheralís drivers in application code(i.e. 
+  *                code will be based on direct access to peripheralís registers 
   *                rather than drivers API), this option is controlled by 
   *                "#define USE_HAL_DRIVER"
   *  
