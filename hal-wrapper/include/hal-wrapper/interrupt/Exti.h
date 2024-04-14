@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/interrupt/ExtiInterruptHandler.h>
+#include<functional>
 #include<hal-wrapper/peripheral/GpioPort.h>
 
 namespace hal
@@ -27,25 +27,11 @@ namespace hal
 		{
 			__HAL_GPIO_EXTI_CLEAR_IT((uint32_t)pin);
 		}
+
+		static std::function<void()> _handle_exti0_irq;
+		static std::function<void()> _handle_exti1_irq;
+		static std::function<void()> _handle_exti2_irq;
+		static std::function<void()> _handle_exti3_irq;
+		static std::function<void()> _handle_exti4_irq;
 	};
-}
-
-/// <summary>
-///		中断处理函数。将中断处理转发到 ExtiInterruptHandler。
-/// </summary>
-extern "C"
-{
-	#pragma region 中断向量表函数
-	void EXTI0_IRQHandler();
-	void EXTI1_IRQHandler();
-	void EXTI2_IRQHandler();
-	void EXTI3_IRQHandler();
-	void EXTI4_IRQHandler();
-	#pragma endregion
-
-	/// <summary>
-	///		覆盖 hal 中的 weak 版本。
-	/// </summary>
-	/// <param name="GPIO_Pin"></param>
-	void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
 }
