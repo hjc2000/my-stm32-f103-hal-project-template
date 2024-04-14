@@ -44,27 +44,47 @@ extern "C"
 		{
 		case GpioPin::Pin0:
 			{
-				Exti::_handle_exti0_irq();
+				if (Exti::_handle_exti0_irq)
+				{
+					Exti::_handle_exti0_irq();
+				}
+
 				break;
 			}
 		case GpioPin::Pin1:
 			{
-				Exti::_handle_exti1_irq();
+				if (Exti::_handle_exti1_irq)
+				{
+					Exti::_handle_exti1_irq();
+				}
+
 				break;
 			}
 		case GpioPin::Pin2:
 			{
-				Exti::_handle_exti2_irq();
+				if (Exti::_handle_exti2_irq)
+				{
+					Exti::_handle_exti2_irq();
+				}
+
 				break;
 			}
 		case GpioPin::Pin3:
 			{
-				Exti::_handle_exti3_irq();
+				if (Exti::_handle_exti3_irq)
+				{
+					Exti::_handle_exti3_irq();
+				}
+
 				break;
 			}
 		case GpioPin::Pin4:
 			{
-				Exti::_handle_exti4_irq();
+				if (Exti::_handle_exti4_irq)
+				{
+					Exti::_handle_exti4_irq();
+				}
+
 				break;
 			}
 		}
