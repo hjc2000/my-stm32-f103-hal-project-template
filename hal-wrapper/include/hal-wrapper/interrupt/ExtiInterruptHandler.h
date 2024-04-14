@@ -11,9 +11,9 @@ namespace hal
 		static ExtiInterruptHandler &Instance()
 		{
 			static ExtiInterruptHandler instance;
-			if (custom_handler != nullptr)
+			if (_custom_handler != nullptr)
 			{
-				return *custom_handler;
+				return *_custom_handler;
 			}
 
 			return instance;
@@ -23,7 +23,7 @@ namespace hal
 		///		初始时为空指针。通过赋值为自定义的 ExtiInterruptHandler 对象
 		///		的指针，可以改变 Instance 函数所返回的实例，从而实现自定义中断处理函数逻辑。
 		/// </summary>
-		static ExtiInterruptHandler *custom_handler;
+		static ExtiInterruptHandler *_custom_handler;
 
 		/// <summary>
 		///		发生中断时会被回调。
