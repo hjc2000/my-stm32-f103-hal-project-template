@@ -5,7 +5,6 @@
 * 的 hal 库包含不同的头文件。型号导致的的头文件名称差异就交给本文件来处理。
 */
 
-
 // 这个头文件要最先包含，所以放到双引号里，避免 vs 的头文件排序把它放到后面去
 #include"stm32f1xx_hal.h"
 #include<core_cm3.h>
@@ -14,3 +13,6 @@
 #include<stm32f1xx_hal_def.h>
 #include<stm32f1xx_hal_rcc.h>
 #include<stm32f1xx_hal_rcc_ex.h>
+
+// 必须的标准库头文件
+#include<stdint.h>
