@@ -17,13 +17,8 @@ namespace hal
 	/// </summary>
 	class GpioPort :public IPeripheral
 	{
-	protected:
-		/// <summary>
-		///		派生类需要在构造函数中为此字段赋值。
-		/// </summary>
-		GPIO_TypeDef *_port_addr = nullptr;
-
 	public:
+		virtual GPIO_TypeDef *Port() = 0;
 		void InitPin(GpioPin pin, GpioPinOptions const &options);
 		void DigitalWritePin(GpioPin pin, bool value);
 		bool DigitalReadPin(GpioPin pin);
@@ -35,15 +30,15 @@ namespace hal
 	class GpioPortA :public GpioPort
 	{
 	public:
-		GpioPortA()
-		{
-			_port_addr = GPIOA;
-		}
-
 		static GpioPortA &Instance()
 		{
 			static GpioPortA port{};
 			return port;
+		}
+
+		GPIO_TypeDef *Port() override
+		{
+			return GPIOA;
 		}
 
 		bool IsClockEnabled() override;
@@ -58,15 +53,15 @@ namespace hal
 	class GpioPortB :public GpioPort
 	{
 	public:
-		GpioPortB()
-		{
-			_port_addr = GPIOB;
-		}
-
 		static GpioPortB &Instance()
 		{
 			static GpioPortB port{};
 			return port;
+		}
+
+		GPIO_TypeDef *Port() override
+		{
+			return GPIOB;
 		}
 
 		bool IsClockEnabled() override;
@@ -81,15 +76,15 @@ namespace hal
 	class GpioPortC :public GpioPort
 	{
 	public:
-		GpioPortC()
-		{
-			_port_addr = GPIOC;
-		}
-
 		static GpioPortC &Instance()
 		{
 			static GpioPortC port{};
 			return port;
+		}
+
+		GPIO_TypeDef *Port() override
+		{
+			return GPIOC;
 		}
 
 		bool IsClockEnabled() override;
@@ -104,15 +99,15 @@ namespace hal
 	class GpioPortD :public GpioPort
 	{
 	public:
-		GpioPortD()
-		{
-			_port_addr = GPIOD;
-		}
-
 		static GpioPortD &Instance()
 		{
 			static GpioPortD port{};
 			return port;
+		}
+
+		GPIO_TypeDef *Port() override
+		{
+			return GPIOD;
 		}
 
 		bool IsClockEnabled() override;
@@ -127,15 +122,15 @@ namespace hal
 	class GpioPortE :public GpioPort
 	{
 	public:
-		GpioPortE()
-		{
-			_port_addr = GPIOE;
-		}
-
 		static GpioPortE &Instance()
 		{
 			static GpioPortE port{};
 			return port;
+		}
+
+		GPIO_TypeDef *Port() override
+		{
+			return GPIOE;
 		}
 
 		bool IsClockEnabled() override;

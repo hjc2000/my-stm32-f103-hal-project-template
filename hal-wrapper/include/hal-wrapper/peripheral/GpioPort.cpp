@@ -9,18 +9,18 @@ void GpioPort::InitPin(GpioPin pin, GpioPinOptions const &options)
 	gpio_init_options.Mode = (uint32_t)options._mode;
 	gpio_init_options.Pull = (uint32_t)options._pull_mode;
 	gpio_init_options.Speed = (uint32_t)options._speed;
-	HAL_GPIO_Init(_port_addr, &gpio_init_options);
+	HAL_GPIO_Init(Port(), &gpio_init_options);
 }
 
 void GpioPort::DigitalWritePin(GpioPin pin, bool value)
 {
 	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
-	HAL_GPIO_WritePin(_port_addr, (uint16_t)pin, state);
+	HAL_GPIO_WritePin(Port(), (uint16_t)pin, state);
 }
 
 bool GpioPort::DigitalReadPin(GpioPin pin)
 {
-	GPIO_PinState pin_state = HAL_GPIO_ReadPin(_port_addr, (uint16_t)pin);
+	GPIO_PinState pin_state = HAL_GPIO_ReadPin(Port(), (uint16_t)pin);
 	if (pin_state == GPIO_PinState::GPIO_PIN_SET)
 	{
 		return true;
@@ -31,7 +31,7 @@ bool GpioPort::DigitalReadPin(GpioPin pin)
 
 void GpioPort::DigitalTogglePin(GpioPin pin)
 {
-	HAL_GPIO_TogglePin(_port_addr, (uint16_t)pin);
+	HAL_GPIO_TogglePin(Port(), (uint16_t)pin);
 }
 
 #pragma region GpioPortA
