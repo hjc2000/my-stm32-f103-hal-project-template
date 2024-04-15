@@ -6,7 +6,7 @@ namespace hal
 	class ExtiIrqHandler
 	{
 	public:
-		virtual void Handle() = 0;
+		virtual void HandleExtiIrq() = 0;
 	};
 
 	class Exti

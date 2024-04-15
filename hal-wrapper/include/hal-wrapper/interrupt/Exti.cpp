@@ -52,7 +52,7 @@ extern "C"
 			{
 				if (Exti::_exti0_irq_handler)
 				{
-					Exti::_exti0_irq_handler->Handle();
+					Exti::_exti0_irq_handler->HandleExtiIrq();
 				}
 
 				break;
@@ -61,7 +61,7 @@ extern "C"
 			{
 				if (Exti::_exti1_irq_handler)
 				{
-					Exti::_exti1_irq_handler->Handle();
+					Exti::_exti1_irq_handler->HandleExtiIrq();
 				}
 
 				break;
@@ -70,7 +70,7 @@ extern "C"
 			{
 				if (Exti::_exti2_irq_handler)
 				{
-					Exti::_exti2_irq_handler->Handle();
+					Exti::_exti2_irq_handler->HandleExtiIrq();
 				}
 
 				break;
@@ -79,7 +79,7 @@ extern "C"
 			{
 				if (Exti::_exti3_irq_handler)
 				{
-					Exti::_exti3_irq_handler->Handle();
+					Exti::_exti3_irq_handler->HandleExtiIrq();
 				}
 
 				break;
@@ -88,7 +88,7 @@ extern "C"
 			{
 				if (Exti::_exti4_irq_handler)
 				{
-					Exti::_exti4_irq_handler->Handle();
+					Exti::_exti4_irq_handler->HandleExtiIrq();
 				}
 
 				break;

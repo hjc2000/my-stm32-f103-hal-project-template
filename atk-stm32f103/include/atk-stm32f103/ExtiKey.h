@@ -30,7 +30,7 @@ namespace atk
 		/// <summary>
 		///		通过 ExtiIrqHandler 继承，用来被 EXTI 回调
 		/// </summary>
-		void Handle() override;
+		void HandleExtiIrq() override;
 
 	public:
 		static ExtiKey0 &Instance()

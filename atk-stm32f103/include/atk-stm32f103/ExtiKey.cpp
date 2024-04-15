@@ -26,7 +26,7 @@ void atk::ExtiKey0::Deinitialize()
 	Interrupt::DisableIRQ(IRQn_Type::EXTI4_IRQn);
 }
 
-void atk::ExtiKey0::Handle()
+void atk::ExtiKey0::HandleExtiIrq()
 {
 	Systic::NopLoopDelay(std::chrono::milliseconds(20));
 	_is_pressed = !Port().DigitalReadPin(Pin());
