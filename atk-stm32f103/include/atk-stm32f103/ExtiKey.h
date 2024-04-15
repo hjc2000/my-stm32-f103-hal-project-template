@@ -15,6 +15,9 @@ namespace atk
 		public hal::ExtiIrqHandler
 	{
 	private:
+		/// <summary>
+		///		中断函数中经过消抖，确认按键被按下后就会将此字段赋值为 true。
+		/// </summary>
 		volatile bool _is_pressed = false;
 
 		hal::GpioPort &Port()
@@ -39,7 +42,6 @@ namespace atk
 			return instance;
 		}
 
-		// 通过 IKey 继承
 		void Initialize() override;
 		void Deinitialize() override;
 
