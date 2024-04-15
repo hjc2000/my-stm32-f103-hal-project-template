@@ -1,6 +1,7 @@
 #pragma once
 #include<hal-wrapper/Systic.h>
-#include<hal-wrapper/device/IExtiKey.h>
+#include<hal-wrapper/device/IDevice.h>
+#include<hal-wrapper/interrupt/Exti.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
 #include<hal-wrapper/peripheral/GpioPort.h>
 
@@ -9,7 +10,9 @@ namespace atk
 	/// <summary>
 	///		外部中断驱动的 key0。
 	/// </summary>
-	class ExtiKey0 :public hal::IExtiKey
+	class ExtiKey0 :
+		public hal::IDevice,
+		public hal::ExtiIrqHandler
 	{
 	private:
 		volatile bool _is_pressed = false;
