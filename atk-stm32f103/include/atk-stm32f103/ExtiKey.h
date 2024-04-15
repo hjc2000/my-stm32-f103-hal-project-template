@@ -28,7 +28,7 @@ namespace atk
 		}
 
 		/// <summary>
-		///		用来被 EXTI 回调
+		///		通过 ExtiIrqHandler 继承，用来被 EXTI 回调
 		/// </summary>
 		void Handle() override;
 
