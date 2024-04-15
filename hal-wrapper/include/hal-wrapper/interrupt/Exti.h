@@ -33,11 +33,11 @@ namespace hal
 			__HAL_GPIO_EXTI_CLEAR_IT((uint32_t)pin);
 		}
 
-		static ExtiIrqHandler *exti0_irq_handler;
-		static ExtiIrqHandler *exti1_irq_handler;
-		static ExtiIrqHandler *exti2_irq_handler;
-		static ExtiIrqHandler *exti3_irq_handler;
-		static ExtiIrqHandler *exti4_irq_handler;
+		static ExtiIrqHandler *_exti0_irq_handler;
+		static ExtiIrqHandler *_exti1_irq_handler;
+		static ExtiIrqHandler *_exti2_irq_handler;
+		static ExtiIrqHandler *_exti3_irq_handler;
+		static ExtiIrqHandler *_exti4_irq_handler;
 
 	};
 }

@@ -1,6 +1,7 @@
 #include"Main.h"
 #include<atk-stm32f103/AtkLed.h>
 #include<atk-stm32f103/Clock.h>
+#include<atk-stm32f103/ExtiKey.h>
 #include<atk-stm32f103/Key.h>
 #include<hal-wrapper/Systic.h>
 #include<hal-wrapper/device/KeyScanner.h>
@@ -50,8 +51,13 @@ void TestKeyScanner()
 
 void TestInterrupt()
 {
-	while (true)
+	HAL_Init();
+	config_72mhz_hclk();
+	RedDigitalLed::Instance().Initialize();
+	GreenDigitalLed::Instance().Initialize();
+	ExtiKey0::Instance().Initialize();
+	RedDigitalLed::Instance().TurnOn();
+	while (1)
 	{
-
 	}
 }
