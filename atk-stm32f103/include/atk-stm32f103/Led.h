@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/device/Led.h>
+#include<hal-wrapper/device/IDigitalLed.h>
 #include<hal-wrapper/peripheral/GpioPort.h>
 
 namespace atk
@@ -7,7 +7,7 @@ namespace atk
 	/// <summary>
 	///		红色 LED
 	/// </summary>
-	class RedDigitalLed :public hal::DigitalLed
+	class RedDigitalLed :public hal::IDigitalLed
 	{
 	public:
 		static RedDigitalLed &Instance()
@@ -28,7 +28,7 @@ namespace atk
 	/// <summary>
 	///		绿色 LED
 	/// </summary>
-	class GreenDigitalLed :public hal::DigitalLed
+	class GreenDigitalLed :public hal::IDigitalLed
 	{
 	public:
 		static GreenDigitalLed &Instance()

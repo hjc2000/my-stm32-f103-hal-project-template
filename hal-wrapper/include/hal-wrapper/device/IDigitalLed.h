@@ -6,7 +6,7 @@ namespace hal
 	/// <summary>
 	///		数字 LED。只能开或关，无法调节亮度。
 	/// </summary>
-	class DigitalLed :public IDevice
+	class IDigitalLed :public IDevice
 	{
 	public:
 		virtual void TurnOn() = 0;
