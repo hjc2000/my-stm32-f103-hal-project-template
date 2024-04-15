@@ -16,8 +16,8 @@ namespace hal
 	public:
 		/// <summary>
 		///		清除某个 GPIO 引脚上的中断挂起标志。
-		///		- 所有 GPIO 端口的 pin0 连接到中断管理器的第 line0，
-		///		  所有 GPIO 端口的 pin1 连接到中断管理器的第 line1，
+		///		- 所有 GPIO 端口的 pin0 连接到中断管理器的 line0，
+		///		  所有 GPIO 端口的 pin1 连接到中断管理器的 line1，
 		///		  以此类推。
 		///		- 例如同样都是 pin0，可能来自 GPIOA，GPIOB,...... 等。所有
 		///		  这些端口的 pin0 都通过一个多路选择开关连接到中断管理器的 line0 上，
