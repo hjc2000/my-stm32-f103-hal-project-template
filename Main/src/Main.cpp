@@ -59,5 +59,11 @@ void TestInterrupt()
 	RedDigitalLed::Instance().TurnOn();
 	while (1)
 	{
+		if (ExtiKey0::Instance().IsPressed())
+		{
+			RedDigitalLed::Instance().Toggle();
+			GreenDigitalLed::Instance().Toggle();
+			ExtiKey0::Instance().ClearPressedFlag();
+		}
 	}
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include<atk-stm32f103/AtkLed.h>
 #include<hal-wrapper/Systic.h>
 #include<hal-wrapper/device/IDevice.h>
 #include<hal-wrapper/interrupt/Exti.h>
@@ -8,10 +7,16 @@
 
 namespace atk
 {
+	/// <summary>
+	///		外部中断驱动的 key0。
+	/// </summary>
 	class ExtiKey0 :
 		public hal::IDevice,
 		public hal::ExtiIrqHandler
 	{
+	private:
+		volatile bool _is_pressed = false;
+
 		hal::GpioPort &Port()
 		{
 			return hal::GpioPortE::Instance();
@@ -37,5 +42,15 @@ namespace atk
 		// 通过 IKey 继承
 		void Initialize() override;
 		void Deinitialize() override;
+
+		bool IsPressed() const
+		{
+			return _is_pressed;
+		}
+
+		void ClearPressedFlag()
+		{
+			_is_pressed = false;
+		}
 	};
 }

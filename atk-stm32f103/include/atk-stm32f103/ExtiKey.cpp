@@ -29,10 +29,6 @@ void atk::ExtiKey0::Deinitialize()
 void atk::ExtiKey0::Handle()
 {
 	Systic::NopLoopDelay(std::chrono::milliseconds(20));
-	if (!Port().DigitalReadPin(Pin()))
-	{
-		RedDigitalLed::Instance().Toggle();
-	}
-
+	_is_pressed = !Port().DigitalReadPin(Pin());
 	Exti::ClearGpioInterruptPending(Pin());
 }
