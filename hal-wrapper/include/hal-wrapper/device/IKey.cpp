@@ -1,8 +1,8 @@
-#include<hal-wrapper/device/Key.h>
+#include"IKey.h"
 
 using namespace hal;
 
-bool Key::KeyIsReallyDown()
+bool IKey::KeyIsReallyDown()
 {
 	if (!KeyIsDown())
 	{
@@ -13,7 +13,7 @@ bool Key::KeyIsReallyDown()
 	return KeyIsDown();
 }
 
-bool Key::KeyIsReallyUp()
+bool IKey::KeyIsReallyUp()
 {
 	if (!KeyIsUp())
 	{

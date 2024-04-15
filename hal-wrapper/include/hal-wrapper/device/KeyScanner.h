@@ -1,7 +1,7 @@
 #pragma once
 #include<bitset>
 #include<hal-wrapper/Delayer.h>
-#include<hal-wrapper/device/Key.h>
+#include<hal-wrapper/device/IKey.h>
 
 namespace hal
 {
@@ -9,7 +9,7 @@ namespace hal
 	class KeyScanner
 	{
 	private:
-		Key **_keys = nullptr;
+		IKey **_keys = nullptr;
 		std::bitset<KeyCount> _last_scan_result;
 		std::bitset<KeyCount> _key_down_events;
 		std::bitset<KeyCount> _key_up_events;
@@ -34,7 +34,7 @@ namespace hal
 		///		将按键对象的指针放到数组里，将数组头指针传进来。
 		/// </summary>
 		/// <param name="keys"></param>
-		KeyScanner(Key **keys)
+		KeyScanner(IKey **keys)
 		{
 			_keys = keys;
 		}

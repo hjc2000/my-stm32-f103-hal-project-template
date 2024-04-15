@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/device/Key.h>
+#include<hal-wrapper/device/IKey.h>
 #include<hal-wrapper/peripheral/GpioPort.h>
 
 namespace atk
@@ -7,7 +7,7 @@ namespace atk
 	/// <summary>
 	///		位于 PE4 引脚上的按键。另一端接地，所以要上拉使用。
 	/// </summary>
-	class Key0 :public hal::Key
+	class Key0 :public hal::IKey
 	{
 	public:
 		static Key0 &Instance()
@@ -30,7 +30,7 @@ namespace atk
 	/// <summary>
 	///		位于 PE3 引脚。另一端接地，所以需要上拉使用。
 	/// </summary>
-	class Key1 :public hal::Key
+	class Key1 :public hal::IKey
 	{
 	public:
 		static Key1 &Instance()
@@ -53,7 +53,7 @@ namespace atk
 	/// <summary>
 	///		位于 PA0 引脚。另一端接 VCC，所以需要下拉使用。
 	/// </summary>
-	class KeyWakeUp :public hal::Key
+	class KeyWakeUp :public hal::IKey
 	{
 	public:
 		static KeyWakeUp &Instance()

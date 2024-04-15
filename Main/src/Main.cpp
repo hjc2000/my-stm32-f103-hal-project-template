@@ -19,12 +19,12 @@ void TestKeyScanner()
 	Key1::Instance().Initialize();
 	KeyWakeUp::Instance().Initialize();
 
-	Key *keys[] = {
+	IKey *keys[] = {
 		&Key0::Instance(),
 		&Key1::Instance(),
 		&KeyWakeUp::Instance(),
 	};
-	KeyScanner<sizeof(keys) / sizeof(Key *)> key_scanner{ keys };
+	KeyScanner<sizeof(keys) / sizeof(IKey *)> key_scanner{ keys };
 
 	while (1)
 	{
