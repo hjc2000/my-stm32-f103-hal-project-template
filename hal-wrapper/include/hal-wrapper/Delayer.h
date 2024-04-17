@@ -15,6 +15,7 @@ namespace hal
 		Delayer &operator=(Delayer const &value) = delete;
 
 	public:
+		#pragma region 单例
 		static Delayer &Instance()
 		{
 			static Delayer delayer{};
@@ -31,6 +32,7 @@ namespace hal
 		///		的默认实现。
 		/// </summary>
 		static Delayer *_global_delayer;
+		#pragma endregion
 
 		virtual void Delay(std::chrono::microseconds microseconds);
 		virtual void Delay(std::chrono::milliseconds milliseconds);

@@ -42,6 +42,10 @@ namespace hal
 		static SysticClockSource ClockSource();
 		static void SetClockSource(SysticClockSource value);
 
+		/// <summary>
+		///		获取 systick 的时钟源频率
+		/// </summary>
+		/// <returns></returns>
 		static uint32_t ClockSourceFreq();
 
 		/// <summary>
