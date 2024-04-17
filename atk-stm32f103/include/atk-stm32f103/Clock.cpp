@@ -5,16 +5,13 @@ using namespace atk;
 
 void atk::config_72mhz_hclk()
 {
-	PllInitOptions pll_init_options;
-	pll_init_options._state = PllState::On;
-	pll_init_options._clock_source = PllClockSource::HSE;
-	pll_init_options._mul = PllMul::Mul9;
-
 	OscInitOptions osc_init_options;
 	osc_init_options._oscillator_type = OscillatorType::HSE;
 	osc_init_options._hse_state = HseState::On;
 	osc_init_options._hse_prediv = HsePrediv::DIV1;
-	osc_init_options._pll_init_options = pll_init_options;
+	osc_init_options._pll_init_options._state = PllState::On;
+	osc_init_options._pll_init_options._clock_source = PllClockSource::HSE;
+	osc_init_options._pll_init_options._mul = PllMul::Mul9;
 	if (Osc::Config(osc_init_options) != HAL_OK)
 	{
 		/* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */

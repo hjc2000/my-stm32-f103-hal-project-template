@@ -38,6 +38,5 @@ namespace hal
 		static ExtiIrqHandler *_exti2_irq_handler;
 		static ExtiIrqHandler *_exti3_irq_handler;
 		static ExtiIrqHandler *_exti4_irq_handler;
-
 	};
 }
