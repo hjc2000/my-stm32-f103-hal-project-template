@@ -1,4 +1,5 @@
 #pragma once
+#include<hal.h>
 
 namespace hal
 {
