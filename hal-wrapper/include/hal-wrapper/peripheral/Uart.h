@@ -53,7 +53,7 @@ namespace hal
 		/// </summary>
 		UartOverSample _over_sampling;
 
-		operator UART_InitTypeDef();
+		operator UART_InitTypeDef() const;
 	};
 
 	class Uart :public IPeripheral
@@ -62,5 +62,17 @@ namespace hal
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
+
+		/// <summary>
+		///		派生类需要实现，返回自己的硬件串口实例。
+		/// </summary>
+		/// <returns></returns>
+		virtual USART_TypeDef &HardwareInstance() = 0;
+
+		/// <summary>
+		///		初始化串口
+		/// </summary>
+		/// <param name="options"></param>
+		void Initialize(UartInitOptions const &options);
 	};
 }

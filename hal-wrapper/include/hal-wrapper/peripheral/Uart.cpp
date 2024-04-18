@@ -20,7 +20,7 @@ UartInitOptions &hal::UartInitOptions::operator=(UART_InitTypeDef const &value)
 	return *this;
 }
 
-hal::UartInitOptions::operator UART_InitTypeDef()
+hal::UartInitOptions::operator UART_InitTypeDef() const
 {
 	UART_InitTypeDef def;
 	def.BaudRate = _baud_rate;
@@ -44,4 +44,12 @@ void hal::Uart::EnableClock()
 
 void hal::Uart::DisableClock()
 {
+}
+
+void hal::Uart::Initialize(UartInitOptions const &options)
+{
+	UART_HandleTypeDef def;
+	def.Instance = &HardwareInstance();
+	def.Init = options;
+	HAL_UART_Init(&def);
 }
