@@ -36,11 +36,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *const HardwareInstance() override
-		{
-			return GPIOA;
-		}
-
+		GPIO_TypeDef *const HardwareInstance() override;
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -59,11 +55,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *const HardwareInstance() override
-		{
-			return GPIOB;
-		}
-
+		GPIO_TypeDef *const HardwareInstance() override;
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -82,11 +74,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *const HardwareInstance() override
-		{
-			return GPIOC;
-		}
-
+		GPIO_TypeDef *const HardwareInstance() override;
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -105,11 +93,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *const HardwareInstance() override
-		{
-			return GPIOD;
-		}
-
+		GPIO_TypeDef *const HardwareInstance() override;
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -128,11 +112,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *const HardwareInstance() override
-		{
-			return GPIOE;
-		}
-
+		GPIO_TypeDef *const HardwareInstance() override;
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;

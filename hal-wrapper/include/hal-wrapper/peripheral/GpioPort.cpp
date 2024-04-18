@@ -35,6 +35,11 @@ void GpioPort::DigitalTogglePin(GpioPin pin)
 }
 
 #pragma region GpioPortA
+GPIO_TypeDef *const GpioPortA::HardwareInstance()
+{
+	return GPIOA;
+}
+
 bool GpioPortA::IsClockEnabled()
 {
 	return __HAL_RCC_GPIOA_IS_CLK_ENABLED();
@@ -62,6 +67,11 @@ void GpioPortA::DisableClock()
 #pragma endregion
 
 #pragma region GpioPortB
+GPIO_TypeDef *const GpioPortB::HardwareInstance()
+{
+	return GPIOB;
+}
+
 bool GpioPortB::IsClockEnabled()
 {
 	return __HAL_RCC_GPIOB_IS_CLK_ENABLED();
@@ -89,6 +99,11 @@ void GpioPortB::DisableClock()
 #pragma endregion
 
 #pragma region GpioPortC
+GPIO_TypeDef *const GpioPortC::HardwareInstance()
+{
+	return GPIOC;
+}
+
 bool GpioPortC::IsClockEnabled()
 {
 	return __HAL_RCC_GPIOC_IS_CLK_ENABLED();
@@ -116,6 +131,11 @@ void GpioPortC::DisableClock()
 #pragma endregion
 
 #pragma region GpioPortD
+GPIO_TypeDef *const GpioPortD::HardwareInstance()
+{
+	return GPIOD;
+}
+
 bool GpioPortD::IsClockEnabled()
 {
 	return __HAL_RCC_GPIOD_IS_CLK_ENABLED();
@@ -143,6 +163,11 @@ void GpioPortD::DisableClock()
 #pragma endregion
 
 #pragma region GpioPortE
+GPIO_TypeDef *const GpioPortE::HardwareInstance()
+{
+	return GPIOE;
+}
+
 bool GpioPortE::IsClockEnabled()
 {
 	return __HAL_RCC_GPIOE_IS_CLK_ENABLED();
