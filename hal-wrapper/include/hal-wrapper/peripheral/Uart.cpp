@@ -52,4 +52,5 @@ void hal::Uart::Initialize(UartInitOptions const &options)
 	def.Instance = &HardwareInstance();
 	def.Init = options;
 	HAL_UART_Init(&def);
+	HAL_UART_Receive_IT(&def, ReceiveBuffer(), ReceiveBufferSize());
 }

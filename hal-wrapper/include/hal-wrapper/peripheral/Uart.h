@@ -70,6 +70,18 @@ namespace hal
 		virtual USART_TypeDef &HardwareInstance() = 0;
 
 		/// <summary>
+		///		派生类需要准备接收缓冲区。本函数返回缓冲区头指针。
+		/// </summary>
+		/// <returns></returns>
+		virtual uint8_t *ReceiveBuffer() = 0;
+
+		/// <summary>
+		///		接收缓冲区的大小。
+		/// </summary>
+		/// <returns></returns>
+		virtual uint16_t ReceiveBufferSize() = 0;
+
+		/// <summary>
 		///		初始化串口
 		/// </summary>
 		/// <param name="options"></param>
