@@ -69,4 +69,16 @@ namespace hal
 		CTS = UART_HWCONTROL_CTS,
 		RTS_CTS = UART_HWCONTROL_RTS_CTS,
 	};
+
+	/// <summary>
+	///		过采样倍率
+	/// </summary>
+	enum class UartOverSample
+	{
+		OverSample_16 = UART_OVERSAMPLING_16,
+
+		#if defined(USART_CR1_OVER8)
+		OverSample_8,
+		#endif /* USART_CR1_OVER8 */
+	};
 }

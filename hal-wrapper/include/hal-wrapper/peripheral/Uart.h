@@ -5,9 +5,18 @@
 
 namespace hal
 {
+	/// <summary>
+	///		串口初始化选项
+	/// </summary>
 	class UartInitOptions
 	{
 	public:
+		UartInitOptions() = default;
+		UartInitOptions(UartInitOptions const &value) = default;
+		UartInitOptions(UART_InitTypeDef const &value);
+		UartInitOptions &operator=(UartInitOptions const &value) = default;
+		UartInitOptions &operator=(UART_InitTypeDef const &value);
+
 		/// <summary>
 		///		波特率
 		/// </summary>
@@ -42,9 +51,9 @@ namespace hal
 		/// <summary>
 		///		过采样倍率
 		/// </summary>
-		uint32_t _over_sampling;              /*!< Specifies whether the Over sampling 8 is enabled or disabled, to achieve higher speed (up to fPCLK/8).
-		This parameter can be a value of @ref UART_Over_Sampling. This feature is only available
-		on STM32F100xx family, so OverSampling parameter should always be set to 16. */
+		UartOverSample _over_sampling;
+
+		operator UART_InitTypeDef();
 	};
 
 	class Uart :public IPeripheral
