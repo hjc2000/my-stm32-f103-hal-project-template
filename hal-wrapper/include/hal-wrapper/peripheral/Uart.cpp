@@ -3,6 +3,7 @@
 using namespace std;
 using namespace hal;
 
+#pragma region UartInitOptions
 hal::UartInitOptions::UartInitOptions(UART_InitTypeDef const &value)
 {
 	*this = value;
@@ -32,6 +33,7 @@ hal::UartInitOptions::operator UART_InitTypeDef() const
 	def.OverSampling = (uint32_t)_over_sampling;
 	return def;
 }
+#pragma endregion
 
 bool hal::Uart::IsClockEnabled()
 {
