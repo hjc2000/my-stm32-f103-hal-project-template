@@ -35,19 +35,6 @@ hal::UartInitOptions::operator UART_InitTypeDef() const
 }
 #pragma endregion
 
-bool hal::Uart::IsClockEnabled()
-{
-	return false;
-}
-
-void hal::Uart::EnableClock()
-{
-}
-
-void hal::Uart::DisableClock()
-{
-}
-
 void hal::Uart::Initialize(UartInitOptions const &options)
 {
 	UART_HandleTypeDef def;

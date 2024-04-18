@@ -59,10 +59,6 @@ namespace hal
 	class Uart :public IPeripheral
 	{
 	public:
-		bool IsClockEnabled() override;
-		void EnableClock() override;
-		void DisableClock() override;
-
 		/// <summary>
 		///		派生类需要实现，返回自己的硬件串口实例。
 		/// </summary>
