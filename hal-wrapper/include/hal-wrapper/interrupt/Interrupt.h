@@ -42,6 +42,7 @@ namespace hal
 	class Interrupt
 	{
 		Interrupt() = delete;
+		Interrupt &operator=(Interrupt const &value) = delete;
 
 	public:
 		/// <summary>

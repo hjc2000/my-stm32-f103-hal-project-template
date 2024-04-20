@@ -1,4 +1,6 @@
 #include"Uart1.h"
+#include<hal-wrapper/interrupt/Interrupt.h>
+#include<hal-wrapper/peripheral/GpioPort.h>
 
 using namespace atk;
 using namespace hal;
@@ -8,12 +10,20 @@ void atk::Uart1::MspInit(UART_HandleTypeDef *huart)
 	GpioPortA::Instance().EnableClock();
 	Uart1::Instance().EnableClock();
 
-	// 发送引脚 PA9，接收引脚 PA10。
+	// 发送引脚 PA9
 	GpioPinInitOptions options;
 	options._mode = GpioPinMode::Output_PushPull;
 	options._pull_mode = GpioPinPull::PullUp;
 	options._speed = GpioPinSpeed::High;
 	GpioPortA::Instance().InitPin(GpioPin::Pin9, options);
+
+	// 接收引脚 PA10
+	options._mode = GpioPinMode::AlternateFunction_Input;
+	GpioPortA::Instance().InitPin(GpioPin::Pin10, options);
+
+	// 启用中断
+	Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
+	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 3, 3);
 }
 
 bool atk::Uart1::IsClockEnabled()

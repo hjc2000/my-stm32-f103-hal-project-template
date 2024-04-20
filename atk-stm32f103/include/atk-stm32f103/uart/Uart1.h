@@ -1,5 +1,4 @@
 #pragma once
-#include<hal-wrapper/peripheral/GpioPort.h>
 #include<hal-wrapper/peripheral/Uart.h>
 
 namespace atk
