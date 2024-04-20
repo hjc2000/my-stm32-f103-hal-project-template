@@ -56,17 +56,35 @@ namespace hal
 		operator UART_InitTypeDef() const;
 	};
 
+	using UartCallbackFunc = void (*)(UART_HandleTypeDef *huart);
+
+	/// <summary>
+	///		串口抽象类。
+	/// </summary>
 	class Uart :public IPeripheral
 	{
-		static Uart *_current_to_init;
-		friend void ::HAL_UART_MspInit(UART_HandleTypeDef *huart);
+	protected:
+		/// <summary>
+		///		初始化底层的 GPIO 引脚。
+		///		因为本类的派生类都是单例的，所以派生类可以定义一个静态方法，然后重写本函数，
+		///		将该静态方法的函数指针返回。
+		/// </summary>
+		virtual UartCallbackFunc MspInitCallback() = 0;
+
+		/// <summary>
+		///		接收完成时的回调。
+		///		因为本类的派生类都是单例的，所以派生类可以定义一个静态方法，然后重写本函数，
+		///		将该静态方法的函数指针返回。
+		/// </summary>
+		/// <returns></returns>
+		virtual UartCallbackFunc ReceiveCompleteCallback() = 0;
 
 	public:
 		/// <summary>
 		///		派生类需要实现，返回自己的硬件串口实例。
 		/// </summary>
 		/// <returns></returns>
-		virtual USART_TypeDef &HardwareInstance() = 0;
+		virtual USART_TypeDef *HardwareInstance() = 0;
 
 		/// <summary>
 		///		派生类需要准备接收缓冲区。本函数返回缓冲区头指针。
@@ -79,11 +97,6 @@ namespace hal
 		/// </summary>
 		/// <returns></returns>
 		virtual uint16_t ReceiveBufferSize() = 0;
-
-		/// <summary>
-		///		初始化底层的 GPIO 引脚。
-		/// </summary>
-		virtual void MspInit() = 0;
 
 		/// <summary>
 		///		初始化串口

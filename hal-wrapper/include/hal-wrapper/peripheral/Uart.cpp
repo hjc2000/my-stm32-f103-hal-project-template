@@ -37,30 +37,11 @@ hal::UartInitOptions::operator UART_InitTypeDef() const
 
 void hal::Uart::Initialize(UartInitOptions const &options)
 {
-	_current_to_init = this;
 	UART_HandleTypeDef def;
-	def.Instance = &HardwareInstance();
+	def.Instance = HardwareInstance();
 	def.Init = options;
+	def.MspInitCallback = MspInitCallback();
+	def.RxCpltCallback = ReceiveCompleteCallback();
 	HAL_UART_Init(&def);
 	HAL_UART_Receive_IT(&def, ReceiveBuffer(), ReceiveBufferSize());
-}
-
-/// <summary>
-///		为 HAL_UART_MspInit 函数提供一个全局访问点，表示当前是在初始化哪个串口。
-/// </summary>
-Uart *Uart::_current_to_init = nullptr;
-
-/// <summary>
-///		重写 HAL 中的 weak 版本。
-///		通过全局访问点 Uart::_current_to_init 来调用具体的实例。
-/// </summary>
-/// <param name="huart"></param>
-void HAL_UART_MspInit(UART_HandleTypeDef *huart)
-{
-	if (Uart::_current_to_init == nullptr)
-	{
-		return;
-	}
-
-	Uart::_current_to_init->MspInit();
 }
