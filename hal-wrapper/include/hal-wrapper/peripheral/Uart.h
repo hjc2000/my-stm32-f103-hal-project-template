@@ -58,6 +58,9 @@ namespace hal
 
 	class Uart :public IPeripheral
 	{
+		static Uart *_current_to_init;
+		friend void ::HAL_UART_MspInit(UART_HandleTypeDef *huart);
+
 	public:
 		/// <summary>
 		///		派生类需要实现，返回自己的硬件串口实例。
@@ -76,6 +79,11 @@ namespace hal
 		/// </summary>
 		/// <returns></returns>
 		virtual uint16_t ReceiveBufferSize() = 0;
+
+		/// <summary>
+		///		初始化底层的 GPIO 引脚。
+		/// </summary>
+		virtual void MspInit() = 0;
 
 		/// <summary>
 		///		初始化串口
