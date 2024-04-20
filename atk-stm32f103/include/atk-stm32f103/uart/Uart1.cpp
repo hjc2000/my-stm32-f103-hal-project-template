@@ -5,7 +5,7 @@
 using namespace atk;
 using namespace hal;
 
-void atk::Uart1::MspInit(UART_HandleTypeDef *huart)
+void atk::Uart1::OnMspInit(UART_HandleTypeDef *huart)
 {
 	GpioPortA::Instance().EnableClock();
 	Uart1::Instance().EnableClock();
@@ -26,6 +26,11 @@ void atk::Uart1::MspInit(UART_HandleTypeDef *huart)
 	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 3, 3);
 }
 
+void atk::Uart1::OnReceiveComplete(UART_HandleTypeDef *huart)
+{
+
+}
+
 bool atk::Uart1::IsClockEnabled()
 {
 	return __HAL_RCC_USART1_IS_CLK_ENABLED();
@@ -43,12 +48,12 @@ void atk::Uart1::DisableClock()
 
 hal::UartCallbackFunc atk::Uart1::MspInitCallback()
 {
-	return MspInit;
+	return OnMspInit;
 }
 
 hal::UartCallbackFunc atk::Uart1::ReceiveCompleteCallback()
 {
-	return nullptr;
+	return OnReceiveComplete;
 }
 
 USART_TypeDef *atk::Uart1::HardwareInstance()

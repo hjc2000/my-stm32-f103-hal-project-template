@@ -15,7 +15,8 @@ namespace atk
 		uint8_t _receive_buffer[1]{};
 		uint16_t _receive_buffer_size = 1;
 
-		static void MspInit(UART_HandleTypeDef *huart);
+		static void OnMspInit(UART_HandleTypeDef *huart);
+		static void OnReceiveComplete(UART_HandleTypeDef *huart);
 
 	protected:
 		hal::UartCallbackFunc MspInitCallback() override;
