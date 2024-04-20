@@ -121,6 +121,7 @@ namespace hal
 		void Initialize();
 		#pragma endregion
 
+		#pragma region 发送
 		/// <summary>
 		///		发送完毕
 		/// </summary>
@@ -163,6 +164,7 @@ namespace hal
 			WaitUntilSendingCompleted();
 			WriteDR(data);
 		}
+		#pragma endregion
 
 		/// <summary>
 		///		接收完成时被回调
