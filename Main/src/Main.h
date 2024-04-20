@@ -6,6 +6,7 @@ extern "C" {
 
 	void TestKeyScanner();
 	void TestInterrupt();
+	void TestUart1();
 
 	#ifdef __cplusplus
 }

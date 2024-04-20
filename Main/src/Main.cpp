@@ -3,6 +3,8 @@
 #include<atk-stm32f103/Clock.h>
 #include<atk-stm32f103/ExtiKey.h>
 #include<atk-stm32f103/Key.h>
+#include<atk-stm32f103/uart/Uart1.h>
+#include<hal-wrapper/Delayer.h>
 #include<hal-wrapper/Systic.h>
 #include<hal-wrapper/device/KeyScanner.h>
 #include<hal-wrapper/peripheral/GpioPort.h>
@@ -56,5 +58,23 @@ void TestInterrupt()
 			GreenDigitalLed::Instance().Toggle();
 			ExtiKey0::Instance().ClearPressedFlag();
 		}
+	}
+}
+
+void TestUart1()
+{
+	HAL_Init();
+	config_72mhz_hclk();
+	RedDigitalLed::Instance().TurnOn();
+	Uart1::Instance().Initialize();
+
+	while (1)
+	{
+		Delayer::Instance().Delay(std::chrono::seconds(1));
+		Uart1::Instance().Send(72);
+		Uart1::Instance().WaitUntilSendingCompleted();
+		RedDigitalLed::Instance().TurnOn();
+		Delayer::Instance().Delay(std::chrono::seconds(1));
+		RedDigitalLed::Instance().TurnOff();
 	}
 }

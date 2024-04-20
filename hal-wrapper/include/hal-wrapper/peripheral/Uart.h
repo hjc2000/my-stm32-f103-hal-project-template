@@ -115,7 +115,7 @@ namespace hal
 		/// <returns></returns>
 		bool SendingCompleted()
 		{
-			return (HardwareInstance()->SR & 0X40) == 0;
+			return (HardwareInstance()->SR & 0X40) != 0;
 		}
 
 		/// <summary>

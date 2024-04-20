@@ -12,7 +12,7 @@ void atk::Uart1::OnMspInit(UART_HandleTypeDef *huart)
 
 	// 发送引脚 PA9
 	GpioPinInitOptions options;
-	options._mode = GpioPinMode::Output_PushPull;
+	options._mode = GpioPinMode::AlternateFunction_PushPull;
 	options._pull_mode = GpioPinPull::PullUp;
 	options._speed = GpioPinSpeed::High;
 	GpioPortA::Instance().InitPin(GpioPin::Pin9, options);
@@ -28,7 +28,11 @@ void atk::Uart1::OnMspInit(UART_HandleTypeDef *huart)
 
 void atk::Uart1::OnReceiveComplete(UART_HandleTypeDef *huart)
 {
-
+	HAL_UART_Receive_IT(
+		huart,
+		Uart1::Instance().ReceiveBuffer(),
+		Uart1::Instance().ReceiveBufferSize()
+	);
 }
 
 bool atk::Uart1::IsClockEnabled()

@@ -2,6 +2,7 @@
 
 int main(void)
 {
-	TestKeyScanner();
+	//TestKeyScanner();
 	//TestInterrupt();
+	TestUart1();
 }
