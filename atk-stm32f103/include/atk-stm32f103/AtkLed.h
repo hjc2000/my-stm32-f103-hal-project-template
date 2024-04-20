@@ -17,8 +17,8 @@ namespace atk
 		}
 
 	public:
-		void Initialize() override;
-		void Deinitialize() override;
+		void Initialize();
+		void Deinitialize();
 
 		void TurnOn() override;
 		void TurnOff() override;
@@ -38,8 +38,8 @@ namespace atk
 		}
 
 	public:
-		void Initialize() override;
-		void Deinitialize() override;
+		void Initialize();
+		void Deinitialize();
 
 		void TurnOn() override;
 		void TurnOff() override;

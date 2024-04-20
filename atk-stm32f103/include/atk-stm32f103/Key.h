@@ -22,8 +22,8 @@ namespace atk
 			return hal::GpioPortE::Instance();
 		}
 
-		void Initialize() override;
-		void Deinitialize() override;
+		void Initialize();
+		void Deinitialize();
 		bool KeyIsDown() override;
 	};
 
@@ -45,8 +45,8 @@ namespace atk
 			return hal::GpioPortE::Instance();
 		}
 
-		void Initialize() override;
-		void Deinitialize() override;
+		void Initialize();
+		void Deinitialize();
 		bool KeyIsDown() override;
 	};
 
@@ -68,8 +68,8 @@ namespace atk
 			return hal::GpioPortA::Instance();
 		}
 
-		void Initialize() override;
-		void Deinitialize() override;
+		void Initialize();
+		void Deinitialize();
 		bool KeyIsDown() override;
 	};
 }
