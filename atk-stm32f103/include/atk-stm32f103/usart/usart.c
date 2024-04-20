@@ -177,7 +177,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
  * @param       无
  * @retval      无
  */
-void USART_UX_IRQHandler(void)
+void USART1_IRQHandler(void)
 {
 	#if SYS_SUPPORT_OS                          /* 使用OS */
 	OSIntEnter();

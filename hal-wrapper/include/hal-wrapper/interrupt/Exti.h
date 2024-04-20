@@ -12,6 +12,7 @@ namespace hal
 	class Exti
 	{
 		Exti() = delete;
+		Exti &operator=(Exti const &o) = delete;
 
 	public:
 		/// <summary>

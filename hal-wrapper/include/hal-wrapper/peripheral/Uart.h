@@ -103,5 +103,38 @@ namespace hal
 		/// </summary>
 		/// <param name="options"></param>
 		void Initialize(UartInitOptions const &options);
+
+		/// <summary>
+		///		按照 UartInitOptions 的默认值进行初始化。
+		/// </summary>
+		void Initialize();
+
+		/// <summary>
+		///		发送完毕
+		/// </summary>
+		/// <returns></returns>
+		bool SendingCompleted()
+		{
+			return (HardwareInstance()->SR & 0X40) == 0;
+		}
+
+		/// <summary>
+		///		等待，直到发送完毕
+		/// </summary>
+		void WaitUntilSendingCompleted()
+		{
+			while (true)
+			{
+				if (SendingCompleted())
+				{
+					return;
+				}
+			}
+		}
+
+		void Send(uint8_t data)
+		{
+			HardwareInstance()->DR = data;
+		}
 	};
 }
