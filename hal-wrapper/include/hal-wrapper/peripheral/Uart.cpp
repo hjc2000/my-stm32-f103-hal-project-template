@@ -47,7 +47,7 @@ void hal::Uart::Initialize(UartInitOptions const &options)
 	* 回调函数指针。
 	*/
 	_uart_handle.RxCpltCallback = ReceiveCompleteCallback();
-	HAL_UART_Receive_IT(&_uart_handle, ReceiveBuffer(), ReceiveBufferSize());
+	EnableReceiveInterrupt();
 }
 
 void hal::Uart::Initialize()

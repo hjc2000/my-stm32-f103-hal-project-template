@@ -21,6 +21,10 @@ namespace atk
 		uint8_t _receive_buffer[1]{};
 		uint16_t _receive_buffer_size = 1;
 
+		bool IsClockEnabled() override;
+		void EnableClock() override;
+		void DisableClock() override;
+
 	protected:
 		hal::UartCallbackFunc MspInitCallback() override;
 		hal::UartCallbackFunc ReceiveCompleteCallback() override;
@@ -33,10 +37,6 @@ namespace atk
 			static Uart1 instance;
 			return instance;
 		}
-
-		bool IsClockEnabled() override;
-		void EnableClock() override;
-		void DisableClock() override;
 
 		uint8_t *ReceiveBuffer() override;
 		uint16_t ReceiveBufferSize() override;

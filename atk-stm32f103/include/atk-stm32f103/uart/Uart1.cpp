@@ -63,11 +63,7 @@ hal::UartCallbackFunc atk::Uart1::ReceiveCompleteCallback()
 			Uart1::Instance()._receive_completed_handler->Handle();
 		}
 
-		HAL_UART_Receive_IT(
-			huart,
-			Uart1::Instance().ReceiveBuffer(),
-			Uart1::Instance().ReceiveBufferSize()
-		);
+		Uart1::Instance().EnableReceiveInterrupt();
 	};
 }
 

@@ -159,5 +159,13 @@ namespace hal
 		/// </summary>
 		void(*_on_receive_completed)() = nullptr;
 		UartReceiveCompletedHandler *_receive_completed_handler = nullptr;
+
+		/// <summary>
+		///		每次在中断中接收数据后，接收中断都会被禁用，此时需要调用本函数重新启用。
+		/// </summary>
+		void EnableReceiveInterrupt()
+		{
+			HAL_UART_Receive_IT(&_uart_handle, ReceiveBuffer(), ReceiveBufferSize());
+		}
 	};
 }
