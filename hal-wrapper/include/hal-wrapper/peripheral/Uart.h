@@ -145,13 +145,23 @@ namespace hal
 		}
 
 		/// <summary>
-		///		写发送寄存器。
-		///		不保证发送寄存器的数据已经被发送完了。
+		///		写发送寄存器 DR。
+		///		本函数不保证发送寄存器的数据已经被发送完了。
 		/// </summary>
 		/// <param name="data"></param>
-		void WriteSendingDataRegister(uint8_t data)
+		void WriteDR(uint8_t data)
 		{
 			HardwareInstance()->DR = data;
+		}
+
+		/// <summary>
+		///		写发送寄存器 DR。不过本函数会等待，直到上一次的数据发送完。
+		/// </summary>
+		/// <param name="data"></param>
+		void WriteDR_WithWaiting(uint8_t data)
+		{
+			WaitUntilSendingCompleted();
+			WriteDR(data);
 		}
 
 		/// <summary>

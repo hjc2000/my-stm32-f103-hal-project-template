@@ -74,8 +74,7 @@ void TestUart1()
 
 	while (1)
 	{
-		Uart1::Instance().WaitUntilSendingCompleted();
 		Delayer::Instance().Delay(std::chrono::seconds(1));
-		Uart1::Instance().WriteSendingDataRegister(72);
+		Uart1::Instance().WriteDR_WithWaiting(72);
 	}
 }
