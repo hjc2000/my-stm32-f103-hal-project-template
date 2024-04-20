@@ -14,12 +14,6 @@ void TestKeyScanner()
 {
 	HAL_Init();
 	config_72mhz_hclk();
-	RedDigitalLed::Instance().Initialize();
-	GreenDigitalLed::Instance().Initialize();
-	Key0::Instance().Initialize();
-	Key1::Instance().Initialize();
-	KeyWakeUp::Instance().Initialize();
-
 	IKey *keys[] = {
 		&Key0::Instance(),
 		&Key1::Instance(),
@@ -53,9 +47,6 @@ void TestInterrupt()
 {
 	HAL_Init();
 	config_72mhz_hclk();
-	RedDigitalLed::Instance().Initialize();
-	GreenDigitalLed::Instance().Initialize();
-	ExtiKey0::Instance().Initialize();
 	RedDigitalLed::Instance().TurnOn();
 	while (1)
 	{

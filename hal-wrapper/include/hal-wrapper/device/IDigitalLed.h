@@ -1,11 +1,12 @@
 #pragma once
+#include<hal-wrapper/device/IDevice.h>
 
 namespace hal
 {
 	/// <summary>
 	///		数字 LED。只能开或关，无法调节亮度。
 	/// </summary>
-	class IDigitalLed
+	class IDigitalLed :public IDevice
 	{
 	public:
 		virtual void TurnOn() = 0;

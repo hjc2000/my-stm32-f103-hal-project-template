@@ -34,13 +34,30 @@ namespace atk
 		void HandleExtiIrq() override;
 
 	public:
+		ExtiKey0()
+		{
+			using namespace hal;
+			Exti::_exti4_irq_handler = this;
+
+			// 配置引脚
+			Port().EnableClock();
+			GpioPinInitOptions options;
+			options._mode = GpioPinMode::Interrupt_FallingEdgeTrigger;
+			options._pull_mode = GpioPinPull::PullUp;
+			options._speed = GpioPinSpeed::High;
+			Port().InitPin(Pin(), options);
+
+			// 配置好引脚模式后开中断
+			Interrupt::SetPriority(IRQn_Type::EXTI4_IRQn, 0, 2);
+			Interrupt::EnableIRQ(IRQn_Type::EXTI4_IRQn);
+		}
+
 		static ExtiKey0 &Instance()
 		{
 			static ExtiKey0 instance;
 			return instance;
 		}
 
-		void Initialize();
 		void Deinitialize();
 
 		bool IsPressed() const

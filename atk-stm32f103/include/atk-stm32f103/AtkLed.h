@@ -10,15 +10,27 @@ namespace atk
 	class RedDigitalLed :public hal::IDigitalLed
 	{
 	public:
+		RedDigitalLed()
+		{
+			using namespace hal;
+			GpioPortB::Instance().EnableClock();
+
+			/* 使能时钟后写输出寄存器的操作就有效了。先关闭 LED，然后配置为输出模式，
+			* 这样 LED 的初始状态就是关闭的。
+			*/
+			TurnOff();
+			GpioPinInitOptions gpio_pin_options;
+			gpio_pin_options._mode = GpioPinMode::Output_PushPull;
+			gpio_pin_options._pull_mode = GpioPinPull::PullUp;
+			gpio_pin_options._speed = GpioPinSpeed::High;
+			GpioPortB::Instance().InitPin(GpioPin::Pin5, gpio_pin_options);
+		}
+
 		static RedDigitalLed &Instance()
 		{
 			static RedDigitalLed led;
 			return led;
 		}
-
-	public:
-		void Initialize();
-		void Deinitialize();
 
 		void TurnOn() override;
 		void TurnOff() override;
@@ -31,15 +43,27 @@ namespace atk
 	class GreenDigitalLed :public hal::IDigitalLed
 	{
 	public:
+		GreenDigitalLed()
+		{
+			using namespace hal;
+			GpioPortE::Instance().EnableClock();
+
+			/* 使能时钟后写输出寄存器的操作就有效了。先关闭 LED，然后配置为输出模式，
+			* 这样 LED 的初始状态就是关闭的。
+			*/
+			TurnOff();
+			GpioPinInitOptions gpio_pin_options;
+			gpio_pin_options._mode = GpioPinMode::Output_PushPull;
+			gpio_pin_options._pull_mode = GpioPinPull::PullUp;
+			gpio_pin_options._speed = GpioPinSpeed::High;
+			GpioPortE::Instance().InitPin(GpioPin::Pin5, gpio_pin_options);
+		}
+
 		static GreenDigitalLed &Instance()
 		{
 			static GreenDigitalLed led;
 			return led;
 		}
-
-	public:
-		void Initialize();
-		void Deinitialize();
 
 		void TurnOn() override;
 		void TurnOff() override;

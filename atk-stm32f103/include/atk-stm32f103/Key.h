@@ -10,20 +10,28 @@ namespace atk
 	class Key0 :public hal::IKey
 	{
 	public:
+		Key0()
+		{
+			using namespace hal;
+			Port().EnableClock();
+			GpioPinInitOptions options;
+			options._mode = GpioPinMode::Input;
+			options._pull_mode = GpioPinPull::PullUp;
+			options._speed = GpioPinSpeed::High;
+			Port().InitPin(GpioPin::Pin4, options);
+		}
+
 		static Key0 &Instance()
 		{
 			static Key0 key{};
 			return key;
 		}
 
-	public:
 		hal::GpioPort &Port()
 		{
 			return hal::GpioPortE::Instance();
 		}
 
-		void Initialize();
-		void Deinitialize();
 		bool KeyIsDown() override;
 	};
 
@@ -33,20 +41,28 @@ namespace atk
 	class Key1 :public hal::IKey
 	{
 	public:
+		Key1()
+		{
+			using namespace hal;
+			Port().EnableClock();
+			GpioPinInitOptions options;
+			options._mode = GpioPinMode::Input;
+			options._pull_mode = GpioPinPull::PullUp;
+			options._speed = GpioPinSpeed::High;
+			Port().InitPin(GpioPin::Pin3, options);
+		}
+
 		static Key1 &Instance()
 		{
 			static Key1 key{};
 			return key;
 		}
 
-	public:
 		hal::GpioPort &Port()
 		{
 			return hal::GpioPortE::Instance();
 		}
 
-		void Initialize();
-		void Deinitialize();
 		bool KeyIsDown() override;
 	};
 
@@ -56,20 +72,28 @@ namespace atk
 	class KeyWakeUp :public hal::IKey
 	{
 	public:
+		KeyWakeUp()
+		{
+			using namespace hal;
+			Port().EnableClock();
+			GpioPinInitOptions options;
+			options._mode = GpioPinMode::Input;
+			options._pull_mode = GpioPinPull::PullDown;
+			options._speed = GpioPinSpeed::High;
+			Port().InitPin(GpioPin::Pin0, options);
+		}
+
 		static KeyWakeUp &Instance()
 		{
 			static KeyWakeUp key{};
 			return key;
 		}
 
-	public:
 		hal::GpioPort &Port()
 		{
 			return hal::GpioPortA::Instance();
 		}
 
-		void Initialize();
-		void Deinitialize();
 		bool KeyIsDown() override;
 	};
 }
