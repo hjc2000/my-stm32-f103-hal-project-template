@@ -6,7 +6,7 @@ using namespace hal;
 void atk::Key0::Initialize()
 {
 	Port().EnableClock();
-	GpioPinOptions options;
+	GpioPinInitOptions options;
 	options._mode = GpioPinMode::Input;
 	options._pull_mode = GpioPinPull::PullUp;
 	options._speed = GpioPinSpeed::High;
@@ -29,7 +29,7 @@ bool atk::Key0::KeyIsDown()
 void atk::Key1::Initialize()
 {
 	Port().EnableClock();
-	GpioPinOptions options;
+	GpioPinInitOptions options;
 	options._mode = GpioPinMode::Input;
 	options._pull_mode = GpioPinPull::PullUp;
 	options._speed = GpioPinSpeed::High;
@@ -52,7 +52,7 @@ bool atk::Key1::KeyIsDown()
 void atk::KeyWakeUp::Initialize()
 {
 	Port().EnableClock();
-	GpioPinOptions options;
+	GpioPinInitOptions options;
 	options._mode = GpioPinMode::Input;
 	options._pull_mode = GpioPinPull::PullDown;
 	options._speed = GpioPinSpeed::High;

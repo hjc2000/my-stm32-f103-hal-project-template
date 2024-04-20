@@ -9,7 +9,7 @@ void atk::ExtiKey0::Initialize()
 
 	// 配置引脚
 	Port().EnableClock();
-	GpioPinOptions options;
+	GpioPinInitOptions options;
 	options._mode = GpioPinMode::Interrupt_FallingEdgeTrigger;
 	options._pull_mode = GpioPinPull::PullUp;
 	options._speed = GpioPinSpeed::High;

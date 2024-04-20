@@ -4,7 +4,9 @@
 
 namespace atk
 {
-	#ifdef USART1
+	/// <summary>
+	///		发送引脚 PA9，接收引脚 PA10。
+	/// </summary>
 	class Uart1 :public hal::Uart
 	{
 		Uart1() = default;
@@ -35,5 +37,4 @@ namespace atk
 		uint16_t ReceiveBufferSize() override;
 
 	};
-	#endif // USART0
 }

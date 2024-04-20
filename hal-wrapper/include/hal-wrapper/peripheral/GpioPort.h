@@ -5,7 +5,7 @@
 
 namespace hal
 {
-	struct GpioPinOptions
+	struct GpioPinInitOptions
 	{
 		GpioPinMode _mode = GpioPinMode::Input;
 		GpioPinPull _pull_mode = GpioPinPull::NoPull;
@@ -19,7 +19,7 @@ namespace hal
 	{
 	public:
 		virtual GPIO_TypeDef *const HardwareInstance() = 0;
-		void InitPin(GpioPin pin, GpioPinOptions const &options);
+		void InitPin(GpioPin pin, GpioPinInitOptions const &options);
 		void DigitalWritePin(GpioPin pin, bool value);
 		bool DigitalReadPin(GpioPin pin);
 		void DigitalTogglePin(GpioPin pin);

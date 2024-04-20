@@ -12,7 +12,7 @@ void atk::RedDigitalLed::Initialize()
 	* 这样 LED 的初始状态就是关闭的。
 	*/
 	TurnOff();
-	GpioPinOptions gpio_pin_options;
+	GpioPinInitOptions gpio_pin_options;
 	gpio_pin_options._mode = GpioPinMode::Output_PushPull;
 	gpio_pin_options._pull_mode = GpioPinPull::PullUp;
 	gpio_pin_options._speed = GpioPinSpeed::High;
@@ -22,7 +22,7 @@ void atk::RedDigitalLed::Initialize()
 void atk::RedDigitalLed::Deinitialize()
 {
 	/* 反初始化时不能将 GPIOB 的时钟给禁用了，因为该端口可能还有其他引脚需要使用。*/
-	GpioPinOptions gpio_pin_options;
+	GpioPinInitOptions gpio_pin_options;
 	gpio_pin_options._mode = GpioPinMode::Input;
 	gpio_pin_options._pull_mode = GpioPinPull::NoPull;
 	gpio_pin_options._speed = GpioPinSpeed::High;
@@ -56,7 +56,7 @@ void atk::GreenDigitalLed::Initialize()
 	* 这样 LED 的初始状态就是关闭的。
 	*/
 	TurnOff();
-	GpioPinOptions gpio_pin_options;
+	GpioPinInitOptions gpio_pin_options;
 	gpio_pin_options._mode = GpioPinMode::Output_PushPull;
 	gpio_pin_options._pull_mode = GpioPinPull::PullUp;
 	gpio_pin_options._speed = GpioPinSpeed::High;
@@ -66,7 +66,7 @@ void atk::GreenDigitalLed::Initialize()
 void atk::GreenDigitalLed::Deinitialize()
 {
 	/* 反初始化时不能将 GPIOB 的时钟给禁用了，因为该端口可能还有其他引脚需要使用。*/
-	GpioPinOptions gpio_pin_options;
+	GpioPinInitOptions gpio_pin_options;
 	gpio_pin_options._mode = GpioPinMode::Input;
 	gpio_pin_options._pull_mode = GpioPinPull::NoPull;
 	gpio_pin_options._speed = GpioPinSpeed::High;

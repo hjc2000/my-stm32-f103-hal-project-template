@@ -2,7 +2,7 @@
 
 using namespace hal;
 
-void GpioPort::InitPin(GpioPin pin, GpioPinOptions const &options)
+void GpioPort::InitPin(GpioPin pin, GpioPinInitOptions const &options)
 {
 	GPIO_InitTypeDef gpio_init_options;
 	gpio_init_options.Pin = (uint32_t)pin;

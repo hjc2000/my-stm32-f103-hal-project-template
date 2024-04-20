@@ -3,11 +3,17 @@
 using namespace atk;
 using namespace hal;
 
-#ifdef USART1
 void atk::Uart1::MspInit(UART_HandleTypeDef *huart)
 {
 	GpioPortA::Instance().EnableClock();
+	Uart1::Instance().EnableClock();
 
+	// 发送引脚 PA9，接收引脚 PA10。
+	GpioPinInitOptions options;
+	options._mode = GpioPinMode::Output_PushPull;
+	options._pull_mode = GpioPinPull::PullUp;
+	options._speed = GpioPinSpeed::High;
+	GpioPortA::Instance().InitPin(GpioPin::Pin9, options);
 }
 
 bool atk::Uart1::IsClockEnabled()
@@ -49,4 +55,3 @@ uint16_t atk::Uart1::ReceiveBufferSize()
 {
 	return _receive_buffer_size;
 }
-#endif // USART1
