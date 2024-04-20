@@ -8,6 +8,7 @@ namespace atk
 	/// </summary>
 	class Uart1 :public hal::Uart
 	{
+	private:
 		Uart1() = default;
 		Uart1 &operator=(Uart1 const &value) = delete;
 
@@ -15,6 +16,10 @@ namespace atk
 		uint16_t _receive_buffer_size = 1;
 
 		static void MspInit(UART_HandleTypeDef *huart);
+
+	protected:
+		hal::UartCallbackFunc MspInitCallback() override;
+		hal::UartCallbackFunc ReceiveCompleteCallback() override;
 
 	public:
 		static Uart1 &Instance()
@@ -27,13 +32,9 @@ namespace atk
 		void EnableClock() override;
 		void DisableClock() override;
 
-		hal::UartCallbackFunc MspInitCallback() override;
-		hal::UartCallbackFunc ReceiveCompleteCallback() override;
-
 		USART_TypeDef *HardwareInstance() override;
 
 		uint8_t *ReceiveBuffer() override;
 		uint16_t ReceiveBufferSize() override;
-
 	};
 }
