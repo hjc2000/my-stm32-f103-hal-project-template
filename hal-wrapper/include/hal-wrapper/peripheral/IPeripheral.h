@@ -6,8 +6,8 @@ namespace hal
 	class IPeripheral
 	{
 	private:
-		IPeripheral(IPeripheral const &another) = delete;
-		IPeripheral &operator=(IPeripheral const &value) = delete;
+		IPeripheral(IPeripheral const &o) = delete;
+		IPeripheral &operator=(IPeripheral const &o) = delete;
 
 	protected:
 		IPeripheral() = default;
