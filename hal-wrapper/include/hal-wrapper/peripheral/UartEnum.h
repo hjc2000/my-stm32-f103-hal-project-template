@@ -11,12 +11,12 @@ namespace hal
 		/// <summary>
 		///		一个串行帧有 8 位。
 		/// </summary>
-		_8bit = UART_WORDLENGTH_8B,
+		WordLength_8bit = UART_WORDLENGTH_8B,
 
 		/// <summary>
 		///		一个串行帧有 9 位。
 		/// </summary>
-		_9bit = UART_WORDLENGTH_9B,
+		WordLength_9bit = UART_WORDLENGTH_9B,
 	};
 
 	/// <summary>
@@ -24,8 +24,8 @@ namespace hal
 	/// </summary>
 	enum class UartStopBitCount
 	{
-		_1bit = UART_STOPBITS_1,
-		_2bit = UART_STOPBITS_2,
+		StopBitCount_1bit = UART_STOPBITS_1,
+		StopBitCount_2bit = UART_STOPBITS_2,
 	};
 
 	/// <summary>
