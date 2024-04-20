@@ -1,6 +1,11 @@
 #pragma once
 #include<hal-wrapper/peripheral/Uart.h>
 
+extern "C"
+{
+	void USART1_IRQHandler();
+}
+
 namespace atk
 {
 	/// <summary>
@@ -9,20 +14,20 @@ namespace atk
 	class Uart1 :public hal::Uart
 	{
 	private:
+		friend void ::USART1_IRQHandler();
 		Uart1() = default;
 		Uart1 &operator=(Uart1 const &value) = delete;
 
 		uint8_t _receive_buffer[1]{};
 		uint16_t _receive_buffer_size = 1;
 
-		static void OnMspInit(UART_HandleTypeDef *huart);
-		static void OnReceiveComplete(UART_HandleTypeDef *huart);
-
 	protected:
 		hal::UartCallbackFunc MspInitCallback() override;
 		hal::UartCallbackFunc ReceiveCompleteCallback() override;
 
 	public:
+		USART_TypeDef *HardwareInstance() override;
+
 		static Uart1 &Instance()
 		{
 			static Uart1 instance;
@@ -32,8 +37,6 @@ namespace atk
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
-
-		USART_TypeDef *HardwareInstance() override;
 
 		uint8_t *ReceiveBuffer() override;
 		uint16_t ReceiveBufferSize() override;

@@ -5,6 +5,7 @@
 
 namespace hal
 {
+	#pragma region UartInitOptions
 	/// <summary>
 	///		串口初始化选项
 	/// </summary>
@@ -55,6 +56,13 @@ namespace hal
 
 		operator UART_InitTypeDef() const;
 	};
+	#pragma endregion
+
+	class UartReceiveCompletedHandler
+	{
+	public:
+		virtual void Handle() = 0;
+	};
 
 	using UartCallbackFunc = void (*)(UART_HandleTypeDef *huart);
 
@@ -64,6 +72,8 @@ namespace hal
 	class Uart :public IPeripheral
 	{
 	protected:
+		UART_HandleTypeDef _uart_handle;
+
 		/// <summary>
 		///		初始化底层的 GPIO 引脚。
 		///		因为本类的派生类都是单例的，所以派生类可以定义一个静态方法，然后重写本函数，
@@ -98,6 +108,7 @@ namespace hal
 		/// <returns></returns>
 		virtual uint16_t ReceiveBufferSize() = 0;
 
+		#pragma region 初始化
 		/// <summary>
 		///		初始化串口
 		/// </summary>
@@ -108,6 +119,7 @@ namespace hal
 		///		按照 UartInitOptions 的默认值进行初始化。
 		/// </summary>
 		void Initialize();
+		#pragma endregion
 
 		/// <summary>
 		///		发送完毕
@@ -132,9 +144,20 @@ namespace hal
 			}
 		}
 
-		void Send(uint8_t data)
+		/// <summary>
+		///		写发送寄存器。
+		///		不保证发送寄存器的数据已经被发送完了。
+		/// </summary>
+		/// <param name="data"></param>
+		void WriteSendingDataRegister(uint8_t data)
 		{
 			HardwareInstance()->DR = data;
 		}
+
+		/// <summary>
+		///		接收完成时被回调
+		/// </summary>
+		void(*_on_receive_completed)() = nullptr;
+		UartReceiveCompletedHandler *_receive_completed_handler = nullptr;
 	};
 }
