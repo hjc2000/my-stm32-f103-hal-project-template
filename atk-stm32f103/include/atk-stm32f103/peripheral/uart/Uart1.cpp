@@ -60,7 +60,7 @@ hal::UartCallbackFunc atk::Uart1::ReceiveCompleteCallback()
 
 		if (Uart1::Instance()._receive_completed_handler != nullptr)
 		{
-			Uart1::Instance()._receive_completed_handler->Handle();
+			Uart1::Instance()._receive_completed_handler->OnUartReceiveCompleted();
 		}
 
 		Uart1::Instance().EnableReceiveInterrupt();

@@ -19,7 +19,7 @@ DmaInitOptions &DmaInitOptions::operator=(DMA_InitTypeDef const &o)
 	return *this;
 }
 
-DmaInitOptions::operator DMA_InitTypeDef()
+DmaInitOptions::operator DMA_InitTypeDef() const
 {
 	DMA_InitTypeDef def;
 	def.Direction = (uint32_t)_direction;

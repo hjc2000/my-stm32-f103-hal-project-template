@@ -52,7 +52,7 @@ namespace hal
 		/// </summary>
 		DmaPriority _priority;
 
-		operator DMA_InitTypeDef();
+		operator DMA_InitTypeDef() const;
 	};
 
 	/// <summary>
@@ -60,7 +60,18 @@ namespace hal
 	/// </summary>
 	class Dma :public IPeripheral
 	{
-	public:
+		DMA_HandleTypeDef _handle;
 
+	public:
+		void Initialize(DmaInitOptions const &options)
+		{
+			_handle.Init = options;
+			HAL_DMA_Init(&_handle);
+		}
+
+		DMA_HandleTypeDef *Hanlde()
+		{
+			return &_handle;
+		}
 	};
 }

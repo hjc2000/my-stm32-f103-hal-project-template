@@ -61,7 +61,7 @@ namespace hal
 	class UartReceiveCompletedHandler
 	{
 	public:
-		virtual void Handle() = 0;
+		virtual void OnUartReceiveCompleted() = 0;
 	};
 
 	using UartCallbackFunc = void (*)(UART_HandleTypeDef *huart);
