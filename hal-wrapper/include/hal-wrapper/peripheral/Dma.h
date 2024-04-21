@@ -7,6 +7,10 @@ namespace hal
 	class DmaInitOptions
 	{
 	public:
+		DmaInitOptions() = default;
+		DmaInitOptions(DMA_InitTypeDef const &o);
+		DmaInitOptions &operator=(DMA_InitTypeDef const &o);
+
 		/// <summary>
 		///		数据传输方向
 		/// </summary>
@@ -36,12 +40,14 @@ namespace hal
 		///		数据传输模式。
 		///		- 可以选择普通模式或循环模式。循环模式不能用于内存到内存传输模式。
 		/// </summary>
-		DmaMode Mode;
+		DmaMode _mode;
 
 		/// <summary>
 		///		此通道的传输优先级。
 		/// </summary>
 		DmaPriority _priority;
+
+		operator DMA_InitTypeDef();
 	};
 
 	/// <summary>
