@@ -19,17 +19,17 @@ namespace hal
 		/// <returns></returns>
 		virtual HandleType *Handle() = 0;
 
-		virtual DMA_HandleTypeDef *DmaTxHandle() = 0;
+		virtual DMA_HandleTypeDef *DmaTxHandle() const = 0;
 		virtual void SetDmaTxHandle(DMA_HandleTypeDef *value) = 0;
 
-		virtual DMA_HandleTypeDef *DmaRxHandle() = 0;
+		virtual DMA_HandleTypeDef *DmaRxHandle() const = 0;
 		virtual void SetDmaRxHandle(DMA_HandleTypeDef *value) = 0;
 
 		/// <summary>
 		///		连接到 DMA
 		/// </summary>
 		/// <param name="dma"></param>
-		void LinkToDma(Dma dma)
+		void LinkToDma(Dma &dma)
 		{
 			dma.Handle()->Parent = Handle();
 			SetDmaTxHandle(dma.Handle());
