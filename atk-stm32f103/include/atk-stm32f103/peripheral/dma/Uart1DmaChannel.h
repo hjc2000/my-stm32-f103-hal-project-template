@@ -3,7 +3,7 @@
 
 namespace atk
 {
-	class Uart1Dma :public hal::DmaChannel
+	class Uart1DmaChannel :public hal::DmaChannel
 	{
 	public:
 		bool IsClockEnabled() override;
