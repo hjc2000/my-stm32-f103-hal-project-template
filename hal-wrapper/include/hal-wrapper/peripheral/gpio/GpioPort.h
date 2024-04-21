@@ -8,10 +8,9 @@ namespace hal
 	/// <summary>
 	///		GPIO 端口抽象类，有几组 GPIO 端口就派生几个本类。
 	/// </summary>
-	class GpioPort :public IPeripheral
+	class GpioPort :public IPeripheral<GPIO_TypeDef>
 	{
 	public:
-		virtual GPIO_TypeDef *const HardwareInstance() = 0;
 		void InitPin(GpioPin pin, GpioPinInitOptions const &options);
 		void DigitalWritePin(GpioPin pin, bool value);
 		bool DigitalReadPin(GpioPin pin);
@@ -29,7 +28,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *const HardwareInstance() override;
+		GPIO_TypeDef *HardwareInstance() override;
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -48,7 +47,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *const HardwareInstance() override;
+		GPIO_TypeDef *HardwareInstance() override;
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -67,7 +66,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *const HardwareInstance() override;
+		GPIO_TypeDef *HardwareInstance() override;
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -86,7 +85,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *const HardwareInstance() override;
+		GPIO_TypeDef *HardwareInstance() override;
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
@@ -105,7 +104,7 @@ namespace hal
 			return port;
 		}
 
-		GPIO_TypeDef *const HardwareInstance() override;
+		GPIO_TypeDef *HardwareInstance() override;
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;

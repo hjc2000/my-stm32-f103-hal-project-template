@@ -35,7 +35,7 @@ void GpioPort::DigitalTogglePin(GpioPin pin)
 }
 
 #pragma region GpioPortA
-GPIO_TypeDef *const GpioPortA::HardwareInstance()
+GPIO_TypeDef *GpioPortA::HardwareInstance()
 {
 	return GPIOA;
 }
@@ -67,7 +67,7 @@ void GpioPortA::DisableClock()
 #pragma endregion
 
 #pragma region GpioPortB
-GPIO_TypeDef *const GpioPortB::HardwareInstance()
+GPIO_TypeDef *GpioPortB::HardwareInstance()
 {
 	return GPIOB;
 }
@@ -99,7 +99,7 @@ void GpioPortB::DisableClock()
 #pragma endregion
 
 #pragma region GpioPortC
-GPIO_TypeDef *const GpioPortC::HardwareInstance()
+GPIO_TypeDef *GpioPortC::HardwareInstance()
 {
 	return GPIOC;
 }
@@ -131,7 +131,7 @@ void GpioPortC::DisableClock()
 #pragma endregion
 
 #pragma region GpioPortD
-GPIO_TypeDef *const GpioPortD::HardwareInstance()
+GPIO_TypeDef *GpioPortD::HardwareInstance()
 {
 	return GPIOD;
 }
@@ -163,7 +163,7 @@ void GpioPortD::DisableClock()
 #pragma endregion
 
 #pragma region GpioPortE
-GPIO_TypeDef *const GpioPortE::HardwareInstance()
+GPIO_TypeDef *GpioPortE::HardwareInstance()
 {
 	return GPIOE;
 }

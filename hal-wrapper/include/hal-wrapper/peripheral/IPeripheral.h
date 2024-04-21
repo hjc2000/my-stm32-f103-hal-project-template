@@ -3,6 +3,7 @@
 
 namespace hal
 {
+	template<typename HardwareTypeDef>
 	class IPeripheral
 	{
 	private:
@@ -13,6 +14,8 @@ namespace hal
 		IPeripheral() = default;
 
 	public:
+		virtual HardwareTypeDef *HardwareInstance() = 0;
+
 		virtual bool IsClockEnabled() = 0;
 
 		bool IsClockDisabled()

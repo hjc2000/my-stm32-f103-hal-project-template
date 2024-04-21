@@ -1,6 +1,7 @@
 #pragma once
 #include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/peripheral/IPeripheral.h>
+#include<hal-wrapper/peripheral/dma/IDmaLinkable.h>
 #include<hal-wrapper/peripheral/uart/UartInitOptions.h>
 #include<hal-wrapper/peripheral/uart/UartReceiveCompletedHandler.h>
 #include<stdint.h>
@@ -11,10 +12,10 @@ namespace hal
 	///		串口抽象类。
 	/// </summary>
 	class Uart :
-		public IPeripheral,
-		public IHandleWrapper<UART_HandleTypeDef>
+		public IPeripheral<USART_TypeDef>,
+		public IDmaLinkable<UART_HandleTypeDef>
 	{
-		UART_HandleTypeDef _uart_handle;
+		UART_HandleTypeDef _handle;
 
 	protected:
 		/// <summary>
@@ -33,7 +34,7 @@ namespace hal
 		///		派生类需要实现，返回自己的硬件串口实例。
 		/// </summary>
 		/// <returns></returns>
-		virtual USART_TypeDef *HardwareInstance() = 0;
+		virtual USART_TypeDef *HardwareInstance() override = 0;
 
 		/// <summary>
 		///		派生类需要准备接收缓冲区。本函数返回缓冲区头指针。
@@ -111,7 +112,7 @@ namespace hal
 		/// </summary>
 		void EnableReceiveInterrupt()
 		{
-			HAL_UART_Receive_IT(&_uart_handle, ReceiveBuffer(), ReceiveBufferSize());
+			HAL_UART_Receive_IT(&_handle, ReceiveBuffer(), ReceiveBufferSize());
 		}
 		#pragma endregion
 
@@ -121,9 +122,29 @@ namespace hal
 		void(*_on_receive_completed)() = nullptr;
 		UartReceiveCompletedHandler *_receive_completed_handler = nullptr;
 
+		#pragma region IDmaLinkable
 		UART_HandleTypeDef *Handle() override
 		{
-			return &_uart_handle;
+			return &_handle;
 		}
+
+		virtual DMA_HandleTypeDef *DmaTxHandle() const override
+		{
+			return _handle.hdmatx;
+		}
+		virtual void SetDmaTxHandle(DMA_HandleTypeDef *value) override
+		{
+			_handle.hdmatx = value;
+		}
+
+		virtual DMA_HandleTypeDef *DmaRxHandle() const override
+		{
+			return _handle.hdmarx;
+		}
+		virtual void SetDmaRxHandle(DMA_HandleTypeDef *value) override
+		{
+			_handle.hdmarx = value;
+		}
+		#pragma endregion
 	};
 }
