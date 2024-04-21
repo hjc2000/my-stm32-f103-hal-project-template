@@ -25,7 +25,7 @@ void hal::IUart::Initialize()
 	Initialize(options);
 }
 
-void hal::IUart::WaitForTxDma()
+void hal::IUart::WaitForDmaTx()
 {
 	while (true)
 	{

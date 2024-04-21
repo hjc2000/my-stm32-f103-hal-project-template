@@ -107,7 +107,7 @@ namespace hal
 
 		/// <summary>
 		///		使用 DMA 发送数据。
-		///		- 调用后，可以使用 WaitForTxDma 方法来等待发送完成。
+		///		- 调用后，可以使用 WaitForDmaTx 方法来等待发送完成。
 		/// </summary>
 		/// <param name="buffer"></param>
 		/// <param name="size"></param>
@@ -120,7 +120,7 @@ namespace hal
 		/// <summary>
 		///		等待发送的 DMA 传输完成。
 		/// </summary>
-		void WaitForTxDma();
+		void WaitForDmaTx();
 		#pragma endregion
 
 		/// <summary>
