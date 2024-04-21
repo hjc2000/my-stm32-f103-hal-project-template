@@ -1,12 +1,12 @@
 #pragma once
-#include<hal-wrapper/peripheral/dma/DmaChannel.h>
+#include<hal-wrapper/peripheral/dma/IDmaChannel.h>
 
 namespace atk
 {
 	/// <summary>
 	///		UART1 的发送 DMA 通道。
 	/// </summary>
-	class Uart1TxDmaChannel :public hal::DmaChannel
+	class Uart1TxDmaChannel :public hal::IDmaChannel
 	{
 	private:
 		DMA_HandleTypeDef _handle;

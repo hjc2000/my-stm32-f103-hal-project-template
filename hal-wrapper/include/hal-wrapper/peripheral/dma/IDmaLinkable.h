@@ -1,6 +1,6 @@
 #pragma once
 #include<hal-wrapper/IHandleWrapper.h>
-#include<hal-wrapper/peripheral/dma/DmaChannel.h>
+#include<hal-wrapper/peripheral/dma/IDmaChannel.h>
 #include<hal.h>
 
 namespace hal
@@ -29,7 +29,7 @@ namespace hal
 		///		连接到 DMA
 		/// </summary>
 		/// <param name="dma"></param>
-		void LinkToDma(DmaChannel &dma)
+		void LinkToDma(IDmaChannel &dma)
 		{
 			dma.Handle()->Parent = Handle();
 			SetDmaTxHandle(dma.Handle());

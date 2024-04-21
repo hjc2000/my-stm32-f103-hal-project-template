@@ -1,7 +1,7 @@
 #pragma once
 #include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/peripheral/IPeripheral.h>
-#include<hal-wrapper/peripheral/dma/DmaChannel.h>
+#include<hal-wrapper/peripheral/dma/IDmaChannel.h>
 #include<hal-wrapper/peripheral/dma/IDmaLinkable.h>
 #include<hal-wrapper/peripheral/uart/UartInitOptions.h>
 #include<hal-wrapper/peripheral/uart/UartReceiveCompletedHandler.h>
@@ -106,7 +106,7 @@ namespace hal
 			WriteDR(data);
 		}
 
-		virtual DmaChannel &TxDmaChannel() = 0;
+		virtual IDmaChannel &TxDmaChannel() = 0;
 		virtual void PerepareForNextDmaTx() = 0;
 
 		/// <summary>

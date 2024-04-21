@@ -42,7 +42,7 @@ namespace atk
 		uint8_t *ReceiveBuffer() override;
 		uint16_t ReceiveBufferSize() override;
 
-		hal::DmaChannel &TxDmaChannel() override
+		hal::IDmaChannel &TxDmaChannel() override
 		{
 			return Uart1TxDmaChannel::Instance();
 		}
