@@ -2,7 +2,6 @@
 #include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/peripheral/IPeripheral.h>
 #include<hal-wrapper/peripheral/dma/DmaInitOptions.h>
-#include<hal-wrapper/peripheral/dma/IDmaLinkable.h>
 
 namespace hal
 {
@@ -29,14 +28,6 @@ namespace hal
 		DMA_HandleTypeDef *Handle() override
 		{
 			return &_handle;
-		}
-
-		template<typename HandleType>
-		void SetParent(IDmaLinkable<HandleType> parant)
-		{
-			_handle.Parent = parant.Handle();
-			parant.SetDmaRxHandle(&_handle);
-			parant.SetDmaTxHandle(&_handle);
 		}
 	};
 }
