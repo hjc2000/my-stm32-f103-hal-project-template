@@ -7,8 +7,6 @@
 
 namespace hal
 {
-	using UartCallbackFunc = void (*)(UART_HandleTypeDef *huart);
-
 	/// <summary>
 	///		串口抽象类。
 	/// </summary>

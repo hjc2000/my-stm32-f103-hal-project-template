@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/peripheral/uart/UartEnum.h>
+#include<hal-wrapper/peripheral/uart/UartTypeDef.h>
 
 namespace hal
 {

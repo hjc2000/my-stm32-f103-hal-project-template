@@ -1,18 +1,10 @@
 #pragma once
 #include<hal-wrapper/peripheral/IPeripheral.h>
-#include<hal-wrapper/peripheral/gpio/GpioEnum.h>
+#include<hal-wrapper/peripheral/gpio/GpioPinInitOptions.h>
 #include<hal.h>
 
 namespace hal
 {
-	class GpioPinInitOptions
-	{
-	public:
-		GpioPinMode _mode = GpioPinMode::Input;
-		GpioPinPull _pull_mode = GpioPinPull::NoPull;
-		GpioPinSpeed _speed = GpioPinSpeed::High;
-	};
-
 	/// <summary>
 	///		GPIO 端口抽象类，有几组 GPIO 端口就派生几个本类。
 	/// </summary>

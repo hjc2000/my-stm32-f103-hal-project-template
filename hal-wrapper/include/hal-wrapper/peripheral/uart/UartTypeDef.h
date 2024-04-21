@@ -81,4 +81,6 @@ namespace hal
 		OverSample_8,
 		#endif /* USART_CR1_OVER8 */
 	};
+
+	using UartCallbackFunc = void (*)(UART_HandleTypeDef *huart);
 }
