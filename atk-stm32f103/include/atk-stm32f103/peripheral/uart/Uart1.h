@@ -1,6 +1,6 @@
 #pragma once
 #include<atk-stm32f103/peripheral/dma/Uart1TxDmaChannel.h>
-#include<hal-wrapper/peripheral/uart/Uart.h>
+#include<hal-wrapper/peripheral/uart/IUart.h>
 
 extern "C"
 {
@@ -12,13 +12,14 @@ namespace atk
 	/// <summary>
 	///		发送引脚 PA9，接收引脚 PA10。
 	/// </summary>
-	class Uart1 :public hal::Uart
+	class Uart1 :public hal::IUart
 	{
 	private:
 		friend void ::USART1_IRQHandler();
 		Uart1() = default;
 		Uart1 &operator=(Uart1 const &value) = delete;
 
+		UART_HandleTypeDef _handle;
 		uint8_t _receive_buffer[1]{};
 		uint16_t _receive_buffer_size = 1;
 
@@ -31,6 +32,11 @@ namespace atk
 		hal::UartCallbackFunc ReceiveCompleteCallback() override;
 
 	public:
+		UART_HandleTypeDef *Handle() override
+		{
+			return &_handle;
+		}
+
 		USART_TypeDef *HardwareInstance() override;
 
 		static Uart1 &Instance()

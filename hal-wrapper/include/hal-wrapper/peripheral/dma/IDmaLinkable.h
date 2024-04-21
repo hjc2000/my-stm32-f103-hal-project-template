@@ -23,7 +23,7 @@ namespace hal
 		///		返回你所包装的句柄对象中的 hdmatx 字段。
 		/// </summary>
 		/// <returns></returns>
-		virtual DMA_HandleTypeDef *DmaTxHandle() const = 0;
+		virtual DMA_HandleTypeDef *DmaTxHandle() = 0;
 
 		/// <summary>
 		///		设置你所包装的句柄对象中的 hdmatx 字段。
@@ -35,7 +35,7 @@ namespace hal
 		///		返回你所包装的句柄对象中的 hdmarx 字段。
 		/// </summary>
 		/// <returns></returns>
-		virtual DMA_HandleTypeDef *DmaRxHandle() const = 0;
+		virtual DMA_HandleTypeDef *DmaRxHandle() = 0;
 
 		/// <summary>
 		///		设置你所包装的句柄对象中的 hdmarx 字段。

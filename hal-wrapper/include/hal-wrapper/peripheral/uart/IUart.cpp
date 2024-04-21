@@ -1,25 +1,25 @@
-#include"Uart.h"
+#include"IUart.h"
 
 using namespace std;
 using namespace hal;
 
-void hal::Uart::Initialize(UartInitOptions const &options)
+void hal::IUart::Initialize(UartInitOptions const &options)
 {
-	_handle.Instance = HardwareInstance();
-	_handle.Init = options;
-	_handle.MspInitCallback = MspInitCallback();
-	HAL_UART_Init(&_handle);
+	Handle()->Instance = HardwareInstance();
+	Handle()->Init = options;
+	Handle()->MspInitCallback = MspInitCallback();
+	HAL_UART_Init(Handle());
 
 	/* 除了 MspInitCallback  以外的回调函数指针都会被 HAL_UART_Init 函数
 	* 重置为默认的 weak 版本，所以必须在 HAL_UART_Init 函数执行后再设置这些
 	* 回调函数指针。
 	*/
-	_handle.RxCpltCallback = ReceiveCompleteCallback();
+	Handle()->RxCpltCallback = ReceiveCompleteCallback();
 	EnableReceiveInterrupt();
 	LinkToDma(TxDmaChannel());
 }
 
-void hal::Uart::Initialize()
+void hal::IUart::Initialize()
 {
 	UartInitOptions options;
 	Initialize(options);

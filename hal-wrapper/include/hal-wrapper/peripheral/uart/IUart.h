@@ -12,12 +12,10 @@ namespace hal
 	/// <summary>
 	///		串口抽象类。
 	/// </summary>
-	class Uart :
+	class IUart :
 		public IPeripheral<USART_TypeDef>,
 		public IDmaLinkable<UART_HandleTypeDef>
 	{
-		UART_HandleTypeDef _handle;
-
 	protected:
 		/// <summary>
 		///		需要派生类返回一个用来初始化底层的 GPIO 引脚的函数的指针。
@@ -146,7 +144,7 @@ namespace hal
 		/// </summary>
 		void EnableReceiveInterrupt()
 		{
-			HAL_UART_Receive_IT(&_handle, ReceiveBuffer(), ReceiveBufferSize());
+			HAL_UART_Receive_IT(Handle(), ReceiveBuffer(), ReceiveBufferSize());
 		}
 		#pragma endregion
 
@@ -157,27 +155,22 @@ namespace hal
 		UartReceiveCompletedHandler *_receive_completed_handler = nullptr;
 
 		#pragma region IDmaLinkable
-		UART_HandleTypeDef *Handle() override
+		virtual DMA_HandleTypeDef *DmaTxHandle() override
 		{
-			return &_handle;
-		}
-
-		virtual DMA_HandleTypeDef *DmaTxHandle() const override
-		{
-			return _handle.hdmatx;
+			return Handle()->hdmatx;
 		}
 		virtual void SetDmaTxHandle(DMA_HandleTypeDef *value) override
 		{
-			_handle.hdmatx = value;
+			Handle()->hdmatx = value;
 		}
 
-		virtual DMA_HandleTypeDef *DmaRxHandle() const override
+		virtual DMA_HandleTypeDef *DmaRxHandle() override
 		{
-			return _handle.hdmarx;
+			return Handle()->hdmarx;
 		}
 		virtual void SetDmaRxHandle(DMA_HandleTypeDef *value) override
 		{
-			_handle.hdmarx = value;
+			Handle()->hdmarx = value;
 		}
 		#pragma endregion
 	};
