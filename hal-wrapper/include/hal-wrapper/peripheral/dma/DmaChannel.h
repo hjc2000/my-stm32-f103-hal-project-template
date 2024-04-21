@@ -13,6 +13,18 @@ namespace hal
 		public IHandleWrapper<DMA_HandleTypeDef>
 	{
 	public:
+		/// <summary>
+		///		DMA 传输完成
+		/// </summary>
+		/// <returns></returns>
+		bool TransferCompleted()
+		{
+			return __HAL_DMA_GET_FLAG(Handle(), DMA_FLAG_TC4);
+		}
 
+		void ClearTransferCompletedFlag()
+		{
+			__HAL_DMA_CLEAR_FLAG(Handle(), DMA_FLAG_TC4);
+		}
 	};
 }

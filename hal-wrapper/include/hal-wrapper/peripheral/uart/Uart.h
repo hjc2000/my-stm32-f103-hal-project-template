@@ -1,6 +1,7 @@
 #pragma once
 #include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/peripheral/IPeripheral.h>
+#include<hal-wrapper/peripheral/dma/DmaChannel.h>
 #include<hal-wrapper/peripheral/dma/IDmaLinkable.h>
 #include<hal-wrapper/peripheral/uart/UartInitOptions.h>
 #include<hal-wrapper/peripheral/uart/UartReceiveCompletedHandler.h>
@@ -103,6 +104,29 @@ namespace hal
 		{
 			WaitUntilSendCompleted();
 			WriteDR(data);
+		}
+
+		/// <summary>
+		///		使用 DMA 发送数据
+		/// </summary>
+		/// <param name="buffer"></param>
+		/// <param name="size"></param>
+		/// <returns></returns>
+		HAL_StatusTypeDef SendWithDma(uint8_t *buffer, uint16_t size)
+		{
+			return HAL_UART_Transmit_DMA(Handle(), buffer, size);
+		}
+
+		virtual DmaChannel &TxDmaChannel() = 0;
+
+		void WaitTxDma()
+		{
+
+		}
+
+		void CloseDma()
+		{
+			HAL_UART_DMAStop(Handle());
 		}
 		#pragma endregion
 

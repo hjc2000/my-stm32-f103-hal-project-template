@@ -1,4 +1,5 @@
 #pragma once
+#include<atk-stm32f103/peripheral/dma/Uart1TxDmaChannel.h>
 #include<hal-wrapper/peripheral/uart/Uart.h>
 
 extern "C"
@@ -40,5 +41,10 @@ namespace atk
 
 		uint8_t *ReceiveBuffer() override;
 		uint16_t ReceiveBufferSize() override;
+
+		hal::DmaChannel &TxDmaChannel() override
+		{
+			return Uart1TxDmaChannel::Instance();
+		}
 	};
 }
