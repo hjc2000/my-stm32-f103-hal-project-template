@@ -1,6 +1,6 @@
 #pragma once
-#include<hal-wrapper/peripheral/GpioEnum.h>
 #include<hal-wrapper/peripheral/IPeripheral.h>
+#include<hal-wrapper/peripheral/gpio/GpioEnum.h>
 #include<hal.h>
 
 namespace hal

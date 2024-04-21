@@ -2,7 +2,7 @@
 #include<hal-wrapper/Systic.h>
 #include<hal-wrapper/interrupt/Exti.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
-#include<hal-wrapper/peripheral/GpioPort.h>
+#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
 namespace atk
 {

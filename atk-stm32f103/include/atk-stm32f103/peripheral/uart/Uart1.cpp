@@ -1,6 +1,6 @@
 #include"Uart1.h"
 #include<hal-wrapper/interrupt/Interrupt.h>
-#include<hal-wrapper/peripheral/GpioPort.h>
+#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
 using namespace atk;
 using namespace hal;

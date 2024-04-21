@@ -7,7 +7,7 @@
 #include<hal-wrapper/Delayer.h>
 #include<hal-wrapper/Systic.h>
 #include<hal-wrapper/device/KeyScanner.h>
-#include<hal-wrapper/peripheral/GpioPort.h>
+#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
 using namespace hal;
 using namespace atk;

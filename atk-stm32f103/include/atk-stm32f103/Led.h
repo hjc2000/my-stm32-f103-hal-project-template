@@ -1,6 +1,6 @@
 #pragma once
 #include<hal-wrapper/device/IDigitalLed.h>
-#include<hal-wrapper/peripheral/GpioPort.h>
+#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
 namespace atk
 {
