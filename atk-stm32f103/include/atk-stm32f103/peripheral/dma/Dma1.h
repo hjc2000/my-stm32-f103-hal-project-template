@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/peripheral/Dma.h>
+#include<hal-wrapper/peripheral/dma/Dma.h>
 
 namespace atk
 {

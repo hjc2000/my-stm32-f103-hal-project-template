@@ -1,7 +1,8 @@
 #pragma once
-#include<hal-wrapper/peripheral/DmaEnum.h>
-#include<hal-wrapper/peripheral/IDmaLinkable.h>
+#include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/peripheral/IPeripheral.h>
+#include<hal-wrapper/peripheral/dma/DmaEnum.h>
+#include<hal-wrapper/peripheral/dma/IDmaLinkable.h>
 
 namespace hal
 {

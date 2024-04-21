@@ -1,17 +1,12 @@
 #pragma once
-#include<hal-wrapper/IHandleWrapper.h>
 #include<hal.h>
 
 namespace hal
 {
 	template<typename HandleType>
-	class IDmaLinkable :public IHandleWrapper<HandleType>
+	class IDmaLinkable
 	{
 	public:
-		/// <summary>
-		///		继承自 IHandleWrapper
-		/// </summary>
-		/// <returns></returns>
 		virtual HandleType *Handle() = 0;
 
 		virtual DMA_HandleTypeDef *DmaTxHandle() = 0;

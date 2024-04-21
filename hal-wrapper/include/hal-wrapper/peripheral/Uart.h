@@ -1,6 +1,8 @@
 #pragma once
+#include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/peripheral/IPeripheral.h>
 #include<hal-wrapper/peripheral/UartEnum.h>
+#include<hal-wrapper/peripheral/dma/IDmaLinkable.h>
 #include<stdint.h>
 
 namespace hal
@@ -69,7 +71,9 @@ namespace hal
 	/// <summary>
 	///		串口抽象类。
 	/// </summary>
-	class Uart :public IPeripheral
+	class Uart :
+		public IPeripheral,
+		public IDmaLinkable<UART_HandleTypeDef>
 	{
 		UART_HandleTypeDef _uart_handle;
 
@@ -86,11 +90,6 @@ namespace hal
 		virtual UartCallbackFunc ReceiveCompleteCallback() = 0;
 
 	public:
-		UART_HandleTypeDef *Handle()
-		{
-			return &_uart_handle;
-		}
-
 		/// <summary>
 		///		派生类需要实现，返回自己的硬件串口实例。
 		/// </summary>
@@ -182,5 +181,28 @@ namespace hal
 		/// </summary>
 		void(*_on_receive_completed)() = nullptr;
 		UartReceiveCompletedHandler *_receive_completed_handler = nullptr;
+
+		UART_HandleTypeDef *Handle() override
+		{
+			return &_uart_handle;
+		}
+
+		DMA_HandleTypeDef *DmaTxHandle() override
+		{
+			return _uart_handle.hdmatx;
+		}
+		void SetDmaTxHandle(DMA_HandleTypeDef *value) override
+		{
+			_uart_handle.hdmatx = value;
+		}
+
+		DMA_HandleTypeDef *DmaRxHandle() override
+		{
+			return _uart_handle.hdmarx;
+		}
+		void SetDmaRxHandle(DMA_HandleTypeDef *value) override
+		{
+			_uart_handle.hdmarx = value;
+		}
 	};
 }
