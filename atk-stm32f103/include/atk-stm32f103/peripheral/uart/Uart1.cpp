@@ -7,7 +7,7 @@ using namespace hal;
 
 void USART1_IRQHandler()
 {
-	HAL_UART_IRQHandler(&Uart1::Instance()._uart_handle);
+	HAL_UART_IRQHandler(Uart1::Instance().Handle());
 }
 
 bool atk::Uart1::IsClockEnabled()

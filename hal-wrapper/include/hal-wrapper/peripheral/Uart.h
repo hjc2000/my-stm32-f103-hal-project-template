@@ -71,9 +71,9 @@ namespace hal
 	/// </summary>
 	class Uart :public IPeripheral
 	{
-	protected:
 		UART_HandleTypeDef _uart_handle;
 
+	protected:
 		/// <summary>
 		///		需要派生类返回一个用来初始化底层的 GPIO 引脚的函数的指针。
 		/// </summary>
@@ -86,6 +86,11 @@ namespace hal
 		virtual UartCallbackFunc ReceiveCompleteCallback() = 0;
 
 	public:
+		UART_HandleTypeDef *Handle()
+		{
+			return &_uart_handle;
+		}
+
 		/// <summary>
 		///		派生类需要实现，返回自己的硬件串口实例。
 		/// </summary>

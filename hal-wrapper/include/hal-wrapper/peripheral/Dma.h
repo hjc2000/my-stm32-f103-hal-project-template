@@ -69,6 +69,10 @@ namespace hal
 			HAL_DMA_Init(&_handle);
 		}
 
+		/// <summary>
+		///		本对象内部的 DMA_HandleTypeDef 句柄对象的指针。
+		/// </summary>
+		/// <returns></returns>
 		DMA_HandleTypeDef *Hanlde()
 		{
 			return &_handle;
