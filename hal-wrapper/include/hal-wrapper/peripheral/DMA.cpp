@@ -1,3 +1,3 @@
-#include"DMA.h"
+#include"Dma.h"
 
 using namespace hal;
