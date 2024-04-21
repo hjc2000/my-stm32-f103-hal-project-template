@@ -49,7 +49,7 @@ namespace hal
 		void Initialize();
 		#pragma endregion
 
-		#pragma region 发送
+		#pragma region 直接写 DR 寄存器发送
 		/// <summary>
 		///		发送完毕
 		/// </summary>
@@ -92,7 +92,9 @@ namespace hal
 			WaitUntilSendCompleted();
 			WriteDR(data);
 		}
+		#pragma endregion
 
+		#pragma region DMA 发送
 		/// <summary>
 		///		派生类返回你的发送 DMA 通道实例。
 		/// </summary>
