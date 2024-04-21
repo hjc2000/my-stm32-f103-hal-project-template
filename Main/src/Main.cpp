@@ -72,9 +72,13 @@ void TestUart1()
 		RedDigitalLed::Instance().Toggle();
 	};
 
+	uint8_t buffer[]{ 72,72,72,72 };
+	uint16_t buffer_size = sizeof(buffer);
 	while (1)
 	{
 		Delayer::Instance().Delay(std::chrono::seconds(1));
-		Uart1::Instance().WriteDR_WithWaiting(72);
+		Uart1::Instance().SendWithDma(buffer, buffer_size);
+		Uart1::Instance().WaitTxDma();
+		Uart1::Instance().PerepareForNextDmaTx();
 	}
 }

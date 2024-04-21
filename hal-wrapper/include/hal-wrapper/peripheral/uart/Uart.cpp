@@ -16,6 +16,7 @@ void hal::Uart::Initialize(UartInitOptions const &options)
 	*/
 	_handle.RxCpltCallback = ReceiveCompleteCallback();
 	EnableReceiveInterrupt();
+	LinkToDma(TxDmaChannel());
 }
 
 void hal::Uart::Initialize()

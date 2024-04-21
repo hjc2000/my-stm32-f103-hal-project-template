@@ -106,6 +106,9 @@ namespace hal
 			WriteDR(data);
 		}
 
+		virtual DmaChannel &TxDmaChannel() = 0;
+		virtual void PerepareForNextDmaTx() = 0;
+
 		/// <summary>
 		///		使用 DMA 发送数据
 		/// </summary>
@@ -117,11 +120,18 @@ namespace hal
 			return HAL_UART_Transmit_DMA(Handle(), buffer, size);
 		}
 
-		virtual DmaChannel &TxDmaChannel() = 0;
-
+		/// <summary>
+		///		等待发送的 DMA 传输完成。
+		/// </summary>
 		void WaitTxDma()
 		{
-
+			while (true)
+			{
+				if (TxDmaChannel().TransferCompleted())
+				{
+					return;
+				}
+			}
 		}
 
 		void CloseDma()
