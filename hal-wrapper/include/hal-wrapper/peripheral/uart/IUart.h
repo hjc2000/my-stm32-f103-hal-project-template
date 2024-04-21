@@ -16,7 +16,8 @@ namespace hal
 		public IPeripheral<USART_TypeDef>,
 		public IDmaLinkable<UART_HandleTypeDef>
 	{
-	protected:
+	public:
+		#pragma region 需要派生类返回函数指针
 		/// <summary>
 		///		需要派生类返回一个用来初始化底层的 GPIO 引脚的函数的指针。
 		/// </summary>
@@ -27,25 +28,13 @@ namespace hal
 		/// </summary>
 		/// <returns></returns>
 		virtual UartCallbackFunc ReceiveCompleteCallback() = 0;
+		#pragma endregion
 
-	public:
 		/// <summary>
 		///		派生类需要实现，返回自己的硬件串口实例。
 		/// </summary>
 		/// <returns></returns>
 		virtual USART_TypeDef *HardwareInstance() override = 0;
-
-		/// <summary>
-		///		派生类需要准备接收缓冲区。本函数返回缓冲区头指针。
-		/// </summary>
-		/// <returns></returns>
-		virtual uint8_t *ReceiveBuffer() = 0;
-
-		/// <summary>
-		///		接收缓冲区的大小。
-		/// </summary>
-		/// <returns></returns>
-		virtual uint16_t ReceiveBufferSize() = 0;
 
 		#pragma region 初始化
 		/// <summary>
@@ -140,6 +129,18 @@ namespace hal
 
 		#pragma region 接收
 		/// <summary>
+		///		派生类需要准备接收缓冲区。本函数返回缓冲区头指针。
+		/// </summary>
+		/// <returns></returns>
+		virtual uint8_t *ReceiveBuffer() = 0;
+
+		/// <summary>
+		///		接收缓冲区的大小。
+		/// </summary>
+		/// <returns></returns>
+		virtual uint16_t ReceiveBufferSize() = 0;
+
+		/// <summary>
 		///		每次在中断中接收数据后，接收中断都会被禁用，此时需要调用本函数重新启用。
 		/// </summary>
 		void EnableReceiveInterrupt()
@@ -148,27 +149,23 @@ namespace hal
 		}
 		#pragma endregion
 
-		/// <summary>
-		///		接收完成时被回调
-		/// </summary>
-		void(*_on_receive_completed)() = nullptr;
-		UartReceiveCompletedHandler *_receive_completed_handler = nullptr;
-
 		#pragma region IDmaLinkable
-		virtual DMA_HandleTypeDef *DmaTxHandle() override
+		DMA_HandleTypeDef *DmaTxHandle() override
 		{
 			return Handle()->hdmatx;
 		}
-		virtual void SetDmaTxHandle(DMA_HandleTypeDef *value) override
+
+		void SetDmaTxHandle(DMA_HandleTypeDef *value) override
 		{
 			Handle()->hdmatx = value;
 		}
 
-		virtual DMA_HandleTypeDef *DmaRxHandle() override
+		DMA_HandleTypeDef *DmaRxHandle() override
 		{
 			return Handle()->hdmarx;
 		}
-		virtual void SetDmaRxHandle(DMA_HandleTypeDef *value) override
+
+		void SetDmaRxHandle(DMA_HandleTypeDef *value) override
 		{
 			Handle()->hdmarx = value;
 		}

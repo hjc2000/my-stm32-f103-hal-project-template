@@ -32,6 +32,12 @@ namespace atk
 		hal::UartCallbackFunc ReceiveCompleteCallback() override;
 
 	public:
+		/// <summary>
+		///		接收完成时被回调
+		/// </summary>
+		void(*_on_receive_completed)() = nullptr;
+		hal::UartReceiveCompletedHandler *_receive_completed_handler = nullptr;
+
 		UART_HandleTypeDef *Handle() override
 		{
 			return &_handle;
