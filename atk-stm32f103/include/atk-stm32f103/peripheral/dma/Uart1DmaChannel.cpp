@@ -7,6 +7,11 @@ bool atk::Uart1DmaChannel::IsClockEnabled()
 
 void atk::Uart1DmaChannel::EnableClock()
 {
+	if (IsClockEnabled())
+	{
+		return;
+	}
+
 	__HAL_RCC_DMA1_CLK_ENABLE();
 }
 
