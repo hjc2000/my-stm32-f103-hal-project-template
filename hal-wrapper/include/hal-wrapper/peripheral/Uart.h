@@ -75,16 +75,12 @@ namespace hal
 		UART_HandleTypeDef _uart_handle;
 
 		/// <summary>
-		///		初始化底层的 GPIO 引脚。
-		///		因为本类的派生类都是单例的，所以派生类可以定义一个静态方法，然后重写本函数，
-		///		将该静态方法的函数指针返回。
+		///		需要派生类返回一个用来初始化底层的 GPIO 引脚的函数的指针。
 		/// </summary>
 		virtual UartCallbackFunc MspInitCallback() = 0;
 
 		/// <summary>
-		///		接收完成时的回调。
-		///		因为本类的派生类都是单例的，所以派生类可以定义一个静态方法，然后重写本函数，
-		///		将该静态方法的函数指针返回。
+		///		需要派生类返回函数指针，用于接收完成时的回调。
 		/// </summary>
 		/// <returns></returns>
 		virtual UartCallbackFunc ReceiveCompleteCallback() = 0;
@@ -126,7 +122,7 @@ namespace hal
 		///		发送完毕
 		/// </summary>
 		/// <returns></returns>
-		bool SendingCompleted()
+		bool SendCompleted()
 		{
 			return (HardwareInstance()->SR & 0X40) != 0;
 		}
@@ -134,11 +130,11 @@ namespace hal
 		/// <summary>
 		///		等待，直到发送完毕
 		/// </summary>
-		void WaitUntilSendingCompleted()
+		void WaitUntilSendCompleted()
 		{
 			while (true)
 			{
-				if (SendingCompleted())
+				if (SendCompleted())
 				{
 					return;
 				}
@@ -161,7 +157,7 @@ namespace hal
 		/// <param name="data"></param>
 		void WriteDR_WithWaiting(uint8_t data)
 		{
-			WaitUntilSendingCompleted();
+			WaitUntilSendCompleted();
 			WriteDR(data);
 		}
 		#pragma endregion
