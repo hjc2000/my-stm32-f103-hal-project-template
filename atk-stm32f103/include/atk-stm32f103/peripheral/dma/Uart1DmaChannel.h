@@ -10,5 +10,7 @@ namespace atk
 		void EnableClock() override;
 		void DisableClock() override;
 
+		DMA_Channel_TypeDef *HardwareInstance() override;
+
 	};
 }

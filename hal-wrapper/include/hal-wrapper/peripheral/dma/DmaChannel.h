@@ -9,7 +9,7 @@ namespace hal
 	///		DMA 通道抽象类
 	/// </summary>
 	class DmaChannel :
-		public IPeripheral<DMA_TypeDef>,
+		public IPeripheral<DMA_Channel_TypeDef>,
 		public IHandleWrapper<DMA_HandleTypeDef>
 	{
 		DMA_HandleTypeDef _handle;

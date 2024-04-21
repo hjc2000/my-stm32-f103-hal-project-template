@@ -14,3 +14,8 @@ void atk::Uart1DmaChannel::DisableClock()
 {
 	__HAL_RCC_DMA1_CLK_DISABLE();
 }
+
+DMA_Channel_TypeDef *atk::Uart1DmaChannel::HardwareInstance()
+{
+	return DMA1_Channel4;
+}
