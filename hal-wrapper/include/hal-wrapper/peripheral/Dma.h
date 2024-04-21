@@ -4,11 +4,16 @@
 
 namespace hal
 {
+	/// <summary>
+	///		DMA 初始化选项。
+	/// </summary>
 	class DmaInitOptions
 	{
 	public:
 		DmaInitOptions() = default;
+		DmaInitOptions(DmaInitOptions const &o) = default;
 		DmaInitOptions(DMA_InitTypeDef const &o);
+		DmaInitOptions &operator=(DmaInitOptions const &o) = default;
 		DmaInitOptions &operator=(DMA_InitTypeDef const &o);
 
 		/// <summary>
