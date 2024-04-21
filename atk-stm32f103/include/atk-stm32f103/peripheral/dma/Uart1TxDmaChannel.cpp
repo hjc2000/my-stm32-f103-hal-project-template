@@ -1,13 +1,13 @@
-#include"Uart1DmaChannel.h"
+#include"Uart1TxDmaChannel.h"
 
 using namespace hal;
 
-bool atk::Uart1DmaChannel::IsClockEnabled()
+bool atk::Uart1TxDmaChannel::IsClockEnabled()
 {
 	return __HAL_RCC_DMA1_IS_CLK_ENABLED();
 }
 
-void atk::Uart1DmaChannel::EnableClock()
+void atk::Uart1TxDmaChannel::EnableClock()
 {
 	if (IsClockEnabled())
 	{
@@ -17,12 +17,12 @@ void atk::Uart1DmaChannel::EnableClock()
 	__HAL_RCC_DMA1_CLK_ENABLE();
 }
 
-void atk::Uart1DmaChannel::DisableClock()
+void atk::Uart1TxDmaChannel::DisableClock()
 {
 	__HAL_RCC_DMA1_CLK_DISABLE();
 }
 
-atk::Uart1DmaChannel::Uart1DmaChannel()
+atk::Uart1TxDmaChannel::Uart1TxDmaChannel()
 {
 	EnableClock();
 
@@ -40,7 +40,7 @@ atk::Uart1DmaChannel::Uart1DmaChannel()
 	HAL_DMA_Init(&_handle);
 }
 
-DMA_Channel_TypeDef *atk::Uart1DmaChannel::HardwareInstance()
+DMA_Channel_TypeDef *atk::Uart1TxDmaChannel::HardwareInstance()
 {
 	return DMA1_Channel4;
 }

@@ -3,7 +3,10 @@
 
 namespace atk
 {
-	class Uart1DmaChannel :public hal::DmaChannel
+	/// <summary>
+	///		UART1 的发送 DMA 通道。
+	/// </summary>
+	class Uart1TxDmaChannel :public hal::DmaChannel
 	{
 	private:
 		DMA_HandleTypeDef _handle;
@@ -13,13 +16,13 @@ namespace atk
 		void DisableClock() override;
 
 	public:
-		Uart1DmaChannel();
+		Uart1TxDmaChannel();
 
 		DMA_Channel_TypeDef *HardwareInstance() override;
 
-		static Uart1DmaChannel &Instance()
+		static Uart1TxDmaChannel &Instance()
 		{
-			static Uart1DmaChannel o;
+			static Uart1TxDmaChannel o;
 			return o;
 		}
 
