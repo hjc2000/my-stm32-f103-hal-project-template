@@ -78,7 +78,7 @@ void TestUart1()
 	{
 		Delayer::Instance().Delay(std::chrono::seconds(1));
 		Uart1::Instance().SendWithDma(buffer, buffer_size);
-		Uart1::Instance().WaitTxDma();
+		Uart1::Instance().WaitForTxDma();
 		Uart1::Instance().PerepareForNextDmaTx();
 	}
 }
