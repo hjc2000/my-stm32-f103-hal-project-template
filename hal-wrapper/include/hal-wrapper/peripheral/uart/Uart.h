@@ -1,8 +1,7 @@
 #pragma once
 #include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/peripheral/IPeripheral.h>
-#include<hal-wrapper/peripheral/UartEnum.h>
-#include<hal-wrapper/peripheral/dma/IDmaLinkable.h>
+#include<hal-wrapper/peripheral/uart/UartEnum.h>
 #include<stdint.h>
 
 namespace hal
@@ -73,7 +72,7 @@ namespace hal
 	/// </summary>
 	class Uart :
 		public IPeripheral,
-		public IDmaLinkable<UART_HandleTypeDef>
+		public IHandleWrapper<UART_HandleTypeDef>
 	{
 		UART_HandleTypeDef _uart_handle;
 
@@ -185,24 +184,6 @@ namespace hal
 		UART_HandleTypeDef *Handle() override
 		{
 			return &_uart_handle;
-		}
-
-		DMA_HandleTypeDef *DmaTxHandle() override
-		{
-			return _uart_handle.hdmatx;
-		}
-		void SetDmaTxHandle(DMA_HandleTypeDef *value) override
-		{
-			_uart_handle.hdmatx = value;
-		}
-
-		DMA_HandleTypeDef *DmaRxHandle() override
-		{
-			return _uart_handle.hdmarx;
-		}
-		void SetDmaRxHandle(DMA_HandleTypeDef *value) override
-		{
-			_uart_handle.hdmarx = value;
 		}
 	};
 }

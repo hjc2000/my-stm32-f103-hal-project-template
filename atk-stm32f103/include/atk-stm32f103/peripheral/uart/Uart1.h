@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/peripheral/Uart.h>
+#include<hal-wrapper/peripheral/uart/Uart.h>
 
 extern "C"
 {
