@@ -6,7 +6,7 @@
 namespace hal
 {
 	/// <summary>
-	///		DMA 抽象类
+	///		DMA 通道抽象类
 	/// </summary>
 	class DmaChannel :
 		public IPeripheral<DMA_TypeDef>,

@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/peripheral/gpio/GpioEnum.h>
+#include<hal-wrapper/peripheral/gpio/GpioTypeDef.h>
 
 namespace hal
 {
