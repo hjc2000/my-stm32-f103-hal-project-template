@@ -1,6 +1,6 @@
 #pragma once
-#include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/peripheral/DmaEnum.h>
+#include<hal-wrapper/peripheral/IDmaLinkable.h>
 #include<hal-wrapper/peripheral/IPeripheral.h>
 
 namespace hal
@@ -58,15 +58,6 @@ namespace hal
 	};
 	#pragma endregion
 
-	template<typename HandleType>
-	class IDmaLinkable
-	{
-	public:
-		virtual HandleType *Handle() = 0;
-		virtual DMA_HandleTypeDef *HDmaTx() = 0;
-		virtual DMA_HandleTypeDef *HDmaRx() = 0;
-	};
-
 	/// <summary>
 	///		DMA 抽象类
 	/// </summary>
@@ -92,9 +83,12 @@ namespace hal
 			return &_handle;
 		}
 
-		void SetParent(DMA_HandleTypeDef *&parent)
+		template<typename HandleType>
+		void SetParent(IDmaLinkable<HandleType> parant)
 		{
-
+			_handle.Parent = parant.Handle();
+			parant.SetDmaRxHandle(&_handle);
+			parant.SetDmaTxHandle(&_handle);
 		}
 	};
 }
