@@ -1,9 +1,9 @@
 #pragma once
-#include<hal-wrapper/peripheral/dma/Dma.h>
+#include<hal-wrapper/peripheral/dma/DmaChannel.h>
 
 namespace atk
 {
-	class Uart1Dma :public hal::Dma
+	class Uart1Dma :public hal::DmaChannel
 	{
 	public:
 		bool IsClockEnabled() override;

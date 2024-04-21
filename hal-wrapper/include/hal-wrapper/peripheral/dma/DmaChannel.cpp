@@ -1,4 +1,4 @@
-#include"Dma.h"
+#include"DmaChannel.h"
 
 using namespace hal;
 

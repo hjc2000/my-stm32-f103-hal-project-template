@@ -8,7 +8,7 @@ namespace hal
 	/// <summary>
 	///		DMA 抽象类
 	/// </summary>
-	class Dma :
+	class DmaChannel :
 		public IPeripheral<DMA_TypeDef>,
 		public IHandleWrapper<DMA_HandleTypeDef>
 	{
