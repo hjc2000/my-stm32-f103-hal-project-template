@@ -1,9 +1,11 @@
 #pragma once
+#include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/peripheral/DmaEnum.h>
 #include<hal-wrapper/peripheral/IPeripheral.h>
 
 namespace hal
 {
+	#pragma region DmaInitOptions
 	/// <summary>
 	///		DMA 初始化选项。
 	/// </summary>
@@ -54,11 +56,23 @@ namespace hal
 
 		operator DMA_InitTypeDef() const;
 	};
+	#pragma endregion
+
+	template<typename HandleType>
+	class IDmaLinkable
+	{
+	public:
+		virtual HandleType *Handle() = 0;
+		virtual DMA_HandleTypeDef *HDmaTx() = 0;
+		virtual DMA_HandleTypeDef *HDmaRx() = 0;
+	};
 
 	/// <summary>
 	///		DMA 抽象类
 	/// </summary>
-	class Dma :public IPeripheral
+	class Dma :
+		public IPeripheral,
+		public IHandleWrapper<DMA_HandleTypeDef>
 	{
 		DMA_HandleTypeDef _handle;
 
@@ -73,9 +87,14 @@ namespace hal
 		///		本对象内部的 DMA_HandleTypeDef 句柄对象的指针。
 		/// </summary>
 		/// <returns></returns>
-		DMA_HandleTypeDef *Hanlde()
+		DMA_HandleTypeDef *Handle() override
 		{
 			return &_handle;
+		}
+
+		void SetParent(DMA_HandleTypeDef *&parent)
+		{
+
 		}
 	};
 }
