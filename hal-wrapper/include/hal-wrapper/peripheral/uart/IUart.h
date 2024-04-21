@@ -93,11 +93,21 @@ namespace hal
 			WriteDR(data);
 		}
 
+		/// <summary>
+		///		派生类返回你的发送 DMA 通道实例。
+		/// </summary>
+		/// <returns></returns>
 		virtual IDmaChannel &TxDmaChannel() = 0;
+
+		/// <summary>
+		///		为下一次 DMA 发送做准备。调用后，应该使 SendWithDma 函数有效。
+		///		- 用户需要注意，不要在发送到一半时调用本函数，否则可能会终止传输。
+		/// </summary>
 		virtual void PerepareForNextDmaTx() = 0;
 
 		/// <summary>
-		///		使用 DMA 发送数据
+		///		使用 DMA 发送数据。
+		///		- 调用后，可以使用 WaitTxDma 方法来等待发送完成。
 		/// </summary>
 		/// <param name="buffer"></param>
 		/// <param name="size"></param>
@@ -110,22 +120,18 @@ namespace hal
 		/// <summary>
 		///		等待发送的 DMA 传输完成。
 		/// </summary>
-		void WaitTxDma()
-		{
-			while (true)
-			{
-				if (TxDmaChannel().TransferCompleted())
-				{
-					return;
-				}
-			}
-		}
+		void WaitTxDma();
+		#pragma endregion
 
+		/// <summary>
+		///		关闭 DMA。
+		///		- 会导致进行到一半的传输工作直接终止。
+		///		- 会同时停止发送和接收并关闭这两个通道。
+		/// </summary>
 		void CloseDma()
 		{
 			HAL_UART_DMAStop(Handle());
 		}
-		#pragma endregion
 
 		#pragma region 接收
 		/// <summary>

@@ -24,3 +24,14 @@ void hal::IUart::Initialize()
 	UartInitOptions options;
 	Initialize(options);
 }
+
+void hal::IUart::WaitTxDma()
+{
+	while (true)
+	{
+		if (TxDmaChannel().TransferCompleted())
+		{
+			return;
+		}
+	}
+}
