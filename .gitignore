@@ -2,6 +2,7 @@
 /out/
 
 **/Output/
+**/output/
 *.o
 *.uvguix.huang
 *.uvguix.satli
