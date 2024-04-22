@@ -394,11 +394,6 @@
           <GroupName>User</GroupName>
           <Files>
             <File>
-              <FileName>stm32f1xx_it.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Users\stm32f1xx_it.c</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Users\main.c</FilePath>
