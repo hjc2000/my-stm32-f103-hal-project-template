@@ -64,7 +64,7 @@
 				"CMAKE_SYSTEM_NAME": "Generic",
 				"CMAKE_C_COMPILER": "arm-none-eabi-gcc.exe",
 				"CMAKE_CXX_COMPILER": "arm-none-eabi-g++.exe",
-				"CMAKE_ASM_COMPILER": "arm-none-eabi-as.exe",
+				"CMAKE_ASM_COMPILER": "arm-none-eabi-gcc.exe",
 				"CMAKE_OBJCOPY": "arm-none-eabi-objcopy.exe",
 				"CMAKE_C_FLAGS": "-nostdlib -mcpu=cortex-m3 -mthumb -gdwarf-2 -MD -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing -ffunction-sections -fdata-sections",
 				"CMAKE_CXX_FLAGS": "-nostdlib -mcpu=cortex-m3 -mthumb -gdwarf-2 -MD -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing -ffunction-sections -fdata-sections",
