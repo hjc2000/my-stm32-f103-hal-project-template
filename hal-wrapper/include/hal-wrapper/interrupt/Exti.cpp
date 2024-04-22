@@ -93,6 +93,10 @@ extern "C"
 
 				break;
 			}
+		default:
+			{
+				break;
+			}
 		}
 	}
 }

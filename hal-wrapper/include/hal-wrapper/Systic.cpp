@@ -11,7 +11,6 @@ bool Systic::CountFlag()
 SysticClockSource Systic::ClockSource()
 {
 	uint32_t masked = SysTick->CTRL & SysTick_CTRL_CLKSOURCE_Msk;
-	masked >> SysTick_CTRL_CLKSOURCE_Pos;
 	if (masked)
 	{
 		return SysticClockSource::HCLK;
