@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.20)
 set(ProjectName test)
 project(${ProjectName})
 enable_language(ASM)

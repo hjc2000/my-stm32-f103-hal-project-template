@@ -5,8 +5,7 @@
 			"name": "options",
 			"hidden": true,
 			"cacheVariables": {
-				"option_install_headers": true,
-				"option_do_not_install_third_party_headers": false
+				"option_install_headers": true
 			},
 			"vendor": {
 				"microsoft.com/VisualStudioSettings/CMake/1.0": {
@@ -59,13 +58,18 @@
 			"installDir": "${sourceDir}/out/install/${presetName}",
 			"cacheVariables": {
 				"CMAKE_BUILD_TYPE": "Release",
-				"CMAKE_SYSTEM_PROCESSOR": "cortex-m3",
+				"CMAKE_SYSTEM_PROCESSOR": "arm",
 				"CMAKE_SYSTEM_ARCH": "armv7-m",
 				"CMAKE_SYSTEM_NAME": "Generic",
 				"CMAKE_C_COMPILER": "arm-none-eabi-gcc.exe",
 				"CMAKE_CXX_COMPILER": "arm-none-eabi-g++.exe",
 				"CMAKE_ASM_COMPILER": "arm-none-eabi-gcc.exe",
+				"CMAKE_AR": "arm-none-eabi-ar.exe",
+				"CMAKE_LINKER": "arm-none-eabi-ld.exe",
 				"CMAKE_OBJCOPY": "arm-none-eabi-objcopy.exe",
+				"CMAKE_RANLIB": "arm-none-eabi-ranlib.exe",
+				"CMAKE_SIZE": "arm-none-eabi-size.exe",
+				"CMAKE_STRIP": "arm-none-eabi-ld.exe",
 				"CMAKE_C_FLAGS": "-nostdlib -mcpu=cortex-m3 -mthumb -gdwarf-2 -MD -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing -ffunction-sections -fdata-sections",
 				"CMAKE_CXX_FLAGS": "-nostdlib -mcpu=cortex-m3 -mthumb -gdwarf-2 -MD -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing -ffunction-sections -fdata-sections",
 				"CMAKE_ASM_FLAGS": "-mcpu=cortex-m3 -g"
