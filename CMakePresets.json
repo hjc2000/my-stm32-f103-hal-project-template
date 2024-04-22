@@ -65,6 +65,7 @@
 				"CMAKE_C_COMPILER": "arm-none-eabi-gcc.exe",
 				"CMAKE_CXX_COMPILER": "arm-none-eabi-g++.exe",
 				"CMAKE_ASM_COMPILER": "arm-none-eabi-as.exe",
+				"CMAKE_OBJCOPY": "arm-none-eabi-objcopy.exe",
 				"CMAKE_C_FLAGS": "-nostdlib -nodefaultlibs -mcpu=cortex-m3 -Wl,--gc-sections -mthumb-interwork -ffunction-sections -fdata-sections -fshort-wchar -funsigned-char",
 				"CMAKE_CXX_FLAGS": "-nostdlib -nodefaultlibs -mcpu=cortex-m3 -Wl,--gc-sections -mthumb-interwork -ffunction-sections -fdata-sections -fshort-wchar -fno-rtti -funsigned-char",
 				"CMAKE_ASM_FLAGS": "-mcpu=cortex-m3 -g"
