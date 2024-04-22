@@ -70,9 +70,10 @@
 				"CMAKE_RANLIB": "arm-none-eabi-ranlib.exe",
 				"CMAKE_SIZE": "arm-none-eabi-size.exe",
 				"CMAKE_STRIP": "arm-none-eabi-ld.exe",
-				"CMAKE_C_FLAGS": "-nostdlib -mcpu=cortex-m3 -mthumb -gdwarf-2 -MD -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing -ffunction-sections -fdata-sections",
-				"CMAKE_CXX_FLAGS": "-nostdlib -mcpu=cortex-m3 -mthumb -gdwarf-2 -MD -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing -ffunction-sections -fdata-sections",
-				"CMAKE_ASM_FLAGS": "-mcpu=cortex-m3 -g"
+				"CMAKE_C_FLAGS": "--specs=nano.specs -mcpu=cortex-m3 -mthumb -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing -ffunction-sections -fdata-sections",
+				"CMAKE_CXX_FLAGS": "--specs=nano.specs -mcpu=cortex-m3 -mthumb -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing -ffunction-sections -fdata-sections",
+				"CMAKE_ASM_FLAGS": "-x assembler-with-cpp",
+				"CMAKE_EXE_LINKER_FLAGS": "-T${sourceDir}/STM32F103ZETX_FLASH.ld --specs=nosys.specs -Wl,-Map=test.map -Wl,--gc-sections -static -Wl,--start-group -lc -lm -Wl,--end-group"
 			}
 		}
 	]

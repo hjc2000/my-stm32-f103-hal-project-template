@@ -4,6 +4,9 @@ if(1)
 	project ("stm32")
 endif()
 
+set (CMAKE_EXECUTABLE_SUFFIX ".elf")
+set (CMAKE_STATIC_LIBRARY_SUFFIX ".a")
+
 
 # 包含子项目。
 add_subdirectory(${CMAKE_SOURCE_DIR}/stm32f103-hal)
