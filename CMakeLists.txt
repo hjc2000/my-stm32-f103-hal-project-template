@@ -1,26 +1,27 @@
 ﻿cmake_minimum_required(VERSION 3.20)
 
+# 编译，链接选项
+if(1)
+	string(CONCAT C_CXX_FLAGS
+		" -Wall -Wextra -Wno-unused-parameter "
+		" -mcpu=cortex-m3 -mthumb "
+		" -fno-strict-aliasing -ffunction-sections -fdata-sections "
+		" --specs=nano.specs "
+	)
+	set(CMAKE_C_FLAGS ${C_CXX_FLAGS})
+	set(CMAKE_CXX_FLAGS ${C_CXX_FLAGS})
 
+	set(CMAKE_ASM_FLAGS "-x assembler-with-cpp")
 
-string(CONCAT C_CXX_FLAGS
-	" -Wall -Wextra -Wno-unused-parameter "
-	" -mcpu=cortex-m3 -mthumb "
-	" -fno-strict-aliasing -ffunction-sections -fdata-sections "
-	" --specs=nano.specs "
-)
-set(CMAKE_C_FLAGS ${C_CXX_FLAGS})
-set(CMAKE_CXX_FLAGS ${C_CXX_FLAGS})
-
-set(CMAKE_ASM_FLAGS "-x assembler-with-cpp")
-
-string(CONCAT CMAKE_EXE_LINKER_FLAGS
-	" -T${CMAKE_SOURCE_DIR}/STM32F103ZETX_FLASH.ld "
-	" --specs=nosys.specs "
-	" -Wl,-Map=test.map "
-	" -Wl,--gc-sections "
-	" -static "
-	" -Wl,--start-group -lc -lm -Wl,--end-group "
-)
+	string(CONCAT CMAKE_EXE_LINKER_FLAGS
+		" -T${CMAKE_SOURCE_DIR}/STM32F103ZETX_FLASH.ld "
+		" --specs=nosys.specs "
+		" -Wl,-Map=out_map.map "
+		" -Wl,--gc-sections "
+		" -static "
+		" -Wl,--start-group -lc -lm -Wl,--end-group "
+	)
+endif()
 
 project ("stm32")
 set (CMAKE_EXECUTABLE_SUFFIX ".elf")
