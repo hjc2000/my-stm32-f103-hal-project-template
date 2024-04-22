@@ -1,12 +1,31 @@
-﻿# 基础配置
-if(1)
-	cmake_minimum_required(VERSION 3.20)
-	project ("stm32")
-endif()
+﻿cmake_minimum_required(VERSION 3.20)
 
+
+
+string(CONCAT C_CXX_FLAGS
+	# 警告相关
+	" -Wall -Wextra -Wno-unused-parameter "
+
+	# 架构相关
+	" -mcpu=cortex-m3 -mthumb "
+
+	# 功能相关
+	" -fno-strict-aliasing -ffunction-sections -fdata-sections "
+
+	# 其他
+	" --specs=nano.specs "
+)
+message(STATUS ${C_CXX_FLAGS})
+
+set(CMAKE_C_FLAGS ${C_CXX_FLAGS})
+set(CMAKE_CXX_FLAGS ${C_CXX_FLAGS})
+set(CMAKE_ASM_FLAGS "-x assembler-with-cpp")
+set(CMAKE_EXE_LINKER_FLAGS "-T${CMAKE_SOURCE_DIR}/STM32F103ZETX_FLASH.ld --specs=nosys.specs -Wl,-Map=test.map -Wl,--gc-sections -static -Wl,--start-group -lc -lm -Wl,--end-group")
+
+
+project ("stm32")
 set (CMAKE_EXECUTABLE_SUFFIX ".elf")
 set (CMAKE_STATIC_LIBRARY_SUFFIX ".a")
-
 
 # 包含子项目。
 add_subdirectory(${CMAKE_SOURCE_DIR}/stm32f103-hal)
