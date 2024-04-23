@@ -27,7 +27,7 @@ namespace atk
 			return key;
 		}
 
-		hal::GpioPort &Port()
+		hal::IGpioPort &Port()
 		{
 			return hal::GpioPortE::Instance();
 		}
@@ -58,7 +58,7 @@ namespace atk
 			return key;
 		}
 
-		hal::GpioPort &Port()
+		hal::IGpioPort &Port()
 		{
 			return hal::GpioPortE::Instance();
 		}
@@ -89,7 +89,7 @@ namespace atk
 			return key;
 		}
 
-		hal::GpioPort &Port()
+		hal::IGpioPort &Port()
 		{
 			return hal::GpioPortA::Instance();
 		}

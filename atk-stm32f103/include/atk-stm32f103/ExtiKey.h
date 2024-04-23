@@ -18,7 +18,7 @@ namespace atk
 		/// </summary>
 		volatile bool _is_pressed = false;
 
-		hal::GpioPort &Port()
+		hal::IGpioPort &Port()
 		{
 			return hal::GpioPortE::Instance();
 		}

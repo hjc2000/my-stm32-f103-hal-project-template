@@ -23,10 +23,30 @@ namespace hal
 		}
 
 		/// <summary>
-		///		独立看门狗内部时钟源的频率。单位：kHz。
+		///		分频系数。
 		/// </summary>
 		/// <returns></returns>
-		virtual uint32_t InnerClockSourceFreq_kHz() = 0;
+		WatchDogPrescaler Prescaler()
+		{
+			return WatchDogPrescaler(Handle()->Init.Prescaler);
+		}
+
+		uint32_t PrescalerValue();
+
+		/// <summary>
+		///		独立看门狗内部时钟源的频率。单位：Hz。
+		/// </summary>
+		/// <returns></returns>
+		virtual uint32_t InnerClockSourceFreq_Hz() = 0;
+
+		/// <summary>
+		///		InnerClockSourceFreq_Hz 经过分频后，输入到计数器中的频率。
+		/// </summary>
+		/// <returns></returns>
+		uint32_t CounterFreq_Hz()
+		{
+			return InnerClockSourceFreq_Hz() / PrescalerValue();
+		}
 
 		void FeedDog()
 		{

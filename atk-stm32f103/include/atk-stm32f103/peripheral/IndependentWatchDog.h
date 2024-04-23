@@ -19,10 +19,10 @@ namespace atk
 			return IWDG;
 		}
 
-		uint32_t InnerClockSourceFreq_kHz() override
+		uint32_t InnerClockSourceFreq_Hz() override
 		{
 			// 独立看门狗具有 40 kHz 的内部时钟。
-			return 40;
+			return 40 * 1000;
 		}
 	};
 }

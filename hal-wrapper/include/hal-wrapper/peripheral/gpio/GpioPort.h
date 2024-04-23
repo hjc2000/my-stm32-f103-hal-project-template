@@ -1,28 +1,11 @@
 #pragma once
-#include<hal-wrapper/IClockSwitchable.h>
-#include<hal-wrapper/IHardwareInstanceWrapper.h>
-#include<hal-wrapper/peripheral/gpio/GpioPinInitOptions.h>
-#include<hal.h>
+#include<hal-wrapper/peripheral/gpio/IGpioPort.h>
 
 namespace hal
 {
-	/// <summary>
-	///		GPIO 端口抽象类，有几组 GPIO 端口就派生几个本类。
-	/// </summary>
-	class GpioPort :
-		public IHardwareInstanceWrapper<GPIO_TypeDef>,
-		public IClockSwitchable
-	{
-	public:
-		void InitPin(GpioPin pin, GpioPinInitOptions const &options);
-		void DigitalWritePin(GpioPin pin, bool value);
-		bool DigitalReadPin(GpioPin pin);
-		void DigitalTogglePin(GpioPin pin);
-	};
-
 	#pragma region GpioPortA
 	#ifdef GPIOA
-	class GpioPortA :public GpioPort
+	class GpioPortA :public IGpioPort
 	{
 	public:
 		static GpioPortA &Instance()
@@ -41,7 +24,7 @@ namespace hal
 
 	#pragma region GpioPortB
 	#ifdef GPIOB
-	class GpioPortB :public GpioPort
+	class GpioPortB :public IGpioPort
 	{
 	public:
 		static GpioPortB &Instance()
@@ -60,7 +43,7 @@ namespace hal
 
 	#pragma region GpioPortC
 	#ifdef GPIOC
-	class GpioPortC :public GpioPort
+	class GpioPortC :public IGpioPort
 	{
 	public:
 		static GpioPortC &Instance()
@@ -79,7 +62,7 @@ namespace hal
 
 	#pragma region GpioPortD
 	#ifdef GPIOD
-	class GpioPortD :public GpioPort
+	class GpioPortD :public IGpioPort
 	{
 	public:
 		static GpioPortD &Instance()
@@ -98,7 +81,7 @@ namespace hal
 
 	#pragma region GpioPortE
 	#ifdef GPIOE
-	class GpioPortE :public GpioPort
+	class GpioPortE :public IGpioPort
 	{
 	public:
 		static GpioPortE &Instance()
