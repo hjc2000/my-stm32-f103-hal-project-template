@@ -33,9 +33,9 @@ install(CODE "
         RESULT_VARIABLE cmd_result
     )
 
-    if(NOT \${cmd_result} STREQUAL \"0\")
-        message(STATUS \"${ProjectName}.bin 下载失败: \${cmd_result}\")
-    else()
+    if(\${cmd_result} STREQUAL \"0\")
         message(STATUS \"${ProjectName}.bin 下载成功 \")
+    else()
+        message(STATUS \"${ProjectName}.bin 下载失败: \${cmd_result}\")
     endif()
 ")
