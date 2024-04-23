@@ -1,5 +1,5 @@
 #pragma once
-#include<atk-stm32f103/peripheral/dma/Uart1TxDmaChannel.h>
+#include<hal-wrapper/peripheral/dma/Uart1TxDmaChannel.h>
 #include<hal-wrapper/peripheral/uart/IUart.h>
 
 extern "C"
@@ -7,7 +7,7 @@ extern "C"
 	void USART1_IRQHandler();
 }
 
-namespace atk
+namespace hal
 {
 	/// <summary>
 	///		发送引脚 PA9，接收引脚 PA10。

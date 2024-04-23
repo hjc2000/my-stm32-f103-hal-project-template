@@ -2,7 +2,6 @@
 #include<hal-wrapper/interrupt/Interrupt.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
-using namespace atk;
 using namespace hal;
 
 void USART1_IRQHandler()
@@ -10,22 +9,22 @@ void USART1_IRQHandler()
 	HAL_UART_IRQHandler(Uart1::Instance().Handle());
 }
 
-bool atk::Uart1::IsClockEnabled()
+bool Uart1::IsClockEnabled()
 {
 	return __HAL_RCC_USART1_IS_CLK_ENABLED();
 }
 
-void atk::Uart1::EnableClock()
+void Uart1::EnableClock()
 {
 	__HAL_RCC_USART1_CLK_ENABLE();
 }
 
-void atk::Uart1::DisableClock()
+void Uart1::DisableClock()
 {
 	__HAL_RCC_USART1_CLK_DISABLE();
 }
 
-hal::UartCallbackFunc atk::Uart1::MspInitCallback()
+hal::UartCallbackFunc Uart1::MspInitCallback()
 {
 	return [](UART_HandleTypeDef *huart)->void
 	{
@@ -49,7 +48,7 @@ hal::UartCallbackFunc atk::Uart1::MspInitCallback()
 	};
 }
 
-hal::UartCallbackFunc atk::Uart1::ReceiveCompleteCallback()
+hal::UartCallbackFunc Uart1::ReceiveCompleteCallback()
 {
 	return [](UART_HandleTypeDef *huart)->void
 	{
@@ -67,22 +66,22 @@ hal::UartCallbackFunc atk::Uart1::ReceiveCompleteCallback()
 	};
 }
 
-USART_TypeDef *atk::Uart1::HardwareInstance()
+USART_TypeDef *Uart1::HardwareInstance()
 {
 	return USART1;
 }
 
-uint8_t *atk::Uart1::ReceiveBuffer()
+uint8_t *Uart1::ReceiveBuffer()
 {
 	return _receive_buffer;
 }
 
-uint16_t atk::Uart1::ReceiveBufferSize()
+uint16_t Uart1::ReceiveBufferSize()
 {
 	return _receive_buffer_size;
 }
 
-void atk::Uart1::PerepareForNextDmaTx()
+void Uart1::PerepareForNextDmaTx()
 {
 	Uart1TxDmaChannel::Instance().ClearTransferCompletedFlag();
 

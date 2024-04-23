@@ -2,7 +2,7 @@
 #include<hal-wrapper/IClockSwitchable.h>
 #include<hal-wrapper/peripheral/dma/IDmaChannel.h>
 
-namespace atk
+namespace hal
 {
 	/// <summary>
 	///		UART1 的发送 DMA 通道。

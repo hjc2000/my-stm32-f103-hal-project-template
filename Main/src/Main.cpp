@@ -3,11 +3,10 @@
 #include<atk-stm32f103/ExtiKey.h>
 #include<atk-stm32f103/Key.h>
 #include<atk-stm32f103/Led.h>
-#include<atk-stm32f103/peripheral/uart/Uart1.h>
 #include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/clock/Systic.h>
-#include<hal-wrapper/device/KeyScanner.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
+#include<hal-wrapper/peripheral/uart/Uart1.h>
 
 using namespace hal;
 using namespace atk;
