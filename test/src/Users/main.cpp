@@ -16,9 +16,9 @@ void TestUart1();
 
 int main(void)
 {
-	TestKeyScanner();
+	//TestKeyScanner();
 	//TestExtiKey();
-	//TestUart1();
+	TestUart1();
 }
 
 void TestUart1()

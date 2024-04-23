@@ -21,4 +21,21 @@ add_custom_command(
 	COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${ProjectName}> $<TARGET_FILE_DIR:${ProjectName}>/${ProjectName}.bin
 	COMMENT "由 elf 生成 bin 文件。"
 )
+
 install_one_file("${CMAKE_CURRENT_BINARY_DIR}/${ProjectName}.bin" bin)
+
+# 安装时自动尝试将 bin 文件下载到单片机
+install(CODE "
+    message(STATUS \"正在将 ${ProjectName}.bin 下载到单片机\")
+
+    execute_process(
+        COMMAND st-flash --reset write \"${CMAKE_INSTALL_PREFIX}/bin/${ProjectName}.bin\" 0x8000000
+        RESULT_VARIABLE cmd_result
+    )
+
+    if(NOT \${cmd_result} STREQUAL \"0\")
+        message(STATUS \"${ProjectName}.bin 下载失败: \${cmd_result}\")
+    else()
+        message(STATUS \"${ProjectName}.bin 下载成功 \")
+    endif()
+")
