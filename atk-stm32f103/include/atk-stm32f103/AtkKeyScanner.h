@@ -1,5 +1,6 @@
 #pragma once
 #include<bsp-interface/IKey.h>
+#include<bsp-interface/KeyScanner.h>
 
 namespace atk
 {

@@ -18,7 +18,7 @@ namespace hal
 		IWDG_HandleTypeDef _handle;
 
 	public:
-		IndependentWatchDog &Instance()
+		static IndependentWatchDog &Instance()
 		{
 			static IndependentWatchDog o;
 			return o;
