@@ -1,5 +1,6 @@
 #pragma once
-#include<hal-wrapper/peripheral/IPeripheral.h>
+#include<hal-wrapper/clock/IClockSwitchable.h>
+#include<hal-wrapper/peripheral/IHardwareInstanceWrapper.h>
 #include<hal-wrapper/peripheral/gpio/GpioPinInitOptions.h>
 #include<hal.h>
 
@@ -8,7 +9,9 @@ namespace hal
 	/// <summary>
 	///		GPIO 端口抽象类，有几组 GPIO 端口就派生几个本类。
 	/// </summary>
-	class GpioPort :public IPeripheral<GPIO_TypeDef>
+	class GpioPort :
+		public IHardwareInstanceWrapper<GPIO_TypeDef>,
+		public IClockSwitchable
 	{
 	public:
 		void InitPin(GpioPin pin, GpioPinInitOptions const &options);

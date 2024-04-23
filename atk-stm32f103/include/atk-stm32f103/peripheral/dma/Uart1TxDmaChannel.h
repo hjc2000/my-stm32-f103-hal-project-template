@@ -1,4 +1,5 @@
 #pragma once
+#include<hal-wrapper/clock/IClockSwitchable.h>
 #include<hal-wrapper/peripheral/dma/IDmaChannel.h>
 
 namespace atk
@@ -6,7 +7,9 @@ namespace atk
 	/// <summary>
 	///		UART1 的发送 DMA 通道。
 	/// </summary>
-	class Uart1TxDmaChannel :public hal::IDmaChannel
+	class Uart1TxDmaChannel :
+		public hal::IDmaChannel,
+		public hal::IClockSwitchable
 	{
 	private:
 		DMA_HandleTypeDef _handle;

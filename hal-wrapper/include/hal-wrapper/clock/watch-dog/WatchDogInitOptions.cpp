@@ -1,4 +1,4 @@
-#include"WatchDogTypeDef.h"
+#include"WatchDogInitOptions.h"
 
 using namespace hal;
 

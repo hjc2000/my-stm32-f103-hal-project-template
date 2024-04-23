@@ -1,6 +1,6 @@
 #pragma once
 #include<hal-wrapper/IHandleWrapper.h>
-#include<hal-wrapper/peripheral/IPeripheral.h>
+#include<hal-wrapper/peripheral/IHardwareInstanceWrapper.h>
 #include<hal-wrapper/peripheral/dma/DmaInitOptions.h>
 
 namespace hal
@@ -9,7 +9,7 @@ namespace hal
 	///		DMA 通道抽象类
 	/// </summary>
 	class IDmaChannel :
-		public IPeripheral<DMA_Channel_TypeDef>,
+		public IHardwareInstanceWrapper<DMA_Channel_TypeDef>,
 		public IHandleWrapper<DMA_HandleTypeDef>
 	{
 	public:

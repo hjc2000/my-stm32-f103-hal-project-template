@@ -1,6 +1,7 @@
 #pragma once
 #include<hal-wrapper/IHandleWrapper.h>
-#include<hal-wrapper/peripheral/IPeripheral.h>
+#include<hal-wrapper/clock/IClockSwitchable.h>
+#include<hal-wrapper/peripheral/IHardwareInstanceWrapper.h>
 #include<hal-wrapper/peripheral/dma/IDmaChannel.h>
 #include<hal-wrapper/peripheral/dma/IDmaLinkable.h>
 #include<hal-wrapper/peripheral/uart/UartInitOptions.h>
@@ -13,8 +14,9 @@ namespace hal
 	///		串口抽象类。
 	/// </summary>
 	class IUart :
-		public IPeripheral<USART_TypeDef>,
-		public IDmaLinkable<UART_HandleTypeDef>
+		public IHardwareInstanceWrapper<USART_TypeDef>,
+		public IDmaLinkable<UART_HandleTypeDef>,
+		public IClockSwitchable
 	{
 	public:
 		#pragma region 需要派生类返回函数指针
