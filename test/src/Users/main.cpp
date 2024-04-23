@@ -7,6 +7,7 @@
 #include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
 #include<hal-wrapper/peripheral/uart/Uart1.h>
+#include<string>
 
 using namespace hal;
 using namespace atk;
@@ -32,12 +33,11 @@ void TestUart1()
 		RedDigitalLed::Instance().Toggle();
 	};
 
-	uint8_t buffer[]{ 72,72,72,72 };
-	uint16_t buffer_size = sizeof(buffer);
+	std::string str = "hello world\n";
 	while (1)
 	{
 		Delayer::Instance().Delay(std::chrono::seconds(1));
-		Uart1::Instance().SendWithDma(buffer, buffer_size);
+		Uart1::Instance().SendWithDma((uint8_t const *)(str.c_str()), str.length());
 		Uart1::Instance().WaitForDmaTx();
 		Uart1::Instance().PerepareForNextDmaTx();
 	}

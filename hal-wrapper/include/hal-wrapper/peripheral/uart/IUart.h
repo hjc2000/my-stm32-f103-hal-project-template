@@ -118,7 +118,7 @@ namespace hal
 		/// <param name="buffer"></param>
 		/// <param name="size"></param>
 		/// <returns></returns>
-		HAL_StatusTypeDef SendWithDma(uint8_t *buffer, uint16_t size)
+		HAL_StatusTypeDef SendWithDma(uint8_t const *buffer, uint16_t size)
 		{
 			return HAL_UART_Transmit_DMA(Handle(), buffer, size);
 		}
