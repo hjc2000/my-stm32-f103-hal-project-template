@@ -1,8 +1,8 @@
 #pragma once
 #include<bitset>
-#include<hal-wrapper/clock/Delayer.h>
+#include<chrono>
 
-namespace hal
+namespace bsp
 {
 	/// <summary>
 	///		独立按键。
@@ -22,6 +22,13 @@ namespace hal
 		{
 			return !KeyIsDown();
 		}
+
+		/// <summary>
+		///		按键消抖需要延时。
+		///		- 如果是带有滤波电路的按钮，不需要延时，则可将此函数实现为直接返回，什么都不做。
+		/// </summary>
+		/// <param name="num"></param>
+		virtual void Delay(std::chrono::milliseconds num) = 0;
 
 		/// <summary>
 		///		经过软件消抖，确定按键确实是处于被按下的状态。
@@ -44,7 +51,6 @@ namespace hal
 	class KeyScanner
 	{
 	private:
-		IKey **_keys = nullptr;
 		std::bitset<KeyCount> _last_scan_result;
 		std::bitset<KeyCount> _key_down_events;
 		std::bitset<KeyCount> _key_up_events;
@@ -55,7 +61,7 @@ namespace hal
 			std::bitset<KeyCount> key_down_flags;
 			for (uint16_t i = 0; i < KeyCount; i++)
 			{
-				if (_keys[i]->KeyIsDown())
+				if (KeyList()[i]->KeyIsDown())
 				{
 					key_down_flags[i] = 1;
 				}
@@ -65,14 +71,15 @@ namespace hal
 		}
 
 	public:
+		virtual IKey **KeyList() = 0;
+
 		/// <summary>
-		///		将按键对象的指针放到数组里，将数组头指针传进来。
+		///		按键扫描需要延时消抖。
+		///		- 如果被本扫描器扫描的所有按钮都有滤波电路，不需要消抖，
+		///		  则可将本函数实现为什么都不做，直接返回。
 		/// </summary>
-		/// <param name="keys"></param>
-		KeyScanner(IKey **keys)
-		{
-			_keys = keys;
-		}
+		/// <param name="num"></param>
+		virtual void Delay(std::chrono::milliseconds num) = 0;
 
 		/// <summary>
 		///		执行键盘扫描，更新内部状态。此函数应该被不断调用。
@@ -80,8 +87,9 @@ namespace hal
 		void ScanKeys()
 		{
 			std::bitset<KeyCount> first_scan_result = ScanKeysNoDelay();
+
 			// 延时消抖
-			Delayer::Instance().Delay(std::chrono::milliseconds(10));
+			Delay(std::chrono::milliseconds(10));
 			std::bitset<KeyCount> scan_result = first_scan_result & ScanKeysNoDelay();
 
 			// 更新事件状态

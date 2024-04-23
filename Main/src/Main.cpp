@@ -1,4 +1,5 @@
 #include"Main.h"
+#include<atk-stm32f103/AtkKeyScanner.h>
 #include<atk-stm32f103/Clock.h>
 #include<atk-stm32f103/ExtiKey.h>
 #include<atk-stm32f103/Key.h>
@@ -10,22 +11,17 @@
 
 using namespace hal;
 using namespace atk;
+using namespace bsp;
 
 void TestKeyScanner()
 {
 	HAL_Init();
 	config_72mhz_hclk();
-	IKey *keys[] = {
-		&Key0::Instance(),
-		&Key1::Instance(),
-		&KeyWakeUp::Instance(),
-	};
-	KeyScanner<sizeof(keys) / sizeof(IKey *)> key_scanner{ keys };
 
 	while (1)
 	{
-		key_scanner.ScanKeys();
-		auto key_down_events = key_scanner.GetKeyDownEvents();
+		AtkKeyScanner::Instance().ScanKeys();
+		auto key_down_events = AtkKeyScanner::Instance().GetKeyDownEvents();
 
 		if (key_down_events[0])
 		{

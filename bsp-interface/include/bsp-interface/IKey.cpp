@@ -1,6 +1,6 @@
 #include"IKey.h"
 
-using namespace hal;
+using namespace bsp;
 
 bool IKey::KeyIsReallyDown()
 {
@@ -9,7 +9,7 @@ bool IKey::KeyIsReallyDown()
 		return false;
 	}
 
-	Delayer::Instance().Delay(std::chrono::milliseconds(10));
+	Delay(std::chrono::milliseconds(10));
 	return KeyIsDown();
 }
 
@@ -20,6 +20,6 @@ bool IKey::KeyIsReallyUp()
 		return false;
 	}
 
-	Delayer::Instance().Delay(std::chrono::milliseconds(10));
+	Delay(std::chrono::milliseconds(10));
 	return KeyIsUp();
 }

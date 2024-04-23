@@ -1,5 +1,6 @@
 #pragma once
-#include<hal-wrapper/device/IKey.h>
+#include<bsp-interface/IKey.h>
+#include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
 namespace atk
@@ -7,7 +8,7 @@ namespace atk
 	/// <summary>
 	///		位于 PE4 引脚上的按键。另一端接地，所以要上拉使用。
 	/// </summary>
-	class Key0 :public hal::IKey
+	class Key0 :public bsp::IKey
 	{
 	public:
 		Key0()
@@ -33,12 +34,17 @@ namespace atk
 		}
 
 		bool KeyIsDown() override;
+
+		void Delay(std::chrono::milliseconds num) override
+		{
+			hal::Delayer::Instance().Delay(num);
+		}
 	};
 
 	/// <summary>
 	///		位于 PE3 引脚。另一端接地，所以需要上拉使用。
 	/// </summary>
-	class Key1 :public hal::IKey
+	class Key1 :public bsp::IKey
 	{
 	public:
 		Key1()
@@ -64,12 +70,17 @@ namespace atk
 		}
 
 		bool KeyIsDown() override;
+
+		void Delay(std::chrono::milliseconds num) override
+		{
+			hal::Delayer::Instance().Delay(num);
+		}
 	};
 
 	/// <summary>
 	///		位于 PA0 引脚。另一端接 VCC，所以需要下拉使用。
 	/// </summary>
-	class KeyWakeUp :public hal::IKey
+	class KeyWakeUp :public bsp::IKey
 	{
 	public:
 		KeyWakeUp()
@@ -95,5 +106,10 @@ namespace atk
 		}
 
 		bool KeyIsDown() override;
+
+		void Delay(std::chrono::milliseconds num) override
+		{
+			hal::Delayer::Instance().Delay(num);
+		}
 	};
 }
