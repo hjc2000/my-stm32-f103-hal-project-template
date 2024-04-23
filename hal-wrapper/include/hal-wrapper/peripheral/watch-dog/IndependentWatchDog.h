@@ -11,11 +11,29 @@ namespace hal
 	///		- 所谓独立看门狗就是具有自己的内部时钟源，不依赖单片机的系统时钟。
 	///		  在系统时钟失效时仍然能工作。
 	/// </summary>
-	class IIndependentWatchDog :
+	class IndependentWatchDog :
 		public IHandleWrapper<IWDG_HandleTypeDef>,
 		public IHardwareInstanceWrapper<IWDG_TypeDef>
 	{
+		IWDG_HandleTypeDef _handle;
+
 	public:
+		IndependentWatchDog &Instance()
+		{
+			static IndependentWatchDog o;
+			return o;
+		}
+
+		IWDG_HandleTypeDef *Handle() override
+		{
+			return &_handle;
+		}
+
+		IWDG_TypeDef *HardwareInstance() override
+		{
+			return IWDG;
+		}
+
 		void Initialize(WatchDogInitOptions const &options)
 		{
 			Handle()->Instance = HardwareInstance();
@@ -34,11 +52,11 @@ namespace hal
 
 		uint32_t PrescalerValue();
 
-		/// <summary>
-		///		独立看门狗内部时钟源的频率。单位：Hz。
-		/// </summary>
-		/// <returns></returns>
-		virtual uint32_t InnerClockSourceFreq_Hz() = 0;
+		uint32_t InnerClockSourceFreq_Hz()
+		{
+			// 独立看门狗具有 40 kHz 的内部时钟。
+			return 40 * 1000;
+		}
 
 		/// <summary>
 		///		InnerClockSourceFreq_Hz 经过分频后，输入到计数器中的频率。
@@ -58,7 +76,10 @@ namespace hal
 			return std::chrono::milliseconds{ 1000 * Handle()->Init.Reload * CounterFreq_Hz() };
 		}
 
-		void FeedDog()
+		/// <summary>
+		///		喂狗
+		/// </summary>
+		void Feed()
 		{
 			HAL_IWDG_Refresh(Handle());
 		}

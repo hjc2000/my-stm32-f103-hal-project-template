@@ -1,8 +1,8 @@
-#include"IIndependentWatchDog.h"
+#include"IndependentWatchDog.h"
 
 using namespace hal;
 
-uint32_t hal::IIndependentWatchDog::PrescalerValue()
+uint32_t hal::IndependentWatchDog::PrescalerValue()
 {
 	switch (Prescaler())
 	{
