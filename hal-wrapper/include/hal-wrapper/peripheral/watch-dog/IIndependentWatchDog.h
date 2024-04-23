@@ -1,4 +1,5 @@
 #pragma once
+#include<chrono>
 #include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/IHardwareInstanceWrapper.h>
 #include<hal-wrapper/peripheral/watch-dog/WatchDogInitOptions.h>
@@ -46,6 +47,15 @@ namespace hal
 		uint32_t CounterFreq_Hz()
 		{
 			return InnerClockSourceFreq_Hz() / PrescalerValue();
+		}
+
+		/// <summary>
+		///		看门狗超时时间。
+		/// </summary>
+		/// <returns></returns>
+		std::chrono::milliseconds Period_milliseconds()
+		{
+			return std::chrono::milliseconds{ 1000 * Handle()->Init.Reload * CounterFreq_Hz() };
 		}
 
 		void FeedDog()
