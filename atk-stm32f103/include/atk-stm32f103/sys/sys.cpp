@@ -24,7 +24,7 @@
 
 #include "sys.h"
 #include<hal-wrapper/clock/Osc.h>
-#include<hal-wrapper/clock/Clock.h>
+#include<hal-wrapper/clock/clock-signal/ClockSignal.h>
 
  /**
   * @brief       设置中断向量表偏移地址

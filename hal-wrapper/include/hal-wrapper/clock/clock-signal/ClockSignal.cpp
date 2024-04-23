@@ -1,4 +1,4 @@
-#include"Clock.h"
+#include"ClockSignal.h"
 
 using namespace hal;
 

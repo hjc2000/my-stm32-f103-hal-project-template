@@ -18,7 +18,7 @@ void atk::config_72mhz_hclk()
 		while (1);
 	}
 
-	ClockInitOptions clock_init_options;
+	ClockSignalInitOptions clock_init_options;
 	clock_init_options._clock_type = ClockType::SYSCLK
 		| ClockType::HCLK
 		| ClockType::PCLK1
@@ -27,7 +27,7 @@ void atk::config_72mhz_hclk()
 	clock_init_options._ahb_clk_divider = AHBDivider::DIV1;
 	clock_init_options._apb1_divider = APBDivider::DIV2;
 	clock_init_options._apb2_divider = APBDivider::DIV1;
-	if (Clock::Config(clock_init_options, FlashLatency::Latency2) != HAL_OK)
+	if (ClockSignal::Config(clock_init_options, FlashLatency::Latency2) != HAL_OK)
 	{
 		/* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
 		while (1);
