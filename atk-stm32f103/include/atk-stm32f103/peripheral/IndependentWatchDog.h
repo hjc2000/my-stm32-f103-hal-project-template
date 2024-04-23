@@ -9,12 +9,7 @@ namespace atk
 		IWDG_HandleTypeDef _handle;
 
 	public:
-		void Initialize(hal::WatchDogInitOptions const &options)
-		{
-			Handle()->Instance = HardwareInstance();
-			Handle()->Init = options;
-			HAL_IWDG_Init(Handle());
-		}
+		void Initialize(hal::WatchDogInitOptions const &options);
 
 		IWDG_HandleTypeDef *Handle() override
 		{
@@ -24,6 +19,12 @@ namespace atk
 		IWDG_TypeDef *HardwareInstance() override
 		{
 			return IWDG;
+		}
+
+		uint32_t InnerClockSourceFreq_kHz() override
+		{
+			// 独立看门狗具有 40 kHz 的内部时钟。
+			return 40;
 		}
 	};
 }

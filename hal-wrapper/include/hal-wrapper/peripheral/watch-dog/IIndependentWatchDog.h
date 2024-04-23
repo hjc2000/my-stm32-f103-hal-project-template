@@ -15,6 +15,12 @@ namespace hal
 		public IHardwareInstanceWrapper<IWDG_TypeDef>
 	{
 	public:
+		/// <summary>
+		///		独立看门狗内部时钟源的频率。单位：kHz。
+		/// </summary>
+		/// <returns></returns>
+		virtual uint32_t InnerClockSourceFreq_kHz() = 0;
+
 		void FeedDog()
 		{
 			HAL_IWDG_Refresh(Handle());
