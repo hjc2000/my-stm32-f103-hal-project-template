@@ -1,7 +1,7 @@
 #pragma once
+#include<hal-wrapper/IClockSwitchable.h>
 #include<hal-wrapper/IHandleWrapper.h>
-#include<hal-wrapper/clock/IClockSwitchable.h>
-#include<hal-wrapper/peripheral/IHardwareInstanceWrapper.h>
+#include<hal-wrapper/IHardwareInstanceWrapper.h>
 #include<hal-wrapper/peripheral/dma/IDmaChannel.h>
 #include<hal-wrapper/peripheral/dma/IDmaLinkable.h>
 #include<hal-wrapper/peripheral/uart/UartInitOptions.h>

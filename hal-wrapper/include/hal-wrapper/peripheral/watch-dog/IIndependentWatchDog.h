@@ -1,7 +1,7 @@
 #pragma once
 #include<hal-wrapper/IHandleWrapper.h>
-#include<hal-wrapper/clock/watch-dog/WatchDogInitOptions.h>
-#include<hal-wrapper/peripheral/IHardwareInstanceWrapper.h>
+#include<hal-wrapper/IHardwareInstanceWrapper.h>
+#include<hal-wrapper/peripheral/watch-dog/WatchDogInitOptions.h>
 
 namespace hal
 {
@@ -15,13 +15,6 @@ namespace hal
 		public IHardwareInstanceWrapper<IWDG_TypeDef>
 	{
 	public:
-		void Initialize(WatchDogInitOptions const &options)
-		{
-			Handle()->Instance = HardwareInstance();
-			Handle()->Init = options;
-			HAL_IWDG_Init(Handle());
-		}
-
 		void FeedDog()
 		{
 			HAL_IWDG_Refresh(Handle());

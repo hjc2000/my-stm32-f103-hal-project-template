@@ -4,7 +4,7 @@
 namespace hal
 {
 	/// <summary>
-	///		外设接口
+	///		
 	/// </summary>
 	/// <typeparam name="HardwareTypeDef">
 	///		HAL 库中为外设定义的结构体。利用结构体字段地址偏移量自动递增的特性，

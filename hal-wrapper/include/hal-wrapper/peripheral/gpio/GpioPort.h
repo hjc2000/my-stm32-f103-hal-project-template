@@ -1,6 +1,6 @@
 #pragma once
-#include<hal-wrapper/clock/IClockSwitchable.h>
-#include<hal-wrapper/peripheral/IHardwareInstanceWrapper.h>
+#include<hal-wrapper/IClockSwitchable.h>
+#include<hal-wrapper/IHardwareInstanceWrapper.h>
 #include<hal-wrapper/peripheral/gpio/GpioPinInitOptions.h>
 #include<hal.h>
 

@@ -1,6 +1,6 @@
 #pragma once
 #include<hal-wrapper/IHandleWrapper.h>
-#include<hal-wrapper/peripheral/IHardwareInstanceWrapper.h>
+#include<hal-wrapper/IHardwareInstanceWrapper.h>
 #include<hal-wrapper/peripheral/dma/DmaInitOptions.h>
 
 namespace hal

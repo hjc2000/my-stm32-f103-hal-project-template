@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/clock/IClockSwitchable.h>
+#include<hal-wrapper/IClockSwitchable.h>
 #include<hal-wrapper/peripheral/dma/IDmaChannel.h>
 
 namespace atk
