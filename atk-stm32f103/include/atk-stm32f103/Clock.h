@@ -1,6 +1,6 @@
 #pragma once
-#include<hal-wrapper/Clock.h>
-#include<hal-wrapper/Osc.h>
+#include<hal-wrapper/clock/Clock.h>
+#include<hal-wrapper/clock/Osc.h>
 
 namespace atk
 {

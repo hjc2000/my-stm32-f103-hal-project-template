@@ -1,6 +1,6 @@
 #pragma once
 #include<hal-wrapper/IHandleWrapper.h>
-#include<hal-wrapper/watch-dog/WatchDogTypeDef.h>
+#include<hal-wrapper/clock/watch-dog/WatchDogTypeDef.h>
 
 namespace hal
 {

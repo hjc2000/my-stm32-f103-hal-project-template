@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/Delayer.h>
+#include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/device/IDevice.h>
 
 namespace hal

@@ -1,6 +1,6 @@
 #pragma once
 #include<bitset>
-#include<hal-wrapper/Delayer.h>
+#include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/device/IKey.h>
 
 namespace hal
