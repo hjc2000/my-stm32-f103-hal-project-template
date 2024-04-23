@@ -9,7 +9,7 @@ include($ENV{cpp_lib_build_scripts_path}/cmake-module/setup.cmake)
 
 add_executable(${ProjectName})
 target_import_src(${ProjectName})
-target_link_libraries(${ProjectName} PUBLIC hal-wrapper Main)
+target_link_libraries(${ProjectName} PUBLIC hal-wrapper atk-stm32f103)
 
 add_custom_command(
 	TARGET ${ProjectName} POST_BUILD 

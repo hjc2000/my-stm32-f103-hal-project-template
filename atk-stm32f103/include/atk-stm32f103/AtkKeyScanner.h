@@ -18,4 +18,6 @@ namespace atk
 			return o;
 		}
 	};
+
+	void TestKeyScanner();
 }

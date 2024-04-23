@@ -70,4 +70,6 @@ namespace atk
 			_is_pressed = false;
 		}
 	};
+
+	void TestExtiKey();
 }
