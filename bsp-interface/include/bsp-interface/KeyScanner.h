@@ -78,7 +78,7 @@ namespace bsp
 		}
 
 		/// <summary>
-		///		获取当前处于按下状态的按键。
+		///		获取当前处于按下状态的按键。只要按键一直被按着，就会一直触发。
 		/// </summary>
 		/// <returns></returns>
 		std::bitset<KeyCount> GetKeyPressedEvents() const
