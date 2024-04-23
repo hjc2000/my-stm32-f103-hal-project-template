@@ -1,7 +1,6 @@
 #pragma once
 #include<bitset>
 #include<hal-wrapper/clock/Delayer.h>
-#include<hal-wrapper/device/IDevice.h>
 
 namespace hal
 {
@@ -9,7 +8,7 @@ namespace hal
 	///		独立按键。
 	///		所谓独立按键就是一个按键占用一个 GPIO 引脚。
 	/// </summary>
-	class IKey :public IDevice
+	class IKey
 	{
 	public:
 		/// <summary>
