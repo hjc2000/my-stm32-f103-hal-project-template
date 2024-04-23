@@ -15,7 +15,7 @@ namespace hal
 		public IHardwareInstanceWrapper<IWDG_TypeDef>
 	{
 	public:
-		void Initialize(hal::WatchDogInitOptions const &options)
+		void Initialize(WatchDogInitOptions const &options)
 		{
 			Handle()->Instance = HardwareInstance();
 			Handle()->Init = options;
