@@ -2,6 +2,8 @@
 
 namespace hal
 {
+	using UartCallbackFunc = void (*)(UART_HandleTypeDef *huart);
+
 	class UartReceiveCompletedHandler
 	{
 	public:
