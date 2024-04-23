@@ -15,6 +15,13 @@ namespace hal
 		public IHardwareInstanceWrapper<IWDG_TypeDef>
 	{
 	public:
+		void Initialize(hal::WatchDogInitOptions const &options)
+		{
+			Handle()->Instance = HardwareInstance();
+			Handle()->Init = options;
+			HAL_IWDG_Init(Handle());
+		}
+
 		/// <summary>
 		///		独立看门狗内部时钟源的频率。单位：kHz。
 		/// </summary>

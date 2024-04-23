@@ -9,8 +9,6 @@ namespace atk
 		IWDG_HandleTypeDef _handle;
 
 	public:
-		void Initialize(hal::WatchDogInitOptions const &options);
-
 		IWDG_HandleTypeDef *Handle() override
 		{
 			return &_handle;
