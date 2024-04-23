@@ -34,12 +34,14 @@ namespace hal
 			return IWDG;
 		}
 
-		void Initialize(WatchDogInitOptions const &options)
-		{
-			Handle()->Instance = HardwareInstance();
-			Handle()->Init = options;
-			HAL_IWDG_Init(Handle());
-		}
+		void Initialize(WatchDogInitOptions const &options);
+
+		/// <summary>
+		///		通过定时的毫秒数来初始化看门狗。
+		///		- 如果设置的毫秒数超出了能力范围，则会使用能达到的最大计时时间。
+		/// </summary>
+		/// <param name="period"></param>
+		void Initialize(std::chrono::milliseconds period);
 
 		/// <summary>
 		///		分频系数。
@@ -59,21 +61,12 @@ namespace hal
 		}
 
 		/// <summary>
-		///		InnerClockSourceFreq_Hz 经过分频后，输入到计数器中的频率。
-		/// </summary>
-		/// <returns></returns>
-		uint32_t CounterFreq_Hz()
-		{
-			return InnerClockSourceFreq_Hz() / PrescalerValue();
-		}
-
-		/// <summary>
 		///		看门狗超时时间。
 		/// </summary>
 		/// <returns></returns>
 		std::chrono::milliseconds Period_milliseconds()
 		{
-			return std::chrono::milliseconds{ 1000 * Handle()->Init.Reload * CounterFreq_Hz() };
+			return std::chrono::milliseconds{ (uint64_t)1000 * Handle()->Init.Reload * InnerClockSourceFreq_Hz() / PrescalerValue() };
 		}
 
 		/// <summary>
