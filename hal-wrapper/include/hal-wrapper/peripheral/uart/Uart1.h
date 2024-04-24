@@ -1,4 +1,5 @@
 #pragma once
+#include<functional>
 #include<hal-wrapper/peripheral/dma/Uart1TxDmaChannel.h>
 #include<hal-wrapper/peripheral/uart/IUart.h>
 
@@ -35,8 +36,7 @@ namespace hal
 		/// <summary>
 		///		接收完成时被回调
 		/// </summary>
-		void(*_on_receive_completed)() = nullptr;
-		hal::UartReceiveCompletedHandler *_receive_completed_handler = nullptr;
+		std::function<void()> _on_receive_completed;
 
 		UART_HandleTypeDef *Handle() override
 		{

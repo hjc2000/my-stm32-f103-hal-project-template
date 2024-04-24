@@ -5,7 +5,6 @@
 #include<hal-wrapper/peripheral/dma/IDmaChannel.h>
 #include<hal-wrapper/peripheral/dma/IDmaLinkable.h>
 #include<hal-wrapper/peripheral/uart/UartInitOptions.h>
-#include<hal-wrapper/peripheral/uart/UartReceiveCompletedHandler.h>
 #include<stdint.h>
 
 namespace hal

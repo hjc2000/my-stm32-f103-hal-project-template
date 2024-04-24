@@ -52,14 +52,9 @@ hal::UartCallbackFunc Uart1::ReceiveCompleteCallback()
 {
 	return [](UART_HandleTypeDef *huart)->void
 	{
-		if (Uart1::Instance()._on_receive_completed != nullptr)
+		if (Uart1::Instance()._on_receive_completed)
 		{
 			Uart1::Instance()._on_receive_completed();
-		}
-
-		if (Uart1::Instance()._receive_completed_handler != nullptr)
-		{
-			Uart1::Instance()._receive_completed_handler->OnUartReceiveCompleted();
 		}
 
 		Uart1::Instance().EnableReceiveInterrupt();
