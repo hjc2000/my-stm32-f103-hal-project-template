@@ -24,7 +24,7 @@ namespace hal
 		This parameter can be a value of @ref TIM_Counter_Mode */
 
 		/// <summary>
-		///		自动重载值。范围：[0x0000, 0xFFFF]
+		///		计数片段。计数器从 0 计数到该值。范围：[0x0000, 0xFFFF]
 		/// </summary>
 		uint32_t _period;
 

@@ -34,6 +34,15 @@ WindowWatchDogInitCallbackFunc hal::WindowWatchDog::EarlyWakeUpInterruptCallback
 	};
 }
 
+void hal::WindowWatchDog::Initialize(WindowWatchDogInitOptions const &options)
+{
+	Handle()->Instance = HardwareInstance();
+	Handle()->Init = options;
+	Handle()->MspInitCallback = MspInitCallbackFunc();
+	Handle()->EwiCallback = EarlyWakeUpInterruptCallbackFunc();
+	HAL_WWDG_Init(Handle());
+}
+
 bool hal::WindowWatchDog::IsClockEnabled()
 {
 	return __HAL_RCC_WWDG_IS_CLK_ENABLED();
