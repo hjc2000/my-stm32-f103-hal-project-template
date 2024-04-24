@@ -52,9 +52,14 @@ namespace hal
 			// 将 dma 的父亲设为本对象所包装的句柄
 			dma.Handle()->Parent = Handle();
 
-			// 设置本对象所包装的句柄的 hdmarx 和 hdmatx 字段
-			SetDmaTxHandle(dma.Handle());
-			SetDmaRxHandle(dma.Handle());
+			if (dma.IsTxChannel())
+			{
+				SetDmaTxHandle(dma.Handle());
+			}
+			else
+			{
+				SetDmaRxHandle(dma.Handle());
+			}
 		}
 	};
 }

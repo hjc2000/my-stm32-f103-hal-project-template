@@ -44,3 +44,8 @@ DMA_Channel_TypeDef *Uart1TxDmaChannel::HardwareInstance()
 {
 	return DMA1_Channel4;
 }
+
+bool hal::Uart1TxDmaChannel::IsTxChannel()
+{
+	return true;
+}
