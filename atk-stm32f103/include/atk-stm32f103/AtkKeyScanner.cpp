@@ -1,5 +1,5 @@
 #include "AtkKeyScanner.h"
-#include<atk-stm32f103/Key.h>
+#include<atk-stm32f103/AtkKey.h>
 #include<hal-wrapper/clock/Delayer.h>
 
 using namespace hal;
@@ -21,8 +21,8 @@ bsp::IKey **atk::AtkKeyScanner::KeyList()
 	return keys;
 }
 
-#include<atk-stm32f103/Clock.h>
-#include<atk-stm32f103/Led.h>
+#include<atk-stm32f103/AtkClock.h>
+#include<atk-stm32f103/AtkLed.h>
 
 void atk::TestKeyScanner()
 {

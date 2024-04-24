@@ -1,4 +1,4 @@
-#include"ExtiKey.h"
+#include"AtkExtiKey.h"
 
 using namespace atk;
 using namespace hal;
@@ -19,8 +19,8 @@ void atk::ExtiKey0::HandleExtiIrq()
 
 
 
-#include<atk-stm32f103/Clock.h>
-#include<atk-stm32f103/Led.h>
+#include<atk-stm32f103/AtkClock.h>
+#include<atk-stm32f103/AtkLed.h>
 
 void atk::TestExtiKey()
 {

@@ -1,8 +1,8 @@
+#include<atk-stm32f103/AtkClock.h>
+#include<atk-stm32f103/AtkExtiKey.h>
+#include<atk-stm32f103/AtkKey.h>
 #include<atk-stm32f103/AtkKeyScanner.h>
-#include<atk-stm32f103/Clock.h>
-#include<atk-stm32f103/ExtiKey.h>
-#include<atk-stm32f103/Key.h>
-#include<atk-stm32f103/Led.h>
+#include<atk-stm32f103/AtkLed.h>
 #include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
