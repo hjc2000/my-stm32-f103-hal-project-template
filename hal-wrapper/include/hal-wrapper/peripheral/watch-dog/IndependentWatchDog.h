@@ -53,7 +53,7 @@ namespace hal
 		///		内部时钟信号的频率。还要经过预分频才会输入到计数器。
 		/// </summary>
 		/// <returns></returns>
-		constexpr uint32_t InnerClockSourceFreq_Hz()
+		uint32_t InnerClockSourceFreq_Hz()
 		{
 			// 独立看门狗具有 40 kHz 的内部时钟。
 			return 40 * 1000;
