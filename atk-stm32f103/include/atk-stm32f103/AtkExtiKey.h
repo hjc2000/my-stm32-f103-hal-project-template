@@ -1,4 +1,5 @@
 #pragma once
+#include<atomic>
 #include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/interrupt/Exti.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
@@ -16,7 +17,7 @@ namespace atk
 		/// <summary>
 		///		中断函数中经过消抖，确认按键被按下后就会将此字段赋值为 true。
 		/// </summary>
-		volatile bool _is_pressed = false;
+		std::atomic_bool _is_pressed = false;
 
 		hal::IGpioPort &Port()
 		{
