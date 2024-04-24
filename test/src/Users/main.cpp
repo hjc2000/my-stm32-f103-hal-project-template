@@ -52,7 +52,7 @@ void TestIWDT()
 	config_72mhz_hclk();
 	Delayer::Instance().Delay(std::chrono::milliseconds(500));
 	RedDigitalLed::Instance().TurnOn();
-	IndependentWatchDog::Instance().Initialize(std::chrono::milliseconds(1000));
+	IndependentWatchDog::Instance().SetWatchDogTimeoutDuration(std::chrono::milliseconds(1000));
 
 	while (1)
 	{

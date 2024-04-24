@@ -1,4 +1,5 @@
 #pragma once
+#include<bsp-interface/IWatchDog.h>
 #include<chrono>
 #include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/IHardwareInstanceWrapper.h>
@@ -13,7 +14,8 @@ namespace hal
 	/// </summary>
 	class IndependentWatchDog :
 		public IHandleWrapper<IWDG_HandleTypeDef>,
-		public IHardwareInstanceWrapper<IWDG_TypeDef>
+		public IHardwareInstanceWrapper<IWDG_TypeDef>,
+		public bsp::IWatchDog
 	{
 		IWDG_HandleTypeDef _handle;
 
@@ -37,13 +39,6 @@ namespace hal
 		void Initialize(WatchDogInitOptions const &options);
 
 		/// <summary>
-		///		通过定时的毫秒数来初始化看门狗。
-		///		- 如果设置的毫秒数超出了能力范围，则会使用能达到的最大计时时间。
-		/// </summary>
-		/// <param name="period"></param>
-		void Initialize(std::chrono::milliseconds period);
-
-		/// <summary>
 		///		分频系数。
 		/// </summary>
 		/// <returns></returns>
@@ -60,21 +55,19 @@ namespace hal
 			return 40 * 1000;
 		}
 
-		/// <summary>
-		///		看门狗超时时间。
-		/// </summary>
-		/// <returns></returns>
-		std::chrono::milliseconds Period_milliseconds()
+		#pragma region IWatchDog
+		std::chrono::milliseconds WatchDogTimeoutDuration() override
 		{
 			return std::chrono::milliseconds{ (uint64_t)1000 * Handle()->Init.Reload * InnerClockSourceFreq_Hz() / PrescalerValue() };
 		}
 
-		/// <summary>
-		///		喂狗
-		/// </summary>
-		void Feed()
+		void SetWatchDogTimeoutDuration(std::chrono::milliseconds value) override;
+
+		void Feed() override
 		{
 			HAL_IWDG_Refresh(Handle());
 		}
+		#pragma endregion
+
 	};
 }

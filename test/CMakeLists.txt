@@ -34,8 +34,8 @@ install(CODE "
     )
 
     if(\${cmd_result} STREQUAL \"0\")
-        message(STATUS \"${ProjectName}.bin 下载成功 \")
+        message(STATUS \"将 ${ProjectName}.bin 下载到单片机成功 \")
     else()
-        message(STATUS \"${ProjectName}.bin 下载失败: \${cmd_result}\")
+        message(STATUS \"尝试将 ${ProjectName}.bin 下载到单片机失败: \${cmd_result}\")
     endif()
 ")
