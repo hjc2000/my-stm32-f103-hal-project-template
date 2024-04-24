@@ -29,7 +29,5 @@ namespace hal
 		{
 			__HAL_DMA_CLEAR_FLAG(Handle(), DMA_FLAG_TC4);
 		}
-
-		virtual bool IsTxChannel() = 0;
 	};
 }

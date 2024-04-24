@@ -5,12 +5,8 @@
 
 namespace hal
 {
-	/// <summary>
-	///		本接口表明一个类可以连接到 DMA
-	/// </summary>
-	/// <typeparam name="HandleType"></typeparam>
 	template<typename HandleType>
-	class IDmaLinkable :public IHandleWrapper<HandleType>
+	class ITxDmaLinkable :public IHandleWrapper<HandleType>
 	{
 	public:
 		/// <summary>
@@ -32,18 +28,6 @@ namespace hal
 		virtual void SetDmaTxHandle(DMA_HandleTypeDef *value) = 0;
 
 		/// <summary>
-		///		返回你所包装的句柄对象中的 hdmarx 字段。
-		/// </summary>
-		/// <returns></returns>
-		virtual DMA_HandleTypeDef *DmaRxHandle() = 0;
-
-		/// <summary>
-		///		设置你所包装的句柄对象中的 hdmarx 字段。
-		/// </summary>
-		/// <param name="value"></param>
-		virtual void SetDmaRxHandle(DMA_HandleTypeDef *value) = 0;
-
-		/// <summary>
 		///		连接到 DMA
 		/// </summary>
 		/// <param name="dma"></param>
@@ -51,15 +35,7 @@ namespace hal
 		{
 			// 将 dma 的父亲设为本对象所包装的句柄
 			dma.Handle()->Parent = Handle();
-
-			if (dma.IsTxChannel())
-			{
-				SetDmaTxHandle(dma.Handle());
-			}
-			else
-			{
-				SetDmaRxHandle(dma.Handle());
-			}
+			SetDmaTxHandle(dma.Handle());
 		}
 	};
 }

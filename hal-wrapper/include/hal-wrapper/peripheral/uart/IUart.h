@@ -3,7 +3,7 @@
 #include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/IHardwareInstanceWrapper.h>
 #include<hal-wrapper/peripheral/dma/IDmaChannel.h>
-#include<hal-wrapper/peripheral/dma/IDmaLinkable.h>
+#include<hal-wrapper/peripheral/dma/ITxDmaLinkable.h>
 #include<hal-wrapper/peripheral/uart/UartInitOptions.h>
 #include<stdint.h>
 
@@ -16,7 +16,7 @@ namespace hal
 	/// </summary>
 	class IUart :
 		public IHardwareInstanceWrapper<USART_TypeDef>,
-		public IDmaLinkable<UART_HandleTypeDef>,
+		public ITxDmaLinkable<UART_HandleTypeDef>,
 		public IClockSwitchable
 	{
 	public:
@@ -160,7 +160,7 @@ namespace hal
 		}
 		#pragma endregion
 
-		#pragma region IDmaLinkable
+		#pragma region ITxDmaLinkable
 		DMA_HandleTypeDef *DmaTxHandle() override
 		{
 			return Handle()->hdmatx;
@@ -169,16 +169,6 @@ namespace hal
 		void SetDmaTxHandle(DMA_HandleTypeDef *value) override
 		{
 			Handle()->hdmatx = value;
-		}
-
-		DMA_HandleTypeDef *DmaRxHandle() override
-		{
-			return Handle()->hdmarx;
-		}
-
-		void SetDmaRxHandle(DMA_HandleTypeDef *value) override
-		{
-			Handle()->hdmarx = value;
 		}
 		#pragma endregion
 	};

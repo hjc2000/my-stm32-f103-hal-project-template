@@ -37,7 +37,5 @@ namespace hal
 		{
 			return &_handle;
 		}
-
-		bool IsTxChannel() override;
 	};
 }
