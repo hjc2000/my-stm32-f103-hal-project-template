@@ -1,5 +1,7 @@
 #pragma once
 #include<bsp-interface/IKey.h>
+#include<bsp-interface/IKeyScanner.h>
+#include<vector>
 
 namespace bsp
 {
@@ -7,31 +9,24 @@ namespace bsp
 	///		按键扫描器
 	/// </summary>
 	/// <typeparam name="KeyCount"></typeparam>
-	template<uint16_t KeyCount>
-	class KeyScanner
+	class KeyScanner :public bsp::IKeyScanner
 	{
 	private:
-		std::bitset<KeyCount> _last_scan_result;
-		std::bitset<KeyCount> _key_down_events;
-		std::bitset<KeyCount> _key_up_events;
-		std::bitset<KeyCount> _key_pressed_events;
+		std::vector<IKey *> _keys;
+		std::vector<bool> _last_scan_result;
+		std::vector<bool> _current_scan_result;
 
-		std::bitset<KeyCount> ScanKeysNoDelay()
-		{
-			std::bitset<KeyCount> key_down_flags;
-			for (uint16_t i = 0; i < KeyCount; i++)
-			{
-				if (KeyList()[i]->KeyIsDown())
-				{
-					key_down_flags[i] = 1;
-				}
-			}
+		std::vector<bool> _key_down_events;
+		std::vector<bool> _key_up_events;
+		std::vector<bool> _key_pressed_events;
 
-			return key_down_flags;
-		}
+		std::vector<bool> _no_delay_scan_result1;
+		std::vector<bool> _no_delay_scan_result2;
+
+		void ScanKeysNoDelay(std::vector<bool> &out);
 
 	public:
-		virtual IKey **KeyList() = 0;
+		KeyScanner(std::vector<IKey *> keys);
 
 		/// <summary>
 		///		按键扫描需要延时消抖。
@@ -44,46 +39,15 @@ namespace bsp
 		/// <summary>
 		///		执行键盘扫描，更新内部状态。此函数应该被不断调用。
 		/// </summary>
-		void ScanKeys()
-		{
-			std::bitset<KeyCount> first_scan_result = ScanKeysNoDelay();
+		void ScanKeys() override;
 
-			// 延时消抖
-			Delay(std::chrono::milliseconds(10));
-			std::bitset<KeyCount> scan_result = first_scan_result & ScanKeysNoDelay();
+		bool HasKeyDownEvent(uint16_t key_index) override;
+		bool HasKeyUpEvent(uint16_t key_index) override;
+		bool HasKeyPressedEvent(uint16_t key_index) override;
 
-			// 更新事件状态
-			_key_down_events = (~_last_scan_result) & scan_result;
-			_key_up_events = _last_scan_result & (~scan_result);
-			_key_pressed_events = scan_result;
-			_last_scan_result = scan_result;
-		}
-
-		/// <summary>
-		///		获取按键按下事件。
-		/// </summary>
-		/// <returns></returns>
-		std::bitset<KeyCount> GetKeyDownEvents() const
-		{
-			return _key_down_events;
-		}
-
-		/// <summary>
-		///		获取按键释放事件。
-		/// </summary>
-		/// <returns></returns>
-		std::bitset<KeyCount> GetKeyUpEvents() const
-		{
-			return _key_up_events;
-		}
-
-		/// <summary>
-		///		获取当前处于按下状态的按键。只要按键一直被按着，就会一直触发。
-		/// </summary>
-		/// <returns></returns>
-		std::bitset<KeyCount> GetKeyPressedEvents() const
-		{
-			return _key_pressed_events;
-		}
+		void ClearAllEvent(uint16_t key_index) override;
+		void ClearKeyDownEvent(uint16_t key_index) override;
+		void ClearKeyUpEvent(uint16_t key_index) override;
+		void ClearKeyPressedEvent(uint16_t key_index) override;
 	};
 }

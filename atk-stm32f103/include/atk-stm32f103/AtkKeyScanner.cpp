@@ -5,20 +5,26 @@
 using namespace hal;
 using namespace bsp;
 
-void atk::AtkKeyScanner::Delay(std::chrono::milliseconds num)
+std::vector<IKey *> GetKeyVector()
 {
-	hal::Delayer::Instance().Delay(num);
-}
-
-bsp::IKey **atk::AtkKeyScanner::KeyList()
-{
-	static IKey *keys[] = {
-		&Key0::Instance(),
-		&Key1::Instance(),
-		&KeyWakeUp::Instance(),
+	static std::vector<IKey *> keys = {
+		&atk::Key0::Instance(),
+		&atk::Key1::Instance(),
+		&atk::KeyWakeUp::Instance(),
 	};
 
 	return keys;
+}
+
+atk::AtkKeyScanner::AtkKeyScanner() :
+	bsp::KeyScanner(GetKeyVector())
+{
+
+}
+
+void atk::AtkKeyScanner::Delay(std::chrono::milliseconds num)
+{
+	hal::Delayer::Instance().Delay(num);
 }
 
 #include<atk-stm32f103/AtkClock.h>
@@ -32,19 +38,17 @@ void atk::TestKeyScanner()
 	while (1)
 	{
 		AtkKeyScanner::Instance().ScanKeys();
-		auto key_down_events = AtkKeyScanner::Instance().GetKeyDownEvents();
-
-		if (key_down_events[0])
+		if (AtkKeyScanner::Instance().HasKeyDownEvent(0))
 		{
 			RedDigitalLed::Instance().Toggle();
 		}
 
-		if (key_down_events[1])
+		if (AtkKeyScanner::Instance().HasKeyDownEvent(1))
 		{
 			GreenDigitalLed::Instance().Toggle();
 		}
 
-		if (key_down_events[2])
+		if (AtkKeyScanner::Instance().HasKeyDownEvent(2))
 		{
 			GreenDigitalLed::Instance().Toggle();
 		}

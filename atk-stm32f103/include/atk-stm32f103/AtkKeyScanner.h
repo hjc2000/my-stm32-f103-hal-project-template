@@ -4,13 +4,12 @@
 
 namespace atk
 {
-	class AtkKeyScanner :public bsp::KeyScanner<3>
+	class AtkKeyScanner :public bsp::KeyScanner
 	{
-		AtkKeyScanner() = default;
-
 	public:
+		AtkKeyScanner();
+
 		void Delay(std::chrono::milliseconds num) override;
-		bsp::IKey **KeyList() override;
 
 		static AtkKeyScanner &Instance()
 		{

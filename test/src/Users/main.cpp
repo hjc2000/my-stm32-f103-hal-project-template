@@ -21,8 +21,8 @@ void TestWindowWatchDog();
 
 int main(void)
 {
-	//TestKeyScanner();
-	TestExtiKey();
+	TestKeyScanner();
+	//TestExtiKey();
 	//TestUart1();
 	//TestIndependentWatchDog();
 	//TestWindowWatchDog();
@@ -60,19 +60,17 @@ void TestIndependentWatchDog()
 	while (1)
 	{
 		AtkKeyScanner::Instance().ScanKeys();
-		auto key_down_events = AtkKeyScanner::Instance().GetKeyDownEvents();
-
-		if (key_down_events[0])
+		if (AtkKeyScanner::Instance().HasKeyDownEvent(0))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
 
-		if (key_down_events[1])
+		if (AtkKeyScanner::Instance().HasKeyDownEvent(1))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
 
-		if (key_down_events[2])
+		if (AtkKeyScanner::Instance().HasKeyDownEvent(2))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
