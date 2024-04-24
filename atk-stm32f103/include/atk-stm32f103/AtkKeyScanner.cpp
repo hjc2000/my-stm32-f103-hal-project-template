@@ -22,7 +22,7 @@ bsp::IKey **atk::AtkKeyScanner::KeyList()
 }
 
 #include<atk-stm32f103/AtkClock.h>
-#include<atk-stm32f103/AtkLed.h>
+#include<AtkLed.h>
 
 void atk::TestKeyScanner()
 {
