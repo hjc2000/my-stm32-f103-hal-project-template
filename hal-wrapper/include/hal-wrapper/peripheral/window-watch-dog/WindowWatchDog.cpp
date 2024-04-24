@@ -14,12 +14,18 @@ WWDG_TypeDef *hal::WindowWatchDog::HardwareInstance()
 
 WindowWatchDogInitCallbackFunc hal::WindowWatchDog::MspInitCallbackFunc()
 {
-	return WindowWatchDogInitCallbackFunc();
+	return [](WWDG_HandleTypeDef *handle)->void
+	{
+
+	};
 }
 
 WindowWatchDogInitCallbackFunc hal::WindowWatchDog::EarlyWakeUpInterruptCallbackFunc()
 {
-	return WindowWatchDogInitCallbackFunc();
+	return [](WWDG_HandleTypeDef *handle)->void
+	{
+
+	};
 }
 
 bool hal::WindowWatchDog::IsClockEnabled()
