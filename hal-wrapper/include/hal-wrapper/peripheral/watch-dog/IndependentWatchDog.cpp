@@ -99,56 +99,15 @@ void hal::IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseco
 		if (needed_counter_value <= 0x0FFF)
 		{
 			// i 代表的是 2 的幂，将 i 映射到分频系数枚举值
-			switch (i)
-			{
-			case 2:
-				{
-					needed_prescaler = WatchDogPrescaler::Div4;
-					break;
-				}
-			case 3:
-				{
-					needed_prescaler = WatchDogPrescaler::Div8;
-					break;
-				}
-			case 4:
-				{
-					needed_prescaler = WatchDogPrescaler::Div16;
-					break;
-				}
-			case 5:
-				{
-					needed_prescaler = WatchDogPrescaler::Div32;
-					break;
-				}
-			case 6:
-				{
-					needed_prescaler = WatchDogPrescaler::Div64;
-					break;
-				}
-			case 7:
-				{
-					needed_prescaler = WatchDogPrescaler::Div128;
-					break;
-				}
-			case 8:
-			default:
-				{
-					needed_prescaler = WatchDogPrescaler::Div256;
-					break;
-				}
-			}
-
+			needed_prescaler = PowerToWatchDogPrescaler(i);
 			break;
 		}
 	}
 
-	Handle()->Instance = HardwareInstance();
 	WatchDogInitOptions options;
 	options._prescaler = needed_prescaler;
 	options._reload = (uint32_t)needed_counter_value;
-	Handle()->Init = options;
-	HAL_IWDG_Init(Handle());
+	Initialize(options);
 }
 
 void hal::IndependentWatchDog::Feed()

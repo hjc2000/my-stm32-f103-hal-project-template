@@ -23,7 +23,7 @@ namespace bsp
 		virtual void SetWatchDogTimeoutDuration(std::chrono::milliseconds value) = 0;
 
 		/// <summary>
-		///		喂狗
+		///		喂狗。
 		/// </summary>
 		virtual void Feed() = 0;
 	};

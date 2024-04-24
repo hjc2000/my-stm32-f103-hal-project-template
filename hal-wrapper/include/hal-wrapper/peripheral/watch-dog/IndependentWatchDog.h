@@ -17,7 +17,9 @@ namespace hal
 		public IHardwareInstanceWrapper<IWDG_TypeDef>,
 		public bsp::IWatchDog
 	{
+	private:
 		IWDG_HandleTypeDef _handle;
+		void Initialize(WatchDogInitOptions const &options);
 
 	public:
 		static IndependentWatchDog &Instance()
@@ -36,8 +38,6 @@ namespace hal
 			return IWDG;
 		}
 
-		void Initialize(WatchDogInitOptions const &options);
-
 		/// <summary>
 		///		分频系数。
 		/// </summary>
@@ -49,7 +49,11 @@ namespace hal
 
 		uint32_t PrescalerValue();
 
-		uint32_t InnerClockSourceFreq_Hz()
+		/// <summary>
+		///		内部时钟信号的频率。还要经过预分频才会输入到计数器。
+		/// </summary>
+		/// <returns></returns>
+		constexpr uint32_t InnerClockSourceFreq_Hz()
 		{
 			// 独立看门狗具有 40 kHz 的内部时钟。
 			return 40 * 1000;
