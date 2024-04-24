@@ -1,14 +1,9 @@
 #pragma once
+#include<functional>
 #include<hal-wrapper/peripheral/gpio/GpioTypeDef.h>
 
 namespace hal
 {
-	class ExtiIrqHandler
-	{
-	public:
-		virtual void HandleExtiIrq() = 0;
-	};
-
 	class Exti
 	{
 		Exti() = delete;
@@ -34,10 +29,10 @@ namespace hal
 			__HAL_GPIO_EXTI_CLEAR_IT((uint32_t)pin);
 		}
 
-		static ExtiIrqHandler *_exti0_irq_handler;
-		static ExtiIrqHandler *_exti1_irq_handler;
-		static ExtiIrqHandler *_exti2_irq_handler;
-		static ExtiIrqHandler *_exti3_irq_handler;
-		static ExtiIrqHandler *_exti4_irq_handler;
+		static std::function<void()> _on_exti0_interrupt;
+		static std::function<void()> _on_exti1_interrupt;
+		static std::function<void()> _on_exti2_interrupt;
+		static std::function<void()> _on_exti3_interrupt;
+		static std::function<void()> _on_exti4_interrupt;
 	};
 }

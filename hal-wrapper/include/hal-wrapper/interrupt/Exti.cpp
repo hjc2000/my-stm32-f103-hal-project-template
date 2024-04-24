@@ -2,11 +2,11 @@
 
 using namespace hal;
 
-ExtiIrqHandler *Exti::_exti0_irq_handler = nullptr;
-ExtiIrqHandler *Exti::_exti1_irq_handler = nullptr;
-ExtiIrqHandler *Exti::_exti2_irq_handler = nullptr;
-ExtiIrqHandler *Exti::_exti3_irq_handler = nullptr;
-ExtiIrqHandler *Exti::_exti4_irq_handler = nullptr;
+std::function<void()> Exti::_on_exti0_interrupt;
+std::function<void()> Exti::_on_exti1_interrupt;
+std::function<void()> Exti::_on_exti2_interrupt;
+std::function<void()> Exti::_on_exti3_interrupt;
+std::function<void()> Exti::_on_exti4_interrupt;
 
 /// <summary>
 ///		中断处理函数。将中断处理转发到 ExtiInterruptHandler。
@@ -50,45 +50,45 @@ extern "C"
 		{
 		case GpioPin::Pin0:
 			{
-				if (Exti::_exti0_irq_handler)
+				if (Exti::_on_exti0_interrupt)
 				{
-					Exti::_exti0_irq_handler->HandleExtiIrq();
+					Exti::_on_exti0_interrupt();
 				}
 
 				break;
 			}
 		case GpioPin::Pin1:
 			{
-				if (Exti::_exti1_irq_handler)
+				if (Exti::_on_exti1_interrupt)
 				{
-					Exti::_exti1_irq_handler->HandleExtiIrq();
+					Exti::_on_exti1_interrupt();
 				}
 
 				break;
 			}
 		case GpioPin::Pin2:
 			{
-				if (Exti::_exti2_irq_handler)
+				if (Exti::_on_exti2_interrupt)
 				{
-					Exti::_exti2_irq_handler->HandleExtiIrq();
+					Exti::_on_exti2_interrupt();
 				}
 
 				break;
 			}
 		case GpioPin::Pin3:
 			{
-				if (Exti::_exti3_irq_handler)
+				if (Exti::_on_exti3_interrupt)
 				{
-					Exti::_exti3_irq_handler->HandleExtiIrq();
+					Exti::_on_exti3_interrupt();
 				}
 
 				break;
 			}
 		case GpioPin::Pin4:
 			{
-				if (Exti::_exti4_irq_handler)
+				if (Exti::_on_exti4_interrupt)
 				{
-					Exti::_exti4_irq_handler->HandleExtiIrq();
+					Exti::_on_exti4_interrupt();
 				}
 
 				break;

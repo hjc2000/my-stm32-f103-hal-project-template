@@ -10,8 +10,7 @@ namespace atk
 	/// <summary>
 	///		外部中断驱动的 key0。
 	/// </summary>
-	class ExtiKey0 :
-		public hal::ExtiIrqHandler
+	class ExtiKey0
 	{
 	private:
 		/// <summary>
@@ -29,29 +28,8 @@ namespace atk
 			return hal::GpioPin::Pin4;
 		}
 
-		/// <summary>
-		///		通过 ExtiIrqHandler 继承，用来被 EXTI 回调
-		/// </summary>
-		void HandleExtiIrq() override;
-
 	public:
-		ExtiKey0()
-		{
-			using namespace hal;
-			Exti::_exti4_irq_handler = this;
-
-			// 配置引脚
-			Port().EnableClock();
-			GpioPinInitOptions options;
-			options._mode = GpioPinMode::Interrupt_FallingEdgeTrigger;
-			options._pull_mode = GpioPinPull::PullUp;
-			options._speed = GpioPinSpeed::High;
-			Port().InitPin(Pin(), options);
-
-			// 配置好引脚模式后开中断
-			Interrupt::SetPriority(IRQn_Type::EXTI4_IRQn, 0, 2);
-			Interrupt::EnableIRQ(IRQn_Type::EXTI4_IRQn);
-		}
+		ExtiKey0();
 
 		static ExtiKey0 &Instance()
 		{
