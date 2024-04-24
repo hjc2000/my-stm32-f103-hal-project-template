@@ -29,8 +29,8 @@ namespace hal
 		void DisableClock() override;
 
 	protected:
-		hal::UartCallbackFunc MspInitCallback() override;
-		hal::UartCallbackFunc ReceiveCompleteCallback() override;
+		hal::UartCallbackFunc MspInitCallbackFunc() override;
+		hal::UartCallbackFunc ReceiveCompleteCallbackFunc() override;
 
 	public:
 		/// <summary>

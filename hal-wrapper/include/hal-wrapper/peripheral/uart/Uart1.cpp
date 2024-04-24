@@ -24,7 +24,7 @@ void Uart1::DisableClock()
 	__HAL_RCC_USART1_CLK_DISABLE();
 }
 
-hal::UartCallbackFunc Uart1::MspInitCallback()
+hal::UartCallbackFunc Uart1::MspInitCallbackFunc()
 {
 	return [](UART_HandleTypeDef *huart)->void
 	{
@@ -48,7 +48,7 @@ hal::UartCallbackFunc Uart1::MspInitCallback()
 	};
 }
 
-hal::UartCallbackFunc Uart1::ReceiveCompleteCallback()
+hal::UartCallbackFunc Uart1::ReceiveCompleteCallbackFunc()
 {
 	return [](UART_HandleTypeDef *huart)->void
 	{

@@ -7,14 +7,14 @@ void hal::IUart::Initialize(UartInitOptions const &options)
 {
 	Handle()->Instance = HardwareInstance();
 	Handle()->Init = options;
-	Handle()->MspInitCallback = MspInitCallback();
+	Handle()->MspInitCallback = MspInitCallbackFunc();
 	HAL_UART_Init(Handle());
 
 	/* 除了 MspInitCallback  以外的回调函数指针都会被 HAL_UART_Init 函数
 	* 重置为默认的 weak 版本，所以必须在 HAL_UART_Init 函数执行后再设置这些
 	* 回调函数指针。
 	*/
-	Handle()->RxCpltCallback = ReceiveCompleteCallback();
+	Handle()->RxCpltCallback = ReceiveCompleteCallbackFunc();
 	EnableReceiveInterrupt();
 	LinkToDma(TxDmaChannel());
 }

@@ -24,13 +24,13 @@ namespace hal
 		/// <summary>
 		///		需要派生类返回一个用来初始化底层的 GPIO 引脚的函数的指针。
 		/// </summary>
-		virtual UartCallbackFunc MspInitCallback() = 0;
+		virtual UartCallbackFunc MspInitCallbackFunc() = 0;
 
 		/// <summary>
 		///		需要派生类返回函数指针，用于接收完成时的回调。
 		/// </summary>
 		/// <returns></returns>
-		virtual UartCallbackFunc ReceiveCompleteCallback() = 0;
+		virtual UartCallbackFunc ReceiveCompleteCallbackFunc() = 0;
 		#pragma endregion
 
 		/// <summary>
