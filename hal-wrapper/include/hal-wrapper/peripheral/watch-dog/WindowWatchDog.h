@@ -11,5 +11,12 @@ namespace hal
 		WWDG_HandleTypeDef *Handle() override;
 		WWDG_TypeDef *HardwareInstance() override;
 
+		WindowWatchDogInitCallbackFunc MspInitCallbackFunc() override;
+		WindowWatchDogInitCallbackFunc EarlyWakeUpInterruptCallbackFunc() override;
+
+		void Initialize()
+		{
+
+		}
 	};
 }
