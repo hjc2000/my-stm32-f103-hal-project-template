@@ -49,6 +49,13 @@ uint32_t hal::IndependentWatchDog::PrescalerValue()
 	}
 }
 
+std::chrono::milliseconds hal::IndependentWatchDog::WatchDogTimeoutDuration()
+{
+	return std::chrono::milliseconds{
+		(uint64_t)1000 * Handle()->Init.Reload * InnerClockSourceFreq_Hz() / PrescalerValue()
+	};
+}
+
 void hal::IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds value)
 {
 	/*
@@ -142,4 +149,9 @@ void hal::IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseco
 	options._reload = (uint32_t)needed_counter_value;
 	Handle()->Init = options;
 	HAL_IWDG_Init(Handle());
+}
+
+void hal::IndependentWatchDog::Feed()
+{
+	HAL_IWDG_Refresh(Handle());
 }

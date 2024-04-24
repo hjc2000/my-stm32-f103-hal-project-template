@@ -56,17 +56,9 @@ namespace hal
 		}
 
 		#pragma region IWatchDog
-		std::chrono::milliseconds WatchDogTimeoutDuration() override
-		{
-			return std::chrono::milliseconds{ (uint64_t)1000 * Handle()->Init.Reload * InnerClockSourceFreq_Hz() / PrescalerValue() };
-		}
-
+		std::chrono::milliseconds WatchDogTimeoutDuration() override;
 		void SetWatchDogTimeoutDuration(std::chrono::milliseconds value) override;
-
-		void Feed() override
-		{
-			HAL_IWDG_Refresh(Handle());
-		}
+		void Feed() override;
 		#pragma endregion
 
 	};
