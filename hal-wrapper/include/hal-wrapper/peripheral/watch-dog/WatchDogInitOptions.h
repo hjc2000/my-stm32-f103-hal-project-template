@@ -43,7 +43,7 @@ namespace hal
 		WatchDogPrescaler _prescaler;
 
 		/// <summary>
-		///		看门狗重载值。范围：[0, 0x0FFF]
+		///		看门狗重载值。允许的范围：[0, 0x0FFF]
 		/// </summary>
 		uint32_t _reload;
 
