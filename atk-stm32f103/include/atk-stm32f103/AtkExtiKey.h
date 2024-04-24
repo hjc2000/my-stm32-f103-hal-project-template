@@ -37,8 +37,6 @@ namespace atk
 			return instance;
 		}
 
-		void Deinitialize();
-
 		bool IsPressed() const
 		{
 			return _is_pressed;

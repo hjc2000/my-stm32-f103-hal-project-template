@@ -25,13 +25,6 @@ ExtiKey0::ExtiKey0()
 	Interrupt::EnableIRQ(IRQn_Type::EXTI4_IRQn);
 }
 
-void atk::ExtiKey0::Deinitialize()
-{
-	Exti::_on_exti4_interrupt = nullptr;
-	Interrupt::DisableIRQ(IRQn_Type::EXTI4_IRQn);
-}
-
-
 
 
 #include<atk-stm32f103/AtkClock.h>
