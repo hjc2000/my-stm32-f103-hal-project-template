@@ -1,4 +1,5 @@
 #pragma once
+#include<functional>
 #include<hal-wrapper/interrupt/Interrupt.h>
 #include<hal-wrapper/peripheral/window-watch-dog/IWindowWatchDog.h>
 
@@ -7,6 +8,9 @@ namespace hal
 	class WindowWatchDog :public IWindowWatchDog
 	{
 		WWDG_HandleTypeDef _handle;
+		bool IsClockEnabled() override;
+		void EnableClock() override;
+		void DisableClock() override;
 
 	public:
 		WWDG_HandleTypeDef *Handle() override;
@@ -15,19 +19,24 @@ namespace hal
 		WindowWatchDogInitCallbackFunc MspInitCallbackFunc() override;
 		WindowWatchDogInitCallbackFunc EarlyWakeUpInterruptCallbackFunc() override;
 
-		bool IsClockEnabled() override;
-		void EnableClock() override;
-		void DisableClock() override;
-
 		static WindowWatchDog &Instance()
 		{
 			static WindowWatchDog o;
 			return o;
 		}
+
+		/// <summary>
+		///		提早唤醒中断发生时触发的回调。
+		///		* 不需要喂狗，因为本类的实现是先喂狗后再回调此函数的。
+		/// </summary>
+		std::function<void()> _on_early_wakeup_interrupt;
 	};
 }
 
 extern "C"
 {
+	/// <summary>
+	///		中断向量函数
+	/// </summary>
 	void WWDG_IRQHandler();
 }

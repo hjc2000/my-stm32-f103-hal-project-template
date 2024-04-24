@@ -27,6 +27,10 @@ WindowWatchDogInitCallbackFunc hal::WindowWatchDog::EarlyWakeUpInterruptCallback
 	return [](WWDG_HandleTypeDef *handle)->void
 	{
 		WindowWatchDog::Instance().Feed();
+		if (WindowWatchDog::Instance()._on_early_wakeup_interrupt)
+		{
+			WindowWatchDog::Instance()._on_early_wakeup_interrupt();
+		}
 	};
 }
 

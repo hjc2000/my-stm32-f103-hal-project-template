@@ -8,6 +8,7 @@
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
 #include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
 #include<hal-wrapper/peripheral/uart/Uart1.h>
+#include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDog.h>
 #include<string>
 
 using namespace hal;
@@ -16,13 +17,15 @@ using namespace bsp;
 
 void TestUart1();
 void TestIWDT();
+void TestWindowWatchDog();
 
 int main(void)
 {
 	//TestKeyScanner();
 	//TestExtiKey();
 	//TestUart1();
-	TestIWDT();
+	//TestIWDT();
+	TestWindowWatchDog();
 }
 
 void TestUart1()
@@ -73,5 +76,29 @@ void TestIWDT()
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
+	}
+}
+
+void TestWindowWatchDog()
+{
+	HAL_Init();
+	config_72mhz_hclk();
+	RedDigitalLed::Instance().TurnOn();
+	Delayer::Instance().Delay(std::chrono::milliseconds(1000));
+
+	WindowWatchDogInitOptions options;
+	options._counter_reload_value = 0x7f;
+	options._window_upper_bound = 0x5f;
+	options._prescaler = WindowWatchDogPrescaler::Div8;
+	options._early_wakeup_interrupt_mode = WindowWatchDogEarlyWakeupInterruptMode::Enable;
+	WindowWatchDog::Instance().Initialize(options);
+	WindowWatchDog::Instance()._on_early_wakeup_interrupt = []()
+	{
+		GreenDigitalLed::Instance().Toggle();
+	};
+
+	while (true)
+	{
+		RedDigitalLed::Instance().TurnOff();
 	}
 }
