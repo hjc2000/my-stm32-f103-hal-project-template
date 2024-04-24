@@ -16,7 +16,9 @@ WindowWatchDogInitCallbackFunc hal::WindowWatchDog::MspInitCallbackFunc()
 {
 	return [](WWDG_HandleTypeDef *handle)->void
 	{
-
+		WindowWatchDog::Instance().EnableClock();
+		Interrupt::SetPriority(IRQn_Type::WWDG_IRQn, 2, 3);
+		Interrupt::EnableIRQ(IRQn_Type::WWDG_IRQn);
 	};
 }
 
@@ -24,7 +26,7 @@ WindowWatchDogInitCallbackFunc hal::WindowWatchDog::EarlyWakeUpInterruptCallback
 {
 	return [](WWDG_HandleTypeDef *handle)->void
 	{
-
+		WindowWatchDog::Instance().Feed();
 	};
 }
 
@@ -41,4 +43,9 @@ void hal::WindowWatchDog::EnableClock()
 void hal::WindowWatchDog::DisableClock()
 {
 	__HAL_RCC_WWDG_CLK_DISABLE();
+}
+
+void WWDG_IRQHandler()
+{
+	HAL_WWDG_IRQHandler(WindowWatchDog::Instance().Handle());
 }

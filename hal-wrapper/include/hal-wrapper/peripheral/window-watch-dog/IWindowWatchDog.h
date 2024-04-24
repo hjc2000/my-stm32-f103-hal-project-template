@@ -21,5 +21,10 @@ namespace hal
 		virtual WindowWatchDogInitCallbackFunc EarlyWakeUpInterruptCallbackFunc() = 0;
 
 		void Initialize(WindowWatchDogInitOptions const &options);
+
+		void Feed()
+		{
+			HAL_WWDG_Refresh(Handle());
+		}
 	};
 }
