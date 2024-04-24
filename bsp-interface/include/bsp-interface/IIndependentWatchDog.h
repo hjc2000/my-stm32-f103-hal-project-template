@@ -6,7 +6,7 @@ namespace bsp
 	/// <summary>
 	///		看门狗接口
 	/// </summary>
-	class IWatchDog
+	class IIndependentWatchDog
 	{
 	public:
 		/// <summary>
