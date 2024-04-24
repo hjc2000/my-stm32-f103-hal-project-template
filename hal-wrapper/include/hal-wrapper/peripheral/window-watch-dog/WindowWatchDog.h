@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/peripheral/watch-dog/IWindowWatchDog.h>
+#include<hal-wrapper/peripheral/window-watch-dog/IWindowWatchDog.h>
 
 namespace hal
 {
