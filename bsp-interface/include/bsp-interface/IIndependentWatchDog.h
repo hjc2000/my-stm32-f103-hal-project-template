@@ -4,7 +4,7 @@
 namespace bsp
 {
 	/// <summary>
-	///		看门狗接口
+	///		独立看门狗接口。
 	/// </summary>
 	class IIndependentWatchDog
 	{
