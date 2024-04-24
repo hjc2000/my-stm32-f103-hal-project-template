@@ -21,3 +21,18 @@ WindowWatchDogInitCallbackFunc hal::WindowWatchDog::EarlyWakeUpInterruptCallback
 {
 	return WindowWatchDogInitCallbackFunc();
 }
+
+bool hal::WindowWatchDog::IsClockEnabled()
+{
+	return __HAL_RCC_WWDG_IS_CLK_ENABLED();
+}
+
+void hal::WindowWatchDog::EnableClock()
+{
+	__HAL_RCC_WWDG_CLK_ENABLE();
+}
+
+void hal::WindowWatchDog::DisableClock()
+{
+	__HAL_RCC_WWDG_CLK_DISABLE();
+}

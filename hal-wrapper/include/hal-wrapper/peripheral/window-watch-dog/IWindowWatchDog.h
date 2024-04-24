@@ -1,4 +1,5 @@
 #pragma once
+#include<hal-wrapper/IClockSwitchable.h>
 #include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/IHardwareInstanceWrapper.h>
 
@@ -11,7 +12,8 @@ namespace hal
 	/// </summary>
 	class IWindowWatchDog :
 		public hal::IHandleWrapper<WWDG_HandleTypeDef>,
-		public hal::IHardwareInstanceWrapper<WWDG_TypeDef>
+		public hal::IHardwareInstanceWrapper<WWDG_TypeDef>,
+		public hal::IClockSwitchable
 	{
 	public:
 		virtual WindowWatchDogInitCallbackFunc MspInitCallbackFunc() = 0;
