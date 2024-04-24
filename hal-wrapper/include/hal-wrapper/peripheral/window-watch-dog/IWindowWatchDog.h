@@ -20,13 +20,6 @@ namespace hal
 		virtual WindowWatchDogInitCallbackFunc MspInitCallbackFunc() = 0;
 		virtual WindowWatchDogInitCallbackFunc EarlyWakeUpInterruptCallbackFunc() = 0;
 
-		void Initialize(WindowWatchDogInitOptions const &options)
-		{
-			Handle()->Instance = HardwareInstance();
-			Handle()->Init = options;
-			Handle()->MspInitCallback = MspInitCallbackFunc();
-			Handle()->EwiCallback = EarlyWakeUpInterruptCallbackFunc();
-			HAL_WWDG_Init(Handle());
-		}
+		void Initialize(WindowWatchDogInitOptions const &options);
 	};
 }
