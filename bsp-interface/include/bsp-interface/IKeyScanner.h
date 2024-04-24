@@ -1,6 +1,6 @@
 #pragma once
 #include<bsp-interface/IKey.h>
-#include<cstdint>
+#include<stdint.h>
 
 namespace bsp
 {
