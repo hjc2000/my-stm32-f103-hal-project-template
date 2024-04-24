@@ -24,7 +24,7 @@ namespace hal
 		This parameter can be a value of @ref TIM_Counter_Mode */
 
 		/// <summary>
-		///		计数片段。计数器从 0 计数到该值。范围：[0x0000, 0xFFFF]
+		///		范围：[0x0000, 0xFFFF]
 		/// </summary>
 		uint32_t _period;
 
@@ -37,7 +37,7 @@ namespace hal
 
 		ClockDivision _clock_division;
 
-		uint32_t RepetitionCounter;  /*!< Specifies the repetition counter value. Each time the RCR downcounter
+		uint32_t _repetition_counter;  /*!< Specifies the repetition counter value. Each time the RCR downcounter
 		reaches zero, an update event is generated and counting restarts
 		from the RCR value (N).
 		This means in PWM mode that (N+1) corresponds to:
