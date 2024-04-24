@@ -34,7 +34,8 @@ namespace hal
 
 	public:
 		/// <summary>
-		///		接收完成时被回调
+		///		接收完成时被回调。
+		///		* 注意，这是在中断中被回调的，注意避免访问冲突。
 		/// </summary>
 		std::function<void()> _on_receive_completed;
 

@@ -16,7 +16,7 @@ using namespace atk;
 using namespace bsp;
 
 void TestUart1();
-void TestIWDT();
+void TestIndependentWatchDog();
 void TestWindowWatchDog();
 
 int main(void)
@@ -24,7 +24,7 @@ int main(void)
 	//TestKeyScanner();
 	//TestExtiKey();
 	//TestUart1();
-	//TestIWDT();
+	//TestIndependentWatchDog();
 	TestWindowWatchDog();
 }
 
@@ -49,7 +49,7 @@ void TestUart1()
 	}
 }
 
-void TestIWDT()
+void TestIndependentWatchDog()
 {
 	HAL_Init();
 	config_72mhz_hclk();
