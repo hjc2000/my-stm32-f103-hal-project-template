@@ -17,10 +17,5 @@ namespace hal
 		bool IsClockEnabled() override;
 		void EnableClock() override;
 		void DisableClock() override;
-
-		void Initialize()
-		{
-
-		}
 	};
 }

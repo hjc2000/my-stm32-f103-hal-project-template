@@ -51,6 +51,6 @@ namespace hal
 		/// </summary>
 		WindowWatchDogEarlyWakeupInterruptMode _early_wakeup_interrupt_mode;
 
-		operator WWDG_InitTypeDef();
+		operator WWDG_InitTypeDef() const;
 	};
 }
