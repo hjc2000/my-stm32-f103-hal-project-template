@@ -14,7 +14,7 @@ void hal::IUart::Initialize(UartInitOptions const &options)
 	* 重置为默认的 weak 版本，所以必须在 HAL_UART_Init 函数执行后再设置这些
 	* 回调函数指针。
 	*/
-	Handle()->RxCpltCallback = ReceiveCompleteCallbackFunc();
+	Handle()->RxCpltCallback = ReceiveCompleteInterruptCallbackFunc();
 	EnableReceiveInterrupt();
 	LinkToDma(TxDmaChannel());
 }

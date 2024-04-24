@@ -48,7 +48,7 @@ hal::UartCallbackFunc Uart1::MspInitCallbackFunc()
 	};
 }
 
-hal::UartCallbackFunc Uart1::ReceiveCompleteCallbackFunc()
+hal::UartCallbackFunc Uart1::ReceiveCompleteInterruptCallbackFunc()
 {
 	return [](UART_HandleTypeDef *huart)->void
 	{

@@ -30,7 +30,7 @@ namespace hal
 		///		需要派生类返回函数指针，用于接收完成时的回调。
 		/// </summary>
 		/// <returns></returns>
-		virtual UartCallbackFunc ReceiveCompleteCallbackFunc() = 0;
+		virtual UartCallbackFunc ReceiveCompleteInterruptCallbackFunc() = 0;
 		#pragma endregion
 
 		/// <summary>

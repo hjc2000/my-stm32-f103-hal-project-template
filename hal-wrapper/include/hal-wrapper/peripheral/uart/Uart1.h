@@ -30,7 +30,7 @@ namespace hal
 
 	protected:
 		hal::UartCallbackFunc MspInitCallbackFunc() override;
-		hal::UartCallbackFunc ReceiveCompleteCallbackFunc() override;
+		hal::UartCallbackFunc ReceiveCompleteInterruptCallbackFunc() override;
 
 	public:
 		/// <summary>
