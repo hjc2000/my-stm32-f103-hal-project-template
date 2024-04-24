@@ -26,6 +26,7 @@ namespace hal
 			Handle()->Init = options;
 			Handle()->MspInitCallback = MspInitCallbackFunc();
 			Handle()->EwiCallback = EarlyWakeUpInterruptCallbackFunc();
+			HAL_WWDG_Init(Handle());
 		}
 	};
 }
