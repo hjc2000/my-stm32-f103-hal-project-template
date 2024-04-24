@@ -3,7 +3,7 @@
 #include<chrono>
 #include<hal-wrapper/IHandleWrapper.h>
 #include<hal-wrapper/IHardwareInstanceWrapper.h>
-#include<hal-wrapper/peripheral/watch-dog/WatchDogInitOptions.h>
+#include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDogInitOptions.h>
 
 namespace hal
 {
@@ -19,7 +19,7 @@ namespace hal
 	{
 	private:
 		IWDG_HandleTypeDef _handle;
-		void Initialize(WatchDogInitOptions const &options);
+		void Initialize(IndependentWatchDogInitOptions const &options);
 
 	public:
 		static IndependentWatchDog &Instance()
@@ -42,9 +42,9 @@ namespace hal
 		///		分频系数。
 		/// </summary>
 		/// <returns></returns>
-		WatchDogPrescaler Prescaler()
+		IndependentWatchDogPrescaler Prescaler()
 		{
-			return WatchDogPrescaler(Handle()->Init.Prescaler);
+			return IndependentWatchDogPrescaler(Handle()->Init.Prescaler);
 		}
 
 		uint32_t PrescalerValue();

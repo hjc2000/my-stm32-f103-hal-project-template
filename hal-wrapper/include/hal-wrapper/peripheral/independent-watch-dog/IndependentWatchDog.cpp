@@ -2,7 +2,7 @@
 
 using namespace hal;
 
-void hal::IndependentWatchDog::Initialize(WatchDogInitOptions const &options)
+void hal::IndependentWatchDog::Initialize(IndependentWatchDogInitOptions const &options)
 {
 	Handle()->Instance = HardwareInstance();
 	Handle()->Init = options;
@@ -13,31 +13,31 @@ uint32_t hal::IndependentWatchDog::PrescalerValue()
 {
 	switch (Prescaler())
 	{
-	case WatchDogPrescaler::Div4:
+	case IndependentWatchDogPrescaler::Div4:
 		{
 			return 4;
 		}
-	case WatchDogPrescaler::Div8:
+	case IndependentWatchDogPrescaler::Div8:
 		{
 			return 8;
 		}
-	case WatchDogPrescaler::Div16:
+	case IndependentWatchDogPrescaler::Div16:
 		{
 			return 16;
 		}
-	case WatchDogPrescaler::Div32:
+	case IndependentWatchDogPrescaler::Div32:
 		{
 			return 32;
 		}
-	case WatchDogPrescaler::Div64:
+	case IndependentWatchDogPrescaler::Div64:
 		{
 			return 64;
 		}
-	case WatchDogPrescaler::Div128:
+	case IndependentWatchDogPrescaler::Div128:
 		{
 			return 128;
 		}
-	case WatchDogPrescaler::Div256:
+	case IndependentWatchDogPrescaler::Div256:
 		{
 			return 256;
 		}
@@ -81,7 +81,7 @@ void hal::IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseco
 	// 所需的分频器和计数器总共的计数值
 	uint64_t needed_counter_and_prescaler_value = value.count() * InnerClockSourceFreq_Hz() / 1000;
 	uint64_t needed_counter_value = 0;
-	WatchDogPrescaler needed_prescaler = WatchDogPrescaler::Div256;
+	IndependentWatchDogPrescaler needed_prescaler = IndependentWatchDogPrescaler::Div256;
 	for (uint16_t i = 2; i <= 8; i++)
 	{
 		// 从 2^2 = 4 开始，到 2^8 = 256，通过移位实现幂。i 代表的是 2 的幂
@@ -92,7 +92,7 @@ void hal::IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseco
 		{
 			// 最大分频和最大计数都无法表示这个时间，就按照能达到的最大值来。
 			needed_counter_value = 0X0FFF;
-			needed_prescaler = WatchDogPrescaler::Div256;
+			needed_prescaler = IndependentWatchDogPrescaler::Div256;
 			break;
 		}
 
@@ -104,7 +104,7 @@ void hal::IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseco
 		}
 	}
 
-	WatchDogInitOptions options;
+	IndependentWatchDogInitOptions options;
 	options._prescaler = needed_prescaler;
 	options._reload = (uint32_t)needed_counter_value;
 	Initialize(options);

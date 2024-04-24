@@ -6,7 +6,7 @@ namespace hal
 	/// <summary>
 	///		看门狗预分频器分频系数
 	/// </summary>
-	enum class WatchDogPrescaler
+	enum class IndependentWatchDogPrescaler
 	{
 		Div4 = IWDG_PRESCALER_4,
 		Div8 = IWDG_PRESCALER_8,
@@ -19,28 +19,28 @@ namespace hal
 
 	/// <summary>
 	///		将 2 的整数幂转为 WatchDogPrescaler。
-	///		- 例如 pow = 8，2^8 = 256，于是返回 WatchDogPrescaler::Div256
+	///		- 例如 pow = 8，2^8 = 256，于是返回 IndependentWatchDogPrescaler::Div256
 	/// </summary>
 	/// <param name="pow"></param>
 	/// <returns></returns>
-	WatchDogPrescaler PowerToWatchDogPrescaler(uint8_t pow);
+	IndependentWatchDogPrescaler PowerToWatchDogPrescaler(uint8_t pow);
 
 	/// <summary>
 	///		看门狗初始化选项。
 	/// </summary>
-	class WatchDogInitOptions
+	class IndependentWatchDogInitOptions
 	{
 	public:
-		WatchDogInitOptions() = default;
-		WatchDogInitOptions(WatchDogInitOptions const &o) = default;
-		WatchDogInitOptions(IWDG_InitTypeDef const &o);
-		WatchDogInitOptions &operator=(IWDG_InitTypeDef const &o);
-		WatchDogInitOptions &operator=(WatchDogInitOptions const &o) = default;
+		IndependentWatchDogInitOptions() = default;
+		IndependentWatchDogInitOptions(IndependentWatchDogInitOptions const &o) = default;
+		IndependentWatchDogInitOptions(IWDG_InitTypeDef const &o);
+		IndependentWatchDogInitOptions &operator=(IWDG_InitTypeDef const &o);
+		IndependentWatchDogInitOptions &operator=(IndependentWatchDogInitOptions const &o) = default;
 
 		/// <summary>
 		///		看门狗预分频器分频系数。
 		/// </summary>
-		WatchDogPrescaler _prescaler;
+		IndependentWatchDogPrescaler _prescaler;
 
 		/// <summary>
 		///		看门狗重载值。允许的范围：[0, 0x0FFF]
