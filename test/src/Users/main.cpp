@@ -34,7 +34,7 @@ void TestUart1()
 	config_72mhz_hclk();
 	RedDigitalLed::Instance().TurnOn();
 	Uart1::Instance().Initialize();
-	Uart1::Instance()._on_receive_completed = []()
+	Uart1::Instance()._on_receive_completed_interrupt = []()
 	{
 		RedDigitalLed::Instance().Toggle();
 	};
