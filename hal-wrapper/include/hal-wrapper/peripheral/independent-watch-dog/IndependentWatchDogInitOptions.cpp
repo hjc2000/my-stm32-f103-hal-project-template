@@ -2,7 +2,7 @@
 
 using namespace hal;
 
-IndependentWatchDogPrescaler hal::PowerToWatchDogPrescaler(uint8_t pow)
+IndependentWatchDogPrescaler hal::PowerToIndependentWatchDogPrescaler(uint8_t pow)
 {
 	switch (pow)
 	{

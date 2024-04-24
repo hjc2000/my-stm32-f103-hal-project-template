@@ -18,12 +18,12 @@ namespace hal
 	};
 
 	/// <summary>
-	///		将 2 的整数幂转为 WatchDogPrescaler。
+	///		将 2 的整数幂转为 IndependentWatchDogPrescaler。
 	///		- 例如 pow = 8，2^8 = 256，于是返回 IndependentWatchDogPrescaler::Div256
 	/// </summary>
 	/// <param name="pow"></param>
 	/// <returns></returns>
-	IndependentWatchDogPrescaler PowerToWatchDogPrescaler(uint8_t pow);
+	IndependentWatchDogPrescaler PowerToIndependentWatchDogPrescaler(uint8_t pow);
 
 	/// <summary>
 	///		看门狗初始化选项。

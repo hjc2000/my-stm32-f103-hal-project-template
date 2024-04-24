@@ -99,7 +99,7 @@ void hal::IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseco
 		if (needed_counter_value <= 0x0FFF)
 		{
 			// i 代表的是 2 的幂，将 i 映射到分频系数枚举值
-			needed_prescaler = PowerToWatchDogPrescaler(i);
+			needed_prescaler = PowerToIndependentWatchDogPrescaler(i);
 			break;
 		}
 	}
