@@ -14,13 +14,13 @@ namespace hal
 		WindowWatchDogInitCallbackFunc MspInitCallbackFunc() override;
 		WindowWatchDogInitCallbackFunc EarlyWakeUpInterruptCallbackFunc() override;
 
+		bool IsClockEnabled() override;
+		void EnableClock() override;
+		void DisableClock() override;
+
 		void Initialize()
 		{
 
 		}
-
-		bool IsClockEnabled() override;
-		void EnableClock() override;
-		void DisableClock() override;
 	};
 }
