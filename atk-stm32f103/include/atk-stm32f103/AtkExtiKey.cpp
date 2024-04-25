@@ -27,7 +27,7 @@ ExtiKey0::ExtiKey0()
 
 
 
-#include<atk-stm32f103/AtkClock.h>
+#include<AtkClock.h>
 #include<AtkLed.h>
 
 void atk::TestExtiKey()

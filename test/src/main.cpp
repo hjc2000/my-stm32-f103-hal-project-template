@@ -1,6 +1,4 @@
-#include<atk-stm32f103/AtkClock.h>
 #include<atk-stm32f103/AtkExtiKey.h>
-#include<atk-stm32f103/AtkKey.h>
 #include<atk-stm32f103/dependencies-provider.h>
 #include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/clock/Systic.h>
@@ -30,9 +28,7 @@ int main(void)
 
 void TestKeyScanner()
 {
-	HAL_Init();
-	config_72mhz_hclk();
-
+	DP_Initialize();
 	while (1)
 	{
 		DP_KeyScanner().ScanKeys();
@@ -55,8 +51,7 @@ void TestKeyScanner()
 
 void TestUart1()
 {
-	HAL_Init();
-	config_72mhz_hclk();
+	DP_Initialize();
 	DP_RedDigitalLed().TurnOn();
 	Uart1::Instance().Initialize();
 	Uart1::Instance()._on_receive_completed_interrupt = []()
@@ -76,8 +71,7 @@ void TestUart1()
 
 void TestIndependentWatchDog()
 {
-	HAL_Init();
-	config_72mhz_hclk();
+	DP_Initialize();
 	Delayer::Instance().Delay(std::chrono::milliseconds(500));
 	DP_RedDigitalLed().TurnOn();
 	IndependentWatchDog::Instance().SetWatchDogTimeoutDuration(std::chrono::milliseconds(1000));
@@ -104,8 +98,7 @@ void TestIndependentWatchDog()
 
 void TestWindowWatchDog()
 {
-	HAL_Init();
-	config_72mhz_hclk();
+	DP_Initialize();
 	DP_RedDigitalLed().TurnOn();
 	Delayer::Instance().Delay(std::chrono::milliseconds(1000));
 
