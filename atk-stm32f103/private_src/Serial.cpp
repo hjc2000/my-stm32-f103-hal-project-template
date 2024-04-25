@@ -1,9 +1,5 @@
 #include"Serial.h"
 
-void bsp::Serial::Begin(uint32_t baud_rate)
-{
-}
-
 bool bsp::Serial::CanRead()
 {
 	return true;
@@ -52,4 +48,18 @@ int64_t bsp::Serial::Position()
 
 void bsp::Serial::SetPosition(int64_t value)
 {
+}
+
+void bsp::Serial::Begin(uint32_t baud_rate)
+{
+}
+
+int bsp::Serial::AvaliableToRead()
+{
+	return 0;
+}
+
+int bsp::Serial::AvaliableToWrite()
+{
+	return 0;
 }
