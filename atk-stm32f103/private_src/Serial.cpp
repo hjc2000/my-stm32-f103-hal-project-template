@@ -30,7 +30,7 @@ int32_t bsp::Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 	return 0;
 }
 
-void bsp::Serial::Write(uint8_t *buffer, int32_t offset, int32_t count)
+void bsp::Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
 	// 发送采用一个缓冲区配合 DMA。DMA 没发送完就等待。
 

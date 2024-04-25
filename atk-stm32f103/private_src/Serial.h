@@ -14,7 +14,7 @@ namespace bsp
 		void SetLength(int64_t value) override;
 
 		int32_t Read(uint8_t *buffer, int32_t offset, int32_t count) override;
-		void Write(uint8_t *buffer, int32_t offset, int32_t count) override;
+		void Write(uint8_t const *buffer, int32_t offset, int32_t count) override;
 
 		void Flush() override;
 		void Close() override;

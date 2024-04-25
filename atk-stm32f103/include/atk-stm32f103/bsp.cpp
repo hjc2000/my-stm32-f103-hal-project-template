@@ -46,6 +46,7 @@ bsp::IKeyScanner &atk::BSP_KeyScanner()
 
 	static bsp::KeyScanner key_scanner{ keys, hal::Delayer::Instance() };
 
+	// 初始化完成
 	initialized = true;
 	return key_scanner;
 }

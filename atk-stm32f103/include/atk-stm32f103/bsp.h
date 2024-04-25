@@ -19,7 +19,7 @@ namespace atk
 	void BSP_Initialize();
 
 	/// <summary>
-	///		中断中禁止使用延时函数。因为：
+	///		中断中禁止使用延时。因为：
 	///		* BSP_Delayer 函数不可重入，而延时函数会在主程序中被到处使用，大概率冲突。
 	///		* 中断中 freertos 停止执行，无法使用 freertos 的延时，只能使用空指令延时，
 	///		  如果使用延时，CPU 全被耽误在这了。
@@ -29,6 +29,10 @@ namespace atk
 	/// <returns></returns>
 	bsp::IDelayer &BSP_Delayer();
 
+	/// <summary>
+	///		独立看门狗。
+	/// </summary>
+	/// <returns></returns>
 	bsp::IIndependentWatchDog &BSP_IndependentWatchDog();
 
 	bsp::IDigitalLed &BSP_RedDigitalLed();
