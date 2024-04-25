@@ -25,11 +25,11 @@ if(1)
 	)
 endif()
 
-set(ARM_NONE_EABI TRUE)
-
 project ("stm32")
 set (CMAKE_EXECUTABLE_SUFFIX ".elf")
 set (CMAKE_STATIC_LIBRARY_SUFFIX ".a")
+
+set(ARM_NONE_EABI TRUE)
 
 # 包含子项目。
 add_subdirectory(${CMAKE_SOURCE_DIR}/bsp-interface)
