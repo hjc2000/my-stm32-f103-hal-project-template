@@ -7,7 +7,9 @@
 namespace bsp
 {
 	/// <summary>
-	///		按键扫描器
+	///		按键扫描器。
+	///		* 板上的按键数量是固定的，所以初始化阶段构造一次本类对象就够了，
+	///		  不要反复构造，析构，会造成内存碎片。因为本类用到了动态内存分配。
 	/// </summary>
 	class KeyScanner :public bsp::IKeyScanner
 	{
