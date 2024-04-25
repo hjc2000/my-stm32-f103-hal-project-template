@@ -1,5 +1,6 @@
 #include<atk-stm32f103/AtkExtiKey.h>
 #include<atk-stm32f103/bsp.h>
+#include<atk-stm32f103/test/TestKeyScanner.h>
 #include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
@@ -12,7 +13,6 @@ using namespace hal;
 using namespace atk;
 using namespace bsp;
 
-void TestKeyScanner();
 void TestUart1();
 void TestIndependentWatchDog();
 void TestWindowWatchDog();
@@ -24,29 +24,6 @@ int main(void)
 	//TestUart1();
 	//TestIndependentWatchDog();
 	//TestWindowWatchDog();
-}
-
-void TestKeyScanner()
-{
-	BSP_Initialize();
-	while (1)
-	{
-		BSP_KeyScanner().ScanKeys();
-		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key0))
-		{
-			BSP_RedDigitalLed().Toggle();
-		}
-
-		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
-		{
-			BSP_GreenDigitalLed().Toggle();
-		}
-
-		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::KeyWakeup))
-		{
-			BSP_GreenDigitalLed().Toggle();
-		}
-	}
 }
 
 void TestUart1()

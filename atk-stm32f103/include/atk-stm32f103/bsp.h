@@ -8,12 +8,8 @@ namespace atk
 {
 	void BSP_Initialize();
 
-
-
 	bsp::IDigitalLed &BSP_RedDigitalLed();
 	bsp::IDigitalLed &BSP_GreenDigitalLed();
-
-
 
 	enum class KeyIndex :uint16_t
 	{
