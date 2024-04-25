@@ -13,6 +13,11 @@ void atk::BSP_Initialize()
 	config_72mhz_hclk();
 }
 
+bsp::IDelayer &atk::BSP_Delayer()
+{
+	return hal::Delayer::Instance();
+}
+
 bsp::IIndependentWatchDog &atk::BSP_IndependentWatchDog()
 {
 	return hal::IndependentWatchDog::Instance();
