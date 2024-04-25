@@ -4,17 +4,17 @@
 #include<bsp-interface/KeyScanner.h>
 #include<hal-wrapper/clock/Delayer.h>
 
-bsp::IDigitalLed &RedDigitalLed()
+bsp::IDigitalLed &DP_RedDigitalLed()
 {
 	return atk::RedDigitalLed::Instance();
 }
 
-bsp::IDigitalLed &GreenDigitalLed()
+bsp::IDigitalLed &DP_GreenDigitalLed()
 {
 	return atk::GreenDigitalLed::Instance();
 }
 
-bsp::IKeyScanner &KeyScanner()
+bsp::IKeyScanner &DP_KeyScanner()
 {
 	static std::vector<bsp::IKey *> keys = {
 		&atk::Key0::Instance(),

@@ -2,7 +2,7 @@
 #include<bsp-interface/IDigitalLed.h>
 #include<bsp-interface/IKeyScanner.h>
 
-bsp::IDigitalLed &RedDigitalLed();
-bsp::IDigitalLed &GreenDigitalLed();
+bsp::IDigitalLed &DP_RedDigitalLed();
+bsp::IDigitalLed &DP_GreenDigitalLed();
 
-bsp::IKeyScanner &KeyScanner();
+bsp::IKeyScanner &DP_KeyScanner();

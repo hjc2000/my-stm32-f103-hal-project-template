@@ -1,7 +1,6 @@
 #include<atk-stm32f103/AtkClock.h>
 #include<atk-stm32f103/AtkExtiKey.h>
 #include<atk-stm32f103/AtkKey.h>
-#include<atk-stm32f103/AtkKeyScanner.h>
 #include<atk-stm32f103/dependencies-provider.h>
 #include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/clock/Systic.h>
@@ -15,6 +14,7 @@ using namespace hal;
 using namespace atk;
 using namespace bsp;
 
+void TestKeyScanner();
 void TestUart1();
 void TestIndependentWatchDog();
 void TestWindowWatchDog();
@@ -28,15 +28,40 @@ int main(void)
 	//TestWindowWatchDog();
 }
 
+void TestKeyScanner()
+{
+	HAL_Init();
+	config_72mhz_hclk();
+
+	while (1)
+	{
+		DP_KeyScanner().ScanKeys();
+		if (DP_KeyScanner().HasKeyDownEvent(0))
+		{
+			DP_RedDigitalLed().Toggle();
+		}
+
+		if (DP_KeyScanner().HasKeyDownEvent(1))
+		{
+			DP_GreenDigitalLed().Toggle();
+		}
+
+		if (DP_KeyScanner().HasKeyDownEvent(2))
+		{
+			DP_GreenDigitalLed().Toggle();
+		}
+	}
+}
+
 void TestUart1()
 {
 	HAL_Init();
 	config_72mhz_hclk();
-	RedDigitalLed().TurnOn();
+	DP_RedDigitalLed().TurnOn();
 	Uart1::Instance().Initialize();
 	Uart1::Instance()._on_receive_completed_interrupt = []()
 	{
-		RedDigitalLed().Toggle();
+		DP_RedDigitalLed().Toggle();
 	};
 
 	std::string str = "hello world\n";
@@ -54,23 +79,23 @@ void TestIndependentWatchDog()
 	HAL_Init();
 	config_72mhz_hclk();
 	Delayer::Instance().Delay(std::chrono::milliseconds(500));
-	RedDigitalLed().TurnOn();
+	DP_RedDigitalLed().TurnOn();
 	IndependentWatchDog::Instance().SetWatchDogTimeoutDuration(std::chrono::milliseconds(1000));
 
 	while (1)
 	{
-		AtkKeyScanner::Instance().ScanKeys();
-		if (AtkKeyScanner::Instance().HasKeyDownEvent(0))
+		DP_KeyScanner().ScanKeys();
+		if (DP_KeyScanner().HasKeyDownEvent(0))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
 
-		if (AtkKeyScanner::Instance().HasKeyDownEvent(1))
+		if (DP_KeyScanner().HasKeyDownEvent(1))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
 
-		if (AtkKeyScanner::Instance().HasKeyDownEvent(2))
+		if (DP_KeyScanner().HasKeyDownEvent(2))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
@@ -81,7 +106,7 @@ void TestWindowWatchDog()
 {
 	HAL_Init();
 	config_72mhz_hclk();
-	RedDigitalLed().TurnOn();
+	DP_RedDigitalLed().TurnOn();
 	Delayer::Instance().Delay(std::chrono::milliseconds(1000));
 
 	WindowWatchDogInitOptions options;
@@ -92,11 +117,11 @@ void TestWindowWatchDog()
 	WindowWatchDog::Instance().Initialize(options);
 	WindowWatchDog::Instance()._on_early_wakeup_interrupt = []()
 	{
-		GreenDigitalLed().Toggle();
+		DP_GreenDigitalLed().Toggle();
 	};
 
 	while (true)
 	{
-		RedDigitalLed().TurnOff();
+		DP_RedDigitalLed().TurnOff();
 	}
 }
