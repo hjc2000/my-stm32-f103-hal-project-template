@@ -6,12 +6,12 @@ void bsp::Serial::Begin(uint32_t baud_rate)
 
 bool bsp::Serial::CanRead()
 {
-	return false;
+	return true;
 }
 
 bool bsp::Serial::CanWrite()
 {
-	return false;
+	return true;
 }
 
 bool bsp::Serial::CanSeek()
