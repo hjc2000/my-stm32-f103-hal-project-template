@@ -33,7 +33,7 @@ bsp::IKeyScanner &atk::BSP_KeyScanner()
 		keys[(uint16_t)KeyIndex::KeyWakeup] = &atk::KeyWakeUp::Instance();
 	}
 
-	static bsp::KeyScanner key_scanner{ keys, &hal::Delayer::Instance() };
+	static bsp::KeyScanner key_scanner{ keys, hal::Delayer::Instance() };
 
 	initialized = true;
 	return key_scanner;

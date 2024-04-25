@@ -15,8 +15,8 @@ namespace bsp
 	class KeyScanner :public bsp::IKeyScanner
 	{
 	private:
-		bsp::IDelayer *_delayer = nullptr;
-		std::vector<IKey *> _keys;
+		std::vector<IKey *> const &_keys;
+		bsp::IDelayer &_delayer;
 
 		boost::dynamic_bitset<> _last_scan_result;
 		boost::dynamic_bitset<> _current_scan_result;
@@ -38,7 +38,7 @@ namespace bsp
 		/// <param name="delayer">
 		///		按键扫描需要延时消抖。
 		/// </param>
-		KeyScanner(std::vector<IKey *> keys, bsp::IDelayer *delayer);
+		KeyScanner(std::vector<IKey *> const &keys, bsp::IDelayer &delayer);
 
 		/// <summary>
 		///		执行键盘扫描，更新内部状态。此函数应该被不断调用。
