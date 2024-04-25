@@ -9,7 +9,6 @@ namespace bsp
 	/// <summary>
 	///		按键扫描器
 	/// </summary>
-	/// <typeparam name="KeyCount"></typeparam>
 	class KeyScanner :public bsp::IKeyScanner
 	{
 	private:
