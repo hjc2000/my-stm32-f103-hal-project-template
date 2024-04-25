@@ -1,4 +1,5 @@
 #pragma once
+#include<bsp-interface/IDelayer.h>
 #include<chrono>
 #include<stdint.h>
 
@@ -7,7 +8,7 @@ namespace hal
 	/// <summary>
 	///		延时器。内部默认使用 Systic 类进行延时。
 	/// </summary>
-	class Delayer
+	class Delayer :public bsp::IDelayer
 	{
 	private:
 		Delayer() = default;
@@ -34,8 +35,8 @@ namespace hal
 		static Delayer *_global_delayer;
 		#pragma endregion
 
-		virtual void Delay(std::chrono::microseconds microseconds);
-		virtual void Delay(std::chrono::milliseconds milliseconds);
-		virtual void Delay(std::chrono::seconds seconds);
+		virtual void Delay(std::chrono::microseconds microseconds) override;
+		virtual void Delay(std::chrono::milliseconds milliseconds) override;
+		virtual void Delay(std::chrono::seconds seconds) override;
 	};
 }

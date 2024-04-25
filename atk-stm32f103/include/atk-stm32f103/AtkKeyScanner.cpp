@@ -17,14 +17,9 @@ std::vector<IKey *> GetKeyVector()
 }
 
 atk::AtkKeyScanner::AtkKeyScanner() :
-	bsp::KeyScanner(GetKeyVector())
+	bsp::KeyScanner(GetKeyVector(), &hal::Delayer::Instance())
 {
 
-}
-
-void atk::AtkKeyScanner::Delay(std::chrono::milliseconds num)
-{
-	hal::Delayer::Instance().Delay(num);
 }
 
 #include<atk-stm32f103/AtkClock.h>

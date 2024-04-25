@@ -9,8 +9,6 @@ namespace atk
 	public:
 		AtkKeyScanner();
 
-		void Delay(std::chrono::milliseconds num) override;
-
 		static AtkKeyScanner &Instance()
 		{
 			static AtkKeyScanner o;

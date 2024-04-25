@@ -1,5 +1,6 @@
 #pragma once
 #include<boost/dynamic_bitset.hpp>
+#include<bsp-interface/IDelayer.h>
 #include<bsp-interface/IKey.h>
 #include<bsp-interface/IKeyScanner.h>
 #include<vector>
@@ -14,7 +15,9 @@ namespace bsp
 	class KeyScanner :public bsp::IKeyScanner
 	{
 	private:
+		bsp::IDelayer *_delayer = nullptr;
 		std::vector<IKey *> _keys;
+
 		boost::dynamic_bitset<> _last_scan_result;
 		boost::dynamic_bitset<> _current_scan_result;
 
@@ -28,15 +31,14 @@ namespace bsp
 		void ScanKeysNoDelay(boost::dynamic_bitset<> &out);
 
 	public:
-		KeyScanner(std::vector<IKey *> keys);
-
 		/// <summary>
-		///		按键扫描需要延时消抖。
-		///		- 如果被本扫描器扫描的所有按钮都有滤波电路，不需要消抖，
-		///		  则可将本函数实现为什么都不做，直接返回。
+		///		
 		/// </summary>
-		/// <param name="num"></param>
-		virtual void Delay(std::chrono::milliseconds num) = 0;
+		/// <param name="keys"></param>
+		/// <param name="delayer">
+		///		按键扫描需要延时消抖。
+		/// </param>
+		KeyScanner(std::vector<IKey *> keys, bsp::IDelayer *delayer);
 
 		/// <summary>
 		///		执行键盘扫描，更新内部状态。此函数应该被不断调用。
