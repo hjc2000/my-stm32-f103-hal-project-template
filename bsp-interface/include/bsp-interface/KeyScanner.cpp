@@ -2,7 +2,7 @@
 
 using namespace bsp;
 
-void KeyScanner::ScanKeysNoDelay(std::vector<bool> &out)
+void KeyScanner::ScanKeysNoDelay(boost::dynamic_bitset<> &out)
 {
 	for (uint16_t i = 0; i < _keys.size(); i++)
 	{
@@ -12,15 +12,15 @@ void KeyScanner::ScanKeysNoDelay(std::vector<bool> &out)
 
 KeyScanner::KeyScanner(std::vector<IKey *> keys) :
 	_keys(keys),
-	_last_scan_result(keys.size(), false),
-	_current_scan_result(keys.size(), false),
+	_last_scan_result(keys.size()),
+	_current_scan_result(keys.size()),
 
-	_key_down_events(keys.size(), false),
-	_key_up_events(keys.size(), false),
-	_key_pressed_events(keys.size(), false),
+	_key_down_events(keys.size()),
+	_key_up_events(keys.size()),
+	_key_pressed_events(keys.size()),
 
-	_no_delay_scan_result1(keys.size(), false),
-	_no_delay_scan_result2(keys.size(), false)
+	_no_delay_scan_result1(keys.size()),
+	_no_delay_scan_result2(keys.size())
 {
 
 }
@@ -30,18 +30,11 @@ void KeyScanner::ScanKeys()
 	ScanKeysNoDelay(_no_delay_scan_result1);
 	Delay(std::chrono::milliseconds(10));
 	ScanKeysNoDelay(_no_delay_scan_result2);
-	for (uint16_t i = 0; i < _keys.size(); i++)
-	{
-		_current_scan_result[i] = _no_delay_scan_result1[i] && _no_delay_scan_result2[i];
-	}
+	_current_scan_result = _no_delay_scan_result1 & _no_delay_scan_result2;
 
 	// 更新事件状态
-	for (uint16_t i = 0; i < _keys.size(); i++)
-	{
-		_key_down_events[i] = (!_last_scan_result[i]) && _current_scan_result[i];
-		_key_up_events[i] = _last_scan_result[i] && (!_current_scan_result[i]);
-	}
-
+	_key_down_events = (~_last_scan_result) & _current_scan_result;
+	_key_up_events = _last_scan_result & (~_current_scan_result);
 	_key_pressed_events = _current_scan_result;
 	_last_scan_result = _current_scan_result;
 }

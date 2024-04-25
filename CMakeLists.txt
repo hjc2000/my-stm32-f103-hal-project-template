@@ -25,6 +25,8 @@ if(1)
 	)
 endif()
 
+set(ARM_NONE_EABI TRUE)
+
 project ("stm32")
 set (CMAKE_EXECUTABLE_SUFFIX ".elf")
 set (CMAKE_STATIC_LIBRARY_SUFFIX ".a")

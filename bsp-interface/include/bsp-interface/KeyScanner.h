@@ -1,4 +1,5 @@
 #pragma once
+#include<boost/dynamic_bitset.hpp>
 #include<bsp-interface/IKey.h>
 #include<bsp-interface/IKeyScanner.h>
 #include<vector>
@@ -13,17 +14,17 @@ namespace bsp
 	{
 	private:
 		std::vector<IKey *> _keys;
-		std::vector<bool> _last_scan_result;
-		std::vector<bool> _current_scan_result;
+		boost::dynamic_bitset<> _last_scan_result;
+		boost::dynamic_bitset<> _current_scan_result;
 
-		std::vector<bool> _key_down_events;
-		std::vector<bool> _key_up_events;
-		std::vector<bool> _key_pressed_events;
+		boost::dynamic_bitset<> _key_down_events;
+		boost::dynamic_bitset<> _key_up_events;
+		boost::dynamic_bitset<> _key_pressed_events;
 
-		std::vector<bool> _no_delay_scan_result1;
-		std::vector<bool> _no_delay_scan_result2;
+		boost::dynamic_bitset<> _no_delay_scan_result1;
+		boost::dynamic_bitset<> _no_delay_scan_result2;
 
-		void ScanKeysNoDelay(std::vector<bool> &out);
+		void ScanKeysNoDelay(boost::dynamic_bitset<> &out);
 
 	public:
 		KeyScanner(std::vector<IKey *> keys);
