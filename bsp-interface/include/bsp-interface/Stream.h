@@ -17,6 +17,7 @@ namespace bsp
 
 		/// <summary>
 		///		从流中读取数据写入 buffer。
+		///		* 发生错误时，流的位置不会改变。
 		/// </summary>
 		/// <param name="buffer">要将读取到的数据写入的缓冲区。</param>
 		/// <param name="offset">将读取到的数据写入 dst_buf 时的起始位置。</param>

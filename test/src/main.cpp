@@ -2,6 +2,7 @@
 #include<atk-stm32f103/bsp.h>
 #include<atk-stm32f103/test/TestIndependentWatchDog.h>
 #include<atk-stm32f103/test/TestKeyScanner.h>
+#include<exception>
 #include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
@@ -19,11 +20,21 @@ void TestWindowWatchDog();
 
 int main(void)
 {
-	//TestKeyScanner();
-	//TestExtiKey();
-	//TestUart1();
-	TestIndependentWatchDog();
-	//TestWindowWatchDog();
+	while (true)
+	{
+		try
+		{
+			//TestKeyScanner();
+			//TestExtiKey();
+			//TestUart1();
+			TestIndependentWatchDog();
+			//TestWindowWatchDog();
+		}
+		catch (...)
+		{
+
+		}
+	}
 }
 
 void TestUart1()
