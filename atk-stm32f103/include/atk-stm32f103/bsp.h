@@ -13,7 +13,7 @@ namespace atk
 {
 	void BSP_Initialize();
 
-	bsp::IIndependentWatchDog &IndependentWatchDog();
+	bsp::IIndependentWatchDog &BSP_IndependentWatchDog();
 
 	bsp::IDigitalLed &BSP_RedDigitalLed();
 	bsp::IDigitalLed &BSP_GreenDigitalLed();

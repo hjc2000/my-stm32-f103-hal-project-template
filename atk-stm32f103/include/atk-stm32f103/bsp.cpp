@@ -13,7 +13,7 @@ void atk::BSP_Initialize()
 	config_72mhz_hclk();
 }
 
-bsp::IIndependentWatchDog &atk::IndependentWatchDog()
+bsp::IIndependentWatchDog &atk::BSP_IndependentWatchDog()
 {
 	return hal::IndependentWatchDog::Instance();
 }
