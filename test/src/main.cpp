@@ -1,5 +1,5 @@
 #include<atk-stm32f103/AtkExtiKey.h>
-#include<atk-stm32f103/dependencies-provider.h>
+#include<atk-stm32f103/bsp.h>
 #include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
@@ -28,35 +28,35 @@ int main(void)
 
 void TestKeyScanner()
 {
-	DP_Initialize();
+	BSP_Initialize();
 	while (1)
 	{
-		DP_KeyScanner().ScanKeys();
-		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key0))
+		BSP_KeyScanner().ScanKeys();
+		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key0))
 		{
-			DP_RedDigitalLed().Toggle();
+			BSP_RedDigitalLed().Toggle();
 		}
 
-		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
+		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
 		{
-			DP_GreenDigitalLed().Toggle();
+			BSP_GreenDigitalLed().Toggle();
 		}
 
-		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::KeyWakeup))
+		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::KeyWakeup))
 		{
-			DP_GreenDigitalLed().Toggle();
+			BSP_GreenDigitalLed().Toggle();
 		}
 	}
 }
 
 void TestUart1()
 {
-	DP_Initialize();
-	DP_RedDigitalLed().TurnOn();
+	BSP_Initialize();
+	BSP_RedDigitalLed().TurnOn();
 	Uart1::Instance().Initialize();
 	Uart1::Instance()._on_receive_completed_interrupt = []()
 	{
-		DP_RedDigitalLed().Toggle();
+		BSP_RedDigitalLed().Toggle();
 	};
 
 	std::string str = "hello world\n";
@@ -71,25 +71,25 @@ void TestUart1()
 
 void TestIndependentWatchDog()
 {
-	DP_Initialize();
+	BSP_Initialize();
 	Delayer::Instance().Delay(std::chrono::milliseconds(500));
-	DP_RedDigitalLed().TurnOn();
+	BSP_RedDigitalLed().TurnOn();
 	IndependentWatchDog::Instance().SetWatchDogTimeoutDuration(std::chrono::milliseconds(1000));
 
 	while (1)
 	{
-		DP_KeyScanner().ScanKeys();
-		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key0))
+		BSP_KeyScanner().ScanKeys();
+		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key0))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
 
-		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
+		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
 
-		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::KeyWakeup))
+		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::KeyWakeup))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
@@ -98,8 +98,8 @@ void TestIndependentWatchDog()
 
 void TestWindowWatchDog()
 {
-	DP_Initialize();
-	DP_RedDigitalLed().TurnOn();
+	BSP_Initialize();
+	BSP_RedDigitalLed().TurnOn();
 	Delayer::Instance().Delay(std::chrono::milliseconds(1000));
 
 	WindowWatchDogInitOptions options;
@@ -110,11 +110,11 @@ void TestWindowWatchDog()
 	WindowWatchDog::Instance().Initialize(options);
 	WindowWatchDog::Instance()._on_early_wakeup_interrupt = []()
 	{
-		DP_GreenDigitalLed().Toggle();
+		BSP_GreenDigitalLed().Toggle();
 	};
 
 	while (true)
 	{
-		DP_RedDigitalLed().TurnOff();
+		BSP_RedDigitalLed().TurnOff();
 	}
 }

@@ -1,4 +1,4 @@
-#include"dependencies-provider.h"
+#include"bsp.h"
 #include<AtkClock.h>
 #include<AtkKey.h>
 #include<AtkLed.h>
@@ -6,23 +6,23 @@
 #include<bsp-interface/KeyScanner.h>
 #include<hal-wrapper/clock/Delayer.h>
 
-void atk::DP_Initialize()
+void atk::BSP_Initialize()
 {
 	HAL_Init();
 	config_72mhz_hclk();
 }
 
-bsp::IDigitalLed &atk::DP_RedDigitalLed()
+bsp::IDigitalLed &atk::BSP_RedDigitalLed()
 {
 	return atk::RedDigitalLed::Instance();
 }
 
-bsp::IDigitalLed &atk::DP_GreenDigitalLed()
+bsp::IDigitalLed &atk::BSP_GreenDigitalLed()
 {
 	return atk::GreenDigitalLed::Instance();
 }
 
-bsp::IKeyScanner &atk::DP_KeyScanner()
+bsp::IKeyScanner &atk::BSP_KeyScanner()
 {
 	static std::atomic_bool initialized = false;
 	static std::vector<bsp::IKey *> keys{ (size_t)KeyIndex::EnumEndFlag };

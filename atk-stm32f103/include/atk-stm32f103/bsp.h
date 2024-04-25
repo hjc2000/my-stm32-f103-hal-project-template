@@ -6,12 +6,12 @@
 
 namespace atk
 {
-	void DP_Initialize();
+	void BSP_Initialize();
 
 
 
-	bsp::IDigitalLed &DP_RedDigitalLed();
-	bsp::IDigitalLed &DP_GreenDigitalLed();
+	bsp::IDigitalLed &BSP_RedDigitalLed();
+	bsp::IDigitalLed &BSP_GreenDigitalLed();
 
 
 
@@ -23,5 +23,5 @@ namespace atk
 		EnumEndFlag,
 	};
 
-	bsp::IKeyScanner &DP_KeyScanner();
+	bsp::IKeyScanner &BSP_KeyScanner();
 }
