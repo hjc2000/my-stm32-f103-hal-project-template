@@ -36,17 +36,17 @@ void TestKeyScanner()
 	while (1)
 	{
 		DP_KeyScanner().ScanKeys();
-		if (DP_KeyScanner().HasKeyDownEvent(0))
+		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key0))
 		{
 			DP_RedDigitalLed().Toggle();
 		}
 
-		if (DP_KeyScanner().HasKeyDownEvent(1))
+		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
 		{
 			DP_GreenDigitalLed().Toggle();
 		}
 
-		if (DP_KeyScanner().HasKeyDownEvent(2))
+		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::KeyWakeup))
 		{
 			DP_GreenDigitalLed().Toggle();
 		}
@@ -85,17 +85,17 @@ void TestIndependentWatchDog()
 	while (1)
 	{
 		DP_KeyScanner().ScanKeys();
-		if (DP_KeyScanner().HasKeyDownEvent(0))
+		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key0))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
 
-		if (DP_KeyScanner().HasKeyDownEvent(1))
+		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
 
-		if (DP_KeyScanner().HasKeyDownEvent(2))
+		if (DP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::KeyWakeup))
 		{
 			IndependentWatchDog::Instance().Feed();
 		}
