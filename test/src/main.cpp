@@ -1,5 +1,6 @@
 #include<atk-stm32f103/AtkExtiKey.h>
 #include<atk-stm32f103/bsp.h>
+#include<atk-stm32f103/test/TestIndependentWatchDog.h>
 #include<atk-stm32f103/test/TestKeyScanner.h>
 #include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/clock/Systic.h>
@@ -14,15 +15,14 @@ using namespace atk;
 using namespace bsp;
 
 void TestUart1();
-void TestIndependentWatchDog();
 void TestWindowWatchDog();
 
 int main(void)
 {
-	TestKeyScanner();
+	//TestKeyScanner();
 	//TestExtiKey();
 	//TestUart1();
-	//TestIndependentWatchDog();
+	TestIndependentWatchDog();
 	//TestWindowWatchDog();
 }
 
@@ -43,33 +43,6 @@ void TestUart1()
 		Uart1::Instance().SendWithDma((uint8_t const *)(str.c_str()), str.length());
 		Uart1::Instance().WaitForDmaTx();
 		Uart1::Instance().PerepareForNextDmaTx();
-	}
-}
-
-void TestIndependentWatchDog()
-{
-	BSP_Initialize();
-	Delayer::Instance().Delay(std::chrono::milliseconds(500));
-	BSP_RedDigitalLed().TurnOn();
-	IndependentWatchDog::Instance().SetWatchDogTimeoutDuration(std::chrono::milliseconds(1000));
-
-	while (1)
-	{
-		BSP_KeyScanner().ScanKeys();
-		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key0))
-		{
-			IndependentWatchDog::Instance().Feed();
-		}
-
-		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
-		{
-			IndependentWatchDog::Instance().Feed();
-		}
-
-		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::KeyWakeup))
-		{
-			IndependentWatchDog::Instance().Feed();
-		}
 	}
 }
 

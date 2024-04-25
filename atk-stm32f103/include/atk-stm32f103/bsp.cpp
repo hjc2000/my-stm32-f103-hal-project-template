@@ -5,11 +5,17 @@
 #include<atomic>
 #include<bsp-interface/KeyScanner.h>
 #include<hal-wrapper/clock/Delayer.h>
+#include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
 
 void atk::BSP_Initialize()
 {
 	HAL_Init();
 	config_72mhz_hclk();
+}
+
+bsp::IIndependentWatchDog &atk::IndependentWatchDog()
+{
+	return hal::IndependentWatchDog::Instance();
 }
 
 bsp::IDigitalLed &atk::BSP_RedDigitalLed()
