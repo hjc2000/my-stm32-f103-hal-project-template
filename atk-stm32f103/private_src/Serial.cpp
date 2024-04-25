@@ -24,12 +24,12 @@ void bsp::Serial::SetLength(int64_t value)
 {
 }
 
-int64_t bsp::Serial::Read(uint8_t *buffer, int64_t offset, int64_t count)
+int32_t bsp::Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 {
 	return 0;
 }
 
-void bsp::Serial::Write(uint8_t *buffer, int64_t offset, int64_t count)
+void bsp::Serial::Write(uint8_t *buffer, int32_t offset, int32_t count)
 {
 }
 
@@ -54,12 +54,12 @@ void bsp::Serial::Begin(uint32_t baud_rate)
 {
 }
 
-int bsp::Serial::AvaliableToRead()
+int32_t bsp::Serial::AvaliableToRead()
 {
 	return 0;
 }
 
-int bsp::Serial::AvaliableToWrite()
+int32_t bsp::Serial::AvaliableToWrite()
 {
 	return 0;
 }

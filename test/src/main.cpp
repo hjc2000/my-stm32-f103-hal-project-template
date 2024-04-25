@@ -19,10 +19,10 @@ void TestWindowWatchDog();
 
 int main(void)
 {
-	//TestKeyScanner();
+	TestKeyScanner();
 	//TestExtiKey();
 	//TestUart1();
-	TestIndependentWatchDog();
+	//TestIndependentWatchDog();
 	//TestWindowWatchDog();
 }
 
