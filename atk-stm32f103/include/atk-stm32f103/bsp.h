@@ -50,5 +50,9 @@ namespace atk
 	bsp::IKeyScanner &BSP_KeyScanner();
 	#pragma endregion
 
+	/// <summary>
+	///		通过外部中断驱动的按键
+	/// </summary>
+	/// <returns></returns>
 	bsp::IEventDrivenKey &BSP_WakeUpKey();
 }
