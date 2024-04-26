@@ -28,3 +28,7 @@
 
 [使用ST-Link GDB服务器调试STM32器件 – VisualGDB 教程](https://visualgdb.com/tutorials/arm/st-link/gdbserver/)
 
+# FreeRTOS
+
+[配置头文件编写教程](https://www.freertos.org/zh-cn-cmn-s/a00110.html)
+
