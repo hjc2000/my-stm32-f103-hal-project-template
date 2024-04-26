@@ -39,25 +39,10 @@ set(
 	"设置为 TRUE 以使用 ARM_NONE_EABI 的库，而不是意外导入 WIN32 的，或者根本找不到库。"
 )
 
-# 配置 freertos
-if(1)
-	set(
-		FREERTOS_CONFIG_FILE_DIRECTORY "${CMAKE_SOURCE_DIR}" 
-		CACHE STRING
-		"FreeRTOSConfig.h 在哪个文件夹"
-	)
-	set(
-		FREERTOS_PORT GCC_ARM_CM3
-		CACHE STRING
-		"选择 freerots 要应用到的平台"
-	)
-endif()
-
-
 # 包含子项目。
 add_subdirectory(${CMAKE_SOURCE_DIR}/bsp-interface)
 add_subdirectory(${CMAKE_SOURCE_DIR}/stm32f103-hal)
 add_subdirectory(${CMAKE_SOURCE_DIR}/hal-wrapper)
 add_subdirectory(${CMAKE_SOURCE_DIR}/atk-stm32f103)
-add_subdirectory(${CMAKE_SOURCE_DIR}/freertos_kernel)
+add_subdirectory(${CMAKE_SOURCE_DIR}/freertos)
 add_subdirectory(${CMAKE_SOURCE_DIR}/test)
