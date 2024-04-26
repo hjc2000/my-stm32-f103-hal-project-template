@@ -17,7 +17,11 @@
 				"CMAKE_OBJCOPY": "arm-none-eabi-objcopy.exe",
 				"CMAKE_RANLIB": "arm-none-eabi-ranlib.exe",
 				"CMAKE_SIZE": "arm-none-eabi-size.exe",
-				"CMAKE_STRIP": "arm-none-eabi-ld.exe"
+				"CMAKE_STRIP": "arm-none-eabi-ld.exe",
+
+				// 配置 freertos
+				"FREERTOS_CONFIG_FILE_DIRECTORY": "${sourceDir}",
+				"FREERTOS_PORT": "GCC_ARM_CM3"
 			},
 			"vendor": {
 				"microsoft.com/VisualStudioSettings/CMake/1.0": {

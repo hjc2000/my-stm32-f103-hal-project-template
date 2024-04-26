@@ -25,7 +25,9 @@ if(1)
 	)
 endif()
 
+
 project ("stm32")
+
 set (CMAKE_EXECUTABLE_SUFFIX ".elf")
 set (CMAKE_STATIC_LIBRARY_SUFFIX ".a")
 
@@ -36,5 +38,5 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/bsp-interface)
 add_subdirectory(${CMAKE_SOURCE_DIR}/stm32f103-hal)
 add_subdirectory(${CMAKE_SOURCE_DIR}/hal-wrapper)
 add_subdirectory(${CMAKE_SOURCE_DIR}/atk-stm32f103)
-add_subdirectory(${CMAKE_SOURCE_DIR}/freertos)
+add_subdirectory(${CMAKE_SOURCE_DIR}/freertos_kernel)
 add_subdirectory(${CMAKE_SOURCE_DIR}/test)
