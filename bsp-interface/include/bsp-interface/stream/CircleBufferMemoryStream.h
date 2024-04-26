@@ -1,6 +1,6 @@
 #pragma once
 #include<algorithm>
-#include<bsp-interface/Stream.h>
+#include<bsp-interface/stream/Stream.h>
 #include<cstdint>
 #include<cstring>
 #include<stdexcept>

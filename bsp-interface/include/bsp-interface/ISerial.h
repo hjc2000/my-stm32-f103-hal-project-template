@@ -1,5 +1,5 @@
 #pragma once
-#include<bsp-interface/Stream.h>
+#include<bsp-interface/stream/Stream.h>
 #include<string>
 
 namespace bsp
