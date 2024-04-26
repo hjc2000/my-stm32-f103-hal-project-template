@@ -28,7 +28,7 @@ ExtiKey0::ExtiKey0()
 
 
 #include<AtkClock.h>
-#include<AtkLed.h>
+#include<DigitalLed.h>
 
 void atk::TestExtiKey()
 {
