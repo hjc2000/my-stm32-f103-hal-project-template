@@ -2,13 +2,13 @@
 #include<atk-stm32f103/bsp.h>
 #include<atk-stm32f103/test/TestIndependentWatchDog.h>
 #include<atk-stm32f103/test/TestKeyScanner.h>
-#include<exception>
 #include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
 #include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
 #include<hal-wrapper/peripheral/uart/Uart1.h>
 #include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDog.h>
+#include<stdexcept>
 #include<string>
 
 using namespace hal;
@@ -24,10 +24,10 @@ int main(void)
 	{
 		try
 		{
-			//TestKeyScanner();
+			TestKeyScanner();
 			//TestExtiKey();
 			//TestUart1();
-			TestIndependentWatchDog();
+			//TestIndependentWatchDog();
 			//TestWindowWatchDog();
 		}
 		catch (...)
