@@ -1,3 +1,4 @@
+#include<FreeRTOS.h>
 #include<atk-stm32f103/AtkExtiKey.h>
 #include<atk-stm32f103/bsp.h>
 #include<atk-stm32f103/test/TestIndependentWatchDog.h>
@@ -10,6 +11,7 @@
 #include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDog.h>
 #include<stdexcept>
 #include<string>
+#include<task.h>
 
 using namespace hal;
 using namespace atk;
@@ -25,6 +27,7 @@ int main(void)
 		try
 		{
 			TestKeyScanner();
+			
 			//TestExtiKey();
 			//TestUart1();
 			//TestIndependentWatchDog();
