@@ -27,20 +27,22 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
-/*-----------------------------------------------------------
-* Application specific definitions.
-*
-* These definitions should be adjusted for your particular hardware and
-* application requirements.
-*
-* THESE PARAMETERS ARE DESCRIBED WITHIN THE 'CONFIGURATION' SECTION OF THE
-* FreeRTOS API DOCUMENTATION AVAILABLE ON THE FreeRTOS.org WEB SITE.
-*
-* See https://www.freertos.org/a00110.html
-*----------------------------------------------------------*/
+#include<stm32f103xe.h>
+
+ /*-----------------------------------------------------------
+ * Application specific definitions.
+ *
+ * These definitions should be adjusted for your particular hardware and
+ * application requirements.
+ *
+ * THESE PARAMETERS ARE DESCRIBED WITHIN THE 'CONFIGURATION' SECTION OF THE
+ * FreeRTOS API DOCUMENTATION AVAILABLE ON THE FreeRTOS.org WEB SITE.
+ *
+ * See https://www.freertos.org/a00110.html
+ *----------------------------------------------------------*/
 
 #define configASSERT_DEFINED                             1
-extern void vAssertCalled( void );
+extern void vAssertCalled(void);
 #define configASSERT( x )    if( ( x ) == 0 ) vAssertCalled()
 #define configQUEUE_REGISTRY_SIZE                        20
 
@@ -51,7 +53,7 @@ extern void vAssertCalled( void );
 #define configUSE_IDLE_HOOK                              1
 #define configUSE_TICK_HOOK                              1
 #define configUSE_DAEMON_TASK_STARTUP_HOOK               0
-#define configCPU_CLOCK_HZ                               ( ( unsigned long ) 20000000 )
+#define configCPU_CLOCK_HZ                               ( ( unsigned long ) 72000000 )
 #define configTICK_RATE_HZ                               ( ( TickType_t ) 1000 )
 #define configMINIMAL_STACK_SIZE                         ( ( unsigned short ) 2000 )
 #define configTOTAL_HEAP_SIZE                            ( ( size_t ) ( 900 ) )
@@ -96,7 +98,9 @@ extern void vAssertCalled( void );
 #define INCLUDE_xTimerPendFunctionCall            1
 #define INCLUDE_xTaskAbortDelay                   1
 
-unsigned long ulGetRunTimeCounterValue( void ); /* Prototype of function that returns run time counter. */
+#define configPRIO_BITS __NVIC_PRIO_BITS
+
+unsigned long ulGetRunTimeCounterValue(void); /* Prototype of function that returns run time counter. */
 
 #define projCOVERAGE_TEST                       0
 
@@ -107,15 +111,15 @@ unsigned long ulGetRunTimeCounterValue( void ); /* Prototype of function that re
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY    191 /* equivalent to 0xa0, or priority 5. */
 #define configMAC_INTERRUPT_PRIORITY            5
 
-/* Prototype for the function used to print out.  In this case it prints to the
- |     10 console before the network is connected then a UDP port after the network has
- |      9 connected. */
-extern void vLoggingPrintf( const char * pcFormatString,
-                            ... );
+ /* Prototype for the function used to print out.  In this case it prints to the
+  |     10 console before the network is connected then a UDP port after the network has
+  |      9 connected. */
+extern void vLoggingPrintf(const char *pcFormatString,
+	...);
 
 #ifdef HEAP3
-    #define xPortGetMinimumEverFreeHeapSize    ( x )
-    #define xPortGetFreeHeapSize               ( x )
+#define xPortGetMinimumEverFreeHeapSize    ( x )
+#define xPortGetFreeHeapSize               ( x )
 #endif
 
 #endif /* FREERTOS_CONFIG_H */
