@@ -31,7 +31,26 @@ project ("stm32")
 set (CMAKE_EXECUTABLE_SUFFIX ".elf")
 set (CMAKE_STATIC_LIBRARY_SUFFIX ".a")
 
-set(ARM_NONE_EABI TRUE)
+set(
+	ARM_NONE_EABI TRUE
+	CACHE BOOL 
+	"设置为 TRUE 以使用 ARM_NONE_EABI 的库，而不是意外导入 WIN32 的，或者根本找不到库。"
+)
+
+# 配置 freertos
+if(1)
+	set(
+		FREERTOS_CONFIG_FILE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" 
+		CACHE STRING
+		"FreeRTOSConfig.h 在哪个文件夹"
+	)
+	set(
+		FREERTOS_PORT GCC_ARM_CM3
+		CACHE STRING
+		"选择 freerots 要应用到的平台"
+	)
+endif()
+
 
 # 包含子项目。
 add_subdirectory(${CMAKE_SOURCE_DIR}/bsp-interface)
