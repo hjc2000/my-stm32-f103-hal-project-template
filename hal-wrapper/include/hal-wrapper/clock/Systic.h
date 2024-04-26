@@ -8,8 +8,8 @@ namespace hal
 {
 	enum class SysticClockSource
 	{
-		HCLK,
-		HCLK_DIV8
+		HCLK = SYSTICK_CLKSOURCE_HCLK,
+		HCLK_DIV8 = SYSTICK_CLKSOURCE_HCLK_DIV8,
 	};
 
 	/// <summary>
@@ -78,13 +78,13 @@ namespace hal
 		static void NopLoopDelay(std::chrono::milliseconds milliseconds);
 		static void NopLoopDelay(std::chrono::seconds seconds);
 	};
+}
 
-	extern "C"
-	{
-		/// <summary>
-		///		重写 __weak 的 HAL_Delay 函数
-		/// </summary>
-		/// <param name="Delay"></param>
-		void HAL_Delay(uint32_t Delay);
-	}
+extern "C"
+{
+	/// <summary>
+	///		重写 __weak 的 HAL_Delay 函数
+	/// </summary>
+	/// <param name="Delay"></param>
+	void HAL_Delay(uint32_t Delay);
 }

@@ -12,8 +12,6 @@ namespace hal
 	{
 	private:
 		Osc() = delete;
-		Osc(Osc const &another) = delete;
-		Osc &operator=(Osc const &value) = delete;
 
 	public:
 		/// <summary>

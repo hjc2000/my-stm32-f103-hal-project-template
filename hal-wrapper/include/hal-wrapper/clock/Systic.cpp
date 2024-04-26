@@ -21,19 +21,7 @@ SysticClockSource Systic::ClockSource()
 
 void Systic::SetClockSource(SysticClockSource value)
 {
-	/* 其实 HAL 中已经有一个 HAL_SYSTICK_CLKSourceConfig 函数用来干这个事了。
-	* 只不过 HAL_SYSTICK_CLKSourceConfig 函数不太清晰。
-	*/
-	if (value == SysticClockSource::HCLK_DIV8)
-	{
-		// 清 0 表示使用 8 分频
-		SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
-	}
-	else
-	{
-		// 置 1 表示不分频，让 HCLK 直接作为 Systick 的时钟源。
-		SysTick->CTRL |= SYSTICK_CLKSOURCE_HCLK;
-	}
+	HAL_SYSTICK_CLKSourceConfig((uint32_t)value);
 }
 
 uint32_t Systic::ClockSourceFreq()

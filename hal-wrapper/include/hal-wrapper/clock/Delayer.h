@@ -12,8 +12,8 @@ namespace hal
 	{
 	private:
 		Delayer() = default;
-		Delayer(Delayer const &another) = delete;
-		Delayer &operator=(Delayer const &value) = delete;
+		Delayer(Delayer const &o) = delete;
+		Delayer &operator=(Delayer const &o) = delete;
 
 	public:
 		#pragma region 单例
