@@ -12,8 +12,12 @@ add_library(${ProjectName} STATIC)
 target_import_src(${ProjectName})
 
 target_link_libraries(
-	${ProjectName} PUBLIC 
+	${ProjectName} PRIVATE 
 	hal-wrapper
+)
+
+target_link_libraries(
+	${ProjectName} PUBLIC 
 	bsp-interface
 	freertos
 )
