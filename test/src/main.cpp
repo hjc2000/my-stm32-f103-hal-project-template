@@ -1,8 +1,7 @@
-#include<FreeRTOS.h>
-#include<atk-stm32f103/AtkExtiKey.h>
+#include<TestExtiKey.h>
+#include<TestIndependentWatchDog.h>
+#include<TestKeyScanner.h>
 #include<atk-stm32f103/bsp.h>
-#include<atk-stm32f103/test/TestIndependentWatchDog.h>
-#include<atk-stm32f103/test/TestKeyScanner.h>
 #include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
@@ -11,7 +10,12 @@
 #include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDog.h>
 #include<stdexcept>
 #include<string>
-#include<task.h>
+
+extern "C"
+{
+	#include<FreeRTOS.h>
+	#include<task.h>
+}
 
 using namespace hal;
 using namespace atk;
@@ -26,9 +30,8 @@ int main(void)
 	{
 		try
 		{
-			TestKeyScanner();
-			
-			//TestExtiKey();
+			//TestKeyScanner();
+			TestExtiKey();
 			//TestUart1();
 			//TestIndependentWatchDog();
 			//TestWindowWatchDog();

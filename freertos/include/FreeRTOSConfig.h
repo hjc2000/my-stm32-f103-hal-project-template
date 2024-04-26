@@ -4,24 +4,57 @@
 /* 头文件 */
 #include <stdint.h>
 
+/// <summary>
+///		HAL 库中有这个变量。设置系统时钟的时候此变量会被更新。
+/// </summary>
 extern uint32_t SystemCoreClock;
 
-/* 基础配置项 */
-#define configUSE_PREEMPTION                            1                       /* 1: 抢占式调度器, 0: 协程式调度器, 无默认需定义 */
-#define configUSE_PORT_OPTIMISED_TASK_SELECTION         1                       /* 1: 使用硬件计算下一个要运行的任务, 0: 使用软件算法计算下一个要运行的任务, 默认: 0 */
-#define configUSE_TICKLESS_IDLE                         0                       /* 1: 使能tickless低功耗模式, 默认: 0 */
-#define configCPU_CLOCK_HZ                              SystemCoreClock         /* 定义CPU主频, 单位: Hz, 无默认需定义 */
-#define configSYSTICK_CLOCK_HZ                          (configCPU_CLOCK_HZ / 8)/* 定义SysTick时钟频率，当SysTick时钟频率与内核时钟频率不同时才可以定义, 单位: Hz, 默认: 不定义 */
-#define configTICK_RATE_HZ                              1000                    /* 定义系统时钟节拍频率, 单位: Hz, 无默认需定义 */
-#define configMAX_PRIORITIES                            32                      /* 定义最大优先级数, 最大优先级=configMAX_PRIORITIES-1, 无默认需定义 */
-#define configMINIMAL_STACK_SIZE                        128                     /* 定义空闲任务的栈空间大小, 单位: Word, 无默认需定义 */
-#define configMAX_TASK_NAME_LEN                         16                      /* 定义任务名最大字符数, 默认: 16 */
-#define configUSE_16_BIT_TICKS                          0                       /* 1: 定义系统时钟节拍计数器的数据类型为16位无符号数, 无默认需定义 */
-#define configIDLE_SHOULD_YIELD                         1                       /* 1: 使能在抢占式调度下,同优先级的任务能抢占空闲任务, 默认: 1 */
-#define configUSE_TASK_NOTIFICATIONS                    1                       /* 1: 使能任务间直接的消息传递,包括信号量、事件标志组和消息邮箱, 默认: 1 */
-#define configTASK_NOTIFICATION_ARRAY_ENTRIES           1                       /* 定义任务通知数组的大小, 默认: 1 */
-#define configUSE_MUTEXES                               1                       /* 1: 使能互斥信号量, 默认: 0 */
-#define configUSE_RECURSIVE_MUTEXES                     1                       /* 1: 使能递归互斥信号量, 默认: 0 */
+/* 1: 抢占式调度器, 0: 协程式调度器, 无默认需定义 */
+#define configUSE_PREEMPTION                            1
+
+/* 1: 使用硬件计算下一个要运行的任务, 0: 使用软件算法计算下一个要运行的任务, 默认: 0 */
+#define configUSE_PORT_OPTIMISED_TASK_SELECTION         1
+
+/* 1: 使能tickless低功耗模式, 默认: 0 */
+#define configUSE_TICKLESS_IDLE                         0
+
+/* 定义CPU主频, 单位: Hz, 无默认需定义 */
+#define configCPU_CLOCK_HZ                              SystemCoreClock
+
+/* 定义SysTick时钟频率，当SysTick时钟频率与内核时钟频率不同时才可以定义,
+* 单位: Hz, 默认: 不定义
+*/
+#define configSYSTICK_CLOCK_HZ                          (configCPU_CLOCK_HZ / 8)
+
+/* 定义系统时钟节拍频率, 单位: Hz, 无默认需定义 */
+#define configTICK_RATE_HZ                              1000
+
+/* 定义最大优先级数, 最大优先级=configMAX_PRIORITIES-1, 无默认需定义 */
+#define configMAX_PRIORITIES                            32
+
+/* 定义空闲任务的栈空间大小, 单位: Word, 无默认需定义 */
+#define configMINIMAL_STACK_SIZE                        128
+
+/* 定义任务名最大字符数, 默认: 16 */
+#define configMAX_TASK_NAME_LEN                         16
+
+/* 1: 定义系统时钟节拍计数器的数据类型为16位无符号数, 无默认需定义 */
+#define configUSE_16_BIT_TICKS                          0
+
+/* 1: 使能在抢占式调度下,同优先级的任务能抢占空闲任务, 默认: 1 */
+#define configIDLE_SHOULD_YIELD                         1
+
+/* 1: 使能任务间直接的消息传递,包括信号量、事件标志组和消息邮箱, 默认: 1 */
+#define configUSE_TASK_NOTIFICATIONS                    1
+
+/* 定义任务通知数组的大小, 默认: 1 */
+#define configTASK_NOTIFICATION_ARRAY_ENTRIES           1
+
+/* 1: 使能互斥信号量, 默认: 0 */
+#define configUSE_MUTEXES                               1
+
+/* 1: 使能递归互斥信号量, 默认: 0 */
+#define configUSE_RECURSIVE_MUTEXES                     1
 #define configUSE_COUNTING_SEMAPHORES                   1                       /* 1: 使能计数信号量, 默认: 0 */
 #define configUSE_ALTERNATIVE_API                       0                       /* 已弃用!!! */
 #define configQUEUE_REGISTRY_SIZE                       8                       /* 定义可以注册的信号量和消息队列的个数, 默认: 0 */

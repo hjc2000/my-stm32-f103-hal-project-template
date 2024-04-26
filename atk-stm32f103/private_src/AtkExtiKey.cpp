@@ -24,24 +24,3 @@ ExtiKey0::ExtiKey0()
 	Interrupt::SetPriority(IRQn_Type::EXTI4_IRQn, 0, 2);
 	Interrupt::EnableIRQ(IRQn_Type::EXTI4_IRQn);
 }
-
-
-
-#include<AtkClock.h>
-#include<DigitalLed.h>
-
-void atk::TestExtiKey()
-{
-	HAL_Init();
-	config_72mhz_hclk();
-	RedDigitalLed::Instance().TurnOn();
-	while (1)
-	{
-		if (ExtiKey0::Instance().IsPressed())
-		{
-			RedDigitalLed::Instance().Toggle();
-			GreenDigitalLed::Instance().Toggle();
-			ExtiKey0::Instance().ClearPressedFlag();
-		}
-	}
-}

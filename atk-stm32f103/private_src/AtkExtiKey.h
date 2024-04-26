@@ -1,5 +1,6 @@
 #pragma once
 #include<atomic>
+#include<bsp-interface/IEventDrivenKey.h>
 #include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/interrupt/Exti.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
@@ -10,7 +11,7 @@ namespace atk
 	/// <summary>
 	///		外部中断驱动的 key0。
 	/// </summary>
-	class ExtiKey0
+	class ExtiKey0 :public bsp::IEventDrivenKey
 	{
 	private:
 		/// <summary>
@@ -37,16 +38,14 @@ namespace atk
 			return instance;
 		}
 
-		bool IsPressed() const
+		bool IsPressed() override
 		{
 			return _is_pressed;
 		}
 
-		void ClearPressedFlag()
+		void ClearPressedFlag() override
 		{
 			_is_pressed = false;
 		}
 	};
-
-	void TestExtiKey();
 }

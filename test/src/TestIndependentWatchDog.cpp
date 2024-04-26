@@ -1,7 +1,9 @@
 #include"TestIndependentWatchDog.h"
 #include<atk-stm32f103/bsp.h>
 
-void atk::TestIndependentWatchDog()
+using namespace atk;
+
+void TestIndependentWatchDog()
 {
 	BSP_Initialize();
 	BSP_Delayer().Delay(std::chrono::milliseconds(500));
@@ -17,11 +19,6 @@ void atk::TestIndependentWatchDog()
 		}
 
 		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
-		{
-			BSP_IndependentWatchDog().Feed();
-		}
-
-		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::KeyWakeup))
 		{
 			BSP_IndependentWatchDog().Feed();
 		}

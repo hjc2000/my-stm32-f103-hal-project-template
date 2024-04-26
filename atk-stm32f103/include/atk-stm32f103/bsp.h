@@ -1,6 +1,7 @@
 #pragma once
 #include<bsp-interface/IDelayer.h>
 #include<bsp-interface/IDigitalLed.h>
+#include<bsp-interface/IEventDrivenKey.h>
 #include<bsp-interface/IIndependentWatchDog.h>
 #include<bsp-interface/IKeyScanner.h>
 
@@ -43,11 +44,11 @@ namespace atk
 	{
 		Key0,
 		Key1,
-		KeyWakeup,
 		EnumEndFlag,
 	};
 
 	bsp::IKeyScanner &BSP_KeyScanner();
 	#pragma endregion
 
+	bsp::IEventDrivenKey &BSP_WakeUpKey();
 }

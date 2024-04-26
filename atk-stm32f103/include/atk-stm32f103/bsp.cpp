@@ -1,16 +1,19 @@
 #include"bsp.h"
 #include<AtkClock.h>
+#include<AtkExtiKey.h>
 #include<AtkKey.h>
 #include<DigitalLed.h>
 #include<atomic>
 #include<bsp-interface/KeyScanner.h>
 #include<hal-wrapper/clock/Delayer.h>
+#include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
 
 void atk::BSP_Initialize()
 {
 	HAL_Init();
 	config_72mhz_hclk();
+	hal::Systic::SetClockSource(hal::SysticClockSource::HCLK_DIV8);
 }
 
 bsp::IDelayer &atk::BSP_Delayer()
@@ -41,7 +44,6 @@ bsp::IKeyScanner &atk::BSP_KeyScanner()
 	{
 		keys[(uint16_t)KeyIndex::Key0] = &atk::Key0::Instance();
 		keys[(uint16_t)KeyIndex::Key1] = &atk::Key1::Instance();
-		keys[(uint16_t)KeyIndex::KeyWakeup] = &atk::KeyWakeUp::Instance();
 	}
 
 	static bsp::KeyScanner key_scanner{ keys, hal::Delayer::Instance() };
@@ -49,4 +51,9 @@ bsp::IKeyScanner &atk::BSP_KeyScanner()
 	// 初始化完成
 	initialized = true;
 	return key_scanner;
+}
+
+bsp::IEventDrivenKey &atk::BSP_WakeUpKey()
+{
+	return atk::ExtiKey0::Instance();
 }

@@ -4,7 +4,7 @@
 using namespace bsp;
 using namespace atk;
 
-void atk::TestKeyScanner()
+void TestKeyScanner()
 {
 	BSP_Initialize();
 	while (1)
@@ -16,11 +16,6 @@ void atk::TestKeyScanner()
 		}
 
 		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
-		{
-			BSP_GreenDigitalLed().Toggle();
-		}
-
-		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::KeyWakeup))
 		{
 			BSP_GreenDigitalLed().Toggle();
 		}
