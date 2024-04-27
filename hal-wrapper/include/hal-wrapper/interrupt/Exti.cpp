@@ -2,11 +2,16 @@
 
 using namespace hal;
 
+/// <summary>
+///		EXTI 中断函数的定义。
+///		* 记得在启动文件中删除这些符号的 weak 版本。
+/// </summary>
 extern "C"
 {
-	/* 这里直接模仿了 HAL 库的 HAL_GPIO_EXTI_IRQHandler 函数。注意，更新 HAL 库
-	* 后要记得查看 HAL_GPIO_EXTI_IRQHandler 函数是否变动。
-	*/
+	/// <summary>
+	///		这里直接模仿了 HAL 库的 HAL_GPIO_EXTI_IRQHandler 函数。注意，更新 HAL 库
+	///		后要记得查看 HAL_GPIO_EXTI_IRQHandler 函数是否变动。
+	/// </summary>
 	void EXTI0_IRQHandler()
 	{
 		if (!Exti::Instance().HasInterruptFlag(GpioPin::Pin0))
