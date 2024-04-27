@@ -6,11 +6,26 @@
 */
 
 // 这个头文件要最先包含，所以放到双引号里，避免 vs 的头文件排序把它放到后面去
-#include"stm32f1xx_hal.h"
-#include<core_cm3.h>
-#include<stm32f103xe.h>
-#include<stm32f1xx_hal_cortex.h>
-#include<stm32f1xx_hal_def.h>
-#include<stm32f1xx_hal_rcc.h>
-#include<stm32f1xx_hal_rcc_ex.h>
-#include<stm32f1xx_hal_uart.h>
+
+#ifdef __cplusplus
+extern "C" {
+	#endif // __cplusplus
+
+
+	#include"stm32f1xx_hal.h"
+	#include<core_cm3.h>
+	#include<stm32f103xe.h>
+	#include<stm32f1xx_hal_cortex.h>
+	#include<stm32f1xx_hal_def.h>
+	#include<stm32f1xx_hal_rcc.h>
+	#include<stm32f1xx_hal_rcc_ex.h>
+	#include<stm32f1xx_hal_uart.h>
+
+
+
+
+
+	#ifdef __cplusplus
+}
+#endif // __cplusplus
+
