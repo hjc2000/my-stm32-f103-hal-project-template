@@ -35,6 +35,14 @@ namespace hal
 			__HAL_GPIO_EXTI_CLEAR_IT((uint32_t)pin);
 		}
 
+		/// <summary>
+		///		检查指定的线是否有中断标志正被挂起。
+		/// </summary>
+		bool HasInterruptFlag(GpioPin pin)
+		{
+			return __HAL_GPIO_EXTI_GET_IT((uint32_t)pin);
+		}
+
 		std::function<void()> _on_exti0_interrupt;
 		std::function<void()> _on_exti1_interrupt;
 		std::function<void()> _on_exti2_interrupt;

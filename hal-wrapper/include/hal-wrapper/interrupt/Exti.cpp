@@ -5,94 +5,77 @@ using namespace hal;
 
 Exti::Exti()
 {
-	g_on_exti0_interrupt = []()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin0);
-	};
+	/* 这里直接模仿了 HAL 库的 HAL_GPIO_EXTI_IRQHandler 函数。注意，更新 HAL 库
+	* 后要记得查看 HAL_GPIO_EXTI_IRQHandler 函数是否变动。
+	*/
 
-	g_on_exti1_interrupt = []()
+	g_on_exti0_interrupt = [this]()
 	{
-		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin1);
-	};
-
-	g_on_exti2_interrupt = []()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin2);
-	};
-
-	g_on_exti3_interrupt = []()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin3);
-	};
-
-	g_on_exti4_interrupt = []()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin4);
-	};
-}
-
-/// <summary>
-///		中断处理函数。将中断处理转发到 ExtiInterruptHandler。
-/// </summary>
-extern "C"
-{
-	/// <summary>
-	///		覆盖 hal 中的 weak 版本。
-	/// </summary>
-	/// <param name="GPIO_Pin"></param>
-	void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-	{
-		switch ((GpioPin)GPIO_Pin)
+		if (!HasInterruptFlag(GpioPin::Pin0))
 		{
-		case GpioPin::Pin0:
-			{
-				if (Exti::Instance()._on_exti0_interrupt)
-				{
-					Exti::Instance()._on_exti0_interrupt();
-				}
-
-				break;
-			}
-		case GpioPin::Pin1:
-			{
-				if (Exti::Instance()._on_exti1_interrupt)
-				{
-					Exti::Instance()._on_exti1_interrupt();
-				}
-
-				break;
-			}
-		case GpioPin::Pin2:
-			{
-				if (Exti::Instance()._on_exti2_interrupt)
-				{
-					Exti::Instance()._on_exti2_interrupt();
-				}
-
-				break;
-			}
-		case GpioPin::Pin3:
-			{
-				if (Exti::Instance()._on_exti3_interrupt)
-				{
-					Exti::Instance()._on_exti3_interrupt();
-				}
-
-				break;
-			}
-		case GpioPin::Pin4:
-			{
-				if (Exti::Instance()._on_exti4_interrupt)
-				{
-					Exti::Instance()._on_exti4_interrupt();
-				}
-
-				break;
-			}
-		default:
-			{
-				break;
-			}
+			return;
 		}
-	}
+
+		ClearGpioInterruptPending(GpioPin::Pin0);
+		if (_on_exti0_interrupt)
+		{
+			_on_exti0_interrupt();
+		}
+	};
+
+	g_on_exti1_interrupt = [this]()
+	{
+		if (!HasInterruptFlag(GpioPin::Pin1))
+		{
+			return;
+		}
+
+		ClearGpioInterruptPending(GpioPin::Pin1);
+		if (_on_exti1_interrupt)
+		{
+			_on_exti1_interrupt();
+		}
+	};
+
+	g_on_exti2_interrupt = [this]()
+	{
+		if (!HasInterruptFlag(GpioPin::Pin2))
+		{
+			return;
+		}
+
+		ClearGpioInterruptPending(GpioPin::Pin2);
+		if (_on_exti2_interrupt)
+		{
+			_on_exti2_interrupt();
+		}
+	};
+
+	g_on_exti3_interrupt = [this]()
+	{
+		if (!HasInterruptFlag(GpioPin::Pin3))
+		{
+			return;
+		}
+
+		ClearGpioInterruptPending(GpioPin::Pin3);
+		if (_on_exti3_interrupt)
+		{
+			_on_exti3_interrupt();
+		}
+	};
+
+	g_on_exti4_interrupt = [this]()
+	{
+		if (!HasInterruptFlag(GpioPin::Pin4))
+		{
+			return;
+		}
+
+		ClearGpioInterruptPending(GpioPin::Pin4);
+		if (_on_exti4_interrupt)
+		{
+			_on_exti4_interrupt();
+		}
+	};
 }
