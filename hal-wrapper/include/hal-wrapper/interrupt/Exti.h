@@ -30,15 +30,15 @@ namespace hal
 		///		  中断。
 		/// </summary>
 		/// <param name="pin"></param>
-		static void ClearGpioInterruptPending(GpioPin pin)
+		void ClearGpioInterruptPending(GpioPin pin)
 		{
 			__HAL_GPIO_EXTI_CLEAR_IT((uint32_t)pin);
 		}
 
-		static std::function<void()> _on_exti0_interrupt;
-		static std::function<void()> _on_exti1_interrupt;
-		static std::function<void()> _on_exti2_interrupt;
-		static std::function<void()> _on_exti3_interrupt;
-		static std::function<void()> _on_exti4_interrupt;
+		std::function<void()> _on_exti0_interrupt;
+		std::function<void()> _on_exti1_interrupt;
+		std::function<void()> _on_exti2_interrupt;
+		std::function<void()> _on_exti3_interrupt;
+		std::function<void()> _on_exti4_interrupt;
 	};
 }

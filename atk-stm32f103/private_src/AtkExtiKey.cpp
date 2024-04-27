@@ -5,11 +5,11 @@ using namespace hal;
 
 ExtiKey0::ExtiKey0()
 {
-	Exti::_on_exti4_interrupt = [this]()
+	Exti::Instance()._on_exti4_interrupt = [this]()
 	{
 		Systic::NopLoopDelay(std::chrono::milliseconds(20));
 		_is_pressed = !Port().DigitalReadPin(Pin());
-		Exti::ClearGpioInterruptPending(Pin());
+		Exti::Instance().ClearGpioInterruptPending(Pin());
 	};
 
 	// 配置引脚
