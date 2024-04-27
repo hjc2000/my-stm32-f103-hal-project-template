@@ -3,9 +3,10 @@
 
 namespace hal
 {
-	#pragma region 枚举
 	/// <summary>
-	///		抢占优先级组
+	///		抢占优先级组。
+	///		* 抢占优先级组在 HAL_Init 函数中默认会设置成 NVIC_PRIORITYGROUP_2，
+	///		  如果接受这个值，就不需要自己去设置了。
 	/// </summary>
 	enum class PreemptionPriorityGroup
 	{
@@ -34,7 +35,6 @@ namespace hal
 		/// </summary>
 		Group4 = NVIC_PRIORITYGROUP_4,
 	};
-	#pragma endregion
 
 	/// <summary>
 	///		静态类。提供中断相关的操作。
