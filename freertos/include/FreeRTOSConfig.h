@@ -5,9 +5,6 @@ extern "C" {
 	#endif // _cplusplus
 
 
-
-
-	/* 头文件 */
 	#include <stdint.h>
 
 	uint32_t get_cpu_freq();

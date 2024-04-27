@@ -6,9 +6,7 @@ extern std::function<void()> _on_hard_fault;
 extern std::function<void()> _on_memory_nanage;
 extern std::function<void()> _on_bus_fault;
 extern std::function<void()> _on_usage_fault;
-extern std::function<void()> _on_svc;
 extern std::function<void()> _on_debug_mon;
-extern std::function<void()> _on_pend_sv;
 extern std::function<void()> _on_systic;
 
 /* 中断向量函数的定义。
@@ -30,8 +28,6 @@ extern "C"
 	void MemManage_Handler();
 	void BusFault_Handler();
 	void UsageFault_Handler();
-	void SVC_Handler();
 	void DebugMon_Handler();
-	void PendSV_Handler();
 	void SysTick_Handler();
 }

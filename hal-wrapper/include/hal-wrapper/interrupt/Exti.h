@@ -6,10 +6,16 @@ namespace hal
 {
 	class Exti
 	{
-		Exti() = delete;
-		Exti &operator=(Exti const &o) = delete;
+	private:
+		Exti() = default;
 
 	public:
+		static Exti &Instance()
+		{
+			static Exti o;
+			return o;
+		}
+
 		/// <summary>
 		///		清除某个 GPIO 引脚上的中断挂起标志。
 		///		- 所有 GPIO 端口的 pin0 连接到中断管理器的 line0，

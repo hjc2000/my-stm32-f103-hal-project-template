@@ -6,9 +6,7 @@ std::function<void()> _on_hard_fault;
 std::function<void()> _on_memory_nanage;
 std::function<void()> _on_bus_fault;
 std::function<void()> _on_usage_fault;
-std::function<void()> _on_svc;
 std::function<void()> _on_debug_mon;
-std::function<void()> _on_pend_sv;
 std::function<void()> _on_systic;
 
 /**
@@ -97,19 +95,6 @@ void UsageFault_Handler()
 }
 
 /**
-* @brief  This function handles SVCall exception.
-* @param  None
-* @retval None
-*/
-void SVC_Handler()
-{
-	if (_on_svc)
-	{
-		_on_svc();
-	}
-}
-
-/**
 * @brief  This function handles Debug Monitor exception.
 * @param  None
 * @retval None
@@ -119,19 +104,6 @@ void DebugMon_Handler()
 	if (_on_debug_mon)
 	{
 		_on_debug_mon();
-	}
-}
-
-/**
-* @brief  This function handles PendSVC exception.
-* @param  None
-* @retval None
-*/
-void PendSV_Handler()
-{
-	if (_on_pend_sv)
-	{
-		_on_pend_sv();
 	}
 }
 
