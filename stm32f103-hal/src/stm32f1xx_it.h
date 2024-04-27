@@ -1,13 +1,19 @@
 #pragma once
 #include<functional>
 
-extern std::function<void()> _on_nmi;
-extern std::function<void()> _on_hard_fault;
-extern std::function<void()> _on_memory_nanage;
-extern std::function<void()> _on_bus_fault;
-extern std::function<void()> _on_usage_fault;
-extern std::function<void()> _on_debug_mon;
-extern std::function<void()> _on_systic;
+extern std::function<void()> g_on_nmi;
+extern std::function<void()> g_on_hard_fault;
+extern std::function<void()> g_on_memory_nanage;
+extern std::function<void()> g_on_bus_fault;
+extern std::function<void()> g_on_usage_fault;
+extern std::function<void()> g_on_debug_mon;
+extern std::function<void()> g_on_systic;
+
+extern std::function<void()> g_on_exti0_interrupt;
+extern std::function<void()> g_on_exti1_interrupt;
+extern std::function<void()> g_on_exti2_interrupt;
+extern std::function<void()> g_on_exti3_interrupt;
+extern std::function<void()> g_on_exti4_interrupt;
 
 /* 中断向量函数的定义。
 *
@@ -30,4 +36,10 @@ extern "C"
 	void UsageFault_Handler();
 	void DebugMon_Handler();
 	void SysTick_Handler();
+
+	void EXTI0_IRQHandler();
+	void EXTI1_IRQHandler();
+	void EXTI2_IRQHandler();
+	void EXTI3_IRQHandler();
+	void EXTI4_IRQHandler();
 }

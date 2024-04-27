@@ -1,39 +1,41 @@
 #include"Exti.h"
+#include<stm32f1xx_it.h>
 
 using namespace hal;
+
+Exti::Exti()
+{
+	g_on_exti0_interrupt = []()
+	{
+		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin0);
+	};
+
+	g_on_exti1_interrupt = []()
+	{
+		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin1);
+	};
+
+	g_on_exti2_interrupt = []()
+	{
+		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin2);
+	};
+
+	g_on_exti3_interrupt = []()
+	{
+		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin3);
+	};
+
+	g_on_exti4_interrupt = []()
+	{
+		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin4);
+	};
+}
 
 /// <summary>
 ///		中断处理函数。将中断处理转发到 ExtiInterruptHandler。
 /// </summary>
 extern "C"
 {
-	#pragma region 中断向量表函数
-	void EXTI0_IRQHandler()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin0);
-	}
-
-	void EXTI1_IRQHandler()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin1);
-	}
-
-	void EXTI2_IRQHandler()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin2);
-	}
-
-	void EXTI3_IRQHandler()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin3);
-	}
-
-	void EXTI4_IRQHandler()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint32_t)GpioPin::Pin4);
-	}
-	#pragma endregion
-
 	/// <summary>
 	///		覆盖 hal 中的 weak 版本。
 	/// </summary>

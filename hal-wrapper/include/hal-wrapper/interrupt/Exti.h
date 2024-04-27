@@ -7,7 +7,7 @@ namespace hal
 	class Exti
 	{
 	private:
-		Exti() = default;
+		Exti();
 
 	public:
 		static Exti &Instance()
