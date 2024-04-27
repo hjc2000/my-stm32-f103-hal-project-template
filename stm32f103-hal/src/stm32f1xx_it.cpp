@@ -9,12 +9,6 @@ std::function<void()> g_on_usage_fault;
 std::function<void()> g_on_debug_mon;
 std::function<void()> g_on_systic;
 
-std::function<void()> g_on_exti0_interrupt;
-std::function<void()> g_on_exti1_interrupt;
-std::function<void()> g_on_exti2_interrupt;
-std::function<void()> g_on_exti3_interrupt;
-std::function<void()> g_on_exti4_interrupt;
-
 /**
 * @brief   This function handles NMI exception.
 * @param  None
@@ -126,44 +120,4 @@ void SysTick_Handler()
 	}
 
 	HAL_IncTick();
-}
-
-void EXTI0_IRQHandler()
-{
-	if (g_on_exti0_interrupt)
-	{
-		g_on_exti0_interrupt();
-	}
-}
-
-void EXTI1_IRQHandler()
-{
-	if (g_on_exti1_interrupt)
-	{
-		g_on_exti1_interrupt();
-	}
-}
-
-void EXTI2_IRQHandler()
-{
-	if (g_on_exti2_interrupt)
-	{
-		g_on_exti2_interrupt();
-	}
-}
-
-void EXTI3_IRQHandler()
-{
-	if (g_on_exti3_interrupt)
-	{
-		g_on_exti3_interrupt();
-	}
-}
-
-void EXTI4_IRQHandler()
-{
-	if (g_on_exti4_interrupt)
-	{
-		g_on_exti4_interrupt();
-	}
 }
