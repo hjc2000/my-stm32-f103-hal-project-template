@@ -8,7 +8,6 @@ Exti::Exti()
 	/* 这里直接模仿了 HAL 库的 HAL_GPIO_EXTI_IRQHandler 函数。注意，更新 HAL 库
 	* 后要记得查看 HAL_GPIO_EXTI_IRQHandler 函数是否变动。
 	*/
-
 	g_on_exti0_interrupt = [this]()
 	{
 		if (!HasInterruptFlag(GpioPin::Pin0))
