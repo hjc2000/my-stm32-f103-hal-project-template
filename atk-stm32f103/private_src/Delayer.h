@@ -16,24 +16,11 @@ namespace hal
 		Delayer &operator=(Delayer const &o) = delete;
 
 	public:
-		#pragma region 单例
 		static Delayer &Instance()
 		{
-			static Delayer delayer{};
-			if (_global_delayer != nullptr)
-			{
-				return *_global_delayer;
-			}
-
-			return delayer;
+			static Delayer o;
+			return o;
 		}
-
-		/// <summary>
-		///		设置后 Instance 方法将会返回此对象，否则会返回 Delayer
-		///		的默认实现。
-		/// </summary>
-		static Delayer *_global_delayer;
-		#pragma endregion
 
 		virtual void Delay(std::chrono::microseconds microseconds) override;
 		virtual void Delay(std::chrono::milliseconds milliseconds) override;

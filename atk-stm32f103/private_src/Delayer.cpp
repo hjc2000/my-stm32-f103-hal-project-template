@@ -3,8 +3,6 @@
 
 using namespace hal;
 
-Delayer *Delayer::_global_delayer = nullptr;
-
 void Delayer::Delay(std::chrono::microseconds microseconds)
 {
 	Systic::NopLoopDelay(microseconds);

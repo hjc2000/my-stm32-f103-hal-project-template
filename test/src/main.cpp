@@ -23,8 +23,8 @@ int main(void)
 	{
 		try
 		{
-			TestKeyScanner();
-			//TestExtiKey();
+			//TestKeyScanner();
+			TestExtiKey();
 			//TestUart1();
 			//TestIndependentWatchDog();
 			//TestWindowWatchDog();
