@@ -1,8 +1,5 @@
 #include"FreeRTOSConfig.h"
-#include<hal-wrapper/clock/Systic.h>
-
-using namespace std;
-using namespace hal;
+#include<hal.h>
 
 uint32_t get_cpu_freq()
 {

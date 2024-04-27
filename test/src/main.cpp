@@ -5,12 +5,6 @@
 #include<stdexcept>
 #include<string>
 
-extern "C"
-{
-	#include<FreeRTOS.h>
-	#include<task.h>
-}
-
 using namespace atk;
 using namespace bsp;
 
@@ -23,8 +17,8 @@ int main(void)
 	{
 		try
 		{
-			//TestKeyScanner();
-			TestExtiKey();
+			TestKeyScanner();
+			//TestExtiKey();
 			//TestUart1();
 			//TestIndependentWatchDog();
 			//TestWindowWatchDog();
