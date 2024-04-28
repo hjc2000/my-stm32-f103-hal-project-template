@@ -57,6 +57,10 @@ namespace atk
 		static bsp::IDigitalLed &RedDigitalLed();
 		static bsp::IDigitalLed &GreenDigitalLed();
 
+		/// <summary>
+		///		获取按键扫描器。
+		/// </summary>
+		/// <returns></returns>
 		static bsp::IKeyScanner &KeyScanner();
 
 		/// <summary>
