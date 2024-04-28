@@ -112,13 +112,3 @@ void Systic::NopLoopDelay(std::chrono::seconds seconds)
 {
 	NopLoopDelay(std::chrono::milliseconds{ seconds });
 }
-
-uint32_t get_cpu_freq()
-{
-	return SystemCoreClock;
-}
-
-uint32_t get_systic_clock_freq()
-{
-	return Systic::ClockSourceFreq();
-}

@@ -80,9 +80,3 @@ namespace hal
 		static void NopLoopDelay(std::chrono::seconds seconds);
 	};
 }
-
-extern "C"
-{
-	uint32_t get_cpu_freq();
-	uint32_t get_systic_clock_freq();
-}
