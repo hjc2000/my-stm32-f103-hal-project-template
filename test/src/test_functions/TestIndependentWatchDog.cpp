@@ -1,8 +1,6 @@
 #include"TestIndependentWatchDog.h"
 #include<atk-stm32f103/bsp.h>
 
-using namespace atk;
-
 void TestIndependentWatchDog()
 {
 	BSP::Delayer().Delay(std::chrono::milliseconds{ 500 });

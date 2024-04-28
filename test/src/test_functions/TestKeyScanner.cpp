@@ -2,7 +2,6 @@
 #include<atk-stm32f103/bsp.h>
 
 using namespace bsp;
-using namespace atk;
 
 void TestKeyScanner()
 {

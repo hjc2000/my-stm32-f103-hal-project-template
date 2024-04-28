@@ -51,7 +51,7 @@ void config_clock_signal()
 	}
 }
 
-void atk::BSP::Initialize()
+void BSP::Initialize()
 {
 	HAL_Init();
 	config_clock_source();
@@ -69,29 +69,29 @@ bsp::IDelayer &BSP::Delayer()
 	return hal::Delayer::Instance();
 }
 
-bsp::IIndependentWatchDog &atk::BSP::IndependentWatchDog()
+bsp::IIndependentWatchDog &BSP::IndependentWatchDog()
 {
 	return hal::IndependentWatchDog::Instance();
 }
 
-bsp::IDigitalLed &atk::BSP::RedDigitalLed()
+bsp::IDigitalLed &BSP::RedDigitalLed()
 {
-	return atk::RedDigitalLed::Instance();
+	return RedDigitalLed::Instance();
 }
 
-bsp::IDigitalLed &atk::BSP::GreenDigitalLed()
+bsp::IDigitalLed &BSP::GreenDigitalLed()
 {
-	return atk::GreenDigitalLed::Instance();
+	return GreenDigitalLed::Instance();
 }
 
-bsp::IKeyScanner &atk::BSP::KeyScanner()
+bsp::IKeyScanner &BSP::KeyScanner()
 {
 	static std::atomic_bool initialized = false;
 	static std::vector<bsp::IKey *> keys{ (size_t)KeyIndex::EnumEndFlag };
 	if (!initialized)
 	{
-		keys[(uint16_t)KeyIndex::Key0] = &atk::Key0::Instance();
-		keys[(uint16_t)KeyIndex::Key1] = &atk::Key1::Instance();
+		keys[(uint16_t)KeyIndex::Key0] = &Key0::Instance();
+		keys[(uint16_t)KeyIndex::Key1] = &Key1::Instance();
 	}
 
 	static bsp::KeyScanner key_scanner{ keys, hal::Delayer::Instance() };
@@ -101,9 +101,9 @@ bsp::IKeyScanner &atk::BSP::KeyScanner()
 	return key_scanner;
 }
 
-bsp::IEventDrivenKey &atk::BSP::WakeUpKey()
+bsp::IEventDrivenKey &BSP::WakeUpKey()
 {
-	return atk::ExtiKey0::Instance();
+	return ExtiKey0::Instance();
 }
 
 extern "C"

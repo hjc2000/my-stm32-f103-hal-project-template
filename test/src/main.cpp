@@ -7,7 +7,6 @@
 #include<string>
 #include<task.h>
 
-using namespace atk;
 using namespace bsp;
 
 //void TestUart1();
