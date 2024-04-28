@@ -89,8 +89,5 @@ namespace atk
 		#pragma endregion
 
 		void Begin(uint32_t baud_rate) override;
-
-		int32_t AvaliableToRead() override;
-		int32_t AvaliableToWrite() override;
 	};
 }

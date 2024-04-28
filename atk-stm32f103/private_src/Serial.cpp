@@ -148,13 +148,11 @@ void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 
 void Serial::Flush()
 {
-	// 等待 DMA 发送完成
 
 }
 
 void Serial::Close()
 {
-	// 串口反初始化
 
 }
 
@@ -165,6 +163,7 @@ int64_t Serial::Position()
 
 void Serial::SetPosition(int64_t value)
 {
+
 }
 #pragma endregion
 
@@ -186,19 +185,4 @@ void Serial::Begin(uint32_t baud_rate)
 	HAL_UART_Init(&_handle);
 	_handle.RxCpltCallback = OnReceiveCompleteCallback;
 	EnableReceiveInterrupt();
-}
-
-int32_t Serial::AvaliableToRead()
-{
-	// 返回循环缓冲区中的可用数据长度
-
-	return 0;
-}
-
-int32_t Serial::AvaliableToWrite()
-{
-	/* 返回发送缓冲区剩余的长度。
-	* 这里的缓冲区就是一个简单的数组，满了就调用 DMA 进行发送
-	*/
-	return 0;
 }
