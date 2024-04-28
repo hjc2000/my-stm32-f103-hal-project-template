@@ -14,4 +14,5 @@ target_link_libraries(
 	${ProjectName} PUBLIC
 	stm32f103-hal
 	bsp-interface
+	freertos
 )
