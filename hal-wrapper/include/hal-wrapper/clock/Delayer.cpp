@@ -52,5 +52,5 @@ void Delayer::Delay(std::chrono::milliseconds milliseconds)
 
 void Delayer::Delay(std::chrono::seconds seconds)
 {
-	Systic::NopLoopDelay(seconds);
+	Delay(std::chrono::milliseconds{ seconds });
 }
