@@ -4,12 +4,7 @@
 extern "C" {
 	#endif // _cplusplus
 
-
-	#include<hal.h>
 	#include<stdint.h>
-
-	#pragma region 声明外部函数
-	/* 外部函数。libfreertos 中不提供实现。链接到 libfreertos 的目标需要提供实现。 */
 
 	/// <summary>
 	///		获取 CPU 频率
@@ -22,7 +17,6 @@ extern "C" {
 	/// </summary>
 	/// <returns></returns>
 	uint32_t freertos_get_systic_clock_freq();
-	#pragma endregion
 
 	/* 1: 抢占式调度器, 0: 协程式调度器, 无默认需定义 */
 	#define configUSE_PREEMPTION                            1
@@ -213,7 +207,7 @@ extern "C" {
 	#pragma endregion
 
 	#pragma region 中断优先级
-	#define configPRIO_BITS __NVIC_PRIO_BITS
+	#define configPRIO_BITS		4
 
 	/* 中断最低优先级 */
 	#define configLIBRARY_LOWEST_INTERRUPT_PRIORITY         15

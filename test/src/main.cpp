@@ -1,9 +1,11 @@
+#include<FreeRTOS.h>
 #include<TestExtiKey.h>
 #include<TestIndependentWatchDog.h>
 #include<TestKeyScanner.h>
 #include<atk-stm32f103/bsp.h>
 #include<stdexcept>
 #include<string>
+#include<task.h>
 
 using namespace atk;
 using namespace bsp;
@@ -11,7 +13,7 @@ using namespace bsp;
 //void TestUart1();
 //void TestWindowWatchDog();
 
-int main(void)
+void startup_task(void *param)
 {
 	while (true)
 	{
@@ -28,6 +30,21 @@ int main(void)
 
 		}
 	}
+}
+
+int main(void)
+{
+	// usStackDepth 参数的单位不是字节，而是字。32 位 CPU 一个字是 4 字节。
+	xTaskCreate(
+		startup_task,
+		"startup_task",
+		128,
+		nullptr,
+		1,
+		nullptr
+	);
+
+	vTaskStartScheduler();
 }
 
 //void TestUart1()

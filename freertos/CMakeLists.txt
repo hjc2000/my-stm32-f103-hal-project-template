@@ -12,5 +12,5 @@ add_library(${ProjectName} STATIC)
 target_import_src(${ProjectName})
 target_link_libraries(
 	${ProjectName} PRIVATE
-	stm32f103-hal
+	hal-wrapper
 )

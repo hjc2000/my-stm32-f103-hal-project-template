@@ -1,6 +1,4 @@
 #include"Interrupt.h"
-#include<FreeRTOS.h>
-#include<task.h>
 
 using namespace hal;
 
@@ -92,16 +90,5 @@ extern "C"
 	void DebugMon_Handler()
 	{
 
-	}
-
-	extern void xPortSysTickHandler();
-
-	void SysTick_Handler()
-	{
-		HAL_IncTick();
-		if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED)
-		{
-			xPortSysTickHandler();
-		}
 	}
 }

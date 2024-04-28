@@ -1,14 +1,13 @@
-#include"freertos_clock_interface.h"
+#include"FreeRTOSConfig.h"
 #include<hal-wrapper/clock/Systic.h>
-
-using namespace hal;
+#include<hal.h>
 
 uint32_t freertos_get_cpu_freq()
 {
-	return SystemCoreClock;
+	return HAL_RCC_GetHCLKFreq();
 }
 
 uint32_t freertos_get_systic_clock_freq()
 {
-	return Systic::ClockSourceFreq();
+	return hal::Systic::ClockSourceFreq();
 }

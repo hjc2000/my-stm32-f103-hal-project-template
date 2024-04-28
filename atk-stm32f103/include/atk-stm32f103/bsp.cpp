@@ -1,15 +1,17 @@
 #include"bsp.h"
 #include<AtkExtiKey.h>
 #include<AtkKey.h>
+#include<Delayer.h>
 #include<DigitalLed.h>
+#include<FreeRTOS.h>
 #include<atomic>
 #include<bsp-interface/KeyScanner.h>
 #include<functional>
-#include<hal-wrapper/clock/Delayer.h>
 #include<hal-wrapper/clock/Osc.h>
 #include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/clock/clock-signal/ClockSignal.h>
 #include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
+#include<task.h>
 
 using namespace hal;
 using namespace atk;
@@ -97,4 +99,18 @@ bsp::IKeyScanner &atk::BSP_KeyScanner()
 bsp::IEventDrivenKey &atk::BSP_WakeUpKey()
 {
 	return atk::ExtiKey0::Instance();
+}
+
+extern "C"
+{
+	extern void xPortSysTickHandler();
+
+	void SysTick_Handler()
+	{
+		HAL_IncTick();
+		if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED)
+		{
+			xPortSysTickHandler();
+		}
+	}
 }
