@@ -8,6 +8,14 @@ using namespace hal;
 
 void Delayer::Delay(std::chrono::microseconds microseconds)
 {
+	// 大于 1000 的微秒转换为毫秒，利用 Delay(std::chrono::milliseconds milliseconds) 重载。
+	int64_t ms = microseconds.count() / 1000;
+	if (ms > 0)
+	{
+		Delay(std::chrono::milliseconds{ ms });
+	}
+
+	// 剩余的小于 1000 部分的微秒
 	Systic::NopLoopDelay(microseconds);
 }
 
@@ -46,11 +54,30 @@ void Delayer::Delay(std::chrono::milliseconds milliseconds)
 	int64_t count = milliseconds.count() * configTICK_RATE_HZ;
 	int64_t base = count / 1000;
 	int64_t mod = count % 1000;
-	vTaskDelay(base);
-	Systic::NopLoopDelay(std::chrono::milliseconds{ mod / configTICK_RATE_HZ });
+	if (base > 0)
+	{
+		vTaskDelay(base);
+	}
+
+	if (mod > 0)
+	{
+		Systic::NopLoopDelay(std::chrono::milliseconds{ mod / configTICK_RATE_HZ });
+	}
 }
 
 void Delayer::Delay(std::chrono::seconds seconds)
 {
 	Delay(std::chrono::milliseconds{ seconds });
+}
+
+extern "C"
+{
+	/// <summary>
+	///		重写 __weak 的 HAL_Delay 函数
+	/// </summary>
+	/// <param name="ms"></param>
+	void HAL_Delay(uint32_t ms)
+	{
+		Delayer::Instance().Delay(std::chrono::milliseconds{ ms });
+	}
 }

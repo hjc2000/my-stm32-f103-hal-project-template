@@ -112,8 +112,3 @@ void Systic::NopLoopDelay(std::chrono::seconds seconds)
 {
 	NopLoopDelay(std::chrono::milliseconds{ seconds });
 }
-
-void HAL_Delay(uint32_t Delay)
-{
-	Systic::NopLoopDelay(std::chrono::milliseconds{ Delay });
-}

@@ -80,12 +80,3 @@ namespace hal
 		static void NopLoopDelay(std::chrono::seconds seconds);
 	};
 }
-
-extern "C"
-{
-	/// <summary>
-	///		重写 __weak 的 HAL_Delay 函数
-	/// </summary>
-	/// <param name="Delay"></param>
-	void HAL_Delay(uint32_t Delay);
-}
