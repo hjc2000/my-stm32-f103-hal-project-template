@@ -9,14 +9,14 @@
 
 using namespace bsp;
 
-//void TestUart1();
+void TestUart1();
 //void TestWindowWatchDog();
 
 void startup_task(void *param)
 {
 	//TestKeyScanner();
-	TestExtiKey();
-	//TestUart1();
+	//TestExtiKey();
+	TestUart1();
 	//TestIndependentWatchDog();
 	//TestWindowWatchDog();
 }
@@ -48,26 +48,23 @@ int main(void)
 	}
 }
 
-//void TestUart1()
-//{
-//	BSP_Initialize();
-//	BSP_RedDigitalLed().TurnOn();
-//	Uart1::Instance().Initialize();
-//	Uart1::Instance()._on_receive_completed_interrupt = []()
-//	{
-//		BSP_RedDigitalLed().Toggle();
-//	};
-//
-//	std::string str = "hello world\n";
-//	while (1)
-//	{
-//		Delayer::Instance().Delay(std::chrono::seconds(1));
-//		Uart1::Instance().SendWithDma((uint8_t const *)(str.c_str()), str.length());
-//		Uart1::Instance().WaitForDmaTx();
-//		Uart1::Instance().PerepareForNextDmaTx();
-//	}
-//}
-//
+void TestUart1()
+{
+	BSP::RedDigitalLed().TurnOn();
+	BSP::Serial().Begin(115200);
+
+	std::string str = "hello world\n";
+	while (1)
+	{
+		BSP::Delayer().Delay(std::chrono::seconds(1));
+		BSP::Serial().Write(
+			(uint8_t const *)(str.c_str()),
+			0,
+			str.length()
+		);
+	}
+}
+
 //void TestWindowWatchDog()
 //{
 //	BSP_Initialize();

@@ -4,6 +4,7 @@
 #include<Delayer.h>
 #include<DigitalLed.h>
 #include<FreeRTOS.h>
+#include<Serial.h>
 #include<atomic>
 #include<bsp-interface/KeyScanner.h>
 #include<functional>
@@ -104,6 +105,11 @@ bsp::IKeyScanner &BSP::KeyScanner()
 bsp::IEventDrivenKey &BSP::WakeUpKey()
 {
 	return ExtiKey0::Instance();
+}
+
+bsp::ISerial &BSP::Serial()
+{
+	return Serial::Instance();
 }
 
 extern "C"
