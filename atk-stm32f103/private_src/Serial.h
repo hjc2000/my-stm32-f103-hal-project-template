@@ -67,6 +67,10 @@ namespace atk
 		bool CanWrite() override;
 		bool CanSeek() override;
 
+		/// <summary>
+		///		串口类中，流的 Length 属性的意义是当前接收缓冲区中的可读数据的长度。
+		/// </summary>
+		/// <returns></returns>
 		int64_t Length() override;
 		void SetLength(int64_t value) override;
 

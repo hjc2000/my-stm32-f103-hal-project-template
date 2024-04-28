@@ -8,6 +8,12 @@ namespace bsp
 	{
 	public:
 		/// <summary>
+		///		串口类中，流的 Length 属性的意义是当前接收缓冲区中的可读数据的长度。
+		/// </summary>
+		/// <returns></returns>
+		virtual int64_t Length() = 0;
+
+		/// <summary>
 		///		以指定的波特率启动串口。
 		/// </summary>
 		/// <param name="baud_rate"></param>
