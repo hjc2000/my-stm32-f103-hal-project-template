@@ -129,6 +129,7 @@ int64_t Serial::Length()
 
 void Serial::SetLength(int64_t value)
 {
+	// 不支持的操作
 }
 
 int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
@@ -148,12 +149,12 @@ void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 
 void Serial::Flush()
 {
-
+	// Write 方法利用 DMA 直接发送缓冲区，本类没有内部缓冲区，不需要冲洗。
 }
 
 void Serial::Close()
 {
-
+	// 什么都不做。串口启用后没必要关闭。
 }
 
 int64_t Serial::Position()
@@ -163,7 +164,7 @@ int64_t Serial::Position()
 
 void Serial::SetPosition(int64_t value)
 {
-
+	// 不支持的操作。
 }
 #pragma endregion
 

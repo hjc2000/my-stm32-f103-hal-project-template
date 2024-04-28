@@ -86,6 +86,10 @@ namespace atk
 		void Write(uint8_t const *buffer, int32_t offset, int32_t count) override;
 
 		void Flush() override;
+
+		/// <summary>
+		///		什么也不做。串口启用后没必要关闭。
+		/// </summary>
 		void Close() override;
 
 		int64_t Position() override;
