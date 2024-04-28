@@ -19,7 +19,7 @@ namespace bsp
 		/// <param name="baud_rate"></param>
 		virtual void Begin(uint32_t baud_rate) = 0;
 
-		void Print(std::string const &str);
+		void Print(std::string str);
 		void Print(char const *str);
 	};
 }

@@ -53,15 +53,10 @@ void TestUart1()
 	BSP::RedDigitalLed().TurnOn();
 	BSP::Serial().Begin(115200);
 
-	std::string str = "hello world\n";
 	while (1)
 	{
 		BSP::Delayer().Delay(std::chrono::seconds(1));
-		BSP::Serial().Write(
-			(uint8_t const *)(str.c_str()),
-			0,
-			str.length()
-		);
+		BSP::Serial().Print("hello world\n");
 	}
 }
 

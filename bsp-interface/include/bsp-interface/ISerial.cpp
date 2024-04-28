@@ -1,28 +1,27 @@
 #include"ISerial.h"
 
-void bsp::ISerial::Print(std::string const &str)
+void bsp::ISerial::Print(std::string str)
 {
 	Write((uint8_t *)(str.c_str()), 0, str.length());
 }
 
 void bsp::ISerial::Print(char const *str)
 {
-	uint32_t index = 0;
+	int32_t index_of_white_char = 0;
 	while (true)
 	{
-		if (index == (uint32_t)-1)
+		if (str[index_of_white_char] == '\0')
 		{
-			// 防止溢出后回到 0，然后进入无限循环
-			return;
+			break;
 		}
 
-		if (str[index] == '\0')
+		if (index_of_white_char == INT32_MAX)
 		{
-			// 访问到空字符，到达字符串末尾。
-			return;
+			break;
 		}
 
-		Write((uint8_t const *)(str), index, 1);
-		index++;
+		index_of_white_char++;
 	}
+
+	Write((uint8_t const *)(str), 0, index_of_white_char);
 }
