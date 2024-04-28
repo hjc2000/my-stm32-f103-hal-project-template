@@ -258,9 +258,6 @@ g_pfnVectors:
 *
 *******************************************************************************/
 
-  .weak WWDG_IRQHandler
-  .thumb_set WWDG_IRQHandler,Default_Handler
-
   .weak PVD_IRQHandler
   .thumb_set PVD_IRQHandler,Default_Handler
 
