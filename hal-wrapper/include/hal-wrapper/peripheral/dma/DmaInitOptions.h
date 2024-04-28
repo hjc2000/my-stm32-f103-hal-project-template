@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/peripheral/dma/DmaTypeDef.h>
+#include<hal-wrapper/peripheral/dma/DmaEnum.h>
 
 namespace hal
 {
