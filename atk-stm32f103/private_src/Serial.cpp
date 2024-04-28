@@ -78,32 +78,35 @@ void Serial::PerepareForNextDmaTx()
 
 void Serial::WaitForDmaTx(int32_t data_size)
 {
+	/*
+	* 当前正在发送的数据有 data_size 个字节，一个波特等于 1 个字节。
+	* 于是，data_size 个字节共需要的发送时间为
+	*	t = data_size / _baud_rate
+	* 单位：秒。
+	*
+	* 于是至少需要等待
+	*	ms = t * 1000
+	*	ms = data_size / _baud_rate * 1000
+	*	ms = data_size * 1000 / _baud_rate
+	*/
+	int64_t ms = data_size * 1000 / _baud_rate;
+	if (ms > 0)
+	{
+		BSP::Delayer().Delay(std::chrono::milliseconds{ ms });
+	}
+
+	/* 等待了合理的时间后，一般是即将发送完成了，剩下的时间就轮询标志位，
+	直到检测到发送成功。*/
 	while (true)
 	{
 		if (Uart1TxDmaChannel::Instance().TransferCompleted())
 		{
-			/* 当前正在发送的数据有 data_size 个字节，一个波特等于 1 个字节。
-			* 于是，data_size 个字节共需要的发送时间为
-			*	t = data_size / _baud_rate
-			* 单位：秒。
-			*
-			* 于是至少需要等待
-			*	ms = t * 1000
-			*	ms = data_size / _baud_rate * 1000
-			*	ms = data_size * 1000 / _baud_rate
-			*/
-
-			int64_t ms = data_size * 1000 / _baud_rate;
-			if (ms > 0)
-			{
-				BSP::Delayer().Delay(std::chrono::milliseconds{ ms });
-			}
-
 			return;
 		}
 	}
 }
 
+#pragma region Stream
 bool Serial::CanRead()
 {
 	return true;
@@ -138,7 +141,6 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 
 void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
-	// 发送采用一个缓冲区配合 DMA。DMA 没发送完就等待。
 	SendWithDma(buffer + offset, count);
 	WaitForDmaTx(count);
 	PerepareForNextDmaTx();
@@ -164,6 +166,7 @@ int64_t Serial::Position()
 void Serial::SetPosition(int64_t value)
 {
 }
+#pragma endregion
 
 void Serial::Begin(uint32_t baud_rate)
 {

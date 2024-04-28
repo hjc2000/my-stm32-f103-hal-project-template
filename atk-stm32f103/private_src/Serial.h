@@ -62,6 +62,7 @@ namespace atk
 			return o;
 		}
 
+		#pragma region Stream
 		bool CanRead() override;
 		bool CanWrite() override;
 		bool CanSeek() override;
@@ -85,6 +86,7 @@ namespace atk
 
 		int64_t Position() override;
 		void SetPosition(int64_t value) override;
+		#pragma endregion
 
 		void Begin(uint32_t baud_rate) override;
 
