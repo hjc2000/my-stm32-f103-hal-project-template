@@ -2,6 +2,7 @@
 #include<TestExtiKey.h>
 #include<TestIndependentWatchDog.h>
 #include<TestKeyScanner.h>
+#include<TestSerial.h>
 #include<atk-stm32f103/bsp.h>
 #include<stdexcept>
 #include<string>
@@ -9,14 +10,13 @@
 
 using namespace bsp;
 
-void TestUart1();
 //void TestWindowWatchDog();
 
 void startup_task(void *param)
 {
 	//TestKeyScanner();
 	//TestExtiKey();
-	TestUart1();
+	TestSerial();
 	//TestIndependentWatchDog();
 	//TestWindowWatchDog();
 }
@@ -45,18 +45,6 @@ int main(void)
 		{
 
 		}
-	}
-}
-
-void TestUart1()
-{
-	BSP::RedDigitalLed().TurnOn();
-	BSP::Serial().Begin(115200);
-
-	while (1)
-	{
-		BSP::Delayer().Delay(std::chrono::seconds(1));
-		BSP::Serial().Print("hello world\n");
 	}
 }
 
