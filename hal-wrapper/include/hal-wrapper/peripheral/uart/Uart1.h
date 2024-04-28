@@ -21,7 +21,7 @@ namespace hal
 		Uart1 &operator=(Uart1 const &value) = delete;
 
 		UART_HandleTypeDef _handle;
-		uint8_t _receive_buffer[1]{};
+		uint8_t _receive_buffer[1];
 		uint16_t _receive_buffer_size = 1;
 
 		bool IsClockEnabled() override;

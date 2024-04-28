@@ -1,10 +1,14 @@
 #pragma once
 #include<bsp-interface/ISerial.h>
+#include<memory>
 
 namespace bsp
 {
 	class Serial :public bsp::ISerial
 	{
+	private:
+		std::shared_ptr<uint8_t> _send_buffer{ new uint8_t[64] };
+
 	public:
 		bool CanRead() override;
 		bool CanWrite() override;

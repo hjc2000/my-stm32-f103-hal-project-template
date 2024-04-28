@@ -33,12 +33,6 @@ namespace hal
 		virtual UartCallbackFunc ReceiveCompleteInterruptCallbackFunc() = 0;
 		#pragma endregion
 
-		/// <summary>
-		///		派生类需要实现，返回自己的硬件串口实例。
-		/// </summary>
-		/// <returns></returns>
-		virtual USART_TypeDef *HardwareInstance() override = 0;
-
 		#pragma region 初始化
 		/// <summary>
 		///		初始化串口
