@@ -1,4 +1,6 @@
 #include"Interrupt.h"
+#include<FreeRTOS.h>
+#include<task.h>
 
 using namespace hal;
 
@@ -17,12 +19,13 @@ void hal::Interrupt::SetPriorityGroup(PreemptionPriorityGroup group)
 extern "C"
 {
 	/**
-	* @brief   This function handles NMI exception.
+	* @brief  This function handles NMI exception.
 	* @param  None
 	* @retval None
 	*/
 	void NMI_Handler()
 	{
+
 	}
 
 	/**
@@ -35,6 +38,7 @@ extern "C"
 		/* Go to infinite loop when Hard Fault exception occurs */
 		while (1)
 		{
+
 		}
 	}
 
@@ -48,6 +52,7 @@ extern "C"
 		/* Go to infinite loop when Memory Manage exception occurs */
 		while (1)
 		{
+
 		}
 	}
 
@@ -61,6 +66,7 @@ extern "C"
 		/* Go to infinite loop when Bus Fault exception occurs */
 		while (1)
 		{
+
 		}
 	}
 
@@ -74,6 +80,7 @@ extern "C"
 		/* Go to infinite loop when Usage Fault exception occurs */
 		while (1)
 		{
+
 		}
 	}
 
@@ -84,10 +91,17 @@ extern "C"
 	*/
 	void DebugMon_Handler()
 	{
+
 	}
+
+	extern void xPortSysTickHandler();
 
 	void SysTick_Handler()
 	{
 		HAL_IncTick();
+		if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED)
+		{
+			xPortSysTickHandler();
+		}
 	}
 }
