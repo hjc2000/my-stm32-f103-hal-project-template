@@ -1,4 +1,5 @@
 #include"Serial.h"
+#include<atk-stm32f103/bsp.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
 #include<hal-wrapper/peripheral/dma/Uart1TxDmaChannel.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
@@ -35,6 +36,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
 {
 	// 退出中断处理函数前要再次调用一次，否则之后就无法中断，无法接收了。
+	BSP::RedDigitalLed().Toggle();
 	Serial::Instance().EnableReceiveInterrupt();
 }
 
@@ -74,12 +76,29 @@ void Serial::PerepareForNextDmaTx()
 	}
 }
 
-void Serial::WaitForDmaTx()
+void Serial::WaitForDmaTx(int32_t data_size)
 {
 	while (true)
 	{
 		if (Uart1TxDmaChannel::Instance().TransferCompleted())
 		{
+			/* 当前正在发送的数据有 data_size 个字节，一个波特等于 1 个字节。
+			* 于是，data_size 个字节共需要的发送时间为
+			*	t = data_size / _baud_rate
+			* 单位：秒。
+			*
+			* 于是至少需要等待
+			*	ms = t * 1000
+			*	ms = data_size / _baud_rate * 1000
+			*	ms = data_size * 1000 / _baud_rate
+			*/
+
+			int64_t ms = data_size * 1000 / _baud_rate;
+			if (ms > 0)
+			{
+				BSP::Delayer().Delay(std::chrono::milliseconds{ ms });
+			}
+
 			return;
 		}
 	}
@@ -121,7 +140,7 @@ void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
 	// 发送采用一个缓冲区配合 DMA。DMA 没发送完就等待。
 	SendWithDma(buffer + offset, count);
-	WaitForDmaTx();
+	WaitForDmaTx(count);
 	PerepareForNextDmaTx();
 }
 
@@ -148,6 +167,7 @@ void Serial::SetPosition(int64_t value)
 
 void Serial::Begin(uint32_t baud_rate)
 {
+	_baud_rate = baud_rate;
 	UartInitOptions options;
 	options._baud_rate = baud_rate;
 

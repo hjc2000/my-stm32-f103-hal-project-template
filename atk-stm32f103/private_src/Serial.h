@@ -17,6 +17,7 @@ namespace atk
 	private:
 		Serial() = default;
 
+		uint32_t _baud_rate = 115200;
 		uint8_t _receive_buffer[1];
 		UART_HandleTypeDef _handle;
 		USART_TypeDef *_hardware_instance = USART1;
@@ -30,7 +31,7 @@ namespace atk
 		/// </summary>
 		void EnableReceiveInterrupt();
 		void PerepareForNextDmaTx();
-		void WaitForDmaTx();
+		void WaitForDmaTx(int32_t data_size);
 
 		/// <summary>
 		///		使用 DMA 发送数据。
