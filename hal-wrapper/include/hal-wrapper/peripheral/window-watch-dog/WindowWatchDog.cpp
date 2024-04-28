@@ -58,7 +58,10 @@ void hal::WindowWatchDog::DisableClock()
 	__HAL_RCC_WWDG_CLK_DISABLE();
 }
 
-void WWDG_IRQHandler()
+extern "C"
 {
-	HAL_WWDG_IRQHandler(WindowWatchDog::Instance().Handle());
+	void WWDG_IRQHandler()
+	{
+		HAL_WWDG_IRQHandler(WindowWatchDog::Instance().Handle());
+	}
 }

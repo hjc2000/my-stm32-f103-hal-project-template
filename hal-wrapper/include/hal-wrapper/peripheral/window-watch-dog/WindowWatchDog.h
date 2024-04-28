@@ -47,11 +47,3 @@ namespace hal
 		std::function<void()> _on_early_wakeup_interrupt;
 	};
 }
-
-extern "C"
-{
-	/// <summary>
-	///		中断向量函数
-	/// </summary>
-	void WWDG_IRQHandler();
-}
