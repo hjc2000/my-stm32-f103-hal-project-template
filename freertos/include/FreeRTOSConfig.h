@@ -6,8 +6,10 @@ extern "C" {
 
 
 	#include<hal.h>
-	#include <stdint.h>
+	#include<stdint.h>
 
+	uint32_t get_cpu_freq();
+	uint32_t get_systic_clock_freq();
 
 	/* 1: 抢占式调度器, 0: 协程式调度器, 无默认需定义 */
 	#define configUSE_PREEMPTION                            1
@@ -19,12 +21,8 @@ extern "C" {
 	#define configUSE_TICKLESS_IDLE                         0
 
 	/* 定义CPU主频, 单位: Hz, 无默认需定义 */
-	#define configCPU_CLOCK_HZ                              SystemCoreClock
-
-	/* 定义SysTick时钟频率，当SysTick时钟频率与内核时钟频率不同时才可以定义,
-	* 单位: Hz, 默认: 不定义
-	*/
-	#define configSYSTICK_CLOCK_HZ                          (configCPU_CLOCK_HZ / 8)
+	#define configCPU_CLOCK_HZ								get_cpu_freq()
+	#define configSYSTICK_CLOCK_HZ                          get_systic_clock_freq()
 
 	/* 定义系统时钟节拍频率, 单位: Hz, 无默认需定义 */
 	#define configTICK_RATE_HZ                              1000
@@ -225,18 +223,6 @@ extern "C" {
 	/* 断言 */
 	//#define vAssertCalled(char, int) printf("Error: %s, %d\r\n", char, int)
 	//#define configASSERT( x ) if( ( x ) == 0 ) vAssertCalled( __FILE__, __LINE__ )
-
-	/* FreeRTOS MPU 特殊定义 */
-	//#define configINCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS 0
-	//#define configTOTAL_MPU_REGIONS                                8
-	//#define configTEX_S_C_B_FLASH                                  0x07UL
-	//#define configTEX_S_C_B_SRAM                                   0x07UL
-	//#define configENFORCE_SYSTEM_CALLS_FROM_KERNEL_ONLY            1
-	//#define configALLOW_UNPRIVILEGED_CRITICAL_SECTIONS             1
-
-	/* ARMv8-M 安全侧端口相关定义。 */
-	//#define secureconfigMAX_SECURE_CONTEXTS         5
-
 
 
 
