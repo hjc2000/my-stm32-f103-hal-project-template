@@ -86,8 +86,7 @@ extern "C" {
 	/* 定义消息缓冲区中消息长度的数据类型, 默认: size_t */
 	#define configMESSAGE_BUFFER_LENGTH_TYPE                size_t
 
-	/* 内存分配相关定义 */
-
+	#pragma region 内存分配相关
 	/* 1: 支持静态申请内存, 默认: 0 */
 	#define configSUPPORT_STATIC_ALLOCATION                 0
 
@@ -102,6 +101,7 @@ extern "C" {
 
 	/* 1: 用户自行实现任务创建时使用的内存申请与释放函数, 默认: 0 */
 	#define configSTACK_ALLOCATION_FROM_SEPARATE_HEAP       0
+	#pragma endregion
 
 	#pragma region 钩子函数
 	/* 1: 使能空闲任务钩子函数, 无默认需定义  */
@@ -120,7 +120,7 @@ extern "C" {
 	#define configUSE_DAEMON_TASK_STARTUP_HOOK              0
 	#pragma endregion
 
-		/* 运行时间和任务状态统计相关定义 */
+	#pragma region 运行时间和任务状态统计
 	#define configGENERATE_RUN_TIME_STATS                   0                       /* 1: 使能任务运行时间统计功能, 默认: 0 */
 	#if configGENERATE_RUN_TIME_STATS
 	#include "./BSP/TIMER/btim.h"
@@ -130,6 +130,7 @@ extern "C" {
 	#endif
 	#define configUSE_TRACE_FACILITY                        1                       /* 1: 使能可视化跟踪调试, 默认: 0 */
 	#define configUSE_STATS_FORMATTING_FUNCTIONS            1                       /* 1: configUSE_TRACE_FACILITY为1时，会编译vTaskList()和vTaskGetRunTimeStats()函数, 默认: 0 */
+	#pragma endregion
 
 	#pragma region 协程
 	/* 1: 启用协程, 默认: 0 */
@@ -147,8 +148,7 @@ extern "C" {
 	#define configTIMER_QUEUE_LENGTH                        5                               /* 定义软件定时器命令队列的长度, 无默认configUSE_TIMERS为1时需定义 */
 	#define configTIMER_TASK_STACK_DEPTH                    ( configMINIMAL_STACK_SIZE * 2) /* 定义软件定时器任务的栈空间大小, 无默认configUSE_TIMERS为1时需定义 */
 
-	/* 可选函数, 1: 使能 */
-
+	#pragma region 可选功能
 	/* 设置任务优先级 */
 	#define INCLUDE_vTaskPrioritySet                        1
 
@@ -170,26 +170,49 @@ extern "C" {
 	/* 任务延时 */
 	#define INCLUDE_vTaskDelay                              1
 
-	/* 获取任务调度器状态 */
+	// 获取调度器运行状态
 	#define INCLUDE_xTaskGetSchedulerState                  1
-	#define INCLUDE_xTaskGetCurrentTaskHandle               1                       /* 获取当前任务的任务句柄 */
-	#define INCLUDE_uxTaskGetStackHighWaterMark             1                       /* 获取任务堆栈历史剩余最小值 */
-	#define INCLUDE_xTaskGetIdleTaskHandle                  1                       /* 获取空闲任务的任务句柄 */
-	#define INCLUDE_eTaskGetState                           1                       /* 获取任务状态 */
-	#define INCLUDE_xEventGroupSetBitFromISR                1                       /* 在中断中设置事件标志位 */
-	#define INCLUDE_xTimerPendFunctionCall                  1                       /* 将函数的执行挂到定时器服务任务 */
-	#define INCLUDE_xTaskAbortDelay                         1                       /* 中断任务延时 */
-	#define INCLUDE_xTaskGetHandle                          1                       /* 通过任务名获取任务句柄 */
-	#define INCLUDE_xTaskResumeFromISR                      1                       /* 恢复在中断中挂起的任务 */
 
-	/* 中断嵌套行为配置 */
+	/* 获取当前任务的任务句柄 */
+	#define INCLUDE_xTaskGetCurrentTaskHandle               1
+
+	/* 获取任务堆栈历史剩余最小值 */
+	#define INCLUDE_uxTaskGetStackHighWaterMark             1
+
+	/* 获取空闲任务的任务句柄 */
+	#define INCLUDE_xTaskGetIdleTaskHandle                  1
+
+	/* 获取任务状态 */
+	#define INCLUDE_eTaskGetState                           1
+
+	/* 在中断中设置事件标志位 */
+	#define INCLUDE_xEventGroupSetBitFromISR                1
+
+	/* 将函数的执行挂到定时器服务任务 */
+	#define INCLUDE_xTimerPendFunctionCall                  1
+
+	/* 中断任务延时 */
+	#define INCLUDE_xTaskAbortDelay                         1
+
+	/* 通过任务名获取任务句柄 */
+	#define INCLUDE_xTaskGetHandle                          1
+
+	/* 恢复在中断中挂起的任务 */
+	#define INCLUDE_xTaskResumeFromISR                      1
+	#pragma endregion
+
+	#pragma region 中断优先级
 	#define configPRIO_BITS __NVIC_PRIO_BITS
 
-	#define configLIBRARY_LOWEST_INTERRUPT_PRIORITY         15                  /* 中断最低优先级 */
-	#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY    5                   /* FreeRTOS可管理的最高中断优先级 */
+	/* 中断最低优先级 */
+	#define configLIBRARY_LOWEST_INTERRUPT_PRIORITY         15
+
+	/* FreeRTOS可管理的最高中断优先级 */
+	#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY    5
 	#define configKERNEL_INTERRUPT_PRIORITY                 ( configLIBRARY_LOWEST_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
 	#define configMAX_SYSCALL_INTERRUPT_PRIORITY            ( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
 	#define configMAX_API_CALL_INTERRUPT_PRIORITY           configMAX_SYSCALL_INTERRUPT_PRIORITY
+	#pragma endregion
 
 	#pragma region FreeRTOS中断服务函数
 	/* 定义成与启动文件中中断向量表所引用的函数一样的名称。HAL 提供的启动文件中是 PendSV_Handler */
