@@ -28,7 +28,7 @@ int main(void)
 	{
 		try
 		{
-			BSP_Initialize();
+			BSP::Initialize();
 
 			// usStackDepth 参数的单位不是字节，而是字。32 位 CPU 一个字是 4 字节。
 			xTaskCreate(

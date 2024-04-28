@@ -8,15 +8,15 @@ void TestKeyScanner()
 {
 	while (1)
 	{
-		BSP_KeyScanner().ScanKeys();
-		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key0))
+		BSP::KeyScanner().ScanKeys();
+		if (BSP::KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key0))
 		{
-			BSP_RedDigitalLed().Toggle();
+			BSP::RedDigitalLed().Toggle();
 		}
 
-		if (BSP_KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
+		if (BSP::KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key1))
 		{
-			BSP_GreenDigitalLed().Toggle();
+			BSP::GreenDigitalLed().Toggle();
 		}
 	}
 }

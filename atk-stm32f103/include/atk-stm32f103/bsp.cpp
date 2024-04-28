@@ -51,7 +51,7 @@ void config_clock_signal()
 	}
 }
 
-void atk::BSP_Initialize()
+void atk::BSP::Initialize()
 {
 	HAL_Init();
 	config_clock_source();
@@ -59,27 +59,32 @@ void atk::BSP_Initialize()
 	hal::Systic::SetClockSource(hal::SysticClockSource::HCLK_DIV8);
 }
 
-bsp::IDelayer &atk::BSP_Delayer()
+void BSP::SystemReset()
+{
+	Interrupt::SystemReset();
+}
+
+bsp::IDelayer &BSP::Delayer()
 {
 	return hal::Delayer::Instance();
 }
 
-bsp::IIndependentWatchDog &atk::BSP_IndependentWatchDog()
+bsp::IIndependentWatchDog &atk::BSP::IndependentWatchDog()
 {
 	return hal::IndependentWatchDog::Instance();
 }
 
-bsp::IDigitalLed &atk::BSP_RedDigitalLed()
+bsp::IDigitalLed &atk::BSP::RedDigitalLed()
 {
 	return atk::RedDigitalLed::Instance();
 }
 
-bsp::IDigitalLed &atk::BSP_GreenDigitalLed()
+bsp::IDigitalLed &atk::BSP::GreenDigitalLed()
 {
 	return atk::GreenDigitalLed::Instance();
 }
 
-bsp::IKeyScanner &atk::BSP_KeyScanner()
+bsp::IKeyScanner &atk::BSP::KeyScanner()
 {
 	static std::atomic_bool initialized = false;
 	static std::vector<bsp::IKey *> keys{ (size_t)KeyIndex::EnumEndFlag };
@@ -96,7 +101,7 @@ bsp::IKeyScanner &atk::BSP_KeyScanner()
 	return key_scanner;
 }
 
-bsp::IEventDrivenKey &atk::BSP_WakeUpKey()
+bsp::IEventDrivenKey &atk::BSP::WakeUpKey()
 {
 	return atk::ExtiKey0::Instance();
 }

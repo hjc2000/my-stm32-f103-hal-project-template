@@ -5,14 +5,14 @@ using namespace atk;
 
 void TestExtiKey()
 {
-	BSP_RedDigitalLed().TurnOn();
+	BSP::RedDigitalLed().TurnOn();
 	while (1)
 	{
-		if (BSP_WakeUpKey().IsPressed())
+		if (BSP::WakeUpKey().IsPressed())
 		{
-			BSP_RedDigitalLed().Toggle();
-			BSP_GreenDigitalLed().Toggle();
-			BSP_WakeUpKey().ClearPressedFlag();
+			BSP::RedDigitalLed().Toggle();
+			BSP::GreenDigitalLed().Toggle();
+			BSP::WakeUpKey().ClearPressedFlag();
 		}
 	}
 }
