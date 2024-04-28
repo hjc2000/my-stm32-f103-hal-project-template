@@ -1,6 +1,6 @@
 #include"ISerial.h"
 
-void bsp::ISerial::Print(std::string str)
+void bsp::ISerial::Print(std::string const &str)
 {
 	Write((uint8_t *)(str.c_str()), 0, str.length());
 }
