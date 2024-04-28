@@ -1,8 +1,6 @@
 #pragma once
 #include<functional>
 #include<hal-wrapper/IClockSwitchable.h>
-#include<hal-wrapper/IHandleWrapper.h>
-#include<hal-wrapper/IHardwareInstanceWrapper.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
 #include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDogInitOptions.h>
 
@@ -11,8 +9,6 @@ namespace hal
 	using WindowWatchDogInitCallbackFunc = void(*)(WWDG_HandleTypeDef *handle);
 
 	class WindowWatchDog :
-		public hal::IHandleWrapper<WWDG_HandleTypeDef>,
-		public hal::IHardwareInstanceWrapper<WWDG_TypeDef>,
 		public hal::IClockSwitchable
 	{
 		WWDG_HandleTypeDef _handle;
@@ -21,8 +17,8 @@ namespace hal
 		void DisableClock() override;
 
 	public:
-		WWDG_HandleTypeDef *Handle() override;
-		WWDG_TypeDef *HardwareInstance() override;
+		WWDG_HandleTypeDef *Handle();
+		WWDG_TypeDef *HardwareInstance();
 
 		WindowWatchDogInitCallbackFunc MspInitCallbackFunc();
 		WindowWatchDogInitCallbackFunc EarlyWakeUpInterruptCallbackFunc();

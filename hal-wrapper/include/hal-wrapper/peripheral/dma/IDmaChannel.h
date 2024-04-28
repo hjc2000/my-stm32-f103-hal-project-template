@@ -1,6 +1,4 @@
 #pragma once
-#include<hal-wrapper/IHandleWrapper.h>
-#include<hal-wrapper/IHardwareInstanceWrapper.h>
 #include<hal-wrapper/peripheral/dma/DmaInitOptions.h>
 
 namespace hal
@@ -8,11 +6,17 @@ namespace hal
 	/// <summary>
 	///		DMA 通道抽象类
 	/// </summary>
-	class IDmaChannel :
-		public IHardwareInstanceWrapper<DMA_Channel_TypeDef>,
-		public IHandleWrapper<DMA_HandleTypeDef>
+	class IDmaChannel
 	{
 	public:
+		virtual DMA_Channel_TypeDef *HardwareInstance() = 0;
+
+		/// <summary>
+		///		本对象内部的 DMA_HandleTypeDef 句柄对象的指针。
+		/// </summary>
+		/// <returns></returns>
+		virtual DMA_HandleTypeDef *Handle() = 0;
+
 		/// <summary>
 		///		DMA 传输完成。
 		/// </summary>

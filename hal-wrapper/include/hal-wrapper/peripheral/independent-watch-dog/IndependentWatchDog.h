@@ -1,8 +1,6 @@
 #pragma once
 #include<bsp-interface/IIndependentWatchDog.h>
 #include<chrono>
-#include<hal-wrapper/IHandleWrapper.h>
-#include<hal-wrapper/IHardwareInstanceWrapper.h>
 #include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDogInitOptions.h>
 
 namespace hal
@@ -13,8 +11,6 @@ namespace hal
 	///		  在系统时钟失效时仍然能工作。
 	/// </summary>
 	class IndependentWatchDog :
-		public IHandleWrapper<IWDG_HandleTypeDef>,
-		public IHardwareInstanceWrapper<IWDG_TypeDef>,
 		public bsp::IIndependentWatchDog
 	{
 	private:
@@ -28,12 +24,12 @@ namespace hal
 			return o;
 		}
 
-		IWDG_HandleTypeDef *Handle() override
+		IWDG_HandleTypeDef *Handle()
 		{
 			return &_handle;
 		}
 
-		IWDG_TypeDef *HardwareInstance() override
+		IWDG_TypeDef *HardwareInstance()
 		{
 			return IWDG;
 		}

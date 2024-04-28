@@ -23,12 +23,6 @@ namespace hal
 
 		DMA_Channel_TypeDef *HardwareInstance() override;
 
-		static Uart1TxDmaChannel &Instance()
-		{
-			static Uart1TxDmaChannel o;
-			return o;
-		}
-
 		/// <summary>
 		///		本对象内部的 DMA_HandleTypeDef 句柄对象的指针。
 		/// </summary>
@@ -36,6 +30,12 @@ namespace hal
 		DMA_HandleTypeDef *Handle() override
 		{
 			return &_handle;
+		}
+
+		static Uart1TxDmaChannel &Instance()
+		{
+			static Uart1TxDmaChannel o;
+			return o;
 		}
 	};
 }
