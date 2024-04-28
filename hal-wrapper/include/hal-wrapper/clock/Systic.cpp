@@ -89,9 +89,18 @@ void Systic::NopLoopDelayForTicks(uint32_t tick_count)
 
 void Systic::NopLoopDelay(std::chrono::microseconds microseconds)
 {
-	uint32_t count = microseconds.count();
 	uint32_t freq = ClockSourceFreq();
-	NopLoopDelayForTicks(freq / (uint32_t)1e6 * count);
+
+	/*
+	* 时钟周期 T = 1 / freq
+	* 要延时的周期数
+	*	N = microseconds / 1e6 / T
+	*	N = microseconds / 1e6 * freq
+	* 因为 freq 较大，所以调整为
+	*	N = freq / 1e6 * microseconds
+	* 这样可避免溢出
+	*/
+	NopLoopDelayForTicks(freq / (uint32_t)1e6 * microseconds.count());
 }
 
 void Systic::NopLoopDelay(std::chrono::milliseconds milliseconds)

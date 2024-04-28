@@ -43,7 +43,8 @@ namespace hal
 		static void SetClockSource(SysticClockSource value);
 
 		/// <summary>
-		///		获取 systick 的时钟源频率
+		///		获取 systick 的时钟源频率。
+		///		* 这是最终输入到计数器的频率，后面没有任何分频器。
 		/// </summary>
 		/// <returns></returns>
 		static uint32_t ClockSourceFreq();
