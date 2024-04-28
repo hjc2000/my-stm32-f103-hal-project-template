@@ -5,7 +5,6 @@ using namespace atk;
 
 void TestIndependentWatchDog()
 {
-	BSP_Initialize();
 	BSP_Delayer().Delay(std::chrono::milliseconds(500));
 	BSP_RedDigitalLed().TurnOn();
 	BSP_IndependentWatchDog().SetWatchDogTimeoutDuration(std::chrono::milliseconds(1000));

@@ -5,7 +5,6 @@ using namespace atk;
 
 void TestExtiKey()
 {
-	BSP_Initialize();
 	BSP_RedDigitalLed().TurnOn();
 	while (1)
 	{

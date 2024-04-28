@@ -6,7 +6,6 @@ using namespace atk;
 
 void TestKeyScanner()
 {
-	BSP_Initialize();
 	while (1)
 	{
 		BSP_KeyScanner().ScanKeys();

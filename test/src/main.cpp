@@ -15,36 +15,38 @@ using namespace bsp;
 
 void startup_task(void *param)
 {
+	//TestKeyScanner();
+	TestExtiKey();
+	//TestUart1();
+	//TestIndependentWatchDog();
+	//TestWindowWatchDog();
+}
+
+int main(void)
+{
 	while (true)
 	{
 		try
 		{
-			//TestKeyScanner();
-			TestExtiKey();
-			//TestUart1();
-			//TestIndependentWatchDog();
-			//TestWindowWatchDog();
+			BSP_Initialize();
+
+			// usStackDepth 参数的单位不是字节，而是字。32 位 CPU 一个字是 4 字节。
+			xTaskCreate(
+				startup_task,
+				"startup_task",
+				128,
+				nullptr,
+				1,
+				nullptr
+			);
+
+			vTaskStartScheduler();
 		}
 		catch (...)
 		{
 
 		}
 	}
-}
-
-int main(void)
-{
-	// usStackDepth 参数的单位不是字节，而是字。32 位 CPU 一个字是 4 字节。
-	xTaskCreate(
-		startup_task,
-		"startup_task",
-		128,
-		nullptr,
-		1,
-		nullptr
-	);
-
-	vTaskStartScheduler();
 }
 
 //void TestUart1()
