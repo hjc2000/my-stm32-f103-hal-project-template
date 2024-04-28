@@ -14,14 +14,12 @@ namespace hal
 	private:
 		DMA_HandleTypeDef _handle;
 
-		bool IsClockEnabled() override;
-		void EnableClock() override;
-		void DisableClock() override;
-
 	public:
 		Uart1TxDmaChannel();
 
-		DMA_Channel_TypeDef *HardwareInstance() override;
+		bool IsClockEnabled() override;
+		void EnableClock() override;
+		void DisableClock() override;
 
 		/// <summary>
 		///		本对象内部的 DMA_HandleTypeDef 句柄对象的指针。

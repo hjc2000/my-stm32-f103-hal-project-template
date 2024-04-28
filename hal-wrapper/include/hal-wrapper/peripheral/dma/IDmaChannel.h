@@ -9,8 +9,6 @@ namespace hal
 	class IDmaChannel
 	{
 	public:
-		virtual DMA_Channel_TypeDef *HardwareInstance() = 0;
-
 		/// <summary>
 		///		本对象内部的 DMA_HandleTypeDef 句柄对象的指针。
 		/// </summary>
