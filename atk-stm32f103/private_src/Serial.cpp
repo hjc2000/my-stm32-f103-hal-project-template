@@ -73,7 +73,6 @@ void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
 void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 {
 	//Serial::Instance()._send_complete_signal.ReleaseFromISR();
-	//BSP::GreenDigitalLed().TurnOn();
 }
 
 void Serial::EnableReceiveInterrupt()
@@ -162,9 +161,9 @@ void Serial::Begin(uint32_t baud_rate)
 	_uart_handle.ErrorCallback = [](UART_HandleTypeDef *huart) {};
 
 	// 启用中断
-	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 15, 0);
+	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 10, 0);
 	Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
-	//Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 15, 0);
+	//Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 10, 0);
 	//Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
 	EnableReceiveInterrupt();
 }
