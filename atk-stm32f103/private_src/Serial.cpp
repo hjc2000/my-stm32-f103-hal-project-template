@@ -17,7 +17,6 @@ void USART1_IRQHandler()
 void DMA1_Channel4_IRQHandler()
 {
 	HAL_DMA_IRQHandler(&Serial::Instance()._dma_handle);
-	BSP::GreenDigitalLed().Toggle();
 }
 
 void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
@@ -61,7 +60,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 
 	// 连接到 DMA 发送通道
 	Serial::Instance()._uart_handle.hdmatx = &Serial::Instance()._dma_handle;
-	Serial::Instance()._dma_handle.Parent = Serial::Instance()._uart_handle.hdmatx;
+	Serial::Instance()._dma_handle.Parent = &Serial::Instance()._uart_handle;
 }
 
 void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
@@ -73,7 +72,7 @@ void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
 
 void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 {
-	//Serial::Instance()._send_complete_signal.ReleaseFromISR();
+	Serial::Instance()._send_complete_signal.ReleaseFromISR();
 }
 
 void Serial::EnableReceiveInterrupt()
@@ -118,8 +117,8 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
 	SendWithDma(buffer + offset, count);
-	//_send_complete_signal.Acquire();
-	BSP::Delayer().Delay(std::chrono::seconds{ 1 });
+	_send_complete_signal.Acquire();
+	BSP::GreenDigitalLed().Toggle();
 	CloseDma();
 }
 
