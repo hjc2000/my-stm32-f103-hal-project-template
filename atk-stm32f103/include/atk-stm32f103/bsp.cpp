@@ -54,6 +54,7 @@ void config_clock_signal()
 
 void BSP::Initialize()
 {
+	// HAL_Init 函数已经将中断优先级分组设置为 4 了。
 	HAL_Init();
 	config_clock_source();
 	config_clock_signal();

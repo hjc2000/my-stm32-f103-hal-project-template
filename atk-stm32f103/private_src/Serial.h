@@ -20,6 +20,7 @@ namespace atk
 
 		uint32_t _baud_rate = 115200;
 		uint8_t _receive_buffer[1];
+
 		UART_HandleTypeDef _uart_handle;
 		DMA_HandleTypeDef _dma_handle;
 		USART_TypeDef *_uart_hardware_instance = USART1;
