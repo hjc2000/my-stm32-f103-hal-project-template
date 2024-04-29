@@ -43,6 +43,7 @@ int main(void)
 		}
 		catch (std::exception const &e)
 		{
+			BSP::Serial().ErrorReport("main 函数中捕获到逃逸的异常。");
 			BSP::Serial().ErrorReport(e.what());
 		}
 		catch (...)
