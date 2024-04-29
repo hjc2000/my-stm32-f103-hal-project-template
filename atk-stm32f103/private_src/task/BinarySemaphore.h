@@ -19,8 +19,8 @@ namespace bsp
 		~BinarySemaphore();
 
 		void Release();
+		void ReleaseFromISR();
 		void Acquire();
 		bool TryAcquire(TickType_t ticks = 0);
-		void ReleaseFromISR();
 	};
 }

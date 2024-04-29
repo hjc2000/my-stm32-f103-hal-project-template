@@ -21,6 +21,11 @@ void bsp::BinarySemaphore::Release()
 	xSemaphoreGive(handle);
 }
 
+void bsp::BinarySemaphore::ReleaseFromISR()
+{
+	xSemaphoreGiveFromISR(handle, &_higher_priority_task_woken);
+}
+
 void bsp::BinarySemaphore::Acquire()
 {
 	xSemaphoreTake(handle, portMAX_DELAY);
@@ -29,9 +34,4 @@ void bsp::BinarySemaphore::Acquire()
 bool bsp::BinarySemaphore::TryAcquire(TickType_t ticks)
 {
 	return xSemaphoreTake(handle, ticks) == pdTRUE;
-}
-
-void bsp::BinarySemaphore::ReleaseFromISR()
-{
-	xSemaphoreGiveFromISR(handle, &_higher_priority_task_woken);
 }
