@@ -16,19 +16,30 @@ void USART1_IRQHandler()
 
 void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 {
-	GpioPortA::Instance().EnableClock();
-	__HAL_RCC_USART1_CLK_ENABLE();
+	auto init_gpio = []()
+	{
+		GpioPortA::Instance().EnableClock();
+		__HAL_RCC_USART1_CLK_ENABLE();
 
-	// 发送引脚 PA9
-	GpioPinInitOptions options;
-	options._mode = GpioPinMode::AlternateFunction_PushPull;
-	options._pull_mode = GpioPinPull::PullUp;
-	options._speed = GpioPinSpeed::High;
-	GpioPortA::Instance().InitPin(GpioPin::Pin9, options);
+		// 发送引脚 PA9
+		GpioPinInitOptions options;
+		options._mode = GpioPinMode::AlternateFunction_PushPull;
+		options._pull_mode = GpioPinPull::PullUp;
+		options._speed = GpioPinSpeed::High;
+		GpioPortA::Instance().InitPin(GpioPin::Pin9, options);
 
-	// 接收引脚 PA10
-	options._mode = GpioPinMode::AlternateFunction_Input;
-	GpioPortA::Instance().InitPin(GpioPin::Pin10, options);
+		// 接收引脚 PA10
+		options._mode = GpioPinMode::AlternateFunction_Input;
+		GpioPortA::Instance().InitPin(GpioPin::Pin10, options);
+	};
+
+	auto init_dma = []()
+	{
+
+	};
+
+	init_gpio();
+	init_dma();
 
 	// 启用中断
 	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 3, 3);
@@ -50,39 +61,6 @@ void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 void Serial::EnableReceiveInterrupt()
 {
 	HAL_UART_Receive_IT(&_handle, _receive_buffer, sizeof(_receive_buffer));
-}
-
-void Serial::WaitForDmaTx(int32_t data_size)
-{
-	/*
-	* 当前正在发送的数据有 data_size 个字节，一个波特等于 1 个字节。
-	* 于是，data_size 个字节共需要的发送时间为
-	*	t = data_size / _baud_rate
-	* 单位：秒。
-	*
-	* 于是至少需要等待
-	*	ms = t * 1000
-	* 单位：毫秒。
-	*	ms = data_size / _baud_rate * 1000
-	*	ms = data_size * 1000 / _baud_rate
-	*/
-	int64_t ms = data_size * 1000 / _baud_rate;
-	if (ms > 0)
-	{
-		BSP::Delayer().Delay(std::chrono::milliseconds{ ms });
-	}
-
-	/* 等待了合理的时间后，一般是即将发送完成了，但也可能因为误差还没发送完，
-	* 剩下的时间就轮询标志位，直到检测到发送成功。
-	*/
-	while (true)
-	{
-		if (Uart1TxDmaChannel::Instance().TransferCompleted())
-		{
-			// 轮询直到发送完成才返回
-			return;
-		}
-	}
 }
 
 #pragma region Stream

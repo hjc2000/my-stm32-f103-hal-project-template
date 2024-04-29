@@ -34,7 +34,6 @@ namespace atk
 		///		每次在中断中接收数据后，接收中断都会被禁用，此时需要调用本函数重新启用。
 		/// </summary>
 		void EnableReceiveInterrupt();
-		void WaitForDmaTx(int32_t data_size);
 
 		/// <summary>
 		///		使用 DMA 发送数据。
