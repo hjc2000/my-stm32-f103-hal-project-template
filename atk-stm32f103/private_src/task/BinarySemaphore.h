@@ -5,6 +5,9 @@
 
 namespace bsp
 {
+	/// <summary>
+	///		包装 freertos 的二进制信号量。
+	/// </summary>
 	class BinarySemaphore
 	{
 	private:
