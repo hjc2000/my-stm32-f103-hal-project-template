@@ -1,4 +1,5 @@
 #pragma once
+#include<atomic>
 #include<bsp-interface/ISerial.h>
 #include<hal-wrapper/peripheral/uart/UartInitOptions.h>
 #include<hal.h>
@@ -25,6 +26,9 @@ namespace atk
 		friend void ::USART1_IRQHandler();
 		static void OnMspInitCallback(UART_HandleTypeDef *huart);
 		static void OnReceiveCompleteCallback(UART_HandleTypeDef *huart);
+
+		std::atomic_bool _send_complete = true;
+		static void OnSendCompleteCallback(UART_HandleTypeDef *huart);
 
 		/// <summary>
 		///		每次在中断中接收数据后，接收中断都会被禁用，此时需要调用本函数重新启用。

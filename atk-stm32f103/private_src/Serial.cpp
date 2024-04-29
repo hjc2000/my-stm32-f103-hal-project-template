@@ -1,8 +1,10 @@
 #include"Serial.h"
+#include<FreeRTOS.h>
 #include<atk-stm32f103/bsp.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
 #include<hal-wrapper/peripheral/dma/Uart1TxDmaChannel.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
+#include<task.h>
 
 using namespace hal;
 using namespace atk;
@@ -38,6 +40,11 @@ void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
 	// 退出中断处理函数前要再次调用一次，否则之后就无法中断，无法接收了。
 	BSP::RedDigitalLed().Toggle();
 	Serial::Instance().EnableReceiveInterrupt();
+}
+
+void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
+{
+	Serial::Instance()._send_complete = true;
 }
 
 void Serial::EnableReceiveInterrupt()
@@ -115,7 +122,11 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
 	SendWithDma(buffer + offset, count);
-	WaitForDmaTx(count);
+	while (!_send_complete)
+	{
+		taskYIELD();
+	}
+
 	CloseDma();
 }
 
@@ -157,5 +168,6 @@ void Serial::Begin(uint32_t baud_rate)
 	// 启动
 	HAL_UART_Init(&_handle);
 	_handle.RxCpltCallback = OnReceiveCompleteCallback;
+	_handle.TxCpltCallback = OnSendCompleteCallback;
 	EnableReceiveInterrupt();
 }
