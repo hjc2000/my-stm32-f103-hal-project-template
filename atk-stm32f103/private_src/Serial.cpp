@@ -67,7 +67,7 @@ void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
 
 void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 {
-	Serial::Instance()._send_complete = true;
+	Serial::Instance()._send_complete_signal.ReleaseFromISR();
 }
 
 void Serial::EnableReceiveInterrupt()
@@ -112,11 +112,7 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
 	SendWithDma(buffer + offset, count);
-	while (!_send_complete)
-	{
-		taskYIELD();
-	}
-
+	_send_complete_signal.Acquire();
 	CloseDma();
 }
 

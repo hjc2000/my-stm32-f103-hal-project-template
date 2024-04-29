@@ -1,4 +1,5 @@
 #pragma once
+#include<BinarySemaphore.h>
 #include<atomic>
 #include<bsp-interface/ISerial.h>
 #include<hal-wrapper/peripheral/uart/UartInitOptions.h>
@@ -30,7 +31,7 @@ namespace atk
 		static void OnMspInitCallback(UART_HandleTypeDef *huart);
 		static void OnReceiveCompleteCallback(UART_HandleTypeDef *huart);
 
-		std::atomic_bool _send_complete = true;
+		BinarySemaphore _send_complete_signal;
 		static void OnSendCompleteCallback(UART_HandleTypeDef *huart);
 
 		/// <summary>

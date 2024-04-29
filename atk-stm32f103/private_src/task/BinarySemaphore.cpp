@@ -1,6 +1,6 @@
 #include"BinarySemaphore.h"
 
-using namespace bsp;
+using namespace atk;
 
 BinarySemaphore::BinarySemaphore()
 {
@@ -16,22 +16,22 @@ BinarySemaphore::~BinarySemaphore()
 	vSemaphoreDelete(handle);
 }
 
-void bsp::BinarySemaphore::Release()
+void BinarySemaphore::Release()
 {
 	xSemaphoreGive(handle);
 }
 
-void bsp::BinarySemaphore::ReleaseFromISR()
+void BinarySemaphore::ReleaseFromISR()
 {
 	xSemaphoreGiveFromISR(handle, &_higher_priority_task_woken);
 }
 
-void bsp::BinarySemaphore::Acquire()
+void BinarySemaphore::Acquire()
 {
 	xSemaphoreTake(handle, portMAX_DELAY);
 }
 
-bool bsp::BinarySemaphore::TryAcquire(TickType_t ticks)
+bool BinarySemaphore::TryAcquire(TickType_t ticks)
 {
 	return xSemaphoreTake(handle, ticks) == pdTRUE;
 }
