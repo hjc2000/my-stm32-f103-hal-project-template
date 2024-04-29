@@ -2,7 +2,7 @@
 #include<stdint.h>
 #include<vector>
 
-namespace jc
+namespace bsp
 {
 	/// <summary>
 	///		进制转换器
@@ -39,6 +39,4 @@ namespace jc
 		/// <returns></returns>
 		static std::vector<uint8_t> To8421BCD(uint64_t num);
 	};
-
-	void TestBaseConverter();
 }

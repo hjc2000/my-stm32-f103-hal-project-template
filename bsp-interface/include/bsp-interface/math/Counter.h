@@ -2,7 +2,7 @@
 #include<stdexcept>
 #include<stdint.h>
 
-namespace jc
+namespace bsp
 {
 	/// <summary>
 	///		计数器。计数到最大值后会归 0.
@@ -154,6 +154,4 @@ namespace jc
 			_count = value % (_max_value + 1);
 		}
 	};
-
-	void TestCounter();
 }
