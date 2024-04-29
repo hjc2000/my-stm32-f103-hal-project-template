@@ -12,6 +12,7 @@ namespace bsp
 	{
 	private:
 		SemaphoreHandle_t handle;
+		BaseType_t _higher_priority_task_woken = pdFALSE;
 
 	public:
 		BinarySemaphore();
@@ -20,6 +21,6 @@ namespace bsp
 		void Release();
 		void Acquire();
 		bool TryAcquire(TickType_t ticks = 0);
-		void ReleaseFromISR(BaseType_t *higherPriorityTaskWoken);
+		void ReleaseFromISR();
 	};
 }

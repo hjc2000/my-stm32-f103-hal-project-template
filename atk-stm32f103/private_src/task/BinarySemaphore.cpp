@@ -31,7 +31,7 @@ bool bsp::BinarySemaphore::TryAcquire(TickType_t ticks)
 	return xSemaphoreTake(handle, ticks) == pdTRUE;
 }
 
-void bsp::BinarySemaphore::ReleaseFromISR(BaseType_t *higherPriorityTaskWoken)
+void bsp::BinarySemaphore::ReleaseFromISR()
 {
-	xSemaphoreGiveFromISR(handle, higherPriorityTaskWoken);
+	xSemaphoreGiveFromISR(handle, &_higher_priority_task_woken);
 }
