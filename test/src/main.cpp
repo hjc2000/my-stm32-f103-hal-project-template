@@ -43,8 +43,7 @@ int main(void)
 		}
 		catch (std::exception const &e)
 		{
-			std::string error_str = e.what();
-			BSP::Serial().ErrorReport(error_str.c_str());
+			BSP::Serial().ErrorReport(e.what());
 		}
 		catch (...)
 		{
