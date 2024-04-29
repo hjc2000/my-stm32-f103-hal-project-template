@@ -41,6 +41,11 @@ int main(void)
 
 			vTaskStartScheduler();
 		}
+		catch (std::exception const &e)
+		{
+			std::string error_str = e.what();
+			BSP::Serial().ErrorReport(error_str.c_str());
+		}
 		catch (...)
 		{
 
