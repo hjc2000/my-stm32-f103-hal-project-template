@@ -2,7 +2,7 @@
 #include<FreeRTOS.h>
 #include<atk-stm32f103/bsp.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
-#include<hal-wrapper/peripheral/dma/Uart1TxDmaChannel.h>
+#include<hal-wrapper/peripheral/dma/DmaInitOptions.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
 #include<task.h>
 
@@ -11,7 +11,7 @@ using namespace atk;
 
 void USART1_IRQHandler()
 {
-	HAL_UART_IRQHandler(&Serial::Instance()._handle);
+	HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
 }
 
 void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
@@ -33,13 +33,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 		GpioPortA::Instance().InitPin(GpioPin::Pin10, options);
 	};
 
-	auto init_dma = []()
-	{
-
-	};
-
 	init_gpio();
-	init_dma();
 
 	// 启用中断
 	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 3, 3);
@@ -60,7 +54,24 @@ void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 
 void Serial::EnableReceiveInterrupt()
 {
-	HAL_UART_Receive_IT(&_handle, _receive_buffer, sizeof(_receive_buffer));
+	HAL_UART_Receive_IT(&_uart_handle, _receive_buffer, sizeof(_receive_buffer));
+}
+
+void atk::Serial::InitDma()
+{
+	__HAL_RCC_DMA1_CLK_ENABLE();
+	hal::DmaInitOptions options;
+	options._direction = DmaDataTransferDirection::MemoryToPeripheral;
+	options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
+	options._mem_inc_mode = DmaMemoryIncMode::Enable;
+	options._peripheral_data_alignment = PeripheralDataAlignment::Byte;
+	options._mem_data_alignment = MemoryDataAlignment::Byte;
+	options._mode = DmaMode::Normal;
+	options._priority = DmaPriority::Medium;
+
+	_dma_handle.Instance = DMA1_Channel4;
+	_dma_handle.Init = options;
+	HAL_DMA_Init(&Serial::Instance()._dma_handle);
 }
 
 #pragma region Stream
@@ -135,17 +146,18 @@ void Serial::Begin(uint32_t baud_rate)
 	UartInitOptions options;
 	options._baud_rate = baud_rate;
 
-	_handle.Instance = _hardware_instance;
-	_handle.Init = options;
-	_handle.MspInitCallback = OnMspInitCallback;
+	_uart_handle.Instance = _uart_hardware_instance;
+	_uart_handle.Init = options;
+	_uart_handle.MspInitCallback = OnMspInitCallback;
 
 	// 连接到 DMA 发送通道
-	_handle.hdmatx = Uart1TxDmaChannel::Instance().Handle();
-	Uart1TxDmaChannel::Instance().Handle()->Parent = _handle.hdmatx;
+	InitDma();
+	_uart_handle.hdmatx = &_dma_handle;
+	_dma_handle.Parent = _uart_handle.hdmatx;
 
 	// 启动
-	HAL_UART_Init(&_handle);
-	_handle.RxCpltCallback = OnReceiveCompleteCallback;
-	_handle.TxCpltCallback = OnSendCompleteCallback;
+	HAL_UART_Init(&_uart_handle);
+	_uart_handle.RxCpltCallback = OnReceiveCompleteCallback;
+	_uart_handle.TxCpltCallback = OnSendCompleteCallback;
 	EnableReceiveInterrupt();
 }

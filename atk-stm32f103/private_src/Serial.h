@@ -20,8 +20,10 @@ namespace atk
 
 		uint32_t _baud_rate = 115200;
 		uint8_t _receive_buffer[1];
-		UART_HandleTypeDef _handle;
-		USART_TypeDef *_hardware_instance = USART1;
+		UART_HandleTypeDef _uart_handle;
+		DMA_HandleTypeDef _dma_handle;
+		USART_TypeDef *_uart_hardware_instance = USART1;
+		DMA_Channel_TypeDef *_dma_channel_hardware_instance = DMA1_Channel4;
 
 		friend void ::USART1_IRQHandler();
 		static void OnMspInitCallback(UART_HandleTypeDef *huart);
@@ -35,6 +37,8 @@ namespace atk
 		/// </summary>
 		void EnableReceiveInterrupt();
 
+		void InitDma();
+
 		/// <summary>
 		///		使用 DMA 发送数据。
 		///		- 调用后，可以使用 WaitForDmaTx 方法来等待发送完成。
@@ -45,7 +49,7 @@ namespace atk
 		HAL_StatusTypeDef SendWithDma(uint8_t const *buffer, uint16_t size)
 		{
 			// HAL_UART_Transmit_DMA 函数内部会使能 DMA 发送完成中断。
-			return HAL_UART_Transmit_DMA(&_handle, buffer, size);
+			return HAL_UART_Transmit_DMA(&_uart_handle, buffer, size);
 		}
 
 		/// <summary>
@@ -55,7 +59,7 @@ namespace atk
 		/// </summary>
 		void CloseDma()
 		{
-			HAL_UART_DMAStop(&_handle);
+			HAL_UART_DMAStop(&_uart_handle);
 		}
 
 	public:
