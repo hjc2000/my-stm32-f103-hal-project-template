@@ -38,9 +38,10 @@ namespace atk
 		/// </summary>
 		/// <param name="buffer"></param>
 		/// <param name="size"></param>
-		/// <returns></returns>
+		/// <returns>如果上一次的发送任务还没完成，会返回 HAL_BUSY。</returns>
 		HAL_StatusTypeDef SendWithDma(uint8_t const *buffer, uint16_t size)
 		{
+			// HAL_UART_Transmit_DMA 函数内部会使能 DMA 发送完成中断。
 			return HAL_UART_Transmit_DMA(&_handle, buffer, size);
 		}
 

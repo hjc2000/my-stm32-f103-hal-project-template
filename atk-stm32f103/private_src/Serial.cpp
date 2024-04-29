@@ -55,6 +55,7 @@ void Serial::WaitForDmaTx(int32_t data_size)
 	*
 	* 于是至少需要等待
 	*	ms = t * 1000
+	* 单位：毫秒。
 	*	ms = data_size / _baud_rate * 1000
 	*	ms = data_size * 1000 / _baud_rate
 	*/
@@ -64,8 +65,9 @@ void Serial::WaitForDmaTx(int32_t data_size)
 		BSP::Delayer().Delay(std::chrono::milliseconds{ ms });
 	}
 
-	/* 等待了合理的时间后，一般是即将发送完成了，剩下的时间就轮询标志位，
-	直到检测到发送成功。*/
+	/* 等待了合理的时间后，一般是即将发送完成了，但也可能因为误差还没发送完，
+	* 剩下的时间就轮询标志位，直到检测到发送成功。
+	*/
 	while (true)
 	{
 		if (Uart1TxDmaChannel::Instance().TransferCompleted())
