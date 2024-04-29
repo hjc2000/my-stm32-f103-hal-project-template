@@ -14,6 +14,11 @@ void USART1_IRQHandler()
 	HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
 }
 
+void DMA1_Channel4_IRQHandler()
+{
+	HAL_DMA_IRQHandler(&Serial::Instance()._dma_handle);
+}
+
 void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 {
 	auto init_gpio = []()
@@ -68,6 +73,7 @@ void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
 void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 {
 	Serial::Instance()._send_complete_signal.ReleaseFromISR();
+	BSP::GreenDigitalLed().TurnOn();
 }
 
 void Serial::EnableReceiveInterrupt()
@@ -112,7 +118,8 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
 	SendWithDma(buffer + offset, count);
-	_send_complete_signal.Acquire();
+	//_send_complete_signal.Acquire();
+	BSP::Delayer().Delay(std::chrono::seconds{ 1 });
 	CloseDma();
 }
 
@@ -155,5 +162,7 @@ void Serial::Begin(uint32_t baud_rate)
 	// 启用中断
 	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 15, 0);
 	Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
+	//Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 15, 0);
+	//Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
 	EnableReceiveInterrupt();
 }

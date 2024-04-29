@@ -9,6 +9,7 @@
 extern "C"
 {
 	void USART1_IRQHandler();
+	void DMA1_Channel4_IRQHandler();
 }
 
 namespace atk
@@ -28,6 +29,7 @@ namespace atk
 		DMA_Channel_TypeDef *_dma_channel_hardware_instance = DMA1_Channel4;
 
 		friend void ::USART1_IRQHandler();
+		friend void ::DMA1_Channel4_IRQHandler();
 		static void OnMspInitCallback(UART_HandleTypeDef *huart);
 		static void OnReceiveCompleteCallback(UART_HandleTypeDef *huart);
 
