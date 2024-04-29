@@ -17,6 +17,7 @@ void USART1_IRQHandler()
 void DMA1_Channel4_IRQHandler()
 {
 	HAL_DMA_IRQHandler(&Serial::Instance()._dma_handle);
+	BSP::GreenDigitalLed().Toggle();
 }
 
 void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
@@ -163,7 +164,7 @@ void Serial::Begin(uint32_t baud_rate)
 	// 启用中断
 	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 10, 0);
 	Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
-	//Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 10, 0);
-	//Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
+	Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 10, 0);
+	Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
 	EnableReceiveInterrupt();
 }

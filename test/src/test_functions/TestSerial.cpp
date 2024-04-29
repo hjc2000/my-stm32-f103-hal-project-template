@@ -9,6 +9,5 @@ void TestSerial()
 	{
 		BSP::Delayer().Delay(std::chrono::seconds(1));
 		BSP::Serial().Print("测试文本\n");
-		BSP::GreenDigitalLed().Toggle();
 	}
 }
