@@ -38,8 +38,6 @@ namespace atk
 		/// </summary>
 		void EnableReceiveInterrupt();
 
-		void InitDma();
-
 		/// <summary>
 		///		使用 DMA 发送数据。
 		///		- 调用后，可以使用 WaitForDmaTx 方法来等待发送完成。

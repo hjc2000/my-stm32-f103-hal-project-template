@@ -33,11 +33,29 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 		GpioPortA::Instance().InitPin(GpioPin::Pin10, options);
 	};
 
-	init_gpio();
+	auto init_dma = []()
+	{
+		__HAL_RCC_DMA1_CLK_ENABLE();
+		hal::DmaInitOptions options;
+		options._direction = DmaDataTransferDirection::MemoryToPeripheral;
+		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
+		options._mem_inc_mode = DmaMemoryIncMode::Enable;
+		options._peripheral_data_alignment = PeripheralDataAlignment::Byte;
+		options._mem_data_alignment = MemoryDataAlignment::Byte;
+		options._mode = DmaMode::Normal;
+		options._priority = DmaPriority::Medium;
 
-	// 启用中断
-	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 3, 3);
-	Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
+		Serial::Instance()._dma_handle.Instance = DMA1_Channel4;
+		Serial::Instance()._dma_handle.Init = options;
+		HAL_DMA_Init(&Serial::Instance()._dma_handle);
+	};
+
+	init_gpio();
+	init_dma();
+
+	// 连接到 DMA 发送通道
+	Serial::Instance()._uart_handle.hdmatx = &Serial::Instance()._dma_handle;
+	Serial::Instance()._dma_handle.Parent = Serial::Instance()._uart_handle.hdmatx;
 }
 
 void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
@@ -55,23 +73,6 @@ void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 void Serial::EnableReceiveInterrupt()
 {
 	HAL_UART_Receive_IT(&_uart_handle, _receive_buffer, sizeof(_receive_buffer));
-}
-
-void atk::Serial::InitDma()
-{
-	__HAL_RCC_DMA1_CLK_ENABLE();
-	hal::DmaInitOptions options;
-	options._direction = DmaDataTransferDirection::MemoryToPeripheral;
-	options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
-	options._mem_inc_mode = DmaMemoryIncMode::Enable;
-	options._peripheral_data_alignment = PeripheralDataAlignment::Byte;
-	options._mem_data_alignment = MemoryDataAlignment::Byte;
-	options._mode = DmaMode::Normal;
-	options._priority = DmaPriority::Medium;
-
-	_dma_handle.Instance = DMA1_Channel4;
-	_dma_handle.Init = options;
-	HAL_DMA_Init(&Serial::Instance()._dma_handle);
 }
 
 #pragma region Stream
@@ -150,14 +151,13 @@ void Serial::Begin(uint32_t baud_rate)
 	_uart_handle.Init = options;
 	_uart_handle.MspInitCallback = OnMspInitCallback;
 
-	// 连接到 DMA 发送通道
-	InitDma();
-	_uart_handle.hdmatx = &_dma_handle;
-	_dma_handle.Parent = _uart_handle.hdmatx;
-
 	// 启动
 	HAL_UART_Init(&_uart_handle);
 	_uart_handle.RxCpltCallback = OnReceiveCompleteCallback;
 	_uart_handle.TxCpltCallback = OnSendCompleteCallback;
+
+	// 启用中断
+	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 15, 0);
+	Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
 	EnableReceiveInterrupt();
 }
