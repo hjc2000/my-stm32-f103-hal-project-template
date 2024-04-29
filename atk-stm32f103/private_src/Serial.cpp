@@ -9,6 +9,7 @@
 using namespace hal;
 using namespace atk;
 
+#pragma region 中断处理函数
 void USART1_IRQHandler()
 {
 	HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
@@ -18,6 +19,7 @@ void DMA1_Channel4_IRQHandler()
 {
 	HAL_DMA_IRQHandler(&Serial::Instance()._dma_handle);
 }
+#pragma endregion
 
 void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 {
@@ -116,10 +118,9 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 
 void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
-	SendWithDma(buffer + offset, count);
 	_send_complete_signal.Acquire();
 	BSP::GreenDigitalLed().Toggle();
-	CloseDma();
+	SendWithDma(buffer + offset, count);
 }
 
 void Serial::Flush()
@@ -145,6 +146,12 @@ void Serial::SetPosition(int64_t value)
 
 void Serial::Begin(uint32_t baud_rate)
 {
+	/* 先立刻释放一次信号量，等会 Write 方法被调用时直接通过，不被阻塞。
+	* 然后在发送完成之前，第二次 Write 就会被阻塞了，这还能防止 Write
+	* 被多线程同时调用。
+	*/
+	_send_complete_signal.Release();
+
 	_baud_rate = baud_rate;
 	UartInitOptions options;
 	options._baud_rate = baud_rate;
