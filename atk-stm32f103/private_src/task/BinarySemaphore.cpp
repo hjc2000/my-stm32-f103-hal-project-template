@@ -1,6 +1,6 @@
 #include"BinarySemaphore.h"
 
-using namespace atk;
+using namespace task;
 
 BinarySemaphore::BinarySemaphore()
 {

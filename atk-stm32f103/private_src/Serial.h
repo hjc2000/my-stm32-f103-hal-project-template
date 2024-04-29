@@ -31,7 +31,7 @@ namespace atk
 		static void OnMspInitCallback(UART_HandleTypeDef *huart);
 		static void OnReceiveCompleteCallback(UART_HandleTypeDef *huart);
 
-		BinarySemaphore _send_complete_signal;
+		task::BinarySemaphore _send_complete_signal;
 		static void OnSendCompleteCallback(UART_HandleTypeDef *huart);
 
 		/// <summary>

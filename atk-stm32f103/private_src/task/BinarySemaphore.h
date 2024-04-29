@@ -3,7 +3,7 @@
 #include"semphr.h"
 #include<stdexcept>
 
-namespace atk
+namespace task
 {
 	/// <summary>
 	///		包装 freertos 的二进制信号量。
