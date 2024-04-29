@@ -45,37 +45,6 @@ void Serial::EnableReceiveInterrupt()
 	HAL_UART_Receive_IT(&_handle, _receive_buffer, sizeof(_receive_buffer));
 }
 
-void Serial::PerepareForNextDmaTx()
-{
-	Uart1TxDmaChannel::Instance().ClearTransferCompletedFlag();
-
-	uint32_t dmarequest = 0x00U;
-	/* The Lock is not implemented on this API to allow the user application
-	to call the HAL UART API under callbacks HAL_UART_TxCpltCallback() / HAL_UART_RxCpltCallback():
-	when calling HAL_DMA_Abort() API the DMA TX/RX Transfer complete interrupt is generated
-	and the correspond call back is executed HAL_UART_TxCpltCallback() / HAL_UART_RxCpltCallback()
-	*/
-
-	/* Stop UART DMA Tx request if ongoing */
-	dmarequest = HAL_IS_BIT_SET(_hardware_instance->CR3, USART_CR3_DMAT);
-	if ((_handle.gState == HAL_UART_STATE_BUSY_TX) && dmarequest)
-	{
-		CLEAR_BIT(_hardware_instance->CR3, USART_CR3_DMAT);
-
-		/* Abort the UART DMA Tx channel */
-		if (_handle.hdmatx != NULL)
-		{
-			HAL_DMA_Abort(_handle.hdmatx);
-		}
-
-		/* Disable TXEIE and TCIE interrupts */
-		CLEAR_BIT(_hardware_instance->CR1, (USART_CR1_TXEIE | USART_CR1_TCIE));
-
-		/* At end of Tx process, restore Handle()->gState to Ready */
-		_handle.gState = HAL_UART_STATE_READY;
-	}
-}
-
 void Serial::WaitForDmaTx(int32_t data_size)
 {
 	/*
@@ -101,6 +70,7 @@ void Serial::WaitForDmaTx(int32_t data_size)
 	{
 		if (Uart1TxDmaChannel::Instance().TransferCompleted())
 		{
+			// 轮询直到发送完成才返回
 			return;
 		}
 	}
@@ -144,7 +114,7 @@ void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
 	SendWithDma(buffer + offset, count);
 	WaitForDmaTx(count);
-	PerepareForNextDmaTx();
+	CloseDma();
 }
 
 void Serial::Flush()

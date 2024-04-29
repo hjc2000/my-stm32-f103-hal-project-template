@@ -30,7 +30,6 @@ namespace atk
 		///		每次在中断中接收数据后，接收中断都会被禁用，此时需要调用本函数重新启用。
 		/// </summary>
 		void EnableReceiveInterrupt();
-		void PerepareForNextDmaTx();
 		void WaitForDmaTx(int32_t data_size);
 
 		/// <summary>
@@ -75,8 +74,8 @@ namespace atk
 		void SetLength(int64_t value) override;
 
 		/// <summary>
-		///		读取前先检查 AvaliableToRead。如果没有数据可读，为了避免 Read
-		///		返回 0，本函数会一直等待，直到 AvaliableToRead 不为 0.
+		///		读取前先检查 Length。如果没有数据可读，为了避免 Read
+		///		返回 0，本函数会一直等待，直到 Length 不为 0.
 		/// </summary>
 		/// <param name="buffer"></param>
 		/// <param name="offset"></param>
