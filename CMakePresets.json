@@ -14,10 +14,8 @@
 				"CMAKE_C_COMPILER": "arm-none-eabi-gcc.exe",
 				"CMAKE_CXX_COMPILER": "arm-none-eabi-g++.exe",
 				"CMAKE_ASM_COMPILER": "arm-none-eabi-gcc.exe",
-				"CMAKE_AR": "arm-none-eabi-ar.exe",
 				"CMAKE_LINKER": "arm-none-eabi-ld.exe",
 				"CMAKE_OBJCOPY": "arm-none-eabi-objcopy.exe",
-				"CMAKE_RANLIB": "arm-none-eabi-ranlib.exe",
 				"CMAKE_SIZE": "arm-none-eabi-size.exe",
 				"CMAKE_STRIP": "arm-none-eabi-ld.exe"
 			},
