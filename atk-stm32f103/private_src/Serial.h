@@ -37,7 +37,7 @@ namespace atk
 		static void OnMspInitCallback(UART_HandleTypeDef *huart);
 
 		#pragma region 被中断处理函数回调的函数
-		static void OnReceiveCompleteCallback(UART_HandleTypeDef *huart);
+		static void OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos);
 		static void OnSendCompleteCallback(UART_HandleTypeDef *huart);
 		#pragma endregion
 

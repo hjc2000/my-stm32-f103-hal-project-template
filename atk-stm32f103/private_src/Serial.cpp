@@ -96,11 +96,10 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 }
 
 #pragma region 被中断处理函数回调的函数
-void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
+void atk::Serial::OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos)
 {
-	// 退出中断处理函数前要再次调用一次，否则之后就无法中断，无法接收了。
 	BSP::RedDigitalLed().Toggle();
-	HAL_UART_Receive_IT(
+	HAL_UARTEx_ReceiveToIdle_DMA(
 		&Serial::Instance()._uart_handle,
 		Serial::Instance()._receive_buffer,
 		10
@@ -199,7 +198,7 @@ void Serial::Begin(uint32_t baud_rate)
 	* HAL_UART_Init 函数会把中断处理函数中回调的函数都设为默认的，所以必须在 HAL_UART_Init
 	* 之后对函数指针赋值。
 	*/
-	_uart_handle.RxCpltCallback = OnReceiveCompleteCallback;
+	_uart_handle.RxEventCallback = OnReceiveEventCallback;
 	_uart_handle.TxCpltCallback = OnSendCompleteCallback;
 
 	// 启用中断
@@ -209,6 +208,9 @@ void Serial::Begin(uint32_t baud_rate)
 	Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 10, 0);
 	Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
 
+	Interrupt::SetPriority(IRQn_Type::DMA1_Channel5_IRQn, 10, 0);
+	Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
+
 	// 启动接收
-	HAL_UART_Receive_IT(&_uart_handle, _receive_buffer, 10);
+	HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, _receive_buffer, 10);
 }
