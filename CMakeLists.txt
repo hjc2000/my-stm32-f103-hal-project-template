@@ -34,9 +34,9 @@ set (CMAKE_EXECUTABLE_SUFFIX ".elf")
 set (CMAKE_STATIC_LIBRARY_SUFFIX ".a")
 
 set(
-	ARM_NONE_EABI TRUE
-	CACHE BOOL 
-	"设置为 TRUE 以使用 ARM_NONE_EABI 的库，而不是意外导入 WIN32 的，或者根本找不到库。"
+	platform "arm-none-eabi-cortex-m3"
+	CACHE STRING 
+	"选择平台"
 )
 
 # 包含子项目。
