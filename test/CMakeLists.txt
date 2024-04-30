@@ -9,10 +9,10 @@ include($ENV{cpp_lib_build_scripts_path}/cmake-module/setup.cmake)
 
 add_executable(${ProjectName})
 target_import_src(${ProjectName})
+target_import_libfreertos(${ProjectName} PUBLIC)
 target_link_libraries(
     ${ProjectName} PUBLIC
     c m
-    freertos
     atk-stm32f103
 )
 
