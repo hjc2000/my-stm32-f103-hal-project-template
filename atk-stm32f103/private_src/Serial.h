@@ -84,6 +84,10 @@ namespace atk
 		void SetPosition(int64_t value) override;
 		#pragma endregion
 
+		/// <summary>
+		///		启动串口
+		/// </summary>
+		/// <param name="baud_rate">想要的波特率</param>
 		void Begin(uint32_t baud_rate) override;
 	};
 }
