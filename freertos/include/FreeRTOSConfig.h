@@ -5,6 +5,7 @@ extern "C" {
 	#endif // _cplusplus
 
 	#include<stdint.h>
+	#include<stdio.h>
 
 	/// <summary>
 	///		获取 CPU 频率
@@ -232,8 +233,8 @@ extern "C" {
 	#pragma endregion
 
 	/* 断言 */
-	//#define vAssertCalled(char, int) printf("Error: %s, %d\r\n", char, int)
-	//#define configASSERT( x ) if( ( x ) == 0 ) vAssertCalled( __FILE__, __LINE__ )
+	#define vAssertCalled(char, int) printf("发生了错误: %s, %d\r\n", char, int)
+	#define configASSERT( x ) if( ( x ) == 0 ) vAssertCalled( __FILE__, __LINE__ )
 
 
 
