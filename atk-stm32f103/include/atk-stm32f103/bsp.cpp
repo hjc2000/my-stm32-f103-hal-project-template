@@ -28,8 +28,11 @@ void config_clock_source()
 	osc_init_options._pll_init_options._mul = PllMul::Mul9;
 	if (Osc::Config(osc_init_options) != HAL_OK)
 	{
-		/* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
-		while (1);
+		BSP::Serial().ErrorReport("时钟初始化失败");
+		while (1)
+		{
+
+		}
 	}
 }
 
@@ -47,8 +50,11 @@ void config_clock_signal()
 	clock_init_options._apb2_divider = APBDivider::DIV1;
 	if (ClockSignal::Config(clock_init_options, FlashLatency::Latency2) != HAL_OK)
 	{
-		/* 时钟初始化失败，之后的程序将可能无法正常执行，可以在这里加入自己的处理 */
-		while (1);
+		BSP::Serial().ErrorReport("时钟初始化失败");
+		while (1)
+		{
+
+		}
 	}
 }
 
@@ -59,6 +65,24 @@ void BSP::Initialize()
 	config_clock_source();
 	config_clock_signal();
 	hal::Systic::SetClockSource(hal::SysticClockSource::HCLK_DIV8);
+
+	#pragma region 触发局部静态变量初始化
+	/*
+	* 必须这么做。不能等到真正要使用的时候才调用 Instance，让里面的 static 变量初始化，
+	* 因为这会导致重入问题和线程安全问题。
+	*
+	* 所有 BSP 类中的函数，如果是返回单例的，必须放到这里进行提前初始化。
+	*/
+
+	BSP::Delayer();
+	BSP::IndependentWatchDog();
+	BSP::RedDigitalLed();
+	BSP::GreenDigitalLed();
+	BSP::KeyScanner();
+	BSP::WakeUpKey();
+	BSP::Serial();
+	#pragma endregion
+
 }
 
 void BSP::SystemReset()
