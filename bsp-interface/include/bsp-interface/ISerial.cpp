@@ -38,7 +38,7 @@ void bsp::ISerial::PrintLine(char const *str)
 	Print("\n");
 }
 
-void bsp::ISerial::ErrorReport(char const *str) noexcept
+void bsp::ISerial::ReportError(char const *str) noexcept
 {
 	try
 	{
@@ -50,7 +50,7 @@ void bsp::ISerial::ErrorReport(char const *str) noexcept
 	}
 }
 
-void bsp::ISerial::ErrorReport(std::string const &str) noexcept
+void bsp::ISerial::ReportError(std::string const &str) noexcept
 {
 	try
 	{

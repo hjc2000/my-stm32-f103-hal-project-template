@@ -28,7 +28,7 @@ void config_clock_source()
 	osc_init_options._pll_init_options._mul = PllMul::Mul9;
 	if (Osc::Config(osc_init_options) != HAL_OK)
 	{
-		BSP::Serial().ErrorReport("时钟初始化失败");
+		BSP::Serial().ReportError("时钟初始化失败");
 		while (1)
 		{
 
@@ -50,7 +50,7 @@ void config_clock_signal()
 	clock_init_options._apb2_divider = APBDivider::DIV1;
 	if (ClockSignal::Config(clock_init_options, FlashLatency::Latency2) != HAL_OK)
 	{
-		BSP::Serial().ErrorReport("时钟初始化失败");
+		BSP::Serial().ReportError("时钟初始化失败");
 		while (1)
 		{
 
