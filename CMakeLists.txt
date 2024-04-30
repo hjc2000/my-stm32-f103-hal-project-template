@@ -32,12 +32,6 @@ project ("stm32")
 set (CMAKE_EXECUTABLE_SUFFIX ".elf")
 set (CMAKE_STATIC_LIBRARY_SUFFIX ".a")
 
-set(
-	platform "arm-none-eabi-cortex-m3"
-	CACHE STRING 
-	"选择平台"
-)
-
 # 包含子项目。
 add_subdirectory(${CMAKE_SOURCE_DIR}/bsp-interface)
 add_subdirectory(${CMAKE_SOURCE_DIR}/stm32f103-hal)

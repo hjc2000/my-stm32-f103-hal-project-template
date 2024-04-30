@@ -208,7 +208,8 @@ extern "C" {
 	#pragma endregion
 
 	#pragma region 中断优先级
-	/* 设置为 HAL 库中的 __NVIC_PRIO_BITS 的值。
+	/*
+	* 设置为 HAL 库中的 __NVIC_PRIO_BITS 的值。
 	* 如果查找符号，找到了很多个，可以将 __NVIC_PRIO_BITS 放到源文件中，
 	* 然后 F12 导航到定义。
 	*/
