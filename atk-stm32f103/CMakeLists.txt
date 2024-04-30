@@ -11,14 +11,12 @@ include(target_import_libfreertos)
 add_library(${ProjectName} STATIC)
 target_import_src(${ProjectName})
 
+target_import_libfreertos(${ProjectName} PUBLIC)
 target_link_libraries(
 	${ProjectName} PRIVATE 
 	hal-wrapper
 )
-
 target_link_libraries(
 	${ProjectName} PUBLIC 
 	bsp-interface
 )
-
-target_import_libfreertos(${ProjectName} PUBLIC)

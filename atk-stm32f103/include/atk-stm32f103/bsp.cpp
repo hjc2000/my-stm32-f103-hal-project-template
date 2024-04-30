@@ -118,6 +118,7 @@ bsp::IKeyScanner &BSP::KeyScanner()
 	{
 		keys[(uint16_t)KeyIndex::Key0] = &Key0::Instance();
 		keys[(uint16_t)KeyIndex::Key1] = &Key1::Instance();
+		keys[(uint16_t)KeyIndex::KeyWakeUp] = &KeyWakeUp::Instance();
 	}
 
 	static bsp::KeyScanner key_scanner{ keys, hal::Delayer::Instance() };
