@@ -136,17 +136,3 @@ bsp::ISerial &BSP::Serial()
 {
 	return Serial::Instance();
 }
-
-extern "C"
-{
-	extern void xPortSysTickHandler();
-
-	void SysTick_Handler()
-	{
-		HAL_IncTick();
-		if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED)
-		{
-			xPortSysTickHandler();
-		}
-	}
-}
