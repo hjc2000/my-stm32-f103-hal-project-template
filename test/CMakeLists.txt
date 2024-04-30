@@ -27,7 +27,10 @@ add_custom_command(
 	COMMENT "由 elf 生成 bin 文件。"
 )
 
-install_one_file("${CMAKE_CURRENT_BINARY_DIR}/${ProjectName}.bin" bin)
+install(
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/${ProjectName}.bin"
+    DESTINATION bin
+)
 
 # 安装时自动尝试将 bin 文件下载到单片机
 install(CODE "
