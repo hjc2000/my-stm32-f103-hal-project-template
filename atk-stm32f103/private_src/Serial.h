@@ -43,19 +43,6 @@ namespace atk
 		/// </summary>
 		void EnableReceiveInterrupt();
 
-		/// <summary>
-		///		使用 DMA 发送数据。
-		///		- 调用后，可以使用 WaitForDmaTx 方法来等待发送完成。
-		/// </summary>
-		/// <param name="buffer"></param>
-		/// <param name="size"></param>
-		/// <returns>如果上一次的发送任务还没完成，会返回 HAL_BUSY。</returns>
-		HAL_StatusTypeDef SendWithDma(uint8_t const *buffer, uint16_t size)
-		{
-			// HAL_UART_Transmit_DMA 函数内部会使能 DMA 发送完成中断。
-			return HAL_UART_Transmit_DMA(&_uart_handle, buffer, size);
-		}
-
 	public:
 		static Serial &Instance()
 		{
