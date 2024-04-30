@@ -12,6 +12,7 @@ target_import_src(${ProjectName})
 target_link_libraries(
     ${ProjectName} PUBLIC
     atk-stm32f103
+    c m
 )
 
 add_custom_command(

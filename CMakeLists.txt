@@ -23,7 +23,6 @@ if(1)
 		" -Wl,-Map=out_map.map "
 		" -Wl,--gc-sections "
 		" -static "
-		" -Wl,-lc -lm "
 	)
 endif()
 
