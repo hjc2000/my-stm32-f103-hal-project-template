@@ -103,7 +103,7 @@ void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
 	HAL_UART_Receive_IT(
 		&Serial::Instance()._uart_handle,
 		Serial::Instance()._receive_buffer,
-		sizeof(Serial::Instance()._receive_buffer)
+		10
 	);
 }
 
@@ -210,5 +210,5 @@ void Serial::Begin(uint32_t baud_rate)
 	Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
 
 	// 启动接收
-	HAL_UART_Receive_IT(&_uart_handle, _receive_buffer, sizeof(_receive_buffer));
+	HAL_UART_Receive_IT(&_uart_handle, _receive_buffer, 10);
 }

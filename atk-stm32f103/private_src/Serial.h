@@ -22,7 +22,7 @@ namespace atk
 		Serial() = default;
 
 		uint32_t _baud_rate = 115200;
-		uint8_t _receive_buffer[1];
+		uint8_t _receive_buffer[10];
 
 		UART_HandleTypeDef _uart_handle{};
 		DMA_HandleTypeDef _tx_dma_handle{};
