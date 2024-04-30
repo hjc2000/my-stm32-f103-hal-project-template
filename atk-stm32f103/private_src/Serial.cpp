@@ -65,6 +65,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	Serial::Instance()._dma_handle.Parent = &Serial::Instance()._uart_handle;
 }
 
+#pragma region 被中断处理函数回调的函数
 void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
 {
 	// 退出中断处理函数前要再次调用一次，否则之后就无法中断，无法接收了。
@@ -76,6 +77,7 @@ void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 {
 	Serial::Instance()._send_complete_signal.ReleaseFromISR();
 }
+#pragma endregion
 
 void Serial::EnableReceiveInterrupt()
 {
@@ -130,7 +132,7 @@ void Serial::Flush()
 
 void Serial::Close()
 {
-	// 什么都不做。串口启用后没必要关闭。
+	HAL_UART_DMAStop(&_uart_handle);
 }
 
 int64_t Serial::Position()

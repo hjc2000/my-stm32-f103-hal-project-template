@@ -27,14 +27,16 @@ namespace atk
 		DMA_HandleTypeDef _dma_handle{};
 		USART_TypeDef *_uart_hardware_instance = USART1;
 		DMA_Channel_TypeDef *_dma_channel_hardware_instance = DMA1_Channel4;
+		task::BinarySemaphore _send_complete_signal;
 
 		friend void ::USART1_IRQHandler();
 		friend void ::DMA1_Channel4_IRQHandler();
 		static void OnMspInitCallback(UART_HandleTypeDef *huart);
-		static void OnReceiveCompleteCallback(UART_HandleTypeDef *huart);
 
-		task::BinarySemaphore _send_complete_signal;
+		#pragma region 被中断处理函数回调的函数
+		static void OnReceiveCompleteCallback(UART_HandleTypeDef *huart);
 		static void OnSendCompleteCallback(UART_HandleTypeDef *huart);
+		#pragma endregion
 
 		/// <summary>
 		///		每次在中断中接收数据后，接收中断都会被禁用，此时需要调用本函数重新启用。
@@ -52,16 +54,6 @@ namespace atk
 		{
 			// HAL_UART_Transmit_DMA 函数内部会使能 DMA 发送完成中断。
 			return HAL_UART_Transmit_DMA(&_uart_handle, buffer, size);
-		}
-
-		/// <summary>
-		///		关闭 DMA。
-		///		- 会导致进行到一半的传输工作直接终止。
-		///		- 会同时停止发送和接收并关闭这两个通道。
-		/// </summary>
-		void CloseDma()
-		{
-			HAL_UART_DMAStop(&_uart_handle);
 		}
 
 	public:
