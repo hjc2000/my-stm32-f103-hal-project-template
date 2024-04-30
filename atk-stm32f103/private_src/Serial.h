@@ -10,6 +10,7 @@ extern "C"
 {
 	void USART1_IRQHandler();
 	void DMA1_Channel4_IRQHandler();
+	void DMA1_Channel5_IRQHandler();
 }
 
 namespace atk
@@ -32,17 +33,13 @@ namespace atk
 
 		friend void ::USART1_IRQHandler();
 		friend void ::DMA1_Channel4_IRQHandler();
+		friend void ::DMA1_Channel5_IRQHandler();
 		static void OnMspInitCallback(UART_HandleTypeDef *huart);
 
 		#pragma region 被中断处理函数回调的函数
 		static void OnReceiveCompleteCallback(UART_HandleTypeDef *huart);
 		static void OnSendCompleteCallback(UART_HandleTypeDef *huart);
 		#pragma endregion
-
-		/// <summary>
-		///		每次在中断中接收数据后，接收中断都会被禁用，此时需要调用本函数重新启用。
-		/// </summary>
-		void EnableReceiveInterrupt();
 
 	public:
 		static Serial &Instance()

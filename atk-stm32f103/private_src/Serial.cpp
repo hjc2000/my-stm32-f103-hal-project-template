@@ -19,6 +19,11 @@ void DMA1_Channel4_IRQHandler()
 {
 	HAL_DMA_IRQHandler(&Serial::Instance()._tx_dma_handle);
 }
+
+void DMA1_Channel5_IRQHandler()
+{
+	HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
+}
 #pragma endregion
 
 void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
@@ -91,7 +96,11 @@ void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
 {
 	// 退出中断处理函数前要再次调用一次，否则之后就无法中断，无法接收了。
 	BSP::RedDigitalLed().Toggle();
-	Serial::Instance().EnableReceiveInterrupt();
+	HAL_UART_Receive_IT(
+		&Serial::Instance()._uart_handle,
+		Serial::Instance()._receive_buffer, 
+		sizeof(Serial::Instance()._receive_buffer)
+	);
 }
 
 void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
@@ -99,11 +108,6 @@ void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 	Serial::Instance()._send_complete_signal.ReleaseFromISR();
 }
 #pragma endregion
-
-void Serial::EnableReceiveInterrupt()
-{
-	HAL_UART_Receive_IT(&_uart_handle, _receive_buffer, sizeof(_receive_buffer));
-}
 
 #pragma region Stream
 bool Serial::CanRead()
@@ -197,7 +201,10 @@ void Serial::Begin(uint32_t baud_rate)
 	// 启用中断
 	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 10, 0);
 	Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
+
 	Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 10, 0);
 	Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
-	EnableReceiveInterrupt();
+
+	// 启动接收
+	HAL_UART_Receive_IT(&_uart_handle, _receive_buffer, sizeof(_receive_buffer));
 }
