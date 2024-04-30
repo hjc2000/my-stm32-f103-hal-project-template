@@ -24,7 +24,8 @@ namespace atk
 		uint8_t _receive_buffer[1];
 
 		UART_HandleTypeDef _uart_handle{};
-		DMA_HandleTypeDef _dma_handle{};
+		DMA_HandleTypeDef _tx_dma_handle{};
+		DMA_HandleTypeDef _rx_dma_handle{};
 		USART_TypeDef *_uart_hardware_instance = USART1;
 		DMA_Channel_TypeDef *_dma_channel_hardware_instance = DMA1_Channel4;
 		task::BinarySemaphore _send_complete_signal;

@@ -17,7 +17,7 @@ void USART1_IRQHandler()
 
 void DMA1_Channel4_IRQHandler()
 {
-	HAL_DMA_IRQHandler(&Serial::Instance()._dma_handle);
+	HAL_DMA_IRQHandler(&Serial::Instance()._tx_dma_handle);
 }
 #pragma endregion
 
@@ -40,7 +40,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 		GpioPortA::Instance().InitPin(GpioPin::Pin10, options);
 	};
 
-	auto init_dma = []()
+	auto init_tx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
 		hal::DmaInitOptions options;
@@ -52,17 +52,38 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 		options._mode = DmaMode::Normal;
 		options._priority = DmaPriority::Medium;
 
-		Serial::Instance()._dma_handle.Instance = DMA1_Channel4;
-		Serial::Instance()._dma_handle.Init = options;
-		HAL_DMA_Init(&Serial::Instance()._dma_handle);
+		Serial::Instance()._tx_dma_handle.Instance = DMA1_Channel4;
+		Serial::Instance()._tx_dma_handle.Init = options;
+		HAL_DMA_Init(&Serial::Instance()._tx_dma_handle);
+	};
+
+	auto init_rx_dma = []()
+	{
+		__HAL_RCC_DMA1_CLK_ENABLE();
+		hal::DmaInitOptions options;
+		options._direction = DmaDataTransferDirection::PeripheralToMemory;
+		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
+		options._mem_inc_mode = DmaMemoryIncMode::Enable;
+		options._peripheral_data_alignment = PeripheralDataAlignment::Byte;
+		options._mem_data_alignment = MemoryDataAlignment::Byte;
+		options._mode = DmaMode::Normal;
+		options._priority = DmaPriority::Medium;
+
+		Serial::Instance()._rx_dma_handle.Instance = DMA1_Channel5;
+		Serial::Instance()._rx_dma_handle.Init = options;
+		HAL_DMA_Init(&Serial::Instance()._rx_dma_handle);
 	};
 
 	init_gpio();
-	init_dma();
+	init_tx_dma();
+	init_rx_dma();
 
 	// 连接到 DMA 发送通道
-	Serial::Instance()._uart_handle.hdmatx = &Serial::Instance()._dma_handle;
-	Serial::Instance()._dma_handle.Parent = &Serial::Instance()._uart_handle;
+	Serial::Instance()._uart_handle.hdmatx = &Serial::Instance()._tx_dma_handle;
+	Serial::Instance()._tx_dma_handle.Parent = &Serial::Instance()._uart_handle;
+
+	Serial::Instance()._uart_handle.hdmarx = &Serial::Instance()._rx_dma_handle;
+	Serial::Instance()._rx_dma_handle.Parent = &Serial::Instance()._uart_handle;
 }
 
 #pragma region 被中断处理函数回调的函数
