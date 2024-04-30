@@ -11,8 +11,9 @@ add_executable(${ProjectName})
 target_import_src(${ProjectName})
 target_link_libraries(
     ${ProjectName} PUBLIC
-    atk-stm32f103
     c m
+    freertos
+    atk-stm32f103
 )
 
 add_custom_command(
