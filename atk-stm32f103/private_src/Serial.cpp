@@ -166,8 +166,6 @@ void Serial::Begin(uint32_t baud_rate)
 	HAL_UART_Init(&_uart_handle);
 	_uart_handle.RxCpltCallback = OnReceiveCompleteCallback;
 	_uart_handle.TxCpltCallback = OnSendCompleteCallback;
-	_uart_handle.TxHalfCpltCallback = [](UART_HandleTypeDef *huart) {};
-	_uart_handle.ErrorCallback = [](UART_HandleTypeDef *huart) {};
 
 	// 启用中断
 	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 10, 0);
