@@ -10,7 +10,3 @@ include($ENV{cpp_lib_build_scripts_path}/cmake-module/setup.cmake)
 
 add_library(${ProjectName} STATIC)
 target_import_src(${ProjectName})
-target_link_libraries(
-	${ProjectName} PRIVATE
-	hal-wrapper
-)

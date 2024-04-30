@@ -6,6 +6,7 @@
 			"hidden": true,
 			"cacheVariables": {
 				"option_install_headers": true,
+				"cpp_lib_build_scripts_path": "$env{cpp_lib_build_scripts_path}",
 				"CMAKE_SYSTEM_PROCESSOR": "arm",
 				"CMAKE_SYSTEM_ARCH": "armv7-m",
 				"CMAKE_SYSTEM_NAME": "Generic",
