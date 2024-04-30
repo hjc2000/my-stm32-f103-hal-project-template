@@ -133,6 +133,8 @@ void Serial::Flush()
 void Serial::Close()
 {
 	HAL_UART_DMAStop(&_uart_handle);
+	Interrupt::DisableIRQ(IRQn_Type::USART1_IRQn);
+	Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
 }
 
 int64_t Serial::Position()
@@ -148,7 +150,7 @@ void Serial::SetPosition(int64_t value)
 
 void Serial::Begin(uint32_t baud_rate)
 {
-	/* 
+	/*
 	* 先立刻释放一次信号量，等会 Write 方法被调用时直接通过，不被阻塞。
 	* 然后在发送完成之前，第二次 Write 就会被阻塞了，这还能防止 Write
 	* 被多线程同时调用。
@@ -164,7 +166,7 @@ void Serial::Begin(uint32_t baud_rate)
 	_uart_handle.MspInitCallback = OnMspInitCallback;
 	HAL_UART_Init(&_uart_handle);
 
-	/* 
+	/*
 	* HAL_UART_Init 函数会把中断处理函数中回调的函数都设为默认的，所以必须在 HAL_UART_Init
 	* 之后对函数指针赋值。
 	*/
