@@ -202,14 +202,19 @@ void Serial::Begin(uint32_t baud_rate)
 	_uart_handle.TxCpltCallback = OnSendCompleteCallback;
 
 	// 启用中断
-	Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 10, 0);
-	Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
+	auto enable_interrupt = []()
+	{
+		Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 10, 0);
+		Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
 
-	Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 10, 0);
-	Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
+		Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 10, 0);
+		Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
 
-	Interrupt::SetPriority(IRQn_Type::DMA1_Channel5_IRQn, 10, 0);
-	Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
+		Interrupt::SetPriority(IRQn_Type::DMA1_Channel5_IRQn, 10, 0);
+		Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
+	};
+
+	enable_interrupt();
 
 	// 启动接收
 	HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, _receive_buffer, 10);
