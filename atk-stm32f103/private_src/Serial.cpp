@@ -13,6 +13,11 @@ using namespace atk;
 void USART1_IRQHandler()
 {
 	HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
+	HAL_UARTEx_ReceiveToIdle_DMA(
+		&Serial::Instance()._uart_handle,
+		Serial::Instance()._receive_buffer,
+		10
+	);
 }
 
 void DMA1_Channel4_IRQHandler()
@@ -96,14 +101,14 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 }
 
 #pragma region 被中断处理函数回调的函数
+static volatile int i = 1;
 void atk::Serial::OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos)
 {
-	BSP::RedDigitalLed().Toggle();
-	HAL_UARTEx_ReceiveToIdle_DMA(
-		&Serial::Instance()._uart_handle,
-		Serial::Instance()._receive_buffer,
-		10
-	);
+	i = i + 1;
+	if (i % 10 == 0)
+	{
+		BSP::RedDigitalLed().Toggle();
+	}
 }
 
 void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
