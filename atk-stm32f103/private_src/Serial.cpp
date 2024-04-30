@@ -79,16 +79,20 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 		HAL_DMA_Init(&Serial::Instance()._rx_dma_handle);
 	};
 
+	// 连接到 DMA 发送通道
+	auto link_dma_channel = []()
+	{
+		Serial::Instance()._uart_handle.hdmatx = &Serial::Instance()._tx_dma_handle;
+		Serial::Instance()._tx_dma_handle.Parent = &Serial::Instance()._uart_handle;
+
+		Serial::Instance()._uart_handle.hdmarx = &Serial::Instance()._rx_dma_handle;
+		Serial::Instance()._rx_dma_handle.Parent = &Serial::Instance()._uart_handle;
+	};
+
 	init_gpio();
 	init_tx_dma();
 	init_rx_dma();
-
-	// 连接到 DMA 发送通道
-	Serial::Instance()._uart_handle.hdmatx = &Serial::Instance()._tx_dma_handle;
-	Serial::Instance()._tx_dma_handle.Parent = &Serial::Instance()._uart_handle;
-
-	Serial::Instance()._uart_handle.hdmarx = &Serial::Instance()._rx_dma_handle;
-	Serial::Instance()._rx_dma_handle.Parent = &Serial::Instance()._uart_handle;
+	link_dma_channel();
 }
 
 #pragma region 被中断处理函数回调的函数
@@ -98,7 +102,7 @@ void Serial::OnReceiveCompleteCallback(UART_HandleTypeDef *huart)
 	BSP::RedDigitalLed().Toggle();
 	HAL_UART_Receive_IT(
 		&Serial::Instance()._uart_handle,
-		Serial::Instance()._receive_buffer, 
+		Serial::Instance()._receive_buffer,
 		sizeof(Serial::Instance()._receive_buffer)
 	);
 }
