@@ -127,15 +127,18 @@ extern "C" {
 	#pragma endregion
 
 	#pragma region 运行时间和任务状态统计
-	#define configGENERATE_RUN_TIME_STATS                   0                       /* 1: 使能任务运行时间统计功能, 默认: 0 */
+	/* 1: 使能任务运行时间统计功能, 默认: 0 */
+	#define configGENERATE_RUN_TIME_STATS                   0
 	#if configGENERATE_RUN_TIME_STATS
 	#include "./BSP/TIMER/btim.h"
 	#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()        ConfigureTimeForRunTimeStats()
 	extern uint32_t FreeRTOSRunTimeTicks;
 	#define portGET_RUN_TIME_COUNTER_VALUE()                FreeRTOSRunTimeTicks
 	#endif
-	#define configUSE_TRACE_FACILITY                        1                       /* 1: 使能可视化跟踪调试, 默认: 0 */
-	#define configUSE_STATS_FORMATTING_FUNCTIONS            1                       /* 1: configUSE_TRACE_FACILITY为1时，会编译vTaskList()和vTaskGetRunTimeStats()函数, 默认: 0 */
+	/* 1: 使能可视化跟踪调试, 默认: 0 */
+	#define configUSE_TRACE_FACILITY                        1
+	/* 1: configUSE_TRACE_FACILITY为1时，会编译vTaskList()和vTaskGetRunTimeStats()函数, 默认: 0 */
+	#define configUSE_STATS_FORMATTING_FUNCTIONS            1
 	#pragma endregion
 
 	#pragma region 协程
@@ -213,7 +216,7 @@ extern "C" {
 	* 如果查找符号，找到了很多个，可以将 __NVIC_PRIO_BITS 放到源文件中，
 	* 然后 F12 导航到定义。
 	*/
-	#define configPRIO_BITS		4
+	#define configPRIO_BITS									4
 
 	/* 中断最低优先级 */
 	#define configLIBRARY_LOWEST_INTERRUPT_PRIORITY         15
