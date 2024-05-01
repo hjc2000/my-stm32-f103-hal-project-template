@@ -101,16 +101,22 @@ void atk::Serial::OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos
 	static uint8_t count = 0;
 	count++;
 	Serial::Instance().WriteWithoutLock((uint8_t *)(&count), 0, 1);
-	HAL_UARTEx_ReceiveToIdle_DMA(
-		&Serial::Instance()._uart_handle,
-		Serial::Instance()._receive_buffer,
-		10
-	);
+	Serial::Instance().StartReceiveWithDma();
 }
 
 void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 {
 	Serial::Instance()._send_complete_signal.ReleaseFromISR();
+}
+
+void atk::Serial::StartReceiveWithDma()
+{
+	HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, _receive_buffer, 10);
+
+	/* 把传输半满回调给禁用，不然接收的数据较长，超过缓冲区一半时，即使是一次性接收的，
+	* UART 也会回调 OnReceiveEventCallback 两次。
+	*/
+	_rx_dma_handle.XferHalfCpltCallback = [](DMA_HandleTypeDef *h) {};
 }
 #pragma endregion
 
@@ -221,7 +227,5 @@ void Serial::Begin(uint32_t baud_rate)
 	};
 
 	enable_interrupt();
-
-	// 启动接收
-	HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, _receive_buffer, 10);
+	StartReceiveWithDma();
 }

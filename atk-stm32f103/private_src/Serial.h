@@ -41,6 +41,8 @@ namespace atk
 		static void OnSendCompleteCallback(UART_HandleTypeDef *huart);
 		#pragma endregion
 
+		void StartReceiveWithDma();
+
 	public:
 		static Serial &Instance()
 		{
