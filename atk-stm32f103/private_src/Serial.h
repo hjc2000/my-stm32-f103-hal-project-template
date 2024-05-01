@@ -42,6 +42,7 @@ namespace atk
 		#pragma endregion
 
 		void StartReceiveWithDma();
+		void WriteWithoutLock(uint8_t const *buffer, int32_t offset, int32_t count);
 
 	public:
 		static Serial &Instance()
@@ -49,8 +50,6 @@ namespace atk
 			static Serial o;
 			return o;
 		}
-
-		void WriteWithoutLock(uint8_t const *buffer, int32_t offset, int32_t count);
 
 		#pragma region Stream
 		bool CanRead() override;
