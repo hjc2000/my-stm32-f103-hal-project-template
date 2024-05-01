@@ -56,29 +56,13 @@ namespace atk
 		bool CanWrite() override;
 		bool CanSeek() override;
 
-		/// <summary>
-		///		串口类中，流的 Length 属性的意义是当前接收缓冲区中的可读数据的长度。
-		/// </summary>
-		/// <returns></returns>
 		int64_t Length() override;
 		void SetLength(int64_t value) override;
 
-		/// <summary>
-		///		读取前先检查 Length。如果没有数据可读，为了避免 Read
-		///		返回 0，本函数会一直等待，直到 Length 不为 0.
-		/// </summary>
-		/// <param name="buffer"></param>
-		/// <param name="offset"></param>
-		/// <param name="count"></param>
-		/// <returns></returns>
 		int32_t Read(uint8_t *buffer, int32_t offset, int32_t count) override;
 		void Write(uint8_t const *buffer, int32_t offset, int32_t count) override;
 
 		void Flush() override;
-
-		/// <summary>
-		///		什么也不做。串口启用后没必要关闭。
-		/// </summary>
 		void Close() override;
 
 		int64_t Position() override;
