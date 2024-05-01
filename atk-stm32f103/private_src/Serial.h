@@ -48,6 +48,8 @@ namespace atk
 			return o;
 		}
 
+		void WriteWithoutLock(uint8_t const *buffer, int32_t offset, int32_t count);
+
 		#pragma region Stream
 		bool CanRead() override;
 		bool CanWrite() override;

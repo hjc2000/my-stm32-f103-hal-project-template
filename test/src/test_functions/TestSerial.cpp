@@ -8,6 +8,5 @@ void TestSerial()
 	while (1)
 	{
 		BSP::Delayer().Delay(std::chrono::seconds(1));
-		BSP::Serial().Print("测试文本\n");
 	}
 }

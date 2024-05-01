@@ -13,11 +13,6 @@ using namespace atk;
 void USART1_IRQHandler()
 {
 	HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
-	HAL_UARTEx_ReceiveToIdle_DMA(
-		&Serial::Instance()._uart_handle,
-		Serial::Instance()._receive_buffer,
-		10
-	);
 }
 
 void DMA1_Channel4_IRQHandler()
@@ -101,14 +96,16 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 }
 
 #pragma region 被中断处理函数回调的函数
-static volatile int i = 1;
 void atk::Serial::OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos)
 {
-	i = i + 1;
-	if (i % 10 == 0)
-	{
-		BSP::RedDigitalLed().Toggle();
-	}
+	static uint8_t count = 0;
+	count++;
+	Serial::Instance().WriteWithoutLock((uint8_t *)(&count), 0, 1);
+	HAL_UARTEx_ReceiveToIdle_DMA(
+		&Serial::Instance()._uart_handle,
+		Serial::Instance()._receive_buffer,
+		10
+	);
 }
 
 void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
@@ -116,6 +113,11 @@ void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 	Serial::Instance()._send_complete_signal.ReleaseFromISR();
 }
 #pragma endregion
+
+void atk::Serial::WriteWithoutLock(uint8_t const *buffer, int32_t offset, int32_t count)
+{
+	HAL_UART_Transmit_DMA(&_uart_handle, buffer + offset, count);
+}
 
 #pragma region Stream
 bool Serial::CanRead()
