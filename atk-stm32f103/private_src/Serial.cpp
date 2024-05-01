@@ -156,7 +156,6 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
 	_send_complete_signal.Acquire();
-	BSP::GreenDigitalLed().Toggle();
 	HAL_UART_Transmit_DMA(&_uart_handle, buffer + offset, count);
 }
 
