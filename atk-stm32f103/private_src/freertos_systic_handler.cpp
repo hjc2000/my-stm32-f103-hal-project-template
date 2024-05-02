@@ -4,7 +4,7 @@
 
 extern "C"
 {
-	extern void xPortSysTickHandler();
+	void xPortSysTickHandler();
 
 	void SysTick_Handler()
 	{

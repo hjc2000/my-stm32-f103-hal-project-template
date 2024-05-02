@@ -1,11 +1,12 @@
 #pragma once
-#include<BinarySemaphore.h>
-#include<Mutex.h>
 #include<atomic>
 #include<bsp-interface/ISerial.h>
 #include<hal-wrapper/peripheral/uart/UartInitOptions.h>
 #include<hal.h>
 #include<memory>
+#include<task/BinarySemaphore.h>
+#include<task/Critical.h>
+#include<task/Mutex.h>
 
 extern "C"
 {

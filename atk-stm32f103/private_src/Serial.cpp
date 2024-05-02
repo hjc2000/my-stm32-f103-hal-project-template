@@ -1,5 +1,4 @@
 #include"Serial.h"
-#include<Critical.h>
 #include<FreeRTOS.h>
 #include<atk-stm32f103/bsp.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
