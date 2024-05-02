@@ -1,5 +1,6 @@
 #pragma once
 #include<BinarySemaphore.h>
+#include<Mutex.h>
 #include<atomic>
 #include<bsp-interface/ISerial.h>
 #include<hal-wrapper/peripheral/uart/UartInitOptions.h>
@@ -29,6 +30,7 @@ namespace atk
 		DMA_Channel_TypeDef *_dma_channel_hardware_instance = DMA1_Channel4;
 		task::BinarySemaphore _send_complete_signal;
 		task::BinarySemaphore _receive_complete_signal;
+		task::Mutex _read_lock{};
 		int32_t _current_receive_count = 0;
 
 		friend void ::USART1_IRQHandler();

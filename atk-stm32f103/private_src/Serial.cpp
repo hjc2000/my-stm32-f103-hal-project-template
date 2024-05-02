@@ -142,6 +142,7 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 		throw std::invalid_argument{ "count 太大" };
 	}
 
+	task::MutexLockGuard l{ _read_lock };
 	while (true)
 	{
 		task::Critical::Enter();
