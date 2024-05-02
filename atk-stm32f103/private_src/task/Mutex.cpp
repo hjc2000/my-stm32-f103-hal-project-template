@@ -13,6 +13,7 @@ task::Mutex::~Mutex()
 {
 	if (_freertos_mutex != NULL)
 	{
+		Unlock();
 		vSemaphoreDelete(_freertos_mutex);
 	}
 }
