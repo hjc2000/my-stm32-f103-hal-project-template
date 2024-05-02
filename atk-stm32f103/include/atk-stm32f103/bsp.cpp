@@ -79,7 +79,6 @@ void BSP::Initialize()
 	BSP::RedDigitalLed();
 	BSP::GreenDigitalLed();
 	BSP::KeyScanner();
-	BSP::WakeUpKey();
 	BSP::Serial();
 	#pragma endregion
 
@@ -126,11 +125,6 @@ bsp::IKeyScanner &BSP::KeyScanner()
 	// 初始化完成
 	initialized = true;
 	return key_scanner;
-}
-
-bsp::IEventDrivenKey &BSP::WakeUpKey()
-{
-	return ExtiKey0::Instance();
 }
 
 bsp::ISerial &BSP::Serial()

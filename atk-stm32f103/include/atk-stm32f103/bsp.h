@@ -62,11 +62,5 @@ public:
 	/// <returns></returns>
 	static bsp::IKeyScanner &KeyScanner();
 
-	/// <summary>
-	///		通过外部中断驱动的按键
-	/// </summary>
-	/// <returns></returns>
-	static bsp::IEventDrivenKey &WakeUpKey();
-
 	static bsp::ISerial &Serial();
 };
