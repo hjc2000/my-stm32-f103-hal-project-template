@@ -28,7 +28,11 @@ void BinarySemaphore::ReleaseFromISR()
 
 void BinarySemaphore::Acquire()
 {
-	xSemaphoreTake(handle, portMAX_DELAY);
+	bool ret = xSemaphoreTake(handle, portMAX_DELAY);
+	if (!ret)
+	{
+		throw std::runtime_error{ "获取信号量失败" };
+	}
 }
 
 bool BinarySemaphore::TryAcquire(TickType_t ticks)
