@@ -1,4 +1,5 @@
 #include"Serial.h"
+#include<Critical.h>
 #include<FreeRTOS.h>
 #include<atk-stm32f103/bsp.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
@@ -98,32 +99,15 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 #pragma region 被中断处理函数回调的函数
 void atk::Serial::OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos)
 {
-	static uint8_t count = 0;
-	count++;
-	Serial::Instance().WriteWithoutLock((uint8_t *)(&count), 0, 1);
-	Serial::Instance().StartReceiveWithDma();
+	Serial::Instance()._current_receive_count = pos;
+	Serial::Instance()._receive_complete_signal.ReleaseFromISR();
 }
 
 void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 {
 	Serial::Instance()._send_complete_signal.ReleaseFromISR();
 }
-
-void atk::Serial::StartReceiveWithDma()
-{
-	HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, _receive_buffer, 10);
-
-	/* 把传输半满回调给禁用，不然接收的数据较长，超过缓冲区一半时，即使是一次性接收的，
-	* UART 也会回调 OnReceiveEventCallback 两次。
-	*/
-	_rx_dma_handle.XferHalfCpltCallback = [](DMA_HandleTypeDef *h) {};
-}
 #pragma endregion
-
-void atk::Serial::WriteWithoutLock(uint8_t const *buffer, int32_t offset, int32_t count)
-{
-	HAL_UART_Transmit_DMA(&_uart_handle, buffer + offset, count);
-}
 
 #pragma region Stream
 bool Serial::CanRead()
@@ -153,10 +137,31 @@ void Serial::SetLength(int64_t value)
 
 int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 {
-	// 接收采用循环缓冲区配合接收中断
-	// 没有数据可读就一直等待，直到有数据可读。
+	if (count > UINT16_MAX)
+	{
+		throw std::invalid_argument{ "count 太大" };
+	}
 
-	return 0;
+	while (true)
+	{
+		task::Critical::Enter();
+		HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, buffer + offset, count);
+
+		/*
+		* 通过赋值为空指针，把传输半满回调给禁用，不然接收的数据较长，超过缓冲区一半时，
+		* 即使是一次性接收的，UART 也会回调 OnReceiveEventCallback 两次。
+		*
+		* 这个操作需要在临界区中，并且 DMA 的中断要处于 freertos 的管理范围内，否则无效。
+		*/
+		_rx_dma_handle.XferHalfCpltCallback = nullptr;
+		task::Critical::Exit();
+
+		_receive_complete_signal.Acquire();
+		if (_current_receive_count > 0)
+		{
+			return _current_receive_count;
+		}
+	}
 }
 
 void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
@@ -175,6 +180,7 @@ void Serial::Close()
 	HAL_UART_DMAStop(&_uart_handle);
 	Interrupt::DisableIRQ(IRQn_Type::USART1_IRQn);
 	Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
+	Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
 }
 
 int64_t Serial::Position()
@@ -227,5 +233,4 @@ void Serial::Begin(uint32_t baud_rate)
 	};
 
 	enable_interrupt();
-	StartReceiveWithDma();
 }

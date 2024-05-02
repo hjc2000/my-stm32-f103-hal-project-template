@@ -22,14 +22,14 @@ namespace atk
 		Serial() = default;
 
 		uint32_t _baud_rate = 115200;
-		uint8_t _receive_buffer[10];
-
 		UART_HandleTypeDef _uart_handle{};
 		DMA_HandleTypeDef _tx_dma_handle{};
 		DMA_HandleTypeDef _rx_dma_handle{};
 		USART_TypeDef *_uart_hardware_instance = USART1;
 		DMA_Channel_TypeDef *_dma_channel_hardware_instance = DMA1_Channel4;
 		task::BinarySemaphore _send_complete_signal;
+		task::BinarySemaphore _receive_complete_signal;
+		int32_t _current_receive_count = 0;
 
 		friend void ::USART1_IRQHandler();
 		friend void ::DMA1_Channel4_IRQHandler();
@@ -40,9 +40,6 @@ namespace atk
 		static void OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos);
 		static void OnSendCompleteCallback(UART_HandleTypeDef *huart);
 		#pragma endregion
-
-		void StartReceiveWithDma();
-		void WriteWithoutLock(uint8_t const *buffer, int32_t offset, int32_t count);
 
 	public:
 		static Serial &Instance()
