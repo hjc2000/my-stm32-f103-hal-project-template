@@ -3,6 +3,17 @@
 using namespace hal;
 
 #pragma region Key0
+atk::Key0::Key0()
+{
+	using namespace hal;
+	Port().EnableClock();
+	GpioPinInitOptions options;
+	options._mode = GpioPinMode::Input;
+	options._pull_mode = GpioPinPull::PullUp;
+	options._speed = GpioPinSpeed::High;
+	Port().InitPin(GpioPin::Pin4, options);
+}
+
 bool atk::Key0::KeyIsDown()
 {
 	// 被按下是低电平，否则是高电平
@@ -11,6 +22,17 @@ bool atk::Key0::KeyIsDown()
 #pragma endregion
 
 #pragma region Key1
+atk::Key1::Key1()
+{
+	using namespace hal;
+	Port().EnableClock();
+	GpioPinInitOptions options;
+	options._mode = GpioPinMode::Input;
+	options._pull_mode = GpioPinPull::PullUp;
+	options._speed = GpioPinSpeed::High;
+	Port().InitPin(GpioPin::Pin3, options);
+}
+
 bool atk::Key1::KeyIsDown()
 {
 	// 被按下是低电平，否则是高电平
@@ -19,6 +41,17 @@ bool atk::Key1::KeyIsDown()
 #pragma endregion
 
 #pragma region KeyWakeUp
+atk::KeyWakeUp::KeyWakeUp()
+{
+	using namespace hal;
+	Port().EnableClock();
+	GpioPinInitOptions options;
+	options._mode = GpioPinMode::Input;
+	options._pull_mode = GpioPinPull::PullDown;
+	options._speed = GpioPinSpeed::High;
+	Port().InitPin(GpioPin::Pin0, options);
+}
+
 bool atk::KeyWakeUp::KeyIsDown()
 {
 	// 被按下是高电平

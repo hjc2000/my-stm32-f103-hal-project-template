@@ -11,16 +11,7 @@ namespace atk
 	class Key0 :public bsp::IKey
 	{
 	public:
-		Key0()
-		{
-			using namespace hal;
-			Port().EnableClock();
-			GpioPinInitOptions options;
-			options._mode = GpioPinMode::Input;
-			options._pull_mode = GpioPinPull::PullUp;
-			options._speed = GpioPinSpeed::High;
-			Port().InitPin(GpioPin::Pin4, options);
-		}
+		Key0();
 
 		static Key0 &Instance()
 		{
@@ -47,16 +38,7 @@ namespace atk
 	class Key1 :public bsp::IKey
 	{
 	public:
-		Key1()
-		{
-			using namespace hal;
-			Port().EnableClock();
-			GpioPinInitOptions options;
-			options._mode = GpioPinMode::Input;
-			options._pull_mode = GpioPinPull::PullUp;
-			options._speed = GpioPinSpeed::High;
-			Port().InitPin(GpioPin::Pin3, options);
-		}
+		Key1();
 
 		static Key1 &Instance()
 		{
@@ -83,16 +65,7 @@ namespace atk
 	class KeyWakeUp :public bsp::IKey
 	{
 	public:
-		KeyWakeUp()
-		{
-			using namespace hal;
-			Port().EnableClock();
-			GpioPinInitOptions options;
-			options._mode = GpioPinMode::Input;
-			options._pull_mode = GpioPinPull::PullDown;
-			options._speed = GpioPinSpeed::High;
-			Port().InitPin(GpioPin::Pin0, options);
-		}
+		KeyWakeUp();
 
 		static KeyWakeUp &Instance()
 		{

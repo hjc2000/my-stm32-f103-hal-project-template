@@ -25,7 +25,7 @@ namespace bsp
 
 		/// <summary>
 		///		按键消抖需要延时。
-		///		- 如果是带有滤波电路的按钮，不需要延时，则可将此函数实现为直接返回，什么都不做。
+		///		* 如果是带有滤波电路的按钮，不需要延时，则可将此函数实现为直接返回，什么都不做。
 		/// </summary>
 		/// <param name="num"></param>
 		virtual void Delay(std::chrono::milliseconds num) = 0;
