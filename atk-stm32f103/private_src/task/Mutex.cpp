@@ -3,7 +3,7 @@
 task::Mutex::Mutex()
 {
 	_freertos_mutex = xSemaphoreCreateMutex();
-	if (_freertos_mutex == NULL)
+	if (_freertos_mutex == nullptr)
 	{
 		throw std::runtime_error{ "Mutex 构造失败" };
 	}
@@ -11,9 +11,11 @@ task::Mutex::Mutex()
 
 task::Mutex::~Mutex()
 {
-	if (_freertos_mutex != NULL)
+	if (_freertos_mutex == nullptr)
 	{
-		Unlock();
-		vSemaphoreDelete(_freertos_mutex);
+		return;
 	}
+
+	Unlock();
+	vSemaphoreDelete(_freertos_mutex);
 }
