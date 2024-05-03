@@ -13,6 +13,11 @@ namespace task
 		TaskHandle_t _handle;
 
 	public:
-		static void Run(std::function<void()> func);
+		TaskHandle_t Handle()
+		{
+			return _handle;
+		}
+
+		static Task Run(std::function<void()> func);
 	};
 }

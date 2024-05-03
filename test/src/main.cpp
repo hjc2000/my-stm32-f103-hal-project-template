@@ -13,15 +13,6 @@ using namespace bsp;
 
 //void TestWindowWatchDog();
 
-void startup_task(void *param)
-{
-	//TestKeyScanner();
-	TestExtiKey();
-	//TestSerial();
-	//TestIndependentWatchDog();
-	//TestWindowWatchDog();
-}
-
 int main(void)
 {
 	while (true)
