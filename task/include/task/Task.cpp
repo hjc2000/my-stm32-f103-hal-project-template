@@ -15,7 +15,7 @@ task::Task task::Task::Run(std::function<void()> func)
 	xTaskCreate(
 		f,
 		"task::Task",
-		128,
+		DefaultStackDepth(),
 		task,
 		1,
 		&task->_handle
