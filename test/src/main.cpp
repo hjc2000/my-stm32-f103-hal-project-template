@@ -20,7 +20,7 @@ int main(void)
 		try
 		{
 			BSP::Initialize();
-			task::Task::Run(TestExtiKey);
+			std::shared_ptr<task::Task> test_task = task::Task::Run(TestExtiKey);
 			vTaskStartScheduler();
 		}
 		catch (std::exception const &e)

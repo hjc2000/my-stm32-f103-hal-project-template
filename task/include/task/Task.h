@@ -1,6 +1,7 @@
 #pragma once
 #include<FreeRTOS.h>
 #include<functional>
+#include<memory>
 #include<stdint.h>
 #include<task.h>
 
@@ -13,11 +14,6 @@ namespace task
 		TaskHandle_t _handle;
 
 	public:
-		TaskHandle_t Handle()
-		{
-			return _handle;
-		}
-
 		/// <summary>
 		///		任务的栈大小的默认值。
 		///		* 返回的是引用，可以修改。
@@ -35,6 +31,6 @@ namespace task
 		/// </summary>
 		/// <param name="func"></param>
 		/// <returns></returns>
-		static TaskHandle_t Run(std::function<void()> func);
+		static std::shared_ptr<task::Task> Run(std::function<void()> func);
 	};
 }
