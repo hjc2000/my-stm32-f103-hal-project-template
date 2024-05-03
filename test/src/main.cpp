@@ -11,6 +11,7 @@
 #include<task/Task.h>
 
 using namespace bsp;
+using namespace nlohmann;
 
 //void TestWindowWatchDog();
 
@@ -23,8 +24,18 @@ int main(void)
 			BSP::Initialize();
 			std::shared_ptr<task::Task> test_task = task::Task::Run([]()
 			{
-				TestExtiKey();
-			}, 128);
+				std::unique_ptr<json> j{ new json{
+					{"数据",12}
+				} };
+
+				BSP::Serial().Begin(115200);
+				while (true)
+				{
+					BSP::Serial().PrintLine(j->dump(4));
+					BSP::Delayer().Delay(std::chrono::seconds{ 1 });
+					BSP::RedDigitalLed().Toggle();
+				}
+			}, 512);
 			vTaskStartScheduler();
 		}
 		catch (std::exception const &e)
