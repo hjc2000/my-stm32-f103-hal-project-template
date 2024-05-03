@@ -9,7 +9,7 @@
 namespace atk
 {
 	/// <summary>
-	///		外部中断驱动的 key0。
+	///		外部中断驱动的按钮，按钮的丝印是 wake up。
 	/// </summary>
 	class ExtiWakeUpKey :public bsp::IEventDrivenKey
 	{
