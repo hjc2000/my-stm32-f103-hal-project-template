@@ -15,8 +15,8 @@ using namespace bsp;
 void startup_task(void *param)
 {
 	//TestKeyScanner();
-	//TestExtiKey();
-	TestSerial();
+	TestExtiKey();
+	//TestSerial();
 	//TestIndependentWatchDog();
 	//TestWindowWatchDog();
 }

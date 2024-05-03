@@ -79,6 +79,7 @@ void BSP::Initialize()
 	BSP::RedDigitalLed();
 	BSP::GreenDigitalLed();
 	BSP::KeyScanner();
+	BSP::WakeUpKey();
 	BSP::Serial();
 	#pragma endregion
 
@@ -117,7 +118,6 @@ bsp::IKeyScanner &BSP::KeyScanner()
 	{
 		keys[(uint16_t)KeyIndex::Key0] = &Key0::Instance();
 		keys[(uint16_t)KeyIndex::Key1] = &Key1::Instance();
-		keys[(uint16_t)KeyIndex::KeyWakeUp] = &KeyWakeUp::Instance();
 	}
 
 	static bsp::KeyScanner key_scanner{ keys, hal::Delayer::Instance() };
@@ -125,6 +125,11 @@ bsp::IKeyScanner &BSP::KeyScanner()
 	// 初始化完成
 	initialized = true;
 	return key_scanner;
+}
+
+bsp::IEventDrivenKey &BSP::WakeUpKey()
+{
+	return atk::ExtiWakeUpKey::Instance();
 }
 
 bsp::ISerial &BSP::Serial()

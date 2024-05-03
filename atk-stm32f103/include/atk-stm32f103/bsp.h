@@ -10,7 +10,6 @@ enum class KeyIndex :uint16_t
 {
 	Key0,
 	Key1,
-	KeyWakeUp,
 	EnumEndFlag,
 };
 
@@ -61,6 +60,8 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	static bsp::IKeyScanner &KeyScanner();
+
+	static bsp::IEventDrivenKey &WakeUpKey();
 
 	static bsp::ISerial &Serial();
 };
