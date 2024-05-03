@@ -1,10 +1,12 @@
 #include<FreeRTOS.h>
+#include<TestEndianConverter.h>
 #include<TestExtiKey.h>
 #include<TestIndependentWatchDog.h>
 #include<TestJson.h>
 #include<TestKeyScanner.h>
 #include<TestSerial.h>
 #include<atk-stm32f103/bsp.h>
+#include<bsp-interface/EndianConverter.h>
 #include<stdexcept>
 #include<string>
 #include<task.h>
@@ -23,7 +25,7 @@ int main(void)
 			BSP::Initialize();
 			std::shared_ptr<task::Task> test_task = task::Task::Run([]()
 			{
-				TestJson();
+				TestEndianConverter();
 			}, 512);
 			vTaskStartScheduler();
 		}
