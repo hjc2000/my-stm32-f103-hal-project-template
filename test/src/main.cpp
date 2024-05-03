@@ -1,17 +1,16 @@
 #include<FreeRTOS.h>
 #include<TestExtiKey.h>
 #include<TestIndependentWatchDog.h>
+#include<TestJson.h>
 #include<TestKeyScanner.h>
 #include<TestSerial.h>
 #include<atk-stm32f103/bsp.h>
-#include<nlohmann/json.hpp>
 #include<stdexcept>
 #include<string>
 #include<task.h>
 #include<task/Task.h>
 
 using namespace bsp;
-using namespace nlohmann;
 
 //void TestWindowWatchDog();
 
@@ -24,17 +23,7 @@ int main(void)
 			BSP::Initialize();
 			std::shared_ptr<task::Task> test_task = task::Task::Run([]()
 			{
-				std::unique_ptr<json> j{ new json{
-					{"数据",12}
-				} };
-
-				BSP::Serial().Begin(115200);
-				while (true)
-				{
-					BSP::Serial().PrintLine(j->dump(4));
-					BSP::Delayer().Delay(std::chrono::seconds{ 1 });
-					BSP::RedDigitalLed().Toggle();
-				}
+				TestJson();
 			}, 512);
 			vTaskStartScheduler();
 		}
