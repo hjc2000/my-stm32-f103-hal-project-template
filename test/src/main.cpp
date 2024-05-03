@@ -7,6 +7,7 @@
 #include<stdexcept>
 #include<string>
 #include<task.h>
+#include<task/Task.h>
 
 using namespace bsp;
 
@@ -28,17 +29,7 @@ int main(void)
 		try
 		{
 			BSP::Initialize();
-
-			// usStackDepth 参数的单位不是字节，而是字。32 位 CPU 一个字是 4 字节。
-			xTaskCreate(
-				startup_task,
-				"startup_task",
-				128,
-				nullptr,
-				1,
-				nullptr
-			);
-
+			task::Task::Run(TestExtiKey);
 			vTaskStartScheduler();
 		}
 		catch (std::exception const &e)
