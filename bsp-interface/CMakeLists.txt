@@ -7,7 +7,9 @@ set(CMAKE_C_STANDARD 99)
 
 include(${cpp_lib_build_scripts_path}/cmake-module/setup.cmake)
 include(target_import_boost)
+include(target_import_nlohmann_json)
 
 add_library(${ProjectName} STATIC)
 target_import_src(${ProjectName})
 target_import_boost(${ProjectName} PUBLIC)
+target_import_nlohmann_json(${ProjectName} PUBLIC)

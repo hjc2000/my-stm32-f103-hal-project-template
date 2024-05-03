@@ -6,12 +6,10 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_C_STANDARD 99)
 
 include(${cpp_lib_build_scripts_path}/cmake-module/setup.cmake)
-include(target_import_nlohmann_json)
 
 add_executable(${ProjectName})
 target_import_src(${ProjectName})
 target_import_libfreertos(${ProjectName} PUBLIC)
-target_import_nlohmann_json(${ProjectName} PUBLIC)
 target_link_libraries(
     ${ProjectName} PUBLIC
     c m
