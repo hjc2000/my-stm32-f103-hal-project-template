@@ -1,6 +1,6 @@
 #include"Task.h"
 
-task::Task task::Task::Run(std::function<void()> func)
+TaskHandle_t task::Task::Run(std::function<void()> func)
 {
 	task::Task *task = new task::Task{};
 	task->_func = func;
@@ -22,5 +22,5 @@ task::Task task::Task::Run(std::function<void()> func)
 	);
 
 	// 本类对象内的字段借由拷贝构造函数拷贝给接收返回值的对象
-	return *task;
+	return task->_handle;
 }

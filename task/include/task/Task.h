@@ -35,6 +35,6 @@ namespace task
 		/// </summary>
 		/// <param name="func"></param>
 		/// <returns></returns>
-		static Task Run(std::function<void()> func);
+		static TaskHandle_t Run(std::function<void()> func);
 	};
 }
