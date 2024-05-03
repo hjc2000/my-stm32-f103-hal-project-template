@@ -2,6 +2,11 @@
 #include<functional>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
+extern "C"
+{
+	void HAL_GPIO_EXTI_Callback(uint16_t pin);
+}
+
 namespace hal
 {
 	/// <summary>
@@ -12,6 +17,14 @@ namespace hal
 	{
 	private:
 		Exti() = default;
+		friend void ::HAL_GPIO_EXTI_Callback(uint16_t pin);
+
+		std::function<void()> _on_exti0_interrupt;
+		std::function<void()> _on_exti1_interrupt;
+		std::function<void()> _on_exti2_interrupt;
+		std::function<void()> _on_exti3_interrupt;
+		std::function<void()> _on_exti4_interrupt;
+
 
 	public:
 		static Exti &Instance()
@@ -47,12 +60,15 @@ namespace hal
 			return __HAL_GPIO_EXTI_GET_IT((uint32_t)pin);
 		}
 
-		std::function<void()> _on_exti0_interrupt;
-		std::function<void()> _on_exti1_interrupt;
-		std::function<void()> _on_exti2_interrupt;
-		std::function<void()> _on_exti3_interrupt;
-		std::function<void()> _on_exti4_interrupt;
-
+		/// <summary>
+		///		使用一条外部中断线。
+		///		* 本函数内部会初始化 GPIO。
+		///		* 准备就绪后会开启中断。
+		/// </summary>
+		/// <param name="callback"></param>
+		/// <param name="port"></param>
+		/// <param name="pin"></param>
+		/// <param name="options"></param>
 		void UseLine(
 			std::function<void()> callback,
 			IGpioPort &port,
@@ -60,6 +76,11 @@ namespace hal
 			GpioPinInitOptions const &options
 		);
 
+		/// <summary>
+		///		取消使用一条外部中断线。
+		///		* 会先禁用对应的线的中断，然后将回调函数设为 nullptr。
+		/// </summary>
+		/// <param name="pin"></param>
 		void UnuseLine(GpioPin pin);
 	};
 }
