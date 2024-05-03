@@ -4,7 +4,7 @@
 	"configurations": [
 		{
 			"type": "cppdbg",
-			"name": "STM32 Debug via st-util",
+			"name": "通过 st-util 调试",
 			"project": "CMakeLists.txt",
 			"projectTarget": "test",
 			"currentDir": "${cmake.CMAKE_INSTALL_PREFIX}/bin",

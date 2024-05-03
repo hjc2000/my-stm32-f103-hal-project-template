@@ -14,71 +14,86 @@ extern "C"
 	/// </summary>
 	void EXTI0_IRQHandler()
 	{
-		if (!Exti::Instance().HasInterruptFlag(GpioPin::Pin0))
-		{
-			return;
-		}
-
-		Exti::Instance().ClearGpioInterruptPending(GpioPin::Pin0);
-		if (Exti::Instance()._on_exti0_interrupt)
-		{
-			Exti::Instance()._on_exti0_interrupt();
-		}
+		HAL_GPIO_EXTI_IRQHandler((uint16_t)GpioPin::Pin0);
 	}
 
 	void EXTI1_IRQHandler()
 	{
-		if (!Exti::Instance().HasInterruptFlag(GpioPin::Pin1))
-		{
-			return;
-		}
-
-		Exti::Instance().ClearGpioInterruptPending(GpioPin::Pin1);
-		if (Exti::Instance()._on_exti1_interrupt)
-		{
-			Exti::Instance()._on_exti1_interrupt();
-		}
+		HAL_GPIO_EXTI_IRQHandler((uint16_t)GpioPin::Pin1);
 	}
 
 	void EXTI2_IRQHandler()
 	{
-		if (!Exti::Instance().HasInterruptFlag(GpioPin::Pin2))
-		{
-			return;
-		}
-
-		Exti::Instance().ClearGpioInterruptPending(GpioPin::Pin2);
-		if (Exti::Instance()._on_exti2_interrupt)
-		{
-			Exti::Instance()._on_exti2_interrupt();
-		}
+		HAL_GPIO_EXTI_IRQHandler((uint16_t)GpioPin::Pin2);
 	}
 
 	void EXTI3_IRQHandler()
 	{
-		if (!Exti::Instance().HasInterruptFlag(GpioPin::Pin3))
-		{
-			return;
-		}
-
-		Exti::Instance().ClearGpioInterruptPending(GpioPin::Pin3);
-		if (Exti::Instance()._on_exti3_interrupt)
-		{
-			Exti::Instance()._on_exti3_interrupt();
-		}
+		HAL_GPIO_EXTI_IRQHandler((uint16_t)GpioPin::Pin3);
 	}
 
 	void EXTI4_IRQHandler()
 	{
-		if (!Exti::Instance().HasInterruptFlag(GpioPin::Pin4))
-		{
-			return;
-		}
+		HAL_GPIO_EXTI_IRQHandler((uint16_t)GpioPin::Pin4);
+	}
 
-		Exti::Instance().ClearGpioInterruptPending(GpioPin::Pin4);
-		if (Exti::Instance()._on_exti4_interrupt)
+	/// <summary>
+	///		重写 HAL 库中的 weak 版本
+	/// </summary>
+	/// <param name="GPIO_Pin"></param>
+	void HAL_GPIO_EXTI_Callback(uint16_t pin)
+	{
+		switch (pin)
 		{
-			Exti::Instance()._on_exti4_interrupt();
+		case (uint16_t)GpioPin::Pin0:
+			{
+				if (Exti::Instance()._on_exti0_interrupt)
+				{
+					Exti::Instance()._on_exti0_interrupt();
+				}
+
+				break;
+			}
+		case (uint16_t)GpioPin::Pin1:
+			{
+				if (Exti::Instance()._on_exti1_interrupt)
+				{
+					Exti::Instance()._on_exti1_interrupt();
+				}
+
+				break;
+			}
+		case (uint16_t)GpioPin::Pin2:
+			{
+				if (Exti::Instance()._on_exti2_interrupt)
+				{
+					Exti::Instance()._on_exti2_interrupt();
+				}
+
+				break;
+			}
+		case (uint16_t)GpioPin::Pin3:
+			{
+				if (Exti::Instance()._on_exti3_interrupt)
+				{
+					Exti::Instance()._on_exti3_interrupt();
+				}
+
+				break;
+			}
+		case (uint16_t)GpioPin::Pin4:
+			{
+				if (Exti::Instance()._on_exti4_interrupt)
+				{
+					Exti::Instance()._on_exti4_interrupt();
+				}
+
+				break;
+			}
+		default:
+			{
+				break;
+			}
 		}
 	}
-}
+}// extern "C"
