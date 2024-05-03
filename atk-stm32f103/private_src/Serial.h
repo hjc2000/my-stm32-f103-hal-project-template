@@ -89,7 +89,10 @@ namespace atk
 		#pragma endregion
 
 		/// <summary>
-		///		启动串口
+		///		启动串口。
+		///		* 本函数幂等，调用后，启动串口，再次调用会直接返回，只有调用 Close
+		///		  后才能重新启动串口。
+		///		* 本函数不是线程安全和可重入的，包括实现幂等的机制也不是线程安全和可重入的。
 		/// </summary>
 		/// <param name="baud_rate">想要的波特率</param>
 		void Begin(uint32_t baud_rate) override;
