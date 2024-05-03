@@ -11,7 +11,7 @@ namespace atk
 	/// <summary>
 	///		外部中断驱动的 key0。
 	/// </summary>
-	class ExtiKey0 :public bsp::IEventDrivenKey
+	class ExtiWakeUpKey :public bsp::IEventDrivenKey
 	{
 	private:
 		/// <summary>
@@ -21,20 +21,20 @@ namespace atk
 
 		hal::IGpioPort &Port()
 		{
-			return hal::GpioPortE::Instance();
+			return hal::GpioPortA::Instance();
 		}
 
 		hal::GpioPin Pin()
 		{
-			return hal::GpioPin::Pin4;
+			return hal::GpioPin::Pin0;
 		}
 
 	public:
-		ExtiKey0();
+		ExtiWakeUpKey();
 
-		static ExtiKey0 &Instance()
+		static ExtiWakeUpKey &Instance()
 		{
-			static ExtiKey0 instance;
+			static ExtiWakeUpKey instance;
 			return instance;
 		}
 

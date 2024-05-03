@@ -1,9 +1,9 @@
-#include"AtkExtiKey.h"
+#include"ExtiWakeUpKey.h"
 
 using namespace atk;
 using namespace hal;
 
-ExtiKey0::ExtiKey0()
+ExtiWakeUpKey::ExtiWakeUpKey()
 {
 	// 配置引脚
 	GpioPinInitOptions options;
@@ -11,7 +11,6 @@ ExtiKey0::ExtiKey0()
 	options._pull_mode = GpioPinPull::PullUp;
 	options._speed = GpioPinSpeed::High;
 	Port().InitPin(Pin(), options);
-
 	Exti::Instance().UseLine([&]()
 	{
 		// 这是在中断函数中，禁止使用 Delayer 进行延时。

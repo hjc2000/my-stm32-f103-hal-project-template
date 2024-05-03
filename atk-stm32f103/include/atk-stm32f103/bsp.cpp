@@ -1,8 +1,8 @@
 #include"bsp.h"
-#include<AtkExtiKey.h>
 #include<AtkKey.h>
 #include<Delayer.h>
 #include<DigitalLed.h>
+#include<ExtiWakeUpKey.h>
 #include<FreeRTOS.h>
 #include<Serial.h>
 #include<atomic>
