@@ -1,6 +1,101 @@
 #include"Exti.h"
+#include<hal-wrapper/interrupt/Interrupt.h>
 
 using namespace hal;
+
+void Exti::UseLine(
+	std::function<void()> callback,
+	IGpioPort &port,
+	GpioPin pin,
+	GpioPinInitOptions const &options
+)
+{
+	port.EnableClock();
+	port.InitPin(pin, options);
+	switch (pin)
+	{
+	case GpioPin::Pin0:
+		{
+			_on_exti0_interrupt = callback;
+			Interrupt::SetPriority(IRQn_Type::EXTI0_IRQn, 4, 0);
+			Interrupt::EnableIRQ(IRQn_Type::EXTI0_IRQn);
+			break;
+		}
+	case GpioPin::Pin1:
+		{
+			_on_exti1_interrupt = callback;
+			Interrupt::SetPriority(IRQn_Type::EXTI1_IRQn, 4, 0);
+			Interrupt::EnableIRQ(IRQn_Type::EXTI1_IRQn);
+			break;
+		}
+	case GpioPin::Pin2:
+		{
+			_on_exti2_interrupt = callback;
+			Interrupt::SetPriority(IRQn_Type::EXTI2_IRQn, 4, 0);
+			Interrupt::EnableIRQ(IRQn_Type::EXTI2_IRQn);
+			break;
+		}
+	case GpioPin::Pin3:
+		{
+			_on_exti3_interrupt = callback;
+			Interrupt::SetPriority(IRQn_Type::EXTI3_IRQn, 4, 0);
+			Interrupt::EnableIRQ(IRQn_Type::EXTI3_IRQn);
+			break;
+		}
+	case GpioPin::Pin4:
+		{
+			_on_exti4_interrupt = callback;
+			Interrupt::SetPriority(IRQn_Type::EXTI4_IRQn, 4, 0);
+			Interrupt::EnableIRQ(IRQn_Type::EXTI4_IRQn);
+			break;
+		}
+	default:
+		{
+			break;
+		}
+	}
+}
+
+void Exti::UnuseLine(GpioPin pin)
+{
+	switch (pin)
+	{
+	case GpioPin::Pin0:
+		{
+			Interrupt::DisableIRQ(IRQn_Type::EXTI0_IRQn);
+			_on_exti0_interrupt = nullptr;
+			break;
+		}
+	case GpioPin::Pin1:
+		{
+			Interrupt::DisableIRQ(IRQn_Type::EXTI1_IRQn);
+			_on_exti1_interrupt = nullptr;
+			break;
+		}
+	case GpioPin::Pin2:
+		{
+			Interrupt::DisableIRQ(IRQn_Type::EXTI2_IRQn);
+			_on_exti2_interrupt = nullptr;
+			break;
+		}
+	case GpioPin::Pin3:
+		{
+			Interrupt::DisableIRQ(IRQn_Type::EXTI3_IRQn);
+			_on_exti3_interrupt = nullptr;
+			break;
+		}
+	case GpioPin::Pin4:
+		{
+			Interrupt::DisableIRQ(IRQn_Type::EXTI4_IRQn);
+			_on_exti4_interrupt = nullptr;
+			break;
+		}
+	default:
+		{
+			break;
+		}
+	}
+}
 
 /// <summary>
 ///		EXTI 中断函数的定义。

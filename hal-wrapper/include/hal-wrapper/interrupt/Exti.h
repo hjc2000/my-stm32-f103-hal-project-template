@@ -1,6 +1,6 @@
 #pragma once
 #include<functional>
-#include<hal-wrapper/peripheral/gpio/GpioTypeDef.h>
+#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
 namespace hal
 {
@@ -52,5 +52,14 @@ namespace hal
 		std::function<void()> _on_exti2_interrupt;
 		std::function<void()> _on_exti3_interrupt;
 		std::function<void()> _on_exti4_interrupt;
+
+		void UseLine(
+			std::function<void()> callback,
+			IGpioPort &port,
+			GpioPin pin,
+			GpioPinInitOptions const &options
+		);
+
+		void UnuseLine(GpioPin pin);
 	};
 }
