@@ -4,6 +4,7 @@
 #include<TestKeyScanner.h>
 #include<TestSerial.h>
 #include<atk-stm32f103/bsp.h>
+#include<nlohmann/json.hpp>
 #include<stdexcept>
 #include<string>
 #include<task.h>
@@ -20,7 +21,10 @@ int main(void)
 		try
 		{
 			BSP::Initialize();
-			std::shared_ptr<task::Task> test_task = task::Task::Run(TestExtiKey);
+			std::shared_ptr<task::Task> test_task = task::Task::Run([]()
+			{
+				TestExtiKey();
+			}, 128);
 			vTaskStartScheduler();
 		}
 		catch (std::exception const &e)
