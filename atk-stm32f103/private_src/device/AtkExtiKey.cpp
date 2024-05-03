@@ -10,6 +10,7 @@ ExtiKey0::ExtiKey0()
 	options._mode = GpioPinMode::Interrupt_FallingEdgeTrigger;
 	options._pull_mode = GpioPinPull::PullUp;
 	options._speed = GpioPinSpeed::High;
+	Port().InitPin(Pin(), options);
 
 	Exti::Instance().UseLine([&]()
 	{
@@ -18,8 +19,6 @@ ExtiKey0::ExtiKey0()
 		_is_pressed = !Port().DigitalReadPin(Pin());
 		Exti::Instance().ClearGpioInterruptPending(Pin());
 	},
-		Port(),
-		Pin(),
-		options
+		Pin()
 	);
 }

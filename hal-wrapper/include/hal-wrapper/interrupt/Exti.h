@@ -62,19 +62,10 @@ namespace hal
 
 		/// <summary>
 		///		使用一条外部中断线。
-		///		* 本函数内部会初始化 GPIO。
-		///		* 准备就绪后会开启中断。
 		/// </summary>
 		/// <param name="callback"></param>
-		/// <param name="port"></param>
 		/// <param name="pin"></param>
-		/// <param name="options"></param>
-		void UseLine(
-			std::function<void()> callback,
-			IGpioPort &port,
-			GpioPin pin,
-			GpioPinInitOptions const &options
-		);
+		void UseLine(std::function<void()> callback, GpioPin pin);
 
 		/// <summary>
 		///		取消使用一条外部中断线。

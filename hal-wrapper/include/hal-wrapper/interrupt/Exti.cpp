@@ -99,15 +99,8 @@ extern "C"
 	}
 }// extern "C"
 
-void Exti::UseLine(
-	std::function<void()> callback,
-	IGpioPort &port,
-	GpioPin pin,
-	GpioPinInitOptions const &options
-)
+void Exti::UseLine(std::function<void()> callback, GpioPin pin)
 {
-	port.EnableClock();
-	port.InitPin(pin, options);
 	switch (pin)
 	{
 	case GpioPin::Pin0:
