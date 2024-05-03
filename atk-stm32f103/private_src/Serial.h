@@ -23,6 +23,7 @@ namespace atk
 	private:
 		Serial() = default;
 
+		bool _have_begun = false;
 		uint32_t _baud_rate = 115200;
 		UART_HandleTypeDef _uart_handle{};
 		DMA_HandleTypeDef _tx_dma_handle{};

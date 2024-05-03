@@ -182,6 +182,7 @@ void Serial::Close()
 	Interrupt::DisableIRQ(IRQn_Type::USART1_IRQn);
 	Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
 	Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
+	_have_begun = false;
 }
 
 int64_t Serial::Position()
@@ -197,6 +198,13 @@ void Serial::SetPosition(int64_t value)
 
 void Serial::Begin(uint32_t baud_rate)
 {
+	if (_have_begun)
+	{
+		return;
+	}
+
+	_have_begun = true;
+
 	/*
 	* 先立刻释放一次信号量，等会 Write 方法被调用时直接通过，不被阻塞。
 	* 然后在发送完成之前，第二次 Write 就会被阻塞了，这还能防止 Write
