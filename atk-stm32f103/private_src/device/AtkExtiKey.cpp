@@ -18,7 +18,5 @@ ExtiKey0::ExtiKey0()
 		Systic::NopLoopDelay(std::chrono::milliseconds(20));
 		_is_pressed = !Port().DigitalReadPin(Pin());
 		Exti::Instance().ClearGpioInterruptPending(Pin());
-	},
-		Pin()
-	);
+	}, Pin());
 }
