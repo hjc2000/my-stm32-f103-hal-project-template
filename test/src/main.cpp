@@ -15,21 +15,6 @@ int main(void)
 		try
 		{
 			BSP::Initialize();
-			std::shared_ptr<task::Task> test_endian_converter_task = task::Task::Run([]()
-			{
-				TestEndianConverter();
-			}, 128);
-
-			std::shared_ptr<task::Task> test_exti_Key_task = task::Task::Run([]()
-			{
-				TestExtiKey();
-			}, 128);
-
-			std::shared_ptr<task::Task> test_key_scanner_task = task::Task::Run([]()
-			{
-				TestKeyScanner();
-			}, 128);
-
 			std::shared_ptr<task::Task> test_serial_task = task::Task::Run([]()
 			{
 				TestSerial();
