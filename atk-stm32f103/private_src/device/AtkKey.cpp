@@ -39,22 +39,3 @@ bool atk::Key1::KeyIsDown()
 	return !Port().DigitalReadPin(GpioPin::Pin3);
 }
 #pragma endregion
-
-#pragma region KeyWakeUp
-atk::KeyWakeUp::KeyWakeUp()
-{
-	using namespace hal;
-	Port().EnableClock();
-	GpioPinInitOptions options;
-	options._mode = GpioPinMode::Input;
-	options._pull_mode = GpioPinPull::PullDown;
-	options._speed = GpioPinSpeed::High;
-	Port().InitPin(GpioPin::Pin0, options);
-}
-
-bool atk::KeyWakeUp::KeyIsDown()
-{
-	// 被按下是高电平
-	return Port().DigitalReadPin(GpioPin::Pin0);
-}
-#pragma endregion

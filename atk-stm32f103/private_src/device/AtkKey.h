@@ -58,31 +58,4 @@ namespace atk
 			hal::Delayer::Instance().Delay(num);
 		}
 	};
-
-	/// <summary>
-	///		位于 PA0 引脚。另一端接 VCC，所以需要下拉使用。
-	/// </summary>
-	class KeyWakeUp :public bsp::IKey
-	{
-	public:
-		KeyWakeUp();
-
-		static KeyWakeUp &Instance()
-		{
-			static KeyWakeUp key{};
-			return key;
-		}
-
-		hal::IGpioPort &Port()
-		{
-			return hal::GpioPortA::Instance();
-		}
-
-		bool KeyIsDown() override;
-
-		void Delay(std::chrono::milliseconds num) override
-		{
-			hal::Delayer::Instance().Delay(num);
-		}
-	};
 }
