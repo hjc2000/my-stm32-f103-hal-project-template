@@ -65,35 +65,72 @@ namespace hal
 
 		WaitSignalPolarity _wait_signal_polarity;
 
-		uint32_t WrapMode;                     /*!< Enables or disables the Wrapped burst access mode for Flash
-		memory, valid only when accessing Flash memories in burst mode.
-		This parameter can be a value of @ref FSMC_Wrap_Mode                     */
+		enum class WrapMode
+		{
+			Disable = FSMC_WRAP_MODE_DISABLE,
+			Enable = FSMC_WRAP_MODE_ENABLE,
+		};
 
-		uint32_t WaitSignalActive;             /*!< Specifies if the wait signal is asserted by the memory one
-		clock cycle before the wait state or during the wait state,
-		valid only when accessing memories in burst mode.
-		This parameter can be a value of @ref FSMC_Wait_Timing                   */
+		WrapMode _wrap_mode;
 
-		uint32_t WriteOperation;               /*!< Enables or disables the write operation in the selected device by the FSMC.
-		This parameter can be a value of @ref FSMC_Write_Operation               */
+		enum class WaitSignalActive
+		{
+			BeforeWs = FSMC_WAIT_TIMING_BEFORE_WS,
+			DuringWs = FSMC_WAIT_TIMING_DURING_WS,
+		};
 
-		uint32_t WaitSignal;                   /*!< Enables or disables the wait state insertion via wait
-		signal, valid for Flash memory access in burst mode.
-		This parameter can be a value of @ref FSMC_Wait_Signal                   */
+		WaitSignalActive _wait_signal_active;
 
-		uint32_t ExtendedMode;                 /*!< Enables or disables the extended mode.
-		This parameter can be a value of @ref FSMC_Extended_Mode                 */
+		enum class WriteOperation
+		{
+			Disable = FSMC_WRITE_OPERATION_DISABLE,
+			Enable = FSMC_WRITE_OPERATION_ENABLE,
+		};
 
-		uint32_t AsynchronousWait;             /*!< Enables or disables wait signal during asynchronous transfers,
-		valid only with asynchronous Flash memories.
-		This parameter can be a value of @ref FSMC_AsynchronousWait              */
+		WriteOperation _write_operation;
 
-		uint32_t WriteBurst;                   /*!< Enables or disables the write burst operation.
-		This parameter can be a value of @ref FSMC_Write_Burst                   */
+		enum class WaitSignal
+		{
+			Disable = FSMC_WAIT_SIGNAL_DISABLE,
+			Enable = FSMC_WAIT_SIGNAL_ENABLE,
+		};
 
+		WaitSignal _wait_signal;
 
-		uint32_t PageSize;                     /*!< Specifies the memory page size.
-		This parameter can be a value of @ref FSMC_Page_Size                     */
+		enum class ExtendedMode
+		{
+			Disable = FSMC_EXTENDED_MODE_DISABLE,
+			Enable = FSMC_EXTENDED_MODE_ENABLE,
+		};
+
+		ExtendedMode _extended_mode;
+
+		enum class AsynchronousWait
+		{
+			Disable = FSMC_ASYNCHRONOUS_WAIT_DISABLE,
+			Enable = FSMC_ASYNCHRONOUS_WAIT_ENABLE,
+		};
+
+		AsynchronousWait _asynchronous_wait;
+
+		enum class WriteBurst
+		{
+			Disable = FSMC_WRITE_BURST_DISABLE,
+			Enable = FSMC_WRITE_BURST_ENABLE,
+		};
+
+		WriteBurst _write_burst;
+
+		enum class PageSize
+		{
+			SizeNone = FSMC_PAGE_SIZE_NONE,
+			Size128 = FSMC_PAGE_SIZE_128,
+			Size256 = FSMC_PAGE_SIZE_256,
+			Size512 = FSMC_PAGE_SIZE_512,
+			Size1024 = FSMC_PAGE_SIZE_1024,
+		};
+
+		PageSize _page_size;
 
 		operator FSMC_NORSRAM_InitTypeDef() const;
 	};
