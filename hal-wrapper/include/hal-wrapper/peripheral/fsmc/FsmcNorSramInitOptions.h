@@ -6,6 +6,10 @@ namespace hal
 	class FsmcNorSramInitOptions
 	{
 	public:
+		FsmcNorSramInitOptions() = default;
+		FsmcNorSramInitOptions(FSMC_NORSRAM_InitTypeDef const &o);
+		FsmcNorSramInitOptions &operator=(FSMC_NORSRAM_InitTypeDef const &o);
+
 		enum class Bank
 		{
 			Bank1 = FSMC_NORSRAM_BANK1,
@@ -53,9 +57,13 @@ namespace hal
 
 		BurstAccessMode _burst_access_mode;
 
-		uint32_t WaitSignalPolarity;           /*!< Specifies the wait signal polarity, valid only when accessing
-		the Flash memory in burst mode.
-		This parameter can be a value of @ref FSMC_Wait_Signal_Polarity          */
+		enum class WaitSignalPolarity
+		{
+			Low = FSMC_WAIT_SIGNAL_POLARITY_LOW,
+			High = FSMC_WAIT_SIGNAL_POLARITY_HIGH,
+		};
+
+		WaitSignalPolarity _wait_signal_polarity;
 
 		uint32_t WrapMode;                     /*!< Enables or disables the Wrapped burst access mode for Flash
 		memory, valid only when accessing Flash memories in burst mode.
