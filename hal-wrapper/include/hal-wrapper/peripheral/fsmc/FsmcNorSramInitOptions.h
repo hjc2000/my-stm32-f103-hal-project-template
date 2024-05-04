@@ -36,12 +36,22 @@ namespace hal
 
 		MemoryType _memory_type;
 
-		uint32_t MemoryDataWidth;              /*!< Specifies the external memory device width.
-		This parameter can be a value of @ref FSMC_NORSRAM_Data_Width            */
+		enum class MemoryDataWidth
+		{
+			Width8 = FSMC_NORSRAM_MEM_BUS_WIDTH_8,
+			Width16 = FSMC_NORSRAM_MEM_BUS_WIDTH_16,
+			Width32 = FSMC_NORSRAM_MEM_BUS_WIDTH_32,
+		};
 
-		uint32_t BurstAccessMode;              /*!< Enables or disables the burst access mode for Flash memory,
-		valid only with synchronous burst Flash memories.
-		This parameter can be a value of @ref FSMC_Burst_Access_Mode             */
+		MemoryDataWidth _memory_data_width;
+
+		enum class BurstAccessMode
+		{
+			Disable = FSMC_BURST_ACCESS_MODE_DISABLE,
+			Enable = FSMC_BURST_ACCESS_MODE_ENABLE,
+		};
+
+		BurstAccessMode _burst_access_mode;
 
 		uint32_t WaitSignalPolarity;           /*!< Specifies the wait signal polarity, valid only when accessing
 		the Flash memory in burst mode.
