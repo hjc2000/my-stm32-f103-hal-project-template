@@ -1,4 +1,4 @@
-#include"FsmcTiming.h"
+#include"FsmcNorSramTiming.h"
 
 hal::FsmcNorSramTiming::FsmcNorSramTiming(FSMC_NORSRAM_TimingTypeDef const &o)
 {
