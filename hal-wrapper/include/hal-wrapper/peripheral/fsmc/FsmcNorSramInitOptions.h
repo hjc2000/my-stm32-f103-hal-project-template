@@ -9,6 +9,7 @@ namespace hal
 		FsmcNorSramInitOptions() = default;
 		FsmcNorSramInitOptions(FSMC_NORSRAM_InitTypeDef const &o);
 		FsmcNorSramInitOptions &operator=(FSMC_NORSRAM_InitTypeDef const &o);
+		operator FSMC_NORSRAM_InitTypeDef() const;
 
 		enum class Bank
 		{
@@ -131,7 +132,5 @@ namespace hal
 		};
 
 		PageSize _page_size;
-
-		operator FSMC_NORSRAM_InitTypeDef() const;
 	};
 }
