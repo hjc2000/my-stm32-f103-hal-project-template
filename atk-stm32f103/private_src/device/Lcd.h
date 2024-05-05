@@ -78,6 +78,9 @@ namespace atk
 		}
 		#pragma endregion
 
+		void InitGpio();
+
 	public:
+
 	};
 }
