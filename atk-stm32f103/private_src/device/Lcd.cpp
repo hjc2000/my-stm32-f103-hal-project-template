@@ -10,9 +10,41 @@ atk::Lcd::Lcd()
 	_sram_handle.Instance = FSMC_NORSRAM_DEVICE;
 	_sram_handle.Extended = FSMC_NORSRAM_EXTENDED_DEVICE;
 	_sram_handle.Init = NorSramInitOptions();
+	_sram_handle.MspInitCallback = MspInitCallback;
+
 	FSMC_NORSRAM_TimingTypeDef read_timing = ReadTiming();
 	FSMC_NORSRAM_TimingTypeDef write_timing = WriteTiming();
 	HAL_SRAM_Init(&_sram_handle, &read_timing, &write_timing);
+}
+
+void atk::Lcd::MspInitCallback(SRAM_HandleTypeDef *handle)
+{
+	__HAL_RCC_FSMC_CLK_ENABLE();
+	hal::GpioPortD::Instance().EnableClock();
+	hal::GpioPortE::Instance().EnableClock();
+
+	hal::GpioPinInitOptions options;
+	options._mode = GpioPinMode::AlternateFunction_PushPull;
+	options._pull_mode = GpioPinPull::PullUp;
+	options._speed = GpioPinSpeed::High;
+
+	hal::GpioPortD::Instance().InitPin(GpioPin::Pin0, options);
+	hal::GpioPortD::Instance().InitPin(GpioPin::Pin1, options);
+	hal::GpioPortD::Instance().InitPin(GpioPin::Pin8, options);
+	hal::GpioPortD::Instance().InitPin(GpioPin::Pin9, options);
+	hal::GpioPortD::Instance().InitPin(GpioPin::Pin10, options);
+	hal::GpioPortD::Instance().InitPin(GpioPin::Pin14, options);
+	hal::GpioPortD::Instance().InitPin(GpioPin::Pin15, options);
+
+	hal::GpioPortE::Instance().InitPin(GpioPin::Pin7, options);
+	hal::GpioPortE::Instance().InitPin(GpioPin::Pin8, options);
+	hal::GpioPortE::Instance().InitPin(GpioPin::Pin9, options);
+	hal::GpioPortE::Instance().InitPin(GpioPin::Pin10, options);
+	hal::GpioPortE::Instance().InitPin(GpioPin::Pin11, options);
+	hal::GpioPortE::Instance().InitPin(GpioPin::Pin12, options);
+	hal::GpioPortE::Instance().InitPin(GpioPin::Pin13, options);
+	hal::GpioPortE::Instance().InitPin(GpioPin::Pin14, options);
+	hal::GpioPortE::Instance().InitPin(GpioPin::Pin15, options);
 }
 
 constexpr hal::FsmcNorSramTiming atk::Lcd::ReadTiming()

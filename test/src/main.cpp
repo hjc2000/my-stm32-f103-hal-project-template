@@ -1,4 +1,5 @@
 #include<atk-stm32f103/bsp.h>
+#include<bsp-interface/EndianConverter.h>
 #include<stdexcept>
 #include<string>
 #include<task/Task.h>
@@ -18,9 +19,29 @@ int main(void)
 			{
 				BSP::Initialize();
 				BSP::Lcd().TurnOnBackLight();
+				BSP::Serial().Begin(115200);
 				while (true)
 				{
+					BSP::Lcd().WriteCommand(0XD3);
 
+					uint16_t id = BSP::Lcd().ReadData();
+					bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
+					BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
+
+					id = BSP::Lcd().ReadData();
+					bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
+					BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
+
+					id = BSP::Lcd().ReadData();
+					bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
+					BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
+
+					id = BSP::Lcd().ReadData();
+					bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
+					BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
+
+					BSP::RedDigitalLed().Toggle();
+					BSP::Delayer().Delay(std::chrono::seconds{ 1 });
 				}
 			}, 128);
 			vTaskStartScheduler();

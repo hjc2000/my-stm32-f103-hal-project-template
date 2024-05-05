@@ -13,6 +13,8 @@ namespace atk
 
 		SRAM_HandleTypeDef _sram_handle;
 
+		static void MspInitCallback(SRAM_HandleTypeDef *handle);
+
 		#pragma region 连接到LCD的GPIO引脚
 		/// <summary>
 		///		连接 LCD 的 RD 引脚。
