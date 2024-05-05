@@ -35,7 +35,7 @@ int main(void)
 					//id = BSP::Lcd().ReadData();
 
 					BSP::RedDigitalLed().Toggle();
-					BSP::Delayer().Delay(std::chrono::milliseconds{ 1000 });
+					BSP::Delayer().Delay(std::chrono::seconds{ 1 });
 				}
 			}, 512);
 			vTaskStartScheduler();
