@@ -9,14 +9,14 @@ using namespace hal;
 void Delayer::Delay(std::chrono::microseconds microseconds)
 {
 	// 大于 1000 的微秒转换为毫秒，利用 Delay(std::chrono::milliseconds milliseconds) 重载。
-	int64_t ms = microseconds.count() / 1000;
-	if (ms > 0)
+	std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(microseconds);
+	if (ms.count() > 0)
 	{
 		Delay(std::chrono::milliseconds{ ms });
 	}
 
 	// 剩余的小于 1000 部分的微秒
-	microseconds -= std::chrono::milliseconds{ ms };
+	microseconds -= ms;
 	Systic::NopLoopDelay(microseconds);
 }
 
