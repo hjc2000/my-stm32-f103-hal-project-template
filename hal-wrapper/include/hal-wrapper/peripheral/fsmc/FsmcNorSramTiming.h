@@ -9,6 +9,7 @@ namespace hal
 		FsmcNorSramTiming() = default;
 		FsmcNorSramTiming(FSMC_NORSRAM_TimingTypeDef const &o);
 		FsmcNorSramTiming &operator=(FSMC_NORSRAM_TimingTypeDef const &o);
+		operator FSMC_NORSRAM_TimingTypeDef() const;
 
 		/// <summary>
 		///		地址建立时间。
@@ -56,7 +57,5 @@ namespace hal
 		};
 
 		AccessMode _access_mode;
-
-		operator FSMC_NORSRAM_TimingTypeDef() const;
 	};
 }
