@@ -16,6 +16,7 @@ void Delayer::Delay(std::chrono::microseconds microseconds)
 	}
 
 	// 剩余的小于 1000 部分的微秒
+	microseconds -= std::chrono::milliseconds{ ms };
 	Systic::NopLoopDelay(microseconds);
 }
 

@@ -26,13 +26,7 @@ void Systic::SetClockSource(SysticClockSource value)
 
 uint32_t Systic::ClockSourceFreq()
 {
-	uint32_t hclk_freq = HAL_RCC_GetHCLKFreq();
-	if (ClockSource() == SysticClockSource::HCLK_DIV8)
-	{
-		return hclk_freq / 8;
-	}
-
-	return hclk_freq;
+	return HAL_RCC_GetSysClockFreq();
 }
 
 uint32_t Systic::ReloadNum()

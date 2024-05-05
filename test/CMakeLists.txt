@@ -37,7 +37,7 @@ install(CODE "
     message(STATUS \"正在将 ${ProjectName}.bin 下载到单片机\")
 
     execute_process(
-        COMMAND st-flash --connect-under-reset --reset write \"${CMAKE_INSTALL_PREFIX}/bin/${ProjectName}.bin\" 0x8000000
+        COMMAND st-flash --reset write \"${CMAKE_INSTALL_PREFIX}/bin/${ProjectName}.bin\" 0x8000000
         RESULT_VARIABLE cmd_result
     )
 

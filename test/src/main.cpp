@@ -18,32 +18,32 @@ int main(void)
 			std::shared_ptr<task::Task> test_serial_task = task::Task::Create([]()
 			{
 				BSP::Initialize();
-				BSP::Lcd().TurnOnBackLight();
-				BSP::Serial().Begin(115200);
+				//BSP::Lcd().TurnOnBackLight();
+				//BSP::Serial().Begin(115200);
 				while (true)
 				{
-					BSP::Lcd().WriteCommand(0XD3);
+					//BSP::Lcd().WriteCommand(0XD3);
 
-					uint16_t id = BSP::Lcd().ReadData();
-					bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
-					BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
+					//uint16_t id = BSP::Lcd().ReadData();
+					//bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
+					//BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
 
-					id = BSP::Lcd().ReadData();
-					bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
-					BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
+					//id = BSP::Lcd().ReadData();
+					//bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
+					//BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
 
-					id = BSP::Lcd().ReadData();
-					bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
-					BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
+					//id = BSP::Lcd().ReadData();
+					//bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
+					//BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
 
-					id = BSP::Lcd().ReadData();
-					bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
-					BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
+					//id = BSP::Lcd().ReadData();
+					//bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
+					//BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
 
 					BSP::RedDigitalLed().Toggle();
-					BSP::Delayer().Delay(std::chrono::seconds{ 1 });
+					BSP::Delayer().Delay(std::chrono::milliseconds{ 1000 });
 				}
-			}, 128);
+			}, 512);
 			vTaskStartScheduler();
 		}
 		catch (std::exception const &e)

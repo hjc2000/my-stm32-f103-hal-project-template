@@ -39,6 +39,8 @@ void config_clock_source()
 
 void config_clock_signal()
 {
+	hal::Systic::SetClockSource(hal::SysticClockSource::HCLK_DIV8);
+
 	ClockSignalInitOptions clock_init_options;
 	clock_init_options._clock_type = ClockType::SYSCLK
 		| ClockType::HCLK
@@ -65,7 +67,6 @@ void BSP::Initialize()
 	HAL_Init();
 	config_clock_source();
 	config_clock_signal();
-	hal::Systic::SetClockSource(hal::SysticClockSource::HCLK_DIV8);
 
 	#pragma region 触发局部静态变量初始化
 	/*
@@ -82,7 +83,7 @@ void BSP::Initialize()
 	BSP::KeyScanner();
 	BSP::WakeUpKey();
 	BSP::Serial();
-	BSP::Lcd();
+	//BSP::Lcd();
 	#pragma endregion
 
 }
