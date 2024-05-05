@@ -23,3 +23,10 @@ void atk::Lcd::InitGpio()
 	gpio_init_options._mode = GpioPinMode::Output_PushPull;
 	BL_Port().InitPin(BL_Pin(), gpio_init_options);
 }
+
+void atk::Lcd::InitSramHandle()
+{
+	_sram_handle.Instance = FSMC_NORSRAM_DEVICE;
+	_sram_handle.Extended = FSMC_NORSRAM_EXTENDED_DEVICE;
+	_sram_handle.Init = NorSramInitOptions();
+}

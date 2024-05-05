@@ -8,8 +8,7 @@ namespace atk
 	class Lcd
 	{
 	private:
-		FSMC_NORSRAM_TimingTypeDef _read_timing;
-		FSMC_NORSRAM_TimingTypeDef _write_timing;
+		SRAM_HandleTypeDef _sram_handle;
 
 		#pragma region 连接到LCD的GPIO引脚
 		/// <summary>
@@ -78,7 +77,34 @@ namespace atk
 		}
 		#pragma endregion
 
+		constexpr hal::FsmcNorSramTiming ReadTiming()
+		{
+			hal::FsmcNorSramTiming read_timing;
+			read_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
+			read_timing._address_setup_time = 0;
+			read_timing._address_hold_time = 0;
+			read_timing._data_setup_time = 15;
+			return read_timing;
+		}
+
+		constexpr hal::FsmcNorSramTiming WriteTiming()
+		{
+			hal::FsmcNorSramTiming write_timing;
+			write_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
+			write_timing._address_setup_time = 0;
+			write_timing._address_hold_time = 0;
+			write_timing._data_setup_time = 1;
+			return write_timing;
+		}
+
+		constexpr hal::FsmcNorSramInitOptions NorSramInitOptions()
+		{
+			hal::FsmcNorSramInitOptions nor_sram_init_options;
+			return nor_sram_init_options;
+		}
+
 		void InitGpio();
+		void InitSramHandle();
 
 	public:
 
