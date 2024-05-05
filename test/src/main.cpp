@@ -18,7 +18,7 @@ int main(void)
 			std::shared_ptr<task::Task> test_serial_task = task::Task::Create([]()
 			{
 				BSP::Initialize();
-				//BSP::Lcd().TurnOnBackLight();
+				BSP::Lcd().TurnOnBackLight();
 				//BSP::Serial().Begin(115200);
 				while (true)
 				{

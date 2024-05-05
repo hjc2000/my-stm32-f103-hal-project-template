@@ -83,7 +83,7 @@ void BSP::Initialize()
 	BSP::KeyScanner();
 	BSP::WakeUpKey();
 	BSP::Serial();
-	//BSP::Lcd();
+	BSP::Lcd();
 	#pragma endregion
 
 }
