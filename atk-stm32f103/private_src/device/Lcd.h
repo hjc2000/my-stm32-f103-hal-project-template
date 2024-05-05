@@ -92,5 +92,9 @@ namespace atk
 			static Lcd o;
 			return o;
 		}
+
+		void TurnOnBackLight() override;
+		void TurnOffBackLight() override;
+
 	};
 }

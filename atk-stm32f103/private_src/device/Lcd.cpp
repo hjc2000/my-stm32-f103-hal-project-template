@@ -72,3 +72,13 @@ void atk::Lcd::InitGpio()
 	gpio_init_options._mode = GpioPinMode::Output_PushPull;
 	BL_Port().InitPin(BL_Pin(), gpio_init_options);
 }
+
+void atk::Lcd::TurnOnBackLight()
+{
+	BL_Port().DigitalWritePin(BL_Pin(), 1);
+}
+
+void atk::Lcd::TurnOffBackLight()
+{
+	BL_Port().DigitalWritePin(BL_Pin(), 0);
+}
