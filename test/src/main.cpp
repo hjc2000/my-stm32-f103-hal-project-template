@@ -19,7 +19,7 @@ int main(void)
 			{
 				BSP::Initialize();
 				BSP::Lcd().TurnOnBackLight();
-				//BSP::Serial().Begin(115200);
+				BSP::Serial().Begin(115200);
 				while (true)
 				{
 					//BSP::Lcd().WriteCommand(0XD3);
@@ -29,16 +29,10 @@ int main(void)
 					//BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
 
 					//id = BSP::Lcd().ReadData();
-					//bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
-					//BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
 
 					//id = BSP::Lcd().ReadData();
-					//bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
-					//BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
 
 					//id = BSP::Lcd().ReadData();
-					//bsp::EndianConverter::ToBigEndian(reinterpret_cast<uint8_t *>(id), 2, 2);
-					//BSP::Serial().Write(reinterpret_cast<uint8_t *>(id), 0, 2);
 
 					BSP::RedDigitalLed().Toggle();
 					BSP::Delayer().Delay(std::chrono::milliseconds{ 1000 });
