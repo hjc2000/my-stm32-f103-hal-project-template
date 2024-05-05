@@ -1,6 +1,6 @@
 #include"Task.h"
 
-std::shared_ptr<task::Task> task::Task::Run(std::function<void()> func, uint16_t stack_depth)
+std::shared_ptr<task::Task> task::Task::Create(std::function<void()> func, uint16_t stack_depth)
 {
 	std::shared_ptr<task::Task> task{ new task::Task{} };
 	task->_func = func;

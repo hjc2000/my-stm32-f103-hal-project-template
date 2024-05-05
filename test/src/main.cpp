@@ -14,12 +14,11 @@ int main(void)
 	{
 		try
 		{
-			BSP::Initialize();
-			std::shared_ptr<task::Task> test_serial_task = task::Task::Run([]()
+			std::shared_ptr<task::Task> test_serial_task = task::Task::Create([]()
 			{
+				BSP::Initialize();
 				TestSerial();
 			}, 128);
-
 			vTaskStartScheduler();
 		}
 		catch (std::exception const &e)

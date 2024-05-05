@@ -1,7 +1,19 @@
 #include"Lcd.h"
+#include<atk-stm32f103/bsp.h>
 
 using namespace hal;
 using namespace atk;
+
+atk::Lcd::Lcd()
+{
+	InitGpio();
+	_sram_handle.Instance = FSMC_NORSRAM_DEVICE;
+	_sram_handle.Extended = FSMC_NORSRAM_EXTENDED_DEVICE;
+	_sram_handle.Init = NorSramInitOptions();
+	FSMC_NORSRAM_TimingTypeDef read_timing = ReadTiming();
+	FSMC_NORSRAM_TimingTypeDef write_timing = WriteTiming();
+	HAL_SRAM_Init(&_sram_handle, &read_timing, &write_timing);
+}
 
 constexpr hal::FsmcNorSramTiming atk::Lcd::ReadTiming()
 {
@@ -59,11 +71,4 @@ void atk::Lcd::InitGpio()
 
 	gpio_init_options._mode = GpioPinMode::Output_PushPull;
 	BL_Port().InitPin(BL_Pin(), gpio_init_options);
-}
-
-void atk::Lcd::InitSramHandle()
-{
-	_sram_handle.Instance = FSMC_NORSRAM_DEVICE;
-	_sram_handle.Extended = FSMC_NORSRAM_EXTENDED_DEVICE;
-	_sram_handle.Init = NorSramInitOptions();
 }

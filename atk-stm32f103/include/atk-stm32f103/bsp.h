@@ -4,6 +4,7 @@
 #include<bsp-interface/IEventDrivenKey.h>
 #include<bsp-interface/IIndependentWatchDog.h>
 #include<bsp-interface/IKeyScanner.h>
+#include<bsp-interface/ILcd.h>
 #include<bsp-interface/ISerial.h>
 
 enum class KeyIndex :uint16_t
@@ -64,4 +65,6 @@ public:
 	static bsp::IEventDrivenKey &WakeUpKey();
 
 	static bsp::ISerial &Serial();
+
+	static bsp::ILcd &Lcd();
 };

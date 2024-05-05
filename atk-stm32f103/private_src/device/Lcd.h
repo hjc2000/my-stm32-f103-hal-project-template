@@ -1,13 +1,16 @@
 #pragma once
+#include<bsp-interface/ILcd.h>
 #include<hal-wrapper/peripheral/fsmc/FsmcNorSramInitOptions.h>
 #include<hal-wrapper/peripheral/fsmc/FsmcNorSramTiming.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
 namespace atk
 {
-	class Lcd
+	class Lcd :public bsp::ILcd
 	{
 	private:
+		Lcd();
+
 		SRAM_HandleTypeDef _sram_handle;
 
 		#pragma region 连接到LCD的GPIO引脚
@@ -82,9 +85,12 @@ namespace atk
 		constexpr hal::FsmcNorSramInitOptions NorSramInitOptions();
 
 		void InitGpio();
-		void InitSramHandle();
 
 	public:
-
+		static Lcd &Instance()
+		{
+			static Lcd o;
+			return o;
+		}
 	};
 }

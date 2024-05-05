@@ -4,6 +4,7 @@
 #include<DigitalLed.h>
 #include<ExtiWakeUpKey.h>
 #include<FreeRTOS.h>
+#include<Lcd.h>
 #include<Serial.h>
 #include<atomic>
 #include<bsp-interface/KeyScanner.h>
@@ -81,6 +82,7 @@ void BSP::Initialize()
 	BSP::KeyScanner();
 	BSP::WakeUpKey();
 	BSP::Serial();
+	BSP::Lcd();
 	#pragma endregion
 
 }
@@ -135,4 +137,9 @@ bsp::IEventDrivenKey &BSP::WakeUpKey()
 bsp::ISerial &BSP::Serial()
 {
 	return Serial::Instance();
+}
+
+bsp::ILcd &BSP::Lcd()
+{
+	return Lcd::Instance();
 }
