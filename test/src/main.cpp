@@ -18,7 +18,10 @@ int main(void)
 			{
 				BSP::Initialize();
 				BSP::Lcd().TurnOnBackLight();
-				TestSerial();
+				while (true)
+				{
+
+				}
 			}, 128);
 			vTaskStartScheduler();
 		}

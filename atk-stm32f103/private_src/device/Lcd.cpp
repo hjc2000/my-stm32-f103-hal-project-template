@@ -83,12 +83,23 @@ void atk::Lcd::TurnOffBackLight()
 	BL_Port().DigitalWritePin(BL_Pin(), 0);
 }
 
-void atk::Lcd::WriteCommand(uint32_t cmd)
+void atk::Lcd::WriteCommand(uint16_t cmd)
 {
-
+	*CommandAddress() = cmd;
 }
 
-void atk::Lcd::WriteData(uint32_t data)
+void atk::Lcd::WriteCommand(uint16_t cmd, uint16_t param)
 {
+	WriteCommand(cmd);
+	WriteData(param);
+}
 
+void atk::Lcd::WriteData(uint16_t data)
+{
+	*DataAddress() = data;
+}
+
+uint16_t atk::Lcd::ReadData()
+{
+	return *DataAddress();
 }

@@ -107,7 +107,9 @@ namespace atk
 		void TurnOnBackLight() override;
 		void TurnOffBackLight() override;
 
-		void WriteCommand(uint32_t cmd);
-		void WriteData(uint32_t data);
+		void WriteCommand(uint16_t cmd) override;
+		void WriteCommand(uint16_t cmd, uint16_t param) override;
+		void WriteData(uint16_t data) override;
+		uint16_t ReadData() override;
 	};
 }
