@@ -84,16 +84,8 @@ namespace atk
 		constexpr hal::FsmcNorSramTiming WriteTiming();
 		constexpr hal::FsmcNorSramInitOptions NorSramInitOptions();
 
-		constexpr uint16_t *CommandAddress()
-		{
-			constexpr uint32_t addr = (uint32_t)((0X60000000 + (0X4000000 * (4 - 1))) | (((1 << 10) * 2) - 2));
-			return reinterpret_cast<uint16_t *>(addr);
-		}
-
-		constexpr uint16_t *DataAddress()
-		{
-			return CommandAddress() + 2;
-		}
+		constexpr uint16_t *CommandAddress();
+		constexpr uint16_t *DataAddress();
 
 		void InitGpio();
 

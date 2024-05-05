@@ -52,6 +52,17 @@ constexpr hal::FsmcNorSramInitOptions atk::Lcd::NorSramInitOptions()
 	return nor_sram_init_options;
 }
 
+constexpr uint16_t *atk::Lcd::CommandAddress()
+{
+	constexpr uint32_t addr = (uint32_t)((0X60000000 + (0X4000000 * (4 - 1))) | (((1 << 10) * 2) - 2));
+	return reinterpret_cast<uint16_t *>(addr);
+}
+
+constexpr uint16_t *atk::Lcd::DataAddress()
+{
+	return CommandAddress() + 2;
+}
+
 void atk::Lcd::InitGpio()
 {
 	RD_Port().EnableClock();
