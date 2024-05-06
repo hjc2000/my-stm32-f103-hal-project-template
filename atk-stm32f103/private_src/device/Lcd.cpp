@@ -120,16 +120,6 @@ void atk::Lcd::InitGpio()
 	BL_Port().InitPin(BL_Pin(), gpio_init_options);
 }
 
-void atk::Lcd::TurnOnBackLight()
-{
-	BL_Port().DigitalWritePin(BL_Pin(), 1);
-}
-
-void atk::Lcd::TurnOffBackLight()
-{
-	BL_Port().DigitalWritePin(BL_Pin(), 0);
-}
-
 void atk::Lcd::WriteCommand(uint16_t cmd)
 {
 	*CommandAddress() = cmd;
@@ -149,6 +139,16 @@ void atk::Lcd::WriteData(uint16_t data)
 uint16_t atk::Lcd::ReadData()
 {
 	return *DataAddress();
+}
+
+void atk::Lcd::TurnOnBackLight()
+{
+	BL_Port().DigitalWritePin(BL_Pin(), 1);
+}
+
+void atk::Lcd::TurnOffBackLight()
+{
+	BL_Port().DigitalWritePin(BL_Pin(), 0);
 }
 
 uint32_t atk::Lcd::LcdDriverChipId()

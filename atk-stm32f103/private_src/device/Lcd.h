@@ -98,13 +98,13 @@ namespace atk
 			return o;
 		}
 
-		void TurnOnBackLight() override;
-		void TurnOffBackLight() override;
-
 		void WriteCommand(uint16_t cmd);
 		void WriteCommand(uint16_t cmd, uint16_t param);
 		void WriteData(uint16_t data);
 		uint16_t ReadData();
+
+		void TurnOnBackLight() override;
+		void TurnOffBackLight() override;
 
 		uint32_t LcdDriverChipId() override;
 	};
