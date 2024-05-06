@@ -15,6 +15,7 @@ atk::Lcd::Lcd()
 	FSMC_NORSRAM_TimingTypeDef read_timing = ReadTiming();
 	FSMC_NORSRAM_TimingTypeDef write_timing = WriteTiming();
 	HAL_SRAM_Init(&_sram_handle, &read_timing, &write_timing);
+	BSP::Delayer().Delay(std::chrono::milliseconds{ 50 });
 }
 
 void atk::Lcd::MspInitCallback(SRAM_HandleTypeDef *handle)
@@ -72,15 +73,18 @@ constexpr hal::FsmcNorSramInitOptions atk::Lcd::NorSramInitOptions()
 	hal::FsmcNorSramInitOptions nor_sram_init_options;
 	nor_sram_init_options._bank = FsmcNorSramInitOptions::Bank::Bank4;
 	nor_sram_init_options._data_address_mux = FsmcNorSramInitOptions::DataAddressMux::Disable;
+	nor_sram_init_options._memory_type = FsmcNorSramInitOptions::MemoryType::SRSM;
 	nor_sram_init_options._memory_data_width = FsmcNorSramInitOptions::MemoryDataWidth::Width16;
 	nor_sram_init_options._burst_access_mode = FsmcNorSramInitOptions::BurstAccessMode::Disable;
 	nor_sram_init_options._wait_signal_polarity = FsmcNorSramInitOptions::WaitSignalPolarity::Low;
+	nor_sram_init_options._wrap_mode = FsmcNorSramInitOptions::WrapMode::Disable;
 	nor_sram_init_options._wait_signal_active = FsmcNorSramInitOptions::WaitSignalActive::BeforeWs;
 	nor_sram_init_options._write_operation = FsmcNorSramInitOptions::WriteOperation::Enable;
 	nor_sram_init_options._wait_signal = FsmcNorSramInitOptions::WaitSignal::Disable;
 	nor_sram_init_options._extended_mode = FsmcNorSramInitOptions::ExtendedMode::Enable;
 	nor_sram_init_options._asynchronous_wait = FsmcNorSramInitOptions::AsynchronousWait::Disable;
 	nor_sram_init_options._write_burst = FsmcNorSramInitOptions::WriteBurst::Disable;
+	nor_sram_init_options._page_size = FsmcNorSramInitOptions::PageSize::SizeNone;
 	return nor_sram_init_options;
 }
 
