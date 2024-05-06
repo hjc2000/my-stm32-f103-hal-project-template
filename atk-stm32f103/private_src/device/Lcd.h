@@ -86,8 +86,8 @@ namespace atk
 		constexpr hal::FsmcNorSramTiming WriteTiming();
 		constexpr hal::FsmcNorSramInitOptions NorSramInitOptions();
 
-		constexpr uint16_t *CommandAddress();
-		constexpr uint16_t *DataAddress();
+		constexpr volatile uint16_t *CommandAddress();
+		constexpr volatile uint16_t *DataAddress();
 
 		void InitGpio();
 
@@ -101,9 +101,11 @@ namespace atk
 		void TurnOnBackLight() override;
 		void TurnOffBackLight() override;
 
-		void WriteCommand(uint16_t cmd) override;
-		void WriteCommand(uint16_t cmd, uint16_t param) override;
-		void WriteData(uint16_t data) override;
-		uint16_t ReadData() override;
+		void WriteCommand(uint16_t cmd);
+		void WriteCommand(uint16_t cmd, uint16_t param);
+		void WriteData(uint16_t data);
+		uint16_t ReadData();
+
+		uint32_t LcdDriverChipId() override;
 	};
 }

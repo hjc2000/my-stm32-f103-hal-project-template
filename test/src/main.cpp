@@ -23,20 +23,13 @@ int main(void)
 				BSP::GreenDigitalLed().TurnOn();
 				while (true)
 				{
-					BSP::Lcd().WriteCommand(0X04);
-
-					uint16_t id = BSP::Lcd().ReadData();
-					BSP::Serial().Write(reinterpret_cast<uint8_t *>(&id), 0, 2);
-
-					id = BSP::Lcd().ReadData();
-					BSP::Serial().Write(reinterpret_cast<uint8_t *>(&id), 0, 2);
-
-					id = BSP::Lcd().ReadData();
-					BSP::Serial().Write(reinterpret_cast<uint8_t *>(&id), 0, 2);
-
-					id = BSP::Lcd().ReadData();
-					BSP::Serial().Write(reinterpret_cast<uint8_t *>(&id), 0, 2);
-
+					uint32_t chip_id = BSP::Lcd().LcdDriverChipId();
+					bsp::EndianConverter::ToBigEndian(
+						reinterpret_cast<uint8_t *>(&chip_id),
+						sizeof(chip_id),
+						sizeof(chip_id)
+					);
+					BSP::Serial().Write(reinterpret_cast<uint8_t *>(&chip_id), 0, sizeof(chip_id));
 					BSP::RedDigitalLed().Toggle();
 					BSP::Delayer().Delay(std::chrono::seconds{ 1 });
 				}

@@ -88,13 +88,13 @@ constexpr hal::FsmcNorSramInitOptions atk::Lcd::NorSramInitOptions()
 	return nor_sram_init_options;
 }
 
-constexpr uint16_t *atk::Lcd::CommandAddress()
+constexpr volatile uint16_t *atk::Lcd::CommandAddress()
 {
 	constexpr uint32_t addr = (uint32_t)((0X60000000 + (0X4000000 * (4 - 1))) | (((1 << 10) * 2) - 2));
 	return reinterpret_cast<uint16_t *>(addr);
 }
 
-constexpr uint16_t *atk::Lcd::DataAddress()
+constexpr volatile uint16_t *atk::Lcd::DataAddress()
 {
 	return CommandAddress() + 2;
 }
@@ -149,4 +149,17 @@ void atk::Lcd::WriteData(uint16_t data)
 uint16_t atk::Lcd::ReadData()
 {
 	return *DataAddress();
+}
+
+uint32_t atk::Lcd::LcdDriverChipId()
+{
+	uint16_t id = 0;
+	WriteCommand(0X04);
+	uint16_t temp = ReadData();	// 第一次读取会读取到刚刚写入的命令 0x04
+	temp = ReadData();			// 读到 0x85
+	temp = ReadData();			// 读到 0x85
+	id = temp << 8;
+	temp = ReadData();			// 读到 0x52
+	id |= temp;
+	return id;
 }
