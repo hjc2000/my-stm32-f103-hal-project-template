@@ -7,20 +7,15 @@ using namespace atk;
 atk::Lcd::Lcd()
 {
 	InitGpio();
+	__HAL_RCC_FSMC_CLK_ENABLE();
 
 	_sram_handle.Instance = FSMC_NORSRAM_DEVICE;
 	_sram_handle.Extended = FSMC_NORSRAM_EXTENDED_DEVICE;
 	_sram_handle.Init = NorSramInitOptions();
-	_sram_handle.MspInitCallback = MspInitCallback;
 
 	FSMC_NORSRAM_TimingTypeDef read_timing = ReadTiming();
 	FSMC_NORSRAM_TimingTypeDef write_timing = WriteTiming();
 	HAL_SRAM_Init(&_sram_handle, &read_timing, &write_timing);
-}
-
-void atk::Lcd::MspInitCallback(SRAM_HandleTypeDef *handle)
-{
-	__HAL_RCC_FSMC_CLK_ENABLE();
 }
 
 constexpr hal::FsmcNorSramTiming atk::Lcd::ReadTiming()
