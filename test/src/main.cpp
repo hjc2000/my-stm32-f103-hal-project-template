@@ -21,15 +21,9 @@ int main(void)
 				BSP::Lcd().TurnOnBackLight();
 				BSP::Serial().Begin(115200);
 				BSP::GreenDigitalLed().TurnOn();
+				BSP::Lcd().InitDisplay();
 				while (true)
 				{
-					uint32_t chip_id = BSP::Lcd().LcdDriverChipId();
-					bsp::EndianConverter::ToBigEndian(
-						reinterpret_cast<uint8_t *>(&chip_id),
-						sizeof(chip_id),
-						sizeof(chip_id)
-					);
-					BSP::Serial().Write(reinterpret_cast<uint8_t *>(&chip_id), 0, sizeof(chip_id));
 					BSP::RedDigitalLed().Toggle();
 					BSP::Delayer().Delay(std::chrono::seconds{ 1 });
 				}

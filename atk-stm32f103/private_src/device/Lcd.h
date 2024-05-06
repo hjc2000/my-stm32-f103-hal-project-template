@@ -107,5 +107,9 @@ namespace atk
 		void TurnOffBackLight() override;
 
 		uint32_t LcdDriverChipId() override;
+		void InitDisplay() override;
+
+		// 通过 ILcd 继承
+		void Clear(Color color) override;
 	};
 }

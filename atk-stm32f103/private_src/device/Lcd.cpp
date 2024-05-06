@@ -163,3 +163,100 @@ uint32_t atk::Lcd::LcdDriverChipId()
 	id |= temp;
 	return id;
 }
+
+void atk::Lcd::InitDisplay()
+{
+	WriteCommand(0x11);
+	BSP::Delayer().Delay(std::chrono::milliseconds{ 120 });
+
+	WriteCommand(0x36);
+	WriteData(0x00);
+
+
+	WriteCommand(0x3A);
+	WriteData(0X05);
+
+	WriteCommand(0xB2);
+	WriteData(0x0C);
+	WriteData(0x0C);
+	WriteData(0x00);
+	WriteData(0x33);
+	WriteData(0x33);
+
+	WriteCommand(0xB7);
+	WriteData(0x35);
+
+	WriteCommand(0xBB); /* vcom */
+	WriteData(0x32);  /* 30 */
+
+	WriteCommand(0xC0);
+	WriteData(0x0C);
+
+	WriteCommand(0xC2);
+	WriteData(0x01);
+
+	WriteCommand(0xC3); /* vrh */
+	WriteData(0x10);  /* 17 0D */
+
+	WriteCommand(0xC4); /* vdv */
+	WriteData(0x20);  /* 20 */
+
+	WriteCommand(0xC6);
+	WriteData(0x0f);
+
+	WriteCommand(0xD0);
+	WriteData(0xA4);
+	WriteData(0xA1);
+
+	WriteCommand(0xE0); /* Set Gamma  */
+	WriteData(0xd0);
+	WriteData(0x00);
+	WriteData(0x02);
+	WriteData(0x07);
+	WriteData(0x0a);
+	WriteData(0x28);
+	WriteData(0x32);
+	WriteData(0X44);
+	WriteData(0x42);
+	WriteData(0x06);
+	WriteData(0x0e);
+	WriteData(0x12);
+	WriteData(0x14);
+	WriteData(0x17);
+
+
+	WriteCommand(0XE1);  /* Set Gamma */
+	WriteData(0xd0);
+	WriteData(0x00);
+	WriteData(0x02);
+	WriteData(0x07);
+	WriteData(0x0a);
+	WriteData(0x28);
+	WriteData(0x31);
+	WriteData(0x54);
+	WriteData(0x47);
+	WriteData(0x0e);
+	WriteData(0x1c);
+	WriteData(0x17);
+	WriteData(0x1b);
+	WriteData(0x1e);
+
+
+	WriteCommand(0x2A);
+	WriteData(0x00);
+	WriteData(0x00);
+	WriteData(0x00);
+	WriteData(0xef);
+
+	WriteCommand(0x2B);
+	WriteData(0x00);
+	WriteData(0x00);
+	WriteData(0x01);
+	WriteData(0x3f);
+
+	WriteCommand(0x29); /* display on */
+}
+
+void atk::Lcd::Clear(Color color)
+{
+}

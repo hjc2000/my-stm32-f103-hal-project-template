@@ -15,5 +15,16 @@ namespace bsp
 		/// </summary>
 		/// <returns></returns>
 		virtual uint32_t LcdDriverChipId() = 0;
+		virtual void InitDisplay() = 0;
+
+		enum class Color
+		{
+			White,
+		};
+
+		/// <summary>
+		///		清屏
+		/// </summary>
+		virtual void Clear(Color color) = 0;
 	};
 }
