@@ -170,7 +170,7 @@ uint32_t atk::Lcd::LcdDriverChipId()
 	return id;
 }
 
-void atk::Lcd::Initialize()
+void atk::Lcd::DisplayOn()
 {
 	BSP::Delayer().Delay(std::chrono::milliseconds{ 50 });
 	WriteCommand(0x11);

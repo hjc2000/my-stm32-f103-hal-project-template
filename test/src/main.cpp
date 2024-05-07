@@ -21,7 +21,7 @@ int main(void)
 				BSP::Serial().Begin(115200);
 				BSP::GreenDigitalLed().TurnOn();
 
-				BSP::Lcd().Initialize();
+				BSP::Lcd().DisplayOn();
 				BSP::Lcd().TurnOnBackLight();
 
 				while (true)
