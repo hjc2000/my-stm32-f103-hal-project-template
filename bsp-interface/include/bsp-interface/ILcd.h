@@ -19,7 +19,7 @@ namespace bsp
 		virtual void DisplayOn() = 0;
 		virtual void DisplayOff() = 0;
 
-		virtual void SetScanDirection(uint8_t dir) = 0;
+		virtual void SetScanDirection(bsp::HorizontalDirection hdir, bsp::VerticalDirection vdir) = 0;
 
 		/// <summary>
 		///		清屏

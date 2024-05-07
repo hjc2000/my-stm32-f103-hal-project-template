@@ -156,6 +156,11 @@ constexpr uint16_t atk::Lcd::ColorCode(bsp::Color color)
 	}
 }
 
+constexpr uint8_t atk::Lcd::DirectionCode(bsp::HorizontalDirection hdir, bsp::VerticalDirection vdir)
+{
+	return 0;
+}
+
 void atk::Lcd::PrepareForRendering()
 {
 	// 写入此命令后才可以开始写像素
@@ -316,8 +321,7 @@ void atk::Lcd::Clear(bsp::Color color)
 	}
 }
 
-void atk::Lcd::SetScanDirection(uint8_t dir)
+void atk::Lcd::SetScanDirection(bsp::HorizontalDirection hdir, bsp::VerticalDirection vdir)
 {
-	dir &= 0b111;
-	WriteCommand(0X36, dir | 0x8);
+	WriteCommand(0X36, DirectionCode(hdir, vdir) | 0x8);
 }
