@@ -23,7 +23,7 @@ int main(void)
 
 				BSP::Lcd().DisplayOn();
 				BSP::Lcd().TurnOnBackLight();
-				BSP::Lcd().Clear(bsp::ILcd::Color::White);
+				BSP::Lcd().Clear(bsp::ILcd::Color::Green);
 
 				while (true)
 				{

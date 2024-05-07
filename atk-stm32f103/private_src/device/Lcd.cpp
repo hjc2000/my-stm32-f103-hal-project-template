@@ -307,13 +307,6 @@ void atk::Lcd::Clear(Color color)
 	uint32_t point_count = 240 * 320;
 	for (uint32_t i = 0; i < point_count; i++)
 	{
-		if (i < point_count / 2)
-		{
-			WriteData(0x001F);
-		}
-		else
-		{
-			WriteData(0x07E0);
-		}
+		WriteData(ColorCode(color));
 	}
 }
