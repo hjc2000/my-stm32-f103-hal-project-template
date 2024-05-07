@@ -109,6 +109,7 @@ namespace atk
 		void DisplayOn() override;
 		void DisplayOff() override;
 
+		constexpr uint16_t ColorCode(bsp::ILcd::Color color);
 		void Clear(Color color) override;
 	};
 }
