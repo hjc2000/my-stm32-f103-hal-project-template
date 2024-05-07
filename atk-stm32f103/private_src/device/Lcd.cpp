@@ -156,9 +156,51 @@ constexpr uint16_t atk::Lcd::ColorCode(bsp::Color color)
 	}
 }
 
-constexpr uint8_t atk::Lcd::DirectionCode(bsp::HorizontalDirection hdir, bsp::VerticalDirection vdir)
+constexpr uint8_t atk::Lcd::DirectionCode(
+	bool horizontal_priority_scanning,
+	bsp::HorizontalDirection hdir,
+	bsp::VerticalDirection vdir
+)
 {
-	return 0;
+	if (horizontal_priority_scanning)
+	{
+		if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::TopToBottom)
+		{
+			return 0b000 << 5;
+		}
+		else if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::BottomToTop)
+		{
+			return 0b100 << 5;
+		}
+		else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::TopToBottom)
+		{
+			return 0b010 << 5;
+		}
+		else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::BottomToTop)
+		{
+			return 0b110 << 5;
+		}
+	}
+
+	// 以下是垂直优先扫描
+	if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::TopToBottom)
+	{
+		return 0b001 << 5;
+	}
+	else if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::BottomToTop)
+	{
+		return 0b101 << 5;
+	}
+	else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::TopToBottom)
+	{
+		return 0b011 << 5;
+	}
+	else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::BottomToTop)
+	{
+		return 0b111 << 5;
+	}
+
+	throw std::invalid_argument{ "非法参数，导致不匹配任何一个分支" };
 }
 
 void atk::Lcd::PrepareForRendering()
@@ -321,7 +363,14 @@ void atk::Lcd::Clear(bsp::Color color)
 	}
 }
 
-void atk::Lcd::SetScanDirection(bsp::HorizontalDirection hdir, bsp::VerticalDirection vdir)
+void atk::Lcd::SetScanDirection(
+	bool horizontal_priority_scanning,
+	bsp::HorizontalDirection hdir,
+	bsp::VerticalDirection vdir
+)
 {
-	WriteCommand(0X36, DirectionCode(hdir, vdir) | 0x8);
+	WriteCommand(
+		0X36,
+		DirectionCode(horizontal_priority_scanning, hdir, vdir) | 0x8
+	);
 }

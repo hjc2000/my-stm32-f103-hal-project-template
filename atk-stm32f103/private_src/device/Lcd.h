@@ -91,7 +91,11 @@ namespace atk
 		void InitGpio();
 
 		constexpr uint16_t ColorCode(bsp::Color color);
-		constexpr uint8_t DirectionCode(bsp::HorizontalDirection hdir, bsp::VerticalDirection vdir);
+		constexpr uint8_t DirectionCode(
+			bool horizontal_priority_scanning,
+			bsp::HorizontalDirection hdir,
+			bsp::VerticalDirection vdir
+		);
 
 		void PrepareForRendering();
 
@@ -116,6 +120,10 @@ namespace atk
 		void DisplayOff() override;
 
 		void Clear(bsp::Color color) override;
-		void SetScanDirection(bsp::HorizontalDirection hdir, bsp::VerticalDirection vdir) override;
+		void SetScanDirection(
+			bool horizontal_priority_scanning,
+			bsp::HorizontalDirection hdir,
+			bsp::VerticalDirection vdir
+		) override;
 	};
 }
