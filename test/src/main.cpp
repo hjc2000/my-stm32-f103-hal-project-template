@@ -23,9 +23,7 @@ int main(void)
 
 				BSP::Lcd().DisplayOn();
 				BSP::Lcd().TurnOnBackLight();
-
-				BSP::Delayer().Delay(std::chrono::seconds{ 2 });
-				BSP::Lcd().DisplayOff();
+				BSP::Lcd().Clear(bsp::ILcd::Color::White);
 
 				while (true)
 				{

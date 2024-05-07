@@ -261,7 +261,8 @@ void atk::Lcd::DisplayOn()
 	WriteData(0x01);
 	WriteData(0x3f);
 
-	WriteCommand(0x29); /* display on */
+	// 执行这条后才真正开启显示，不再是那种除了背光什么都没有的状态。
+	WriteCommand(0x29);
 }
 
 void atk::Lcd::DisplayOff()
@@ -271,4 +272,10 @@ void atk::Lcd::DisplayOff()
 
 void atk::Lcd::Clear(Color color)
 {
+	// 写入此命令后才可以开始写像素
+	WriteCommand(0X2C);
+	for (uint32_t i = 0; i < 240 * 320; i++)
+	{
+		WriteData(0xF800);
+	}
 }

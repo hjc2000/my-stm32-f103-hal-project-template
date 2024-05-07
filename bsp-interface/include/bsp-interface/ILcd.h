@@ -20,7 +20,11 @@ namespace bsp
 
 		enum class Color
 		{
+			Red,
+			Green,
+			Blue,
 			White,
+			Black,
 		};
 
 		/// <summary>
