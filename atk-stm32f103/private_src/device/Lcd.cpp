@@ -264,6 +264,11 @@ void atk::Lcd::DisplayOn()
 	WriteCommand(0x29); /* display on */
 }
 
+void atk::Lcd::DisplayOff()
+{
+	WriteCommand(0X28);
+}
+
 void atk::Lcd::Clear(Color color)
 {
 }

@@ -16,6 +16,7 @@ namespace bsp
 		/// <returns></returns>
 		virtual uint32_t LcdDriverChipId() = 0;
 		virtual void DisplayOn() = 0;
+		virtual void DisplayOff() = 0;
 
 		enum class Color
 		{
