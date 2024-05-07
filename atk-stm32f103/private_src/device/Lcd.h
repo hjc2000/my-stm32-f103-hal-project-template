@@ -89,6 +89,9 @@ namespace atk
 
 		void InitGpio();
 
+		constexpr uint16_t ColorCode(bsp::ILcd::Color color);
+		void PrepareForRendering();
+
 	public:
 		static Lcd &Instance()
 		{
@@ -109,7 +112,6 @@ namespace atk
 		void DisplayOn() override;
 		void DisplayOff() override;
 
-		constexpr uint16_t ColorCode(bsp::ILcd::Color color);
 		void Clear(Color color) override;
 	};
 }

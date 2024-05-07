@@ -126,6 +126,42 @@ void atk::Lcd::InitGpio()
 	init_data_bus();
 }
 
+constexpr uint16_t atk::Lcd::ColorCode(bsp::ILcd::Color color)
+{
+	switch (color)
+	{
+	case bsp::ILcd::Color::Red:
+		{
+			return 0x001F;
+		}
+	case bsp::ILcd::Color::Green:
+		{
+			return 0x07E0;
+		}
+	case bsp::ILcd::Color::Blue:
+		{
+			return 0xF800;
+		}
+	case bsp::ILcd::Color::White:
+		{
+			// 0xffff 表示该像素的 3 个液晶全部透光度开到最大，呈现出白色
+			return UINT16_MAX;
+		}
+	case bsp::ILcd::Color::Black:
+	default:
+		{
+			// 0 表示全不透光，所以是黑色
+			return 0;
+		}
+	}
+}
+
+void atk::Lcd::PrepareForRendering()
+{
+	// 写入此命令后才可以开始写像素
+	WriteCommand(0X2C);
+}
+
 void atk::Lcd::WriteCommand(uint16_t cmd)
 {
 	*CommandAddress() = cmd;
@@ -270,40 +306,9 @@ void atk::Lcd::DisplayOff()
 	WriteCommand(0X28);
 }
 
-constexpr uint16_t atk::Lcd::ColorCode(bsp::ILcd::Color color)
-{
-	switch (color)
-	{
-	case bsp::ILcd::Color::Red:
-		{
-			return 0x001F;
-		}
-	case bsp::ILcd::Color::Green:
-		{
-			return 0x07E0;
-		}
-	case bsp::ILcd::Color::Blue:
-		{
-			return 0xF800;
-		}
-	case bsp::ILcd::Color::White:
-		{
-			// 0xffff 表示该像素的 3 个液晶全部透光度开到最大，呈现出白色
-			return UINT16_MAX;
-		}
-	case bsp::ILcd::Color::Black:
-	default:
-		{
-			// 0 表示全不透光，所以是黑色
-			return 0;
-		}
-	}
-}
-
 void atk::Lcd::Clear(Color color)
 {
-	// 写入此命令后才可以开始写像素
-	WriteCommand(0X2C);
+	PrepareForRendering();
 	uint32_t point_count = 240 * 320;
 	for (uint32_t i = 0; i < point_count; i++)
 	{

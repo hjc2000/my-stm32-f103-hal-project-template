@@ -25,6 +25,7 @@ namespace bsp
 			Blue,
 			White,
 			Black,
+			ColorEnd,
 		};
 
 		/// <summary>

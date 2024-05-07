@@ -22,11 +22,18 @@ int main(void)
 				BSP::GreenDigitalLed().TurnOn();
 
 				BSP::Lcd().DisplayOn();
+				BSP::Lcd().Clear(bsp::ILcd::Color::Black);
 				BSP::Lcd().TurnOnBackLight();
-				BSP::Lcd().Clear(bsp::ILcd::Color::Green);
 
+				int i = 0;
 				while (true)
 				{
+					BSP::Lcd().Clear(static_cast<bsp::ILcd::Color>(i++));
+					if (i >= static_cast<int>(bsp::ILcd::Color::ColorEnd))
+					{
+						i = 0;
+					}
+
 					BSP::RedDigitalLed().Toggle();
 					BSP::Delayer().Delay(std::chrono::seconds{ 1 });
 				}
