@@ -22,14 +22,14 @@ int main(void)
 				BSP::GreenDigitalLed().TurnOn();
 
 				BSP::Lcd().DisplayOn();
-				BSP::Lcd().Clear(bsp::ILcd::Color::Black);
+				BSP::Lcd().Clear(bsp::Color::Black);
 				BSP::Lcd().TurnOnBackLight();
 
 				int i = 0;
 				while (true)
 				{
-					BSP::Lcd().Clear(static_cast<bsp::ILcd::Color>(i++));
-					if (i >= static_cast<int>(bsp::ILcd::Color::ColorEnd))
+					BSP::Lcd().Clear(static_cast<bsp::Color>(i++));
+					if (i >= static_cast<int>(bsp::Color::ColorEnd))
 					{
 						i = 0;
 					}

@@ -1,4 +1,5 @@
 #pragma once
+#include<bsp-interface/DisplayEnum.h>
 #include<bsp-interface/ILcd.h>
 #include<hal-wrapper/peripheral/fsmc/FsmcNorSramInitOptions.h>
 #include<hal-wrapper/peripheral/fsmc/FsmcNorSramTiming.h>
@@ -89,7 +90,7 @@ namespace atk
 
 		void InitGpio();
 
-		constexpr uint16_t ColorCode(bsp::ILcd::Color color);
+		constexpr uint16_t ColorCode(bsp::Color color);
 		void PrepareForRendering();
 
 	public:
@@ -112,6 +113,7 @@ namespace atk
 		void DisplayOn() override;
 		void DisplayOff() override;
 
-		void Clear(Color color) override;
+		void Clear(bsp::Color color) override;
+		void SetScanDirection(uint8_t dir) override;
 	};
 }

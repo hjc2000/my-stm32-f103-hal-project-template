@@ -126,28 +126,28 @@ void atk::Lcd::InitGpio()
 	init_data_bus();
 }
 
-constexpr uint16_t atk::Lcd::ColorCode(bsp::ILcd::Color color)
+constexpr uint16_t atk::Lcd::ColorCode(bsp::Color color)
 {
 	switch (color)
 	{
-	case bsp::ILcd::Color::Red:
+	case bsp::Color::Red:
 		{
 			return 0x001F;
 		}
-	case bsp::ILcd::Color::Green:
+	case bsp::Color::Green:
 		{
 			return 0x07E0;
 		}
-	case bsp::ILcd::Color::Blue:
+	case bsp::Color::Blue:
 		{
 			return 0xF800;
 		}
-	case bsp::ILcd::Color::White:
+	case bsp::Color::White:
 		{
 			// 0xffff 表示该像素的 3 个液晶全部透光度开到最大，呈现出白色
 			return UINT16_MAX;
 		}
-	case bsp::ILcd::Color::Black:
+	case bsp::Color::Black:
 	default:
 		{
 			// 0 表示全不透光，所以是黑色
@@ -306,7 +306,7 @@ void atk::Lcd::DisplayOff()
 	WriteCommand(0X28);
 }
 
-void atk::Lcd::Clear(Color color)
+void atk::Lcd::Clear(bsp::Color color)
 {
 	PrepareForRendering();
 	uint32_t point_count = 240 * 320;
@@ -314,4 +314,10 @@ void atk::Lcd::Clear(Color color)
 	{
 		WriteData(ColorCode(color));
 	}
+}
+
+void atk::Lcd::SetScanDirection(uint8_t dir)
+{
+	dir &= 0b111;
+	WriteCommand(0X36, dir | 0x8);
 }

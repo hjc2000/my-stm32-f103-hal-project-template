@@ -1,4 +1,5 @@
 #pragma once
+#include<bsp-interface/DisplayEnum.h>
 #include<stdint.h>
 #include<string>
 
@@ -18,15 +19,7 @@ namespace bsp
 		virtual void DisplayOn() = 0;
 		virtual void DisplayOff() = 0;
 
-		enum class Color
-		{
-			Red,
-			Green,
-			Blue,
-			White,
-			Black,
-			ColorEnd,
-		};
+		virtual void SetScanDirection(uint8_t dir) = 0;
 
 		/// <summary>
 		///		清屏
