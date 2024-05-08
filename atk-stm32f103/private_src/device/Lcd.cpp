@@ -231,7 +231,18 @@ void atk::Lcd::Clear(bsp::Color color)
 	uint32_t point_count = _original_width * _original_height;
 	for (uint32_t i = 0; i < point_count; i++)
 	{
-		WriteData(ColorCode(color));
+		if (i < point_count / 2)
+		{
+			uint32_t mod = i % Width();
+			uint32_t half_width = Width() / 2;
+			if (mod < half_width)
+			{
+				WriteData(ColorCode(color));
+				continue;
+			}
+		}
+
+		WriteData(ColorCode(bsp::Color::Green));
 	}
 }
 
@@ -292,6 +303,18 @@ void atk::Lcd::SetScanDirection(
 		0X36,
 		direction_code(horizontal_priority_scanning, hdir, vdir) | 0x8
 	);
+
+	/* 设置显示区域(开窗)大小 */
+	WriteCommand(0X2A);
+	WriteData(0);
+	WriteData(0);
+	WriteData((Width() - 1) >> 8);
+	WriteData((Width() - 1) & 0XFF);
+	WriteCommand(0X2B);
+	WriteData(0);
+	WriteData(0);
+	WriteData((Height() - 1) >> 8);
+	WriteData((Height() - 1) & 0XFF);
 }
 
 uint32_t atk::Lcd::Width()

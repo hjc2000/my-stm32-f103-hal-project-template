@@ -24,6 +24,11 @@ int main(void)
 				BSP::Lcd().DisplayOn();
 				BSP::Lcd().Clear(bsp::Color::Black);
 				BSP::Lcd().TurnOnBackLight();
+				BSP::Lcd().SetScanDirection(
+					false,
+					bsp::HorizontalDirection::RightToLeft,
+					bsp::VerticalDirection::TopToBottom
+				);
 
 				int i = 0;
 				while (true)
