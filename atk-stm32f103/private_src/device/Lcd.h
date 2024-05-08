@@ -238,6 +238,21 @@ namespace atk
 
 		void Clear(bsp::Color color) override;
 
+		/// <summary>
+		///		设置扫描方向。
+		/// </summary>
+		/// <note>
+		///		让 LCD 显示的方法是将屏幕上的一个个像素的 RGB 值逐个写入。
+		///		有多少个像素，就要写入多少组 RGB 值。写入一个像素的 RGB 值
+		///		后，驱动芯片会自动将位置指针递增，下次写入 RGB 就是对应下一个像素了。
+		/// 
+		///		驱动芯片内部自动递增的指针就是扫描指针，指向的是当前要被写入的像素。
+		///		扫描顺序可以是先水平，后竖直，也可以是先竖直，后水平。水平又可以分为
+		///		从左到右和从右到左。竖直可以分为从上到下和从下到上。
+		/// </note>
+		/// <param name="horizontal_priority_scanning"></param>
+		/// <param name="hdir"></param>
+		/// <param name="vdir"></param>
 		void SetScanDirection(
 			bool horizontal_priority_scanning,
 			bsp::HorizontalDirection hdir,
