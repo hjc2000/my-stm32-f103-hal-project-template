@@ -4,6 +4,7 @@
 #include<hal-wrapper/peripheral/fsmc/FsmcNorSramInitOptions.h>
 #include<hal-wrapper/peripheral/fsmc/FsmcNorSramTiming.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
+#include<stdexcept>
 
 namespace atk
 {
@@ -81,22 +82,137 @@ namespace atk
 		}
 		#pragma endregion
 
-		constexpr hal::FsmcNorSramTiming ReadTiming();
-		constexpr hal::FsmcNorSramTiming WriteTiming();
-		constexpr hal::FsmcNorSramInitOptions NorSramInitOptions();
+		#pragma region constexpr
+		constexpr hal::FsmcNorSramTiming ReadTiming()
+		{
+			hal::FsmcNorSramTiming read_timing;
+			read_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
+			read_timing._address_setup_time = 0;
+			read_timing._address_hold_time = 0;
+			read_timing._data_setup_time = 15;
+			return read_timing;
+		}
 
-		constexpr volatile uint16_t *CommandAddress();
-		constexpr volatile uint16_t *DataAddress();
+		constexpr hal::FsmcNorSramTiming WriteTiming()
+		{
+			hal::FsmcNorSramTiming write_timing;
+			write_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
+			write_timing._address_setup_time = 0;
+			write_timing._address_hold_time = 0;
+			write_timing._data_setup_time = 1;
+			return write_timing;
+		}
 
-		void InitGpio();
+		constexpr hal::FsmcNorSramInitOptions NorSramInitOptions()
+		{
+			hal::FsmcNorSramInitOptions nor_sram_init_options;
+			nor_sram_init_options._bank = hal::FsmcNorSramInitOptions::Bank::Bank4;
+			nor_sram_init_options._data_address_mux = hal::FsmcNorSramInitOptions::DataAddressMux::Disable;
+			nor_sram_init_options._memory_type = hal::FsmcNorSramInitOptions::MemoryType::SRSM;
+			nor_sram_init_options._memory_data_width = hal::FsmcNorSramInitOptions::MemoryDataWidth::Width16;
+			nor_sram_init_options._burst_access_mode = hal::FsmcNorSramInitOptions::BurstAccessMode::Disable;
+			nor_sram_init_options._wait_signal_polarity = hal::FsmcNorSramInitOptions::WaitSignalPolarity::Low;
+			nor_sram_init_options._wrap_mode = hal::FsmcNorSramInitOptions::WrapMode::Disable;
+			nor_sram_init_options._wait_signal_active = hal::FsmcNorSramInitOptions::WaitSignalActive::BeforeWs;
+			nor_sram_init_options._write_operation = hal::FsmcNorSramInitOptions::WriteOperation::Enable;
+			nor_sram_init_options._wait_signal = hal::FsmcNorSramInitOptions::WaitSignal::Disable;
+			nor_sram_init_options._extended_mode = hal::FsmcNorSramInitOptions::ExtendedMode::Enable;
+			nor_sram_init_options._asynchronous_wait = hal::FsmcNorSramInitOptions::AsynchronousWait::Disable;
+			nor_sram_init_options._write_burst = hal::FsmcNorSramInitOptions::WriteBurst::Disable;
+			nor_sram_init_options._page_size = hal::FsmcNorSramInitOptions::PageSize::SizeNone;
+			return nor_sram_init_options;
+		}
 
-		constexpr uint16_t ColorCode(bsp::Color color);
+		constexpr volatile uint16_t *CommandAddress()
+		{
+			constexpr uint32_t addr = (uint32_t)((0X60000000 + (0X4000000 * (4 - 1))) | (((1 << 10) * 2) - 2));
+			return reinterpret_cast<uint16_t *>(addr);
+		}
+
+		constexpr volatile uint16_t *DataAddress()
+		{
+			return CommandAddress() + 2;
+		}
+
+		constexpr uint16_t ColorCode(bsp::Color color)
+		{
+			switch (color)
+			{
+			case bsp::Color::Red:
+				{
+					return 0x001F;
+				}
+			case bsp::Color::Green:
+				{
+					return 0x07E0;
+				}
+			case bsp::Color::Blue:
+				{
+					return 0xF800;
+				}
+			case bsp::Color::White:
+				{
+					// 0xffff 表示该像素的 3 个液晶全部透光度开到最大，呈现出白色
+					return UINT16_MAX;
+				}
+			case bsp::Color::Black:
+			default:
+				{
+					// 0 表示全不透光，所以是黑色
+					return 0;
+				}
+			}
+		}
+
 		constexpr uint8_t DirectionCode(
 			bool horizontal_priority_scanning,
 			bsp::HorizontalDirection hdir,
 			bsp::VerticalDirection vdir
-		);
+		)
+		{
+			if (horizontal_priority_scanning)
+			{
+				if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::TopToBottom)
+				{
+					return 0b000 << 5;
+				}
+				else if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::BottomToTop)
+				{
+					return 0b100 << 5;
+				}
+				else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::TopToBottom)
+				{
+					return 0b010 << 5;
+				}
+				else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::BottomToTop)
+				{
+					return 0b110 << 5;
+				}
+			}
 
+			// 以下是垂直优先扫描
+			if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::TopToBottom)
+			{
+				return 0b001 << 5;
+			}
+			else if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::BottomToTop)
+			{
+				return 0b101 << 5;
+			}
+			else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::TopToBottom)
+			{
+				return 0b011 << 5;
+			}
+			else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::BottomToTop)
+			{
+				return 0b111 << 5;
+			}
+
+			throw std::invalid_argument{ "非法参数，导致不匹配任何一个分支" };
+		}
+		#pragma endregion
+
+		void InitGpio();
 		void PrepareForRendering();
 
 	public:
@@ -108,6 +224,7 @@ namespace atk
 
 		void WriteCommand(uint16_t cmd);
 		void WriteCommand(uint16_t cmd, uint16_t param);
+
 		void WriteData(uint16_t data);
 		uint16_t ReadData();
 
@@ -120,6 +237,7 @@ namespace atk
 		void DisplayOff() override;
 
 		void Clear(bsp::Color color) override;
+
 		void SetScanDirection(
 			bool horizontal_priority_scanning,
 			bsp::HorizontalDirection hdir,
