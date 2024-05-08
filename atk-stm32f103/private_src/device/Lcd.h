@@ -111,15 +111,12 @@ namespace atk
 			nor_sram_init_options._memory_type = hal::FsmcNorSramInitOptions::MemoryType::SRSM;
 			nor_sram_init_options._memory_data_width = hal::FsmcNorSramInitOptions::MemoryDataWidth::Width16;
 			nor_sram_init_options._burst_access_mode = hal::FsmcNorSramInitOptions::BurstAccessMode::Disable;
-			nor_sram_init_options._wait_signal_polarity = hal::FsmcNorSramInitOptions::WaitSignalPolarity::Low;
 			nor_sram_init_options._wrap_mode = hal::FsmcNorSramInitOptions::WrapMode::Disable;
-			nor_sram_init_options._wait_signal_active = hal::FsmcNorSramInitOptions::WaitSignalActive::BeforeWs;
 			nor_sram_init_options._write_operation = hal::FsmcNorSramInitOptions::WriteOperation::Enable;
 			nor_sram_init_options._wait_signal = hal::FsmcNorSramInitOptions::WaitSignal::Disable;
 			nor_sram_init_options._extended_mode = hal::FsmcNorSramInitOptions::ExtendedMode::Enable;
 			nor_sram_init_options._asynchronous_wait = hal::FsmcNorSramInitOptions::AsynchronousWait::Disable;
 			nor_sram_init_options._write_burst = hal::FsmcNorSramInitOptions::WriteBurst::Disable;
-			nor_sram_init_options._page_size = hal::FsmcNorSramInitOptions::PageSize::SizeNone;
 			return nor_sram_init_options;
 		}
 
