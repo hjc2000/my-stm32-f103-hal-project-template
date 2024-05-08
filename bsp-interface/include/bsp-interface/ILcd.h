@@ -20,6 +20,16 @@ namespace bsp
 		virtual void DisplayOn() = 0;
 		virtual void DisplayOff() = 0;
 
+		/// <summary>
+		///		设置扫描方向。
+		/// </summary>
+		/// <param name="horizontal_priority_scanning">
+		///		* 本参数为 true 则为水平优先扫描，为 false 则为竖直优先扫描。
+		///		* 默认是水平优先扫描，如果设置为 false，则会使屏幕发生旋转。
+		///		  即默认是竖屏状态，将本参数设置为 false 后会变成横屏。
+		/// </param>
+		/// <param name="hdir"></param>
+		/// <param name="vdir"></param>
 		virtual void SetScanDirection(
 			bool horizontal_priority_scanning,
 			bsp::HorizontalDirection hdir,
