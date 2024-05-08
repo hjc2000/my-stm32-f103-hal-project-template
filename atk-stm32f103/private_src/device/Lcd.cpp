@@ -285,7 +285,9 @@ void atk::Lcd::SetScanDirection(
 		return 0b111 << 5;
 	};
 
-
+	_is_horizontal_priority_scanning = horizontal_priority_scanning;
+	_horizontal_direction = hdir;
+	_vertical_direction = vdir;
 	WriteCommand(
 		0X36,
 		direction_code(horizontal_priority_scanning, hdir, vdir) | 0x8
@@ -294,10 +296,24 @@ void atk::Lcd::SetScanDirection(
 
 uint32_t atk::Lcd::Width()
 {
-	return _original_width;
+	if (_is_horizontal_priority_scanning)
+	{
+		// 如果是水平优先扫描，则屏幕当前宽度就是原始宽度
+		return _original_width;
+	}
+
+	// 否则将原始高度作为屏幕当前实际宽度
+	return _original_height;
 }
 
 uint32_t atk::Lcd::Height()
 {
-	return _original_height;
+	if (_is_horizontal_priority_scanning)
+	{
+		// 如果是水平优先扫描，则将屏幕原始高度作为当前实际高度
+		return _original_height;
+	}
+
+	// 否则将屏幕原始宽度作为当前实际高度。
+	return _original_width;
 }
