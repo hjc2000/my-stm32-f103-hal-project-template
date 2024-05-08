@@ -16,6 +16,7 @@ namespace bsp
 		/// </summary>
 		/// <returns></returns>
 		virtual uint32_t LcdDriverChipId() = 0;
+
 		virtual void DisplayOn() = 0;
 		virtual void DisplayOff() = 0;
 
@@ -29,5 +30,19 @@ namespace bsp
 		///		清屏
 		/// </summary>
 		virtual void Clear(Color color) = 0;
+
+		/// <summary>
+		///		屏幕宽度。
+		///		* 旋转屏幕时会与高度交换值。
+		/// </summary>
+		/// <returns></returns>
+		virtual uint32_t Width() = 0;
+
+		/// <summary>
+		///		屏幕高度。
+		///		* 旋转屏幕时会与宽度交换值。
+		/// </summary>
+		/// <returns></returns>
+		virtual uint32_t Height() = 0;
 	};
 }

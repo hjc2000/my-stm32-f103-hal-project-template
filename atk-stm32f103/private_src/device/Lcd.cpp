@@ -228,7 +228,7 @@ void atk::Lcd::DisplayOff()
 void atk::Lcd::Clear(bsp::Color color)
 {
 	PrepareForRendering();
-	uint32_t point_count = 240 * 320;
+	uint32_t point_count = _original_width * _original_height;
 	for (uint32_t i = 0; i < point_count; i++)
 	{
 		WriteData(ColorCode(color));
@@ -241,8 +241,63 @@ void atk::Lcd::SetScanDirection(
 	bsp::VerticalDirection vdir
 )
 {
+	constexpr auto direction_code = [](
+		bool horizontal_priority_scanning,
+		bsp::HorizontalDirection hdir,
+		bsp::VerticalDirection vdir
+		)
+	{
+		if (horizontal_priority_scanning)
+		{
+			if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::TopToBottom)
+			{
+				return 0b000 << 5;
+			}
+			else if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::BottomToTop)
+			{
+				return 0b100 << 5;
+			}
+			else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::TopToBottom)
+			{
+				return 0b010 << 5;
+			}
+			else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::BottomToTop)
+			{
+				return 0b110 << 5;
+			}
+		}
+
+		// 以下是垂直优先扫描
+		if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::TopToBottom)
+		{
+			return 0b001 << 5;
+		}
+		else if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::BottomToTop)
+		{
+			return 0b101 << 5;
+		}
+		else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::TopToBottom)
+		{
+			return 0b011 << 5;
+		}
+
+		// hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::BottomToTop
+		return 0b111 << 5;
+	};
+
+
 	WriteCommand(
 		0X36,
-		DirectionCode(horizontal_priority_scanning, hdir, vdir) | 0x8
+		direction_code(horizontal_priority_scanning, hdir, vdir) | 0x8
 	);
+}
+
+uint32_t atk::Lcd::Width()
+{
+	return _original_width;
+}
+
+uint32_t atk::Lcd::Height()
+{
+	return _original_height;
 }

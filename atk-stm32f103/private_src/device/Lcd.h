@@ -14,6 +14,8 @@ namespace atk
 		Lcd();
 
 		SRAM_HandleTypeDef _sram_handle;
+		uint32_t const _original_width = 240;
+		uint32_t const _original_height = 320;
 
 		#pragma region 连接到LCD的GPIO引脚
 		/// <summary>
@@ -160,53 +162,6 @@ namespace atk
 				}
 			}
 		}
-
-		constexpr uint8_t DirectionCode(
-			bool horizontal_priority_scanning,
-			bsp::HorizontalDirection hdir,
-			bsp::VerticalDirection vdir
-		)
-		{
-			if (horizontal_priority_scanning)
-			{
-				if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::TopToBottom)
-				{
-					return 0b000 << 5;
-				}
-				else if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::BottomToTop)
-				{
-					return 0b100 << 5;
-				}
-				else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::TopToBottom)
-				{
-					return 0b010 << 5;
-				}
-				else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::BottomToTop)
-				{
-					return 0b110 << 5;
-				}
-			}
-
-			// 以下是垂直优先扫描
-			if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::TopToBottom)
-			{
-				return 0b001 << 5;
-			}
-			else if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::BottomToTop)
-			{
-				return 0b101 << 5;
-			}
-			else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::TopToBottom)
-			{
-				return 0b011 << 5;
-			}
-			else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::BottomToTop)
-			{
-				return 0b111 << 5;
-			}
-
-			throw std::invalid_argument{ "非法参数，导致不匹配任何一个分支" };
-		}
 		#pragma endregion
 
 		void InitGpio();
@@ -255,5 +210,8 @@ namespace atk
 			bsp::HorizontalDirection hdir,
 			bsp::VerticalDirection vdir
 		) override;
+
+		uint32_t Width() override;
+		uint32_t Height() override;
 	};
 }
