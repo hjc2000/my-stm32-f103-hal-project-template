@@ -233,5 +233,7 @@ namespace atk
 
 		uint32_t Width() override;
 		uint32_t Height() override;
+
+		void SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height) override;
 	};
 }

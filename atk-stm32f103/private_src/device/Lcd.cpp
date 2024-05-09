@@ -230,18 +230,7 @@ void atk::Lcd::Clear(bsp::Color color)
 	PrepareForRendering();
 	for (uint32_t i = 0; i < PointCount(); i++)
 	{
-		if (i < PointCount() / 2)
-		{
-			uint32_t mod = i % Width();
-			uint32_t half_width = Width() / 2;
-			if (mod < half_width)
-			{
-				WriteData(ColorCode(color));
-				continue;
-			}
-		}
-
-		WriteData(ColorCode(bsp::Color::Green));
+		WriteData(ColorCode(color));
 	}
 }
 
@@ -303,17 +292,7 @@ void atk::Lcd::SetScanDirection(
 		direction_code(horizontal_priority_scanning, hdir, vdir) | 0x8
 	);
 
-	/* 设置显示区域(开窗)大小 */
-	WriteCommand(0X2A);
-	WriteData(0);
-	WriteData(0);
-	WriteData((Width() - 1) >> 8);
-	WriteData((Width() - 1) & 0XFF);
-	WriteCommand(0X2B);
-	WriteData(0);
-	WriteData(0);
-	WriteData((Height() - 1) >> 8);
-	WriteData((Height() - 1) & 0XFF);
+	SetWindow(0, 0, Width(), Height());
 }
 
 uint32_t atk::Lcd::Width()
@@ -338,4 +317,18 @@ uint32_t atk::Lcd::Height()
 
 	// 否则将屏幕原始宽度作为当前实际高度。
 	return OriginalWidth();
+}
+
+void atk::Lcd::SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+{
+	WriteCommand(0X2A);
+	WriteData(x >> 8);
+	WriteData(x & 0xff);
+	WriteData((width - 1) >> 8);
+	WriteData((width - 1) & 0XFF);
+	WriteCommand(0X2B);
+	WriteData(y >> 8);
+	WriteData(y & 0xff);
+	WriteData((height - 1) >> 8);
+	WriteData((height - 1) & 0XFF);
 }
