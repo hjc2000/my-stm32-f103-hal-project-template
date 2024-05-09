@@ -324,11 +324,11 @@ void atk::Lcd::SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height
 	WriteCommand(0X2A);
 	WriteData(x >> 8);
 	WriteData(x & 0xff);
-	WriteData((width - 1) >> 8);
-	WriteData((width - 1) & 0XFF);
+	WriteData((x + width - 1) >> 8);
+	WriteData((x + width - 1) & 0XFF);
 	WriteCommand(0X2B);
 	WriteData(y >> 8);
 	WriteData(y & 0xff);
-	WriteData((height - 1) >> 8);
-	WriteData((height - 1) & 0XFF);
+	WriteData((y + height - 1) >> 8);
+	WriteData((y + height - 1) & 0XFF);
 }
