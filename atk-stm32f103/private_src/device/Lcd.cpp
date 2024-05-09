@@ -228,10 +228,9 @@ void atk::Lcd::DisplayOff()
 void atk::Lcd::Clear(bsp::Color color)
 {
 	PrepareForRendering();
-	uint32_t point_count = _original_width * _original_height;
-	for (uint32_t i = 0; i < point_count; i++)
+	for (uint32_t i = 0; i < PointCount(); i++)
 	{
-		if (i < point_count / 2)
+		if (i < PointCount() / 2)
 		{
 			uint32_t mod = i % Width();
 			uint32_t half_width = Width() / 2;
@@ -252,7 +251,7 @@ void atk::Lcd::SetScanDirection(
 	bsp::VerticalDirection vdir
 )
 {
-	constexpr auto direction_code = [](
+	auto direction_code = [](
 		bool horizontal_priority_scanning,
 		bsp::HorizontalDirection hdir,
 		bsp::VerticalDirection vdir
@@ -322,11 +321,11 @@ uint32_t atk::Lcd::Width()
 	if (_is_horizontal_priority_scanning)
 	{
 		// 如果是水平优先扫描，则屏幕当前宽度就是原始宽度
-		return _original_width;
+		return OriginalWidth();
 	}
 
 	// 否则将原始高度作为屏幕当前实际宽度
-	return _original_height;
+	return OriginHeight();
 }
 
 uint32_t atk::Lcd::Height()
@@ -334,9 +333,9 @@ uint32_t atk::Lcd::Height()
 	if (_is_horizontal_priority_scanning)
 	{
 		// 如果是水平优先扫描，则将屏幕原始高度作为当前实际高度
-		return _original_height;
+		return OriginHeight();
 	}
 
 	// 否则将屏幕原始宽度作为当前实际高度。
-	return _original_width;
+	return OriginalWidth();
 }

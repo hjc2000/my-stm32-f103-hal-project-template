@@ -14,12 +14,25 @@ namespace atk
 		Lcd();
 
 		SRAM_HandleTypeDef _sram_handle;
-		uint32_t const _original_width = 240;
-		uint32_t const _original_height = 320;
+
+		static consteval uint32_t OriginalWidth()
+		{
+			return 240;
+		}
+
+		static consteval uint32_t OriginHeight()
+		{
+			return 320;
+		}
+
+		static consteval uint32_t PointCount()
+		{
+			return OriginalWidth() * OriginHeight();
+		}
+
 		bool _is_horizontal_priority_scanning = true;
 		bsp::HorizontalDirection _horizontal_direction = bsp::HorizontalDirection::LeftToRight;
 		bsp::VerticalDirection _vertical_direction = bsp::VerticalDirection::TopToBottom;
-
 
 		#pragma region 连接到LCD的GPIO引脚
 		/// <summary>
@@ -88,10 +101,10 @@ namespace atk
 		}
 		#pragma endregion
 
-		#pragma region constexpr
-		constexpr hal::FsmcNorSramTiming ReadTiming()
+		#pragma region consteval
+		static consteval hal::FsmcNorSramTiming ReadTiming()
 		{
-			hal::FsmcNorSramTiming read_timing;
+			hal::FsmcNorSramTiming read_timing{};
 			read_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
 			read_timing._address_setup_time = 0;
 			read_timing._address_hold_time = 0;
@@ -99,9 +112,9 @@ namespace atk
 			return read_timing;
 		}
 
-		constexpr hal::FsmcNorSramTiming WriteTiming()
+		static consteval hal::FsmcNorSramTiming WriteTiming()
 		{
-			hal::FsmcNorSramTiming write_timing;
+			hal::FsmcNorSramTiming write_timing{};
 			write_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
 			write_timing._address_setup_time = 0;
 			write_timing._address_hold_time = 0;
@@ -109,9 +122,9 @@ namespace atk
 			return write_timing;
 		}
 
-		constexpr hal::FsmcNorSramInitOptions NorSramInitOptions()
+		static consteval hal::FsmcNorSramInitOptions NorSramInitOptions()
 		{
-			hal::FsmcNorSramInitOptions nor_sram_init_options;
+			hal::FsmcNorSramInitOptions nor_sram_init_options{};
 			nor_sram_init_options._bank = hal::FsmcNorSramInitOptions::Bank::Bank4;
 			nor_sram_init_options._data_address_mux = hal::FsmcNorSramInitOptions::DataAddressMux::Disable;
 			nor_sram_init_options._memory_type = hal::FsmcNorSramInitOptions::MemoryType::SRSM;
@@ -128,19 +141,20 @@ namespace atk
 			nor_sram_init_options._page_size = hal::FsmcNorSramInitOptions::PageSize::SizeNone;
 			return nor_sram_init_options;
 		}
+		#pragma endregion
 
-		constexpr volatile uint16_t *CommandAddress()
+		volatile uint16_t *CommandAddress()
 		{
 			constexpr uint32_t addr = (uint32_t)((0X60000000 + (0X4000000 * (4 - 1))) | (((1 << 10) * 2) - 2));
 			return reinterpret_cast<uint16_t *>(addr);
 		}
 
-		constexpr volatile uint16_t *DataAddress()
+		volatile uint16_t *DataAddress()
 		{
 			return CommandAddress() + 2;
 		}
 
-		constexpr uint16_t ColorCode(bsp::Color color)
+		uint16_t ColorCode(bsp::Color color)
 		{
 			switch (color)
 			{
@@ -169,7 +183,6 @@ namespace atk
 				}
 			}
 		}
-		#pragma endregion
 
 		void InitGpio();
 		void PrepareForRendering();
