@@ -218,6 +218,8 @@ void atk::Lcd::DisplayOn()
 
 	// 执行这条后才真正开启显示，不再是那种除了背光什么都没有的状态。
 	WriteCommand(0x29);
+	Clear(bsp::Color::Black);
+	TurnOnBackLight();
 }
 
 void atk::Lcd::DisplayOff()

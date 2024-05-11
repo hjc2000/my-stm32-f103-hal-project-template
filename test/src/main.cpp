@@ -20,10 +20,7 @@ int main(void)
 				BSP::Initialize();
 				BSP::Serial().Begin(115200);
 				BSP::GreenDigitalLed().TurnOn();
-
 				BSP::Lcd().DisplayOn();
-				BSP::Lcd().Clear(bsp::Color::Black);
-				BSP::Lcd().TurnOnBackLight();
 
 				int i = 0;
 				while (true)
