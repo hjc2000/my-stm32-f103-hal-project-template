@@ -25,7 +25,6 @@ namespace atk
 
 		TIM_HandleTypeDef _handle;
 		std::function<void()> _on_period_elapsed;
-		std::atomic_bool _have_started = false;
 
 	public:
 		static BaseTimer1 &Instance()
