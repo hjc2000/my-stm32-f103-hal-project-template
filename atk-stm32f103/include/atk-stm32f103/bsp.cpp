@@ -44,16 +44,17 @@ void BSP::Initialize()
 		Systic::SetClockSource(SysticClockSource::HCLK_DIV8);
 
 		ClockSignalInitOptions clock_init_options{};
-		clock_init_options._clock_type = ClockType::SYSCLK
-			| ClockType::HCLK
-			| ClockType::PCLK1
-			| ClockType::PCLK2;
+		clock_init_options._clock_type = ClockSignalInitOptions::ClockType::SYSCLK
+			| ClockSignalInitOptions::ClockType::HCLK
+			| ClockSignalInitOptions::ClockType::PCLK1
+			| ClockSignalInitOptions::ClockType::PCLK2;
 
-		clock_init_options._sysclk_source = SysclkSource::PLLCLK;
-		clock_init_options._ahb_clk_divider = AHBDivider::DIV1;
-		clock_init_options._apb1_divider = APBDivider::DIV2;
-		clock_init_options._apb2_divider = APBDivider::DIV1;
-		if (ClockSignal::Config(clock_init_options, FlashLatency::Latency2) != HAL_OK)
+		clock_init_options._sysclk_source = ClockSignalInitOptions::SysclkSource::PLLCLK;
+		clock_init_options._ahb_clk_divider = ClockSignalInitOptions::AHBDivider::DIV1;
+		clock_init_options._apb1_divider = ClockSignalInitOptions::APBDivider::DIV2;
+		clock_init_options._apb2_divider = ClockSignalInitOptions::APBDivider::DIV1;
+		clock_init_options._flash_latency = ClockSignalInitOptions::FlashLatency::Latency2;
+		if (ClockSignal::Config(clock_init_options) != HAL_OK)
 		{
 			BSP::Serial().ReportError("时钟初始化失败");
 			while (1)

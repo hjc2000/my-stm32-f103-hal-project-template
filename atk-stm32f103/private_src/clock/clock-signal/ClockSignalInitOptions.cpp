@@ -3,36 +3,39 @@
 
 using namespace bsp;
 
-bsp::ClockSignalInitOptions::ClockSignalInitOptions(RCC_ClkInitTypeDef const &def)
+bsp::ClockSignalInitOptions::ClockSignalInitOptions(RCC_ClkInitTypeDef const &o)
 {
-	*this = def;
+	*this = o;
 }
 
-ClockSignalInitOptions &ClockSignalInitOptions::operator=(RCC_ClkInitTypeDef const &def)
+ClockSignalInitOptions &ClockSignalInitOptions::operator=(RCC_ClkInitTypeDef const &o)
 {
-	_clock_type = (ClockType)def.ClockType;
-	_sysclk_source = (SysclkSource)def.SYSCLKSource;
-	_ahb_clk_divider = (AHBDivider)def.AHBCLKDivider;
-	_apb1_divider = (APBDivider)def.APB1CLKDivider;
-	_apb2_divider = (APBDivider)def.APB2CLKDivider;
+	_clock_type = static_cast<ClockType>(o.ClockType);
+	_sysclk_source = static_cast<SysclkSource>(o.SYSCLKSource);
+	_ahb_clk_divider = static_cast<AHBDivider>(o.AHBCLKDivider);
+	_apb1_divider = static_cast<APBDivider>(o.APB1CLKDivider);
+	_apb2_divider = static_cast<APBDivider>(o.APB2CLKDivider);
 	return *this;
 }
 
 ClockSignalInitOptions::operator RCC_ClkInitTypeDef() const
 {
-	RCC_ClkInitTypeDef def;
-	def.ClockType = (uint32_t)_clock_type;
-	def.SYSCLKSource = (uint32_t)_sysclk_source;
-	def.AHBCLKDivider = (uint32_t)_ahb_clk_divider;
-	def.APB1CLKDivider = (uint32_t)_apb1_divider;
-	def.APB2CLKDivider = (uint32_t)_apb2_divider;
-	return def;
+	RCC_ClkInitTypeDef o;
+	o.ClockType = static_cast<uint32_t>(_clock_type);
+	o.SYSCLKSource = static_cast<uint32_t>(_sysclk_source);
+	o.AHBCLKDivider = static_cast<uint32_t>(_ahb_clk_divider);
+	o.APB1CLKDivider = static_cast<uint32_t>(_apb1_divider);
+	o.APB2CLKDivider = static_cast<uint32_t>(_apb2_divider);
+	return o;
 }
 
-bsp::ClockType operator|(bsp::ClockType left, bsp::ClockType right)
+bsp::ClockSignalInitOptions::ClockType operator|(
+	bsp::ClockSignalInitOptions::ClockType left,
+	bsp::ClockSignalInitOptions::ClockType right
+	)
 {
 	// 获取枚举类型的底层类型
-	using T = std::underlying_type_t<ClockType>;
-	T result = (T)left | (T)right;
-	return (ClockType)result;
+	using T = std::underlying_type_t<ClockSignalInitOptions::ClockType>;
+	T result = static_cast<T>(left) | static_cast<T>(right);
+	return static_cast<ClockSignalInitOptions::ClockType>(result);
 }

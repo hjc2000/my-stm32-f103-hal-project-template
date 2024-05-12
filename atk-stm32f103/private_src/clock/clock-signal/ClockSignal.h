@@ -18,10 +18,14 @@ namespace bsp
 		/// <param name="options"></param>
 		/// <param name="flash_latency"></param>
 		/// <returns></returns>
-		static HAL_StatusTypeDef Config(ClockSignalInitOptions const &options, FlashLatency flash_latency)
+		static HAL_StatusTypeDef Config(ClockSignalInitOptions const &options)
 		{
 			RCC_ClkInitTypeDef rcc_clk_init = options;
-			return HAL_RCC_ClockConfig(&rcc_clk_init, (uint32_t)flash_latency);
+
+			return HAL_RCC_ClockConfig(
+				&rcc_clk_init,
+				static_cast<uint32_t>(options._flash_latency)
+			);
 		}
 
 		static ClockSignalInitOptions GetInitOptions()
@@ -29,15 +33,9 @@ namespace bsp
 			RCC_ClkInitTypeDef def;
 			uint32_t flash_latency;
 			HAL_RCC_GetClockConfig(&def, &flash_latency);
-			return ClockSignalInitOptions{ def };
-		}
-
-		static FlashLatency GetFlashLatency()
-		{
-			RCC_ClkInitTypeDef def;
-			uint32_t flash_latency;
-			HAL_RCC_GetClockConfig(&def, &flash_latency);
-			return static_cast<FlashLatency>(flash_latency);
+			ClockSignalInitOptions ret{ def };
+			ret._flash_latency = static_cast<ClockSignalInitOptions::FlashLatency>(flash_latency);
+			return ret;
 		}
 	};
 }
