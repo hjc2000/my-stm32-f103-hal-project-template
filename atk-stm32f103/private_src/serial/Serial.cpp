@@ -1,9 +1,9 @@
 #include"Serial.h"
 #include<DmaInitOptions.h>
 #include<FreeRTOS.h>
+#include<GpioPort.h>
+#include<Interrupt.h>
 #include<atk-stm32f103/bsp.h>
-#include<hal-wrapper/interrupt/Interrupt.h>
-#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 #include<task.h>
 
 using namespace hal;
@@ -48,7 +48,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	auto init_tx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		atk::DmaInitOptions options;
+		atk::DmaInitOptions options{};
 		options._direction = DmaDataTransferDirection::MemoryToPeripheral;
 		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
 		options._mem_inc_mode = DmaMemoryIncMode::Enable;
@@ -65,7 +65,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	auto init_rx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		atk::DmaInitOptions options;
+		atk::DmaInitOptions options{};
 		options._direction = DmaDataTransferDirection::PeripheralToMemory;
 		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
 		options._mem_inc_mode = DmaMemoryIncMode::Enable;

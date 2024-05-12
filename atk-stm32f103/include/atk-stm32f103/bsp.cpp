@@ -5,6 +5,7 @@
 #include<DigitalLed.h>
 #include<ExtiWakeUpKey.h>
 #include<FreeRTOS.h>
+#include<IndependentWatchDog.h>
 #include<Lcd.h>
 #include<Osc.h>
 #include<Serial.h>
@@ -12,7 +13,6 @@
 #include<atomic>
 #include<bsp-interface/KeyScanner.h>
 #include<functional>
-#include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
 #include<task.h>
 
 using namespace hal;
@@ -43,7 +43,7 @@ void BSP::Initialize()
 	{
 		Systic::SetClockSource(SysticClockSource::HCLK_DIV8);
 
-		ClockSignalInitOptions clock_init_options;
+		ClockSignalInitOptions clock_init_options{};
 		clock_init_options._clock_type = ClockType::SYSCLK
 			| ClockType::HCLK
 			| ClockType::PCLK1
@@ -153,7 +153,7 @@ void TestBaseTimer()
 	BSP::Initialize();
 	BSP::Serial().Begin(115200);
 
-	BaseTimerInitOptions options;
+	BaseTimerInitOptions options{};
 	options._counter_mode = BaseTimerInitOptions::CounterMode::Up;
 	options._prescaler = 7200 - 1;
 	options._period = 5000 - 1;

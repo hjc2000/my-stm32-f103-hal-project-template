@@ -7,15 +7,13 @@ set(CMAKE_C_STANDARD 99)
 
 include(${cpp_lib_build_scripts_path}/cmake-module/setup.cmake)
 include(target_import_libfreertos)
+include(target_import_libstm32f103_hal)
 
 add_library(${ProjectName} STATIC)
 target_import_src(${ProjectName})
 
 target_import_libfreertos(${ProjectName} PUBLIC)
-target_link_libraries(
-	${ProjectName} PRIVATE 
-	hal-wrapper
-)
+target_import_libstm32f103_hal(${ProjectName} PRIVATE)
 target_link_libraries(
 	${ProjectName} PUBLIC 
 	bsp-interface

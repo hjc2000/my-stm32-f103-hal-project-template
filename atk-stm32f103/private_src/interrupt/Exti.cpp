@@ -1,5 +1,5 @@
 #include"Exti.h"
-#include<hal-wrapper/interrupt/Interrupt.h>
+#include<Interrupt.h>
 
 using namespace hal;
 

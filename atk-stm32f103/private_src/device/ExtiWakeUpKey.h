@@ -1,10 +1,10 @@
 #pragma once
+#include<Exti.h>
+#include<GpioPort.h>
+#include<Interrupt.h>
 #include<Systic.h>
 #include<atomic>
 #include<bsp-interface/IEventDrivenKey.h>
-#include<hal-wrapper/interrupt/Exti.h>
-#include<hal-wrapper/interrupt/Interrupt.h>
-#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
 namespace atk
 {

@@ -1,6 +1,6 @@
 #pragma once
+#include<GpioPort.h>
 #include<functional>
-#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
 extern "C"
 {

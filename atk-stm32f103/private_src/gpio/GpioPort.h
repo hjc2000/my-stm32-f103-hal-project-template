@@ -1,5 +1,5 @@
 #pragma once
-#include<hal-wrapper/peripheral/gpio/IGpioPort.h>
+#include<IGpioPort.h>
 
 namespace hal
 {

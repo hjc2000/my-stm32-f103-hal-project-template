@@ -4,7 +4,7 @@ using namespace hal;
 
 void IGpioPort::InitPin(GpioPin pin, GpioPinInitOptions const &options)
 {
-	GPIO_InitTypeDef gpio_init_options;
+	GPIO_InitTypeDef gpio_init_options{};
 	gpio_init_options.Pin = (uint32_t)pin;
 	gpio_init_options.Mode = (uint32_t)options._mode;
 	gpio_init_options.Pull = (uint32_t)options._pull_mode;

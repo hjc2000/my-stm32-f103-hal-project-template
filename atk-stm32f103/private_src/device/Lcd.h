@@ -1,9 +1,9 @@
 #pragma once
+#include<FsmcNorSramInitOptions.h>
+#include<FsmcNorSramTiming.h>
+#include<GpioPort.h>
 #include<bsp-interface/DisplayEnum.h>
 #include<bsp-interface/ILcd.h>
-#include<hal-wrapper/peripheral/fsmc/FsmcNorSramInitOptions.h>
-#include<hal-wrapper/peripheral/fsmc/FsmcNorSramTiming.h>
-#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 #include<stdexcept>
 
 namespace atk

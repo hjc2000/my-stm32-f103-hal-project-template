@@ -1,7 +1,7 @@
 #pragma once
+#include<Interrupt.h>
+#include<WindowWatchDogInitOptions.h>
 #include<functional>
-#include<hal-wrapper/interrupt/Interrupt.h>
-#include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDogInitOptions.h>
 
 namespace hal
 {
