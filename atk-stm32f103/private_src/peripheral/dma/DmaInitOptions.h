@@ -1,7 +1,7 @@
 #pragma once
 #include<DmaEnum.h>
 
-namespace atk
+namespace bsp
 {
 	/// <summary>
 	///		DMA 初始化选项。

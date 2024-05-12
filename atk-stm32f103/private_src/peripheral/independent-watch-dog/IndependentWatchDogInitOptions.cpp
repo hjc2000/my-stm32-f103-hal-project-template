@@ -1,8 +1,8 @@
 #include"IndependentWatchDogInitOptions.h"
 
-using namespace atk;
+using namespace bsp;
 
-IndependentWatchDogPrescaler atk::PowerToIndependentWatchDogPrescaler(uint8_t pow)
+IndependentWatchDogPrescaler bsp::PowerToIndependentWatchDogPrescaler(uint8_t pow)
 {
 	switch (pow)
 	{
@@ -38,19 +38,19 @@ IndependentWatchDogPrescaler atk::PowerToIndependentWatchDogPrescaler(uint8_t po
 	}
 }
 
-atk::IndependentWatchDogInitOptions::IndependentWatchDogInitOptions(IWDG_InitTypeDef const &o)
+bsp::IndependentWatchDogInitOptions::IndependentWatchDogInitOptions(IWDG_InitTypeDef const &o)
 {
 	*this = o;
 }
 
-IndependentWatchDogInitOptions &atk::IndependentWatchDogInitOptions::operator=(IWDG_InitTypeDef const &o)
+IndependentWatchDogInitOptions &bsp::IndependentWatchDogInitOptions::operator=(IWDG_InitTypeDef const &o)
 {
 	_prescaler = (IndependentWatchDogPrescaler)o.Prescaler;
 	_reload = o.Reload;
 	return *this;
 }
 
-atk::IndependentWatchDogInitOptions::operator IWDG_InitTypeDef() const
+bsp::IndependentWatchDogInitOptions::operator IWDG_InitTypeDef() const
 {
 	IWDG_InitTypeDef def;
 	def.Prescaler = (uint32_t)_prescaler;

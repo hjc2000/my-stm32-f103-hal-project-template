@@ -3,7 +3,7 @@
 #include<chrono>
 #include<stdint.h>
 
-namespace atk
+namespace bsp
 {
 	/// <summary>
 	///		延时器。内部默认使用 Systic 类进行延时。

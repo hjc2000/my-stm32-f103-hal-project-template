@@ -1,6 +1,6 @@
 #include"DmaInitOptions.h"
 
-using namespace atk;
+using namespace bsp;
 
 DmaInitOptions::DmaInitOptions(DMA_InitTypeDef const &o)
 {

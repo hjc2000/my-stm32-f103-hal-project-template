@@ -1,13 +1,13 @@
 #include"BaseTimerInitOptions.h"
 
-using namespace atk;
+using namespace bsp;
 
-atk::BaseTimerInitOptions::BaseTimerInitOptions(TIM_Base_InitTypeDef const &o)
+bsp::BaseTimerInitOptions::BaseTimerInitOptions(TIM_Base_InitTypeDef const &o)
 {
 	*this = o;
 }
 
-BaseTimerInitOptions &atk::BaseTimerInitOptions::operator=(TIM_Base_InitTypeDef const &o)
+BaseTimerInitOptions &bsp::BaseTimerInitOptions::operator=(TIM_Base_InitTypeDef const &o)
 {
 	_prescaler = o.Prescaler;
 	_counter_mode = static_cast<CounterMode>(o.CounterMode);
@@ -16,7 +16,7 @@ BaseTimerInitOptions &atk::BaseTimerInitOptions::operator=(TIM_Base_InitTypeDef 
 	return *this;
 }
 
-atk::BaseTimerInitOptions::operator TIM_Base_InitTypeDef() const
+bsp::BaseTimerInitOptions::operator TIM_Base_InitTypeDef() const
 {
 	TIM_Base_InitTypeDef o;
 	o.Prescaler = _prescaler;

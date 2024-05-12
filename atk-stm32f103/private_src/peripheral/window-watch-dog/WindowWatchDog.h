@@ -3,7 +3,7 @@
 #include<WindowWatchDogInitOptions.h>
 #include<functional>
 
-namespace atk
+namespace bsp
 {
 	using WindowWatchDogInitCallbackFunc = void(*)(WWDG_HandleTypeDef *handle);
 

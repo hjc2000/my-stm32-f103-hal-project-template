@@ -3,7 +3,7 @@
 #include<PllInitOptions.h>
 #include<hal.h>
 
-namespace atk
+namespace bsp
 {
 	/// <summary>
 	///		时钟系统只有一个，所以实现为静态类

@@ -1,10 +1,10 @@
 #include"Lcd.h"
 #include<atk-stm32f103/bsp.h>
 
-using namespace atk;
-using namespace atk;
+using namespace bsp;
+using namespace bsp;
 
-atk::Lcd::Lcd()
+bsp::Lcd::Lcd()
 {
 	InitGpio();
 	__HAL_RCC_FSMC_CLK_ENABLE();
@@ -18,7 +18,7 @@ atk::Lcd::Lcd()
 	HAL_SRAM_Init(&_sram_handle, &read_timing, &write_timing);
 }
 
-void atk::Lcd::InitGpio()
+void bsp::Lcd::InitGpio()
 {
 	auto init_control_line = [&]()
 	{
@@ -28,7 +28,7 @@ void atk::Lcd::InitGpio()
 		CS_Port().EnableClock();
 		RS_Port().EnableClock();
 
-		atk::GpioPinInitOptions gpio_init_options;
+		bsp::GpioPinInitOptions gpio_init_options;
 		gpio_init_options._mode = GpioPinMode::AlternateFunction_PushPull;
 		gpio_init_options._pull_mode = GpioPinPull::PullUp;
 		gpio_init_options._speed = GpioPinSpeed::High;
@@ -44,75 +44,75 @@ void atk::Lcd::InitGpio()
 
 	auto init_data_bus = [&]()
 	{
-		atk::GpioPortD::Instance().EnableClock();
-		atk::GpioPortE::Instance().EnableClock();
+		bsp::GpioPortD::Instance().EnableClock();
+		bsp::GpioPortE::Instance().EnableClock();
 
-		atk::GpioPinInitOptions options;
+		bsp::GpioPinInitOptions options;
 		options._mode = GpioPinMode::AlternateFunction_PushPull;
 		options._pull_mode = GpioPinPull::PullUp;
 		options._speed = GpioPinSpeed::High;
 
-		atk::GpioPortD::Instance().InitPin(GpioPin::Pin0, options);
-		atk::GpioPortD::Instance().InitPin(GpioPin::Pin1, options);
-		atk::GpioPortD::Instance().InitPin(GpioPin::Pin8, options);
-		atk::GpioPortD::Instance().InitPin(GpioPin::Pin9, options);
-		atk::GpioPortD::Instance().InitPin(GpioPin::Pin10, options);
-		atk::GpioPortD::Instance().InitPin(GpioPin::Pin14, options);
-		atk::GpioPortD::Instance().InitPin(GpioPin::Pin15, options);
+		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin0, options);
+		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin1, options);
+		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin8, options);
+		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin9, options);
+		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin10, options);
+		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin14, options);
+		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin15, options);
 
-		atk::GpioPortE::Instance().InitPin(GpioPin::Pin7, options);
-		atk::GpioPortE::Instance().InitPin(GpioPin::Pin8, options);
-		atk::GpioPortE::Instance().InitPin(GpioPin::Pin9, options);
-		atk::GpioPortE::Instance().InitPin(GpioPin::Pin10, options);
-		atk::GpioPortE::Instance().InitPin(GpioPin::Pin11, options);
-		atk::GpioPortE::Instance().InitPin(GpioPin::Pin12, options);
-		atk::GpioPortE::Instance().InitPin(GpioPin::Pin13, options);
-		atk::GpioPortE::Instance().InitPin(GpioPin::Pin14, options);
-		atk::GpioPortE::Instance().InitPin(GpioPin::Pin15, options);
+		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin7, options);
+		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin8, options);
+		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin9, options);
+		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin10, options);
+		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin11, options);
+		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin12, options);
+		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin13, options);
+		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin14, options);
+		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin15, options);
 	};
 
 	init_control_line();
 	init_data_bus();
 }
 
-void atk::Lcd::PrepareForRendering()
+void bsp::Lcd::PrepareForRendering()
 {
 	// 写入此命令后才可以开始写像素
 	WriteCommand(0X2C);
 }
 
-void atk::Lcd::WriteCommand(uint16_t cmd)
+void bsp::Lcd::WriteCommand(uint16_t cmd)
 {
 	*CommandAddress() = cmd;
 }
 
-void atk::Lcd::WriteCommand(uint16_t cmd, uint16_t param)
+void bsp::Lcd::WriteCommand(uint16_t cmd, uint16_t param)
 {
 	WriteCommand(cmd);
 	WriteData(param);
 }
 
-void atk::Lcd::WriteData(uint16_t data)
+void bsp::Lcd::WriteData(uint16_t data)
 {
 	*DataAddress() = data;
 }
 
-uint16_t atk::Lcd::ReadData()
+uint16_t bsp::Lcd::ReadData()
 {
 	return *DataAddress();
 }
 
-void atk::Lcd::TurnOnBackLight()
+void bsp::Lcd::TurnOnBackLight()
 {
 	BL_Port().DigitalWritePin(BL_Pin(), 1);
 }
 
-void atk::Lcd::TurnOffBackLight()
+void bsp::Lcd::TurnOffBackLight()
 {
 	BL_Port().DigitalWritePin(BL_Pin(), 0);
 }
 
-uint32_t atk::Lcd::LcdDriverChipId()
+uint32_t bsp::Lcd::LcdDriverChipId()
 {
 	uint16_t id = 0;
 	WriteCommand(0X04);
@@ -125,7 +125,7 @@ uint32_t atk::Lcd::LcdDriverChipId()
 	return id;
 }
 
-void atk::Lcd::DisplayOn()
+void bsp::Lcd::DisplayOn()
 {
 	BSP::Delayer().Delay(std::chrono::milliseconds{ 50 });
 	WriteCommand(0x11);
@@ -222,12 +222,12 @@ void atk::Lcd::DisplayOn()
 	TurnOnBackLight();
 }
 
-void atk::Lcd::DisplayOff()
+void bsp::Lcd::DisplayOff()
 {
 	WriteCommand(0X28);
 }
 
-void atk::Lcd::Clear(bsp::Color color)
+void bsp::Lcd::Clear(bsp::Color color)
 {
 	PrepareForRendering();
 	for (uint32_t i = 0; i < PointCount(); i++)
@@ -236,7 +236,7 @@ void atk::Lcd::Clear(bsp::Color color)
 	}
 }
 
-void atk::Lcd::SetScanDirection(
+void bsp::Lcd::SetScanDirection(
 	bool horizontal_priority_scanning,
 	bsp::HorizontalDirection hdir,
 	bsp::VerticalDirection vdir
@@ -297,7 +297,7 @@ void atk::Lcd::SetScanDirection(
 	SetWindow(0, 0, Width(), Height());
 }
 
-uint32_t atk::Lcd::Width()
+uint32_t bsp::Lcd::Width()
 {
 	if (_is_horizontal_priority_scanning)
 	{
@@ -309,7 +309,7 @@ uint32_t atk::Lcd::Width()
 	return OriginHeight();
 }
 
-uint32_t atk::Lcd::Height()
+uint32_t bsp::Lcd::Height()
 {
 	if (_is_horizontal_priority_scanning)
 	{
@@ -321,7 +321,7 @@ uint32_t atk::Lcd::Height()
 	return OriginalWidth();
 }
 
-void atk::Lcd::SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+void bsp::Lcd::SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 {
 	WriteCommand(0X2A);
 	WriteData(x >> 8);

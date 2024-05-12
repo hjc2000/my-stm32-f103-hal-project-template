@@ -11,7 +11,7 @@ extern "C"
 	void TIM6_IRQHandler();
 }
 
-namespace atk
+namespace bsp
 {
 	/// <summary>
 	///		TIM6 和 TIM7 是基本定时器。

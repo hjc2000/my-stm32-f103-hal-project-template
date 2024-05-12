@@ -1,11 +1,11 @@
 #include"WindowWatchDogInitOptions.h"
 
-atk::WindowWatchDogInitOptions::WindowWatchDogInitOptions(WWDG_InitTypeDef const &o)
+bsp::WindowWatchDogInitOptions::WindowWatchDogInitOptions(WWDG_InitTypeDef const &o)
 {
 	*this = o;
 }
 
-atk::WindowWatchDogInitOptions &atk::WindowWatchDogInitOptions::operator=(WWDG_InitTypeDef const &o)
+bsp::WindowWatchDogInitOptions &bsp::WindowWatchDogInitOptions::operator=(WWDG_InitTypeDef const &o)
 {
 	_prescaler = (WindowWatchDogPrescaler)o.Prescaler;
 	_window_upper_bound = o.Window;
@@ -14,7 +14,7 @@ atk::WindowWatchDogInitOptions &atk::WindowWatchDogInitOptions::operator=(WWDG_I
 	return *this;
 }
 
-atk::WindowWatchDogInitOptions::operator WWDG_InitTypeDef() const
+bsp::WindowWatchDogInitOptions::operator WWDG_InitTypeDef() const
 {
 	WWDG_InitTypeDef o;
 	o.Prescaler = (uint32_t)_prescaler;

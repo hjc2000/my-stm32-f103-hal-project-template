@@ -1,7 +1,7 @@
 #pragma once
 #include<ClockSignalEnum.h>
 
-namespace atk
+namespace bsp
 {
 	class ClockSignalInitOptions
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include<hal.h>
 
-namespace atk
+namespace bsp
 {
 	class FsmcNorSramInitOptions
 	{

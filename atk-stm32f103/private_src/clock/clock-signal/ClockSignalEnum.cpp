@@ -1,9 +1,9 @@
 #include"ClockSignalEnum.h"
 #include<type_traits>
 
-using namespace atk;
+using namespace bsp;
 
-atk::ClockType operator|(atk::ClockType left, atk::ClockType right)
+bsp::ClockType operator|(bsp::ClockType left, bsp::ClockType right)
 {
 	// 获取枚举类型的底层类型
 	using T = std::underlying_type_t<ClockType>;

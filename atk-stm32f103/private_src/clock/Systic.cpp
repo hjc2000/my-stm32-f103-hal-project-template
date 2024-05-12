@@ -1,6 +1,6 @@
 #include"Systic.h"
 
-using namespace atk;
+using namespace bsp;
 
 bool Systic::CountFlag()
 {

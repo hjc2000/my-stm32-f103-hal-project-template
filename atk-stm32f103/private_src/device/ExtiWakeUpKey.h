@@ -6,7 +6,7 @@
 #include<atomic>
 #include<bsp-interface/IEventDrivenKey.h>
 
-namespace atk
+namespace bsp
 {
 	/// <summary>
 	///		外部中断驱动的按钮，按钮的丝印是 wake up。
@@ -19,14 +19,14 @@ namespace atk
 		/// </summary>
 		std::atomic_bool _is_pressed = false;
 
-		atk::IGpioPort &Port()
+		bsp::IGpioPort &Port()
 		{
-			return atk::GpioPortA::Instance();
+			return bsp::GpioPortA::Instance();
 		}
 
-		atk::GpioPin Pin()
+		bsp::GpioPin Pin()
 		{
-			return atk::GpioPin::Pin0;
+			return bsp::GpioPin::Pin0;
 		}
 
 	public:

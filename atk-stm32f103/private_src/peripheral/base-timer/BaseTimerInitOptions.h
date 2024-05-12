@@ -1,7 +1,7 @@
 #pragma once
 #include<hal.h>
 
-namespace atk
+namespace bsp
 {
 	/// <summary>
 	///		基本定时器初始化选项

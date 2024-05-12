@@ -3,7 +3,7 @@
 #include<GpioPort.h>
 #include<bsp-interface/IKey.h>
 
-namespace atk
+namespace bsp
 {
 	/// <summary>
 	///		位于 PE4 引脚上的按键。另一端接地，所以要上拉使用。
@@ -19,9 +19,9 @@ namespace atk
 			return key;
 		}
 
-		atk::IGpioPort &Port()
+		bsp::IGpioPort &Port()
 		{
-			return atk::GpioPortE::Instance();
+			return bsp::GpioPortE::Instance();
 		}
 
 		bool KeyIsDown() override;
@@ -46,9 +46,9 @@ namespace atk
 			return key;
 		}
 
-		atk::IGpioPort &Port()
+		bsp::IGpioPort &Port()
 		{
-			return atk::GpioPortE::Instance();
+			return bsp::GpioPortE::Instance();
 		}
 
 		bool KeyIsDown() override;

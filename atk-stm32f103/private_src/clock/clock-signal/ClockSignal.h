@@ -4,7 +4,7 @@
 #include<hal.h>
 #include<stdint.h>
 
-namespace atk
+namespace bsp
 {
 	class ClockSignal
 	{

@@ -1,6 +1,6 @@
 #include"OscInitOptions.h"
 
-using namespace atk;
+using namespace bsp;
 
 OscInitOptions &OscInitOptions::operator=(RCC_OscInitTypeDef const &value)
 {

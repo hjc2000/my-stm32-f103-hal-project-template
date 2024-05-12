@@ -2,7 +2,7 @@
 #include<PllInitOptions.h>
 #include<hal.h>
 
-namespace atk
+namespace bsp
 {
 	enum class OscillatorType
 	{

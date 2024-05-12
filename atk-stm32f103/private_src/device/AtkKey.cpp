@@ -1,11 +1,11 @@
 #include "AtkKey.h"
 
-using namespace atk;
+using namespace bsp;
 
 #pragma region Key0
-atk::Key0::Key0()
+bsp::Key0::Key0()
 {
-	using namespace atk;
+	using namespace bsp;
 	Port().EnableClock();
 	GpioPinInitOptions options;
 	options._mode = GpioPinMode::Input;
@@ -14,7 +14,7 @@ atk::Key0::Key0()
 	Port().InitPin(GpioPin::Pin4, options);
 }
 
-bool atk::Key0::KeyIsDown()
+bool bsp::Key0::KeyIsDown()
 {
 	// 被按下是低电平，否则是高电平
 	return !Port().DigitalReadPin(GpioPin::Pin4);
@@ -22,9 +22,9 @@ bool atk::Key0::KeyIsDown()
 #pragma endregion
 
 #pragma region Key1
-atk::Key1::Key1()
+bsp::Key1::Key1()
 {
-	using namespace atk;
+	using namespace bsp;
 	Port().EnableClock();
 	GpioPinInitOptions options;
 	options._mode = GpioPinMode::Input;
@@ -33,7 +33,7 @@ atk::Key1::Key1()
 	Port().InitPin(GpioPin::Pin3, options);
 }
 
-bool atk::Key1::KeyIsDown()
+bool bsp::Key1::KeyIsDown()
 {
 	// 被按下是低电平，否则是高电平
 	return !Port().DigitalReadPin(GpioPin::Pin3);

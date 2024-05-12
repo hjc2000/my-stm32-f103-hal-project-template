@@ -6,8 +6,8 @@
 #include<atk-stm32f103/bsp.h>
 #include<task.h>
 
-using namespace atk;
-using namespace atk;
+using namespace bsp;
+using namespace bsp;
 
 #pragma region 中断处理函数
 void USART1_IRQHandler()
@@ -48,7 +48,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	auto init_tx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		atk::DmaInitOptions options{};
+		bsp::DmaInitOptions options{};
 		options._direction = DmaDataTransferDirection::MemoryToPeripheral;
 		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
 		options._mem_inc_mode = DmaMemoryIncMode::Enable;
@@ -65,7 +65,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	auto init_rx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		atk::DmaInitOptions options{};
+		bsp::DmaInitOptions options{};
 		options._direction = DmaDataTransferDirection::PeripheralToMemory;
 		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
 		options._mem_inc_mode = DmaMemoryIncMode::Enable;
@@ -96,13 +96,13 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 }
 
 #pragma region 被中断处理函数回调的函数
-void atk::Serial::OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos)
+void bsp::Serial::OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos)
 {
 	Serial::Instance()._current_receive_count = pos;
 	Serial::Instance()._receive_complete_signal.ReleaseFromISR();
 }
 
-void atk::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
+void bsp::Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 {
 	Serial::Instance()._send_complete_signal.ReleaseFromISR();
 }

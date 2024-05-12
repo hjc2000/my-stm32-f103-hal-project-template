@@ -6,7 +6,7 @@
 #include<bsp-interface/ILcd.h>
 #include<stdexcept>
 
-namespace atk
+namespace bsp
 {
 	class Lcd :public bsp::ILcd
 	{
@@ -39,106 +39,106 @@ namespace atk
 		///		连接 LCD 的 RD 引脚。
 		/// </summary>
 		/// <returns></returns>
-		atk::IGpioPort &RD_Port()
+		bsp::IGpioPort &RD_Port()
 		{
-			return atk::GpioPortD::Instance();
+			return bsp::GpioPortD::Instance();
 		}
-		atk::GpioPin RD_Pin()
+		bsp::GpioPin RD_Pin()
 		{
-			return atk::GpioPin::Pin4;
+			return bsp::GpioPin::Pin4;
 		}
 
 		/// <summary>
 		///		连接 LCD 的 WR 引脚。
 		/// </summary>
 		/// <returns></returns>
-		atk::IGpioPort &WR_Port()
+		bsp::IGpioPort &WR_Port()
 		{
-			return atk::GpioPortD::Instance();
+			return bsp::GpioPortD::Instance();
 		}
-		atk::GpioPin WR_Pin()
+		bsp::GpioPin WR_Pin()
 		{
-			return atk::GpioPin::Pin5;
+			return bsp::GpioPin::Pin5;
 		}
 
 		/// <summary>
 		///		连接 LCD 的 BL 引脚。这是控制背光的。
 		/// </summary>
 		/// <returns></returns>
-		atk::IGpioPort &BL_Port()
+		bsp::IGpioPort &BL_Port()
 		{
-			return atk::GpioPortB::Instance();
+			return bsp::GpioPortB::Instance();
 		}
-		atk::GpioPin BL_Pin()
+		bsp::GpioPin BL_Pin()
 		{
-			return atk::GpioPin::Pin0;
+			return bsp::GpioPin::Pin0;
 		}
 
 		/// <summary>
 		///		连接 LCD 的 CS 引脚。这是片选。
 		/// </summary>
 		/// <returns></returns>
-		atk::IGpioPort &CS_Port()
+		bsp::IGpioPort &CS_Port()
 		{
-			return atk::GpioPortG::Instance();
+			return bsp::GpioPortG::Instance();
 		}
-		atk::GpioPin CS_Pin()
+		bsp::GpioPin CS_Pin()
 		{
-			return atk::GpioPin::Pin12;
+			return bsp::GpioPin::Pin12;
 		}
 
 		/// <summary>
 		///		连接到 LCD 的 RS 引脚。
 		/// </summary>
 		/// <returns></returns>
-		atk::IGpioPort &RS_Port()
+		bsp::IGpioPort &RS_Port()
 		{
-			return atk::GpioPortG::Instance();
+			return bsp::GpioPortG::Instance();
 		}
-		atk::GpioPin RS_Pin()
+		bsp::GpioPin RS_Pin()
 		{
-			return atk::GpioPin::Pin0;
+			return bsp::GpioPin::Pin0;
 		}
 		#pragma endregion
 
 		#pragma region consteval
-		static consteval atk::FsmcNorSramTiming ReadTiming()
+		static consteval bsp::FsmcNorSramTiming ReadTiming()
 		{
-			atk::FsmcNorSramTiming read_timing{};
-			read_timing._access_mode = atk::FsmcNorSramTiming::AccessMode::ModeA;
+			bsp::FsmcNorSramTiming read_timing{};
+			read_timing._access_mode = bsp::FsmcNorSramTiming::AccessMode::ModeA;
 			read_timing._address_setup_time = 0;
 			read_timing._address_hold_time = 0;
 			read_timing._data_setup_time = 15;
 			return read_timing;
 		}
 
-		static consteval atk::FsmcNorSramTiming WriteTiming()
+		static consteval bsp::FsmcNorSramTiming WriteTiming()
 		{
-			atk::FsmcNorSramTiming write_timing{};
-			write_timing._access_mode = atk::FsmcNorSramTiming::AccessMode::ModeA;
+			bsp::FsmcNorSramTiming write_timing{};
+			write_timing._access_mode = bsp::FsmcNorSramTiming::AccessMode::ModeA;
 			write_timing._address_setup_time = 0;
 			write_timing._address_hold_time = 0;
 			write_timing._data_setup_time = 1;
 			return write_timing;
 		}
 
-		static consteval atk::FsmcNorSramInitOptions NorSramInitOptions()
+		static consteval bsp::FsmcNorSramInitOptions NorSramInitOptions()
 		{
-			atk::FsmcNorSramInitOptions nor_sram_init_options{};
-			nor_sram_init_options._bank = atk::FsmcNorSramInitOptions::Bank::Bank4;
-			nor_sram_init_options._data_address_mux = atk::FsmcNorSramInitOptions::DataAddressMux::Disable;
-			nor_sram_init_options._memory_type = atk::FsmcNorSramInitOptions::MemoryType::SRSM;
-			nor_sram_init_options._memory_data_width = atk::FsmcNorSramInitOptions::MemoryDataWidth::Width16;
-			nor_sram_init_options._burst_access_mode = atk::FsmcNorSramInitOptions::BurstAccessMode::Disable;
-			nor_sram_init_options._wait_signal_polarity = atk::FsmcNorSramInitOptions::WaitSignalPolarity::Low;
-			nor_sram_init_options._wrap_mode = atk::FsmcNorSramInitOptions::WrapMode::Disable;
-			nor_sram_init_options._wait_signal_active = atk::FsmcNorSramInitOptions::WaitSignalActive::BeforeWs;
-			nor_sram_init_options._write_operation = atk::FsmcNorSramInitOptions::WriteOperation::Enable;
-			nor_sram_init_options._wait_signal = atk::FsmcNorSramInitOptions::WaitSignal::Disable;
-			nor_sram_init_options._extended_mode = atk::FsmcNorSramInitOptions::ExtendedMode::Enable;
-			nor_sram_init_options._asynchronous_wait = atk::FsmcNorSramInitOptions::AsynchronousWait::Disable;
-			nor_sram_init_options._write_burst = atk::FsmcNorSramInitOptions::WriteBurst::Disable;
-			nor_sram_init_options._page_size = atk::FsmcNorSramInitOptions::PageSize::SizeNone;
+			bsp::FsmcNorSramInitOptions nor_sram_init_options{};
+			nor_sram_init_options._bank = bsp::FsmcNorSramInitOptions::Bank::Bank4;
+			nor_sram_init_options._data_address_mux = bsp::FsmcNorSramInitOptions::DataAddressMux::Disable;
+			nor_sram_init_options._memory_type = bsp::FsmcNorSramInitOptions::MemoryType::SRSM;
+			nor_sram_init_options._memory_data_width = bsp::FsmcNorSramInitOptions::MemoryDataWidth::Width16;
+			nor_sram_init_options._burst_access_mode = bsp::FsmcNorSramInitOptions::BurstAccessMode::Disable;
+			nor_sram_init_options._wait_signal_polarity = bsp::FsmcNorSramInitOptions::WaitSignalPolarity::Low;
+			nor_sram_init_options._wrap_mode = bsp::FsmcNorSramInitOptions::WrapMode::Disable;
+			nor_sram_init_options._wait_signal_active = bsp::FsmcNorSramInitOptions::WaitSignalActive::BeforeWs;
+			nor_sram_init_options._write_operation = bsp::FsmcNorSramInitOptions::WriteOperation::Enable;
+			nor_sram_init_options._wait_signal = bsp::FsmcNorSramInitOptions::WaitSignal::Disable;
+			nor_sram_init_options._extended_mode = bsp::FsmcNorSramInitOptions::ExtendedMode::Enable;
+			nor_sram_init_options._asynchronous_wait = bsp::FsmcNorSramInitOptions::AsynchronousWait::Disable;
+			nor_sram_init_options._write_burst = bsp::FsmcNorSramInitOptions::WriteBurst::Disable;
+			nor_sram_init_options._page_size = bsp::FsmcNorSramInitOptions::PageSize::SizeNone;
 			return nor_sram_init_options;
 		}
 		#pragma endregion

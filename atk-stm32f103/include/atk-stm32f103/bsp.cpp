@@ -15,8 +15,8 @@
 #include<functional>
 #include<task.h>
 
-using namespace atk;
-using namespace atk;
+using namespace bsp;
+using namespace bsp;
 
 void BSP::Initialize()
 {
@@ -100,7 +100,7 @@ bsp::IDelayer &BSP::Delayer()
 
 bsp::IIndependentWatchDog &BSP::IndependentWatchDog()
 {
-	return atk::IndependentWatchDog::Instance();
+	return bsp::IndependentWatchDog::Instance();
 }
 
 bsp::IDigitalLed &BSP::RedDigitalLed()
@@ -132,7 +132,7 @@ bsp::IKeyScanner &BSP::KeyScanner()
 
 bsp::IEventDrivenKey &BSP::WakeUpKey()
 {
-	return atk::ExtiWakeUpKey::Instance();
+	return bsp::ExtiWakeUpKey::Instance();
 }
 
 bsp::ISerial &BSP::Serial()

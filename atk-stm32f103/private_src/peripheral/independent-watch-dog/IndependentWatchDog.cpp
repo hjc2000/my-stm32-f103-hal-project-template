@@ -1,15 +1,15 @@
 #include"IndependentWatchDog.h"
 
-using namespace atk;
+using namespace bsp;
 
-void atk::IndependentWatchDog::Initialize(IndependentWatchDogInitOptions const &options)
+void bsp::IndependentWatchDog::Initialize(IndependentWatchDogInitOptions const &options)
 {
 	Handle()->Instance = HardwareInstance();
 	Handle()->Init = options;
 	HAL_IWDG_Init(Handle());
 }
 
-uint32_t atk::IndependentWatchDog::PrescalerValue()
+uint32_t bsp::IndependentWatchDog::PrescalerValue()
 {
 	switch (Prescaler())
 	{
@@ -49,14 +49,14 @@ uint32_t atk::IndependentWatchDog::PrescalerValue()
 	}
 }
 
-std::chrono::milliseconds atk::IndependentWatchDog::WatchDogTimeoutDuration()
+std::chrono::milliseconds bsp::IndependentWatchDog::WatchDogTimeoutDuration()
 {
 	return std::chrono::milliseconds{
 		(uint64_t)1000 * Handle()->Init.Reload * InnerClockSourceFreq_Hz() / PrescalerValue()
 	};
 }
 
-void atk::IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds value)
+void bsp::IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds value)
 {
 	/*
 	* 计数器的计数周期为：
@@ -110,7 +110,7 @@ void atk::IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseco
 	Initialize(options);
 }
 
-void atk::IndependentWatchDog::Feed()
+void bsp::IndependentWatchDog::Feed()
 {
 	HAL_IWDG_Refresh(Handle());
 }

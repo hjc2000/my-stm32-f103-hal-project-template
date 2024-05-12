@@ -15,7 +15,7 @@ extern "C"
 	void DMA1_Channel5_IRQHandler();
 }
 
-namespace atk
+namespace bsp
 {
 	class Serial :
 		public bsp::ISerial

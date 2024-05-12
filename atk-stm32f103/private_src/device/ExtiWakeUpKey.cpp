@@ -1,7 +1,7 @@
 #include"ExtiWakeUpKey.h"
 
-using namespace atk;
-using namespace atk;
+using namespace bsp;
+using namespace bsp;
 
 ExtiWakeUpKey::ExtiWakeUpKey()
 {
