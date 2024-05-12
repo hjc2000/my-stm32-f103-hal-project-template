@@ -1,7 +1,7 @@
 #pragma once
+#include<UartInitOptions.h>
 #include<atomic>
 #include<bsp-interface/ISerial.h>
-#include<hal-wrapper/peripheral/uart/UartInitOptions.h>
 #include<hal.h>
 #include<memory>
 #include<task/BinarySemaphore.h>

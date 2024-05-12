@@ -5,7 +5,7 @@
 using namespace hal;
 using namespace atk;
 
-void atk::BaseTimer1::Initialize(hal::BaseTimerInitOptions const &options)
+void atk::BaseTimer1::Initialize(BaseTimerInitOptions const &options)
 {
 	__HAL_RCC_TIM6_CLK_ENABLE();
 	_handle.Instance = TIM6;

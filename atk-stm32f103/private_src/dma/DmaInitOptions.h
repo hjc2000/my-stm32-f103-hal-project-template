@@ -1,7 +1,7 @@
 #pragma once
-#include<hal-wrapper/peripheral/dma/DmaEnum.h>
+#include<DmaEnum.h>
 
-namespace hal
+namespace atk
 {
 	/// <summary>
 	///		DMA 初始化选项。

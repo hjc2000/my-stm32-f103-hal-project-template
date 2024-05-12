@@ -1,13 +1,13 @@
 #include"BaseTimerInitOptions.h"
 
-using namespace hal;
+using namespace atk;
 
-hal::BaseTimerInitOptions::BaseTimerInitOptions(TIM_Base_InitTypeDef const &o)
+atk::BaseTimerInitOptions::BaseTimerInitOptions(TIM_Base_InitTypeDef const &o)
 {
 	*this = o;
 }
 
-BaseTimerInitOptions &hal::BaseTimerInitOptions::operator=(TIM_Base_InitTypeDef const &o)
+BaseTimerInitOptions &atk::BaseTimerInitOptions::operator=(TIM_Base_InitTypeDef const &o)
 {
 	_prescaler = o.Prescaler;
 	_counter_mode = static_cast<CounterMode>(o.CounterMode);
@@ -16,7 +16,7 @@ BaseTimerInitOptions &hal::BaseTimerInitOptions::operator=(TIM_Base_InitTypeDef 
 	return *this;
 }
 
-hal::BaseTimerInitOptions::operator TIM_Base_InitTypeDef() const
+atk::BaseTimerInitOptions::operator TIM_Base_InitTypeDef() const
 {
 	TIM_Base_InitTypeDef o;
 	o.Prescaler = _prescaler;

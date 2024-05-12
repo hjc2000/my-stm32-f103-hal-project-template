@@ -1,7 +1,7 @@
 #pragma once
+#include<BaseTimerInitOptions.h>
 #include<atomic>
 #include<functional>
-#include<hal-wrapper/peripheral/base-timer/BaseTimerInitOptions.h>
 
 extern "C"
 {
@@ -34,7 +34,7 @@ namespace atk
 			return o;
 		}
 
-		void Initialize(hal::BaseTimerInitOptions const &options);
+		void Initialize(BaseTimerInitOptions const &options);
 
 		/// <summary>
 		///		启动定时器。
