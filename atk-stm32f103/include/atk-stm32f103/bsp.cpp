@@ -43,25 +43,18 @@ void BSP::Initialize()
 	{
 		Systic::SetClockSource(SysticClockSource::HCLK_DIV8);
 
-		ClockSignalInitOptions clock_init_options{};
-		clock_init_options._clock_type = ClockSignalInitOptions::ClockType::SYSCLK
-			| ClockSignalInitOptions::ClockType::HCLK
-			| ClockSignalInitOptions::ClockType::PCLK1
-			| ClockSignalInitOptions::ClockType::PCLK2;
+		ClockSignalConfig clock_init_options{};
+		clock_init_options._clock_type = ClockSignalConfig::ClockType::SYSCLK
+			| ClockSignalConfig::ClockType::HCLK
+			| ClockSignalConfig::ClockType::PCLK1
+			| ClockSignalConfig::ClockType::PCLK2;
 
-		clock_init_options._sysclk_source = ClockSignalInitOptions::SysclkSource::PLLCLK;
-		clock_init_options._ahb_clk_divider = ClockSignalInitOptions::AHBDivider::DIV1;
-		clock_init_options._apb1_divider = ClockSignalInitOptions::APBDivider::DIV2;
-		clock_init_options._apb2_divider = ClockSignalInitOptions::APBDivider::DIV1;
-		clock_init_options._flash_latency = ClockSignalInitOptions::FlashLatency::Latency2;
-		if (ClockSignal::Config(clock_init_options) != HAL_OK)
-		{
-			BSP::Serial().ReportError("时钟初始化失败");
-			while (1)
-			{
-
-			}
-		}
+		clock_init_options._sysclk_source = ClockSignalConfig::SysclkSource::PLLCLK;
+		clock_init_options._ahb_clk_divider = ClockSignalConfig::AHBDivider::DIV1;
+		clock_init_options._apb1_divider = ClockSignalConfig::APBDivider::DIV2;
+		clock_init_options._apb2_divider = ClockSignalConfig::APBDivider::DIV1;
+		clock_init_options._flash_latency = ClockSignalConfig::FlashLatency::Latency2;
+		ClockSignal::SetConfig(clock_init_options);
 	};
 
 	// HAL_Init 函数已经将中断优先级分组设置为 4 了。

@@ -3,12 +3,12 @@
 
 namespace bsp
 {
-	class ClockSignalInitOptions
+	class ClockSignalConfig
 	{
 	public:
-		ClockSignalInitOptions() = default;
-		ClockSignalInitOptions(RCC_ClkInitTypeDef const &o);
-		ClockSignalInitOptions &operator=(RCC_ClkInitTypeDef const &o);
+		ClockSignalConfig() = default;
+		ClockSignalConfig(RCC_ClkInitTypeDef const &o);
+		ClockSignalConfig &operator=(RCC_ClkInitTypeDef const &o);
 		operator RCC_ClkInitTypeDef() const;
 
 		/// <summary>
@@ -119,7 +119,7 @@ namespace bsp
 /// <param name="left"></param>
 /// <param name="right"></param>
 /// <returns></returns>
-bsp::ClockSignalInitOptions::ClockType operator|(
-	bsp::ClockSignalInitOptions::ClockType left,
-	bsp::ClockSignalInitOptions::ClockType right
+bsp::ClockSignalConfig::ClockType operator|(
+	bsp::ClockSignalConfig::ClockType left,
+	bsp::ClockSignalConfig::ClockType right
 	);
