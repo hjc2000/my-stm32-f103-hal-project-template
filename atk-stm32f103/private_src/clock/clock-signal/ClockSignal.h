@@ -1,5 +1,4 @@
 #pragma once
-#include<ClockSignalEnum.h>
 #include<ClockSignalInitOptions.h>
 #include<hal.h>
 #include<stdint.h>
@@ -23,6 +22,22 @@ namespace bsp
 		{
 			RCC_ClkInitTypeDef rcc_clk_init = options;
 			return HAL_RCC_ClockConfig(&rcc_clk_init, (uint32_t)flash_latency);
+		}
+
+		static ClockSignalInitOptions GetInitOptions()
+		{
+			RCC_ClkInitTypeDef def;
+			uint32_t flash_latency;
+			HAL_RCC_GetClockConfig(&def, &flash_latency);
+			return ClockSignalInitOptions{ def };
+		}
+
+		static FlashLatency GetFlashLatency()
+		{
+			RCC_ClkInitTypeDef def;
+			uint32_t flash_latency;
+			HAL_RCC_GetClockConfig(&def, &flash_latency);
+			return static_cast<FlashLatency>(flash_latency);
 		}
 	};
 }

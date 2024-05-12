@@ -37,7 +37,11 @@ void bsp::BaseTimer1::Initialize(BaseTimerInitOptions const &options)
 
 void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
 {
-
+	BaseTimerInitOptions options{};
+	options._counter_mode = BaseTimerInitOptions::CounterMode::Up;
+	options._prescaler = 7200 - 1;
+	options._period = 5000 - 1;
+	options._is_auto_reload_preload_enabled = false;
 }
 
 void bsp::BaseTimer1::Start()
@@ -59,4 +63,3 @@ void bsp::BaseTimer1::SetPeriodElapsedCallback(std::function<void()> func)
 		_on_period_elapsed = func;
 	});
 }
-
