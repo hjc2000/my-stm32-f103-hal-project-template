@@ -4,47 +4,50 @@
 namespace hal
 {
 	/// <summary>
-	///		抢占优先级组。
-	///		* 抢占优先级组在 HAL_Init 函数中默认会设置成 NVIC_PRIORITYGROUP_2，
-	///		  如果接受这个值，就不需要自己去设置了。
-	/// </summary>
-	enum class PreemptionPriorityGroup
-	{
-		/// <summary>
-		///		0 位抢占优先级，4 位响应优先级。
-		/// </summary>
-		Group0 = NVIC_PRIORITYGROUP_0,
-
-		/// <summary>
-		///		1 位抢占优先级，3 位响应优先级。
-		/// </summary>
-		Group1 = NVIC_PRIORITYGROUP_1,
-
-		/// <summary>
-		///		2 位抢占优先级，2 位响应优先级。
-		/// </summary>
-		Group2 = NVIC_PRIORITYGROUP_2,
-
-		/// <summary>
-		///		3 位抢占优先级，1 位响应优先级。
-		/// </summary>
-		Group3 = NVIC_PRIORITYGROUP_3,
-
-		/// <summary>
-		///		4 位抢占优先级，0 位响应优先级。
-		/// </summary>
-		Group4 = NVIC_PRIORITYGROUP_4,
-	};
-
-	/// <summary>
 	///		静态类。提供中断相关的操作。
 	/// </summary>
 	class Interrupt
 	{
+	private:
 		Interrupt() = delete;
+		Interrupt(Interrupt const &o) = delete;
+		Interrupt(Interrupt const &&o) = delete;
 		Interrupt &operator=(Interrupt const &value) = delete;
 
 	public:
+		/// <summary>
+		///		抢占优先级组。
+		///		* 抢占优先级组在 HAL_Init 函数中默认会设置成 NVIC_PRIORITYGROUP_2，
+		///		  如果接受这个值，就不需要自己去设置了。
+		/// </summary>
+		enum class PreemptionPriorityGroup
+		{
+			/// <summary>
+			///		0 位抢占优先级，4 位响应优先级。
+			/// </summary>
+			Group0 = NVIC_PRIORITYGROUP_0,
+
+			/// <summary>
+			///		1 位抢占优先级，3 位响应优先级。
+			/// </summary>
+			Group1 = NVIC_PRIORITYGROUP_1,
+
+			/// <summary>
+			///		2 位抢占优先级，2 位响应优先级。
+			/// </summary>
+			Group2 = NVIC_PRIORITYGROUP_2,
+
+			/// <summary>
+			///		3 位抢占优先级，1 位响应优先级。
+			/// </summary>
+			Group3 = NVIC_PRIORITYGROUP_3,
+
+			/// <summary>
+			///		4 位抢占优先级，0 位响应优先级。
+			/// </summary>
+			Group4 = NVIC_PRIORITYGROUP_4,
+		};
+
 		/// <summary>
 		///		设置抢占优先级组。
 		///		- 此函数一次复位后启动只能调用一次，因为抢占优先级组只能设置一次。

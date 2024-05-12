@@ -3,13 +3,16 @@
 
 namespace hal
 {
+	/// <summary>
+	///		基本定时器初始化选项
+	/// </summary>
 	class BaseTimerInitOptions
 	{
 	public:
 		BaseTimerInitOptions() = default;
 		BaseTimerInitOptions(TIM_Base_InitTypeDef const &o);
 		BaseTimerInitOptions &operator=(TIM_Base_InitTypeDef const &o);
-		operator TIM_Base_InitTypeDef();
+		operator TIM_Base_InitTypeDef() const;
 
 		/// <summary>
 		///		预分频器。范围：[0x0000, 0xFFFF]
@@ -32,23 +35,16 @@ namespace hal
 		/// </summary>
 		uint32_t _period;
 
-		enum class ClockDivision
-		{
-			Div1 = TIM_CLOCKDIVISION_DIV1,
-			Div2 = TIM_CLOCKDIVISION_DIV2,
-			Div4 = TIM_CLOCKDIVISION_DIV4,
-		};
-
-		ClockDivision _clock_division;
-
-		uint32_t _repetition_counter;
-
 		enum class AutoReloadPreload
 		{
 			Enable = TIM_AUTORELOAD_PRELOAD_ENABLE,
 			Disable = TIM_AUTORELOAD_PRELOAD_DISABLE,
 		};
 
-		AutoReloadPreload _auto_reload_preload;
+		/// <summary>
+		///		自动重载预装载使能。
+		///		* 禁用时，写入预装载寄存器的值会直接送到影子寄存器中，不经过缓冲。
+		/// </summary>
+		AutoReloadPreload _is_auto_reload_preload_enabled;
 	};
 }
