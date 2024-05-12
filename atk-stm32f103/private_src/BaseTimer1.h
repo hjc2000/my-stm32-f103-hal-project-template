@@ -13,10 +13,13 @@ extern "C"
 
 namespace atk
 {
-	class BaseTimer
+	/// <summary>
+	///		TIM6 和 TIM7 是基本定时器。
+	/// </summary>
+	class BaseTimer1
 	{
 	private:
-		BaseTimer() = default;
+		BaseTimer1() = default;
 
 		friend void ::TIM6_IRQHandler();
 
@@ -25,9 +28,9 @@ namespace atk
 		std::atomic_bool _have_started = false;
 
 	public:
-		static BaseTimer &Instance()
+		static BaseTimer1 &Instance()
 		{
-			static BaseTimer o;
+			static BaseTimer1 o;
 			return o;
 		}
 
@@ -35,17 +38,14 @@ namespace atk
 
 		/// <summary>
 		///		启动定时器。
-		///		* 初始化完后，并且给 _on_period_elapsed 赋值后就可以调用
-		///		  本方法启动定时器了。
-		///		* 定时器启动后不要修改 _on_period_elapsed。
 		/// </summary>
 		void Start();
-		void Stop();
 
 		/// <summary>
-		///		设置更新事件回调。
+		///		停止定时器。
 		/// </summary>
-		/// <param name="func"></param>
+		void Stop();
+
 		void SetPeriodElapsedCallback(std::function<void()> func);
 	};
 }

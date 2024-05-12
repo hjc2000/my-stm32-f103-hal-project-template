@@ -146,7 +146,7 @@ bsp::ILcd &BSP::Lcd()
 }
 
 
-#include<BaseTimer.h>
+#include<BaseTimer1.h>
 
 void TestBaseTimer()
 {
@@ -158,13 +158,13 @@ void TestBaseTimer()
 	options._prescaler = 7200 - 1;
 	options._period = 5000 - 1;
 	options._is_auto_reload_preload_enabled = false;
-	BaseTimer::Instance().Initialize(options);
-	BaseTimer::Instance().SetPeriodElapsedCallback([]()
+	BaseTimer1::Instance().Initialize(options);
+	BaseTimer1::Instance().SetPeriodElapsedCallback([]()
 	{
 		BSP::GreenDigitalLed().Toggle();
 	});
 
-	BaseTimer::Instance().Start();
+	BaseTimer1::Instance().Start();
 
 	while (true)
 	{

@@ -1,11 +1,11 @@
-#include"BaseTimer.h"
+#include"BaseTimer1.h"
 #include<hal-wrapper/interrupt/Interrupt.h>
 #include<stdexcept>
 
 using namespace hal;
 using namespace atk;
 
-void atk::BaseTimer::Initialize(hal::BaseTimerInitOptions const &options)
+void atk::BaseTimer1::Initialize(hal::BaseTimerInitOptions const &options)
 {
 	__HAL_RCC_TIM6_CLK_ENABLE();
 	_handle.Instance = TIM6;
@@ -15,9 +15,9 @@ void atk::BaseTimer::Initialize(hal::BaseTimerInitOptions const &options)
 	{
 		try
 		{
-			if (BaseTimer::Instance()._on_period_elapsed)
+			if (BaseTimer1::Instance()._on_period_elapsed)
 			{
-				BaseTimer::Instance()._on_period_elapsed();
+				BaseTimer1::Instance()._on_period_elapsed();
 			}
 		}
 		catch (...)
@@ -27,7 +27,7 @@ void atk::BaseTimer::Initialize(hal::BaseTimerInitOptions const &options)
 	};
 }
 
-void atk::BaseTimer::Start()
+void atk::BaseTimer1::Start()
 {
 	_have_started = true;
 	hal::Interrupt::SetPriority(TIM6_IRQn, 10, 0);
@@ -35,13 +35,13 @@ void atk::BaseTimer::Start()
 	HAL_TIM_Base_Start_IT(&_handle);
 }
 
-void atk::BaseTimer::Stop()
+void atk::BaseTimer1::Stop()
 {
 	_have_started = false;
 	HAL_TIM_Base_Stop_IT(&_handle);
 }
 
-void atk::BaseTimer::SetPeriodElapsedCallback(std::function<void()> func)
+void atk::BaseTimer1::SetPeriodElapsedCallback(std::function<void()> func)
 {
 	if (_have_started)
 	{
@@ -55,6 +55,6 @@ extern "C"
 {
 	void TIM6_IRQHandler()
 	{
-		HAL_TIM_IRQHandler(&BaseTimer::Instance()._handle);
+		HAL_TIM_IRQHandler(&BaseTimer1::Instance()._handle);
 	}
 }
