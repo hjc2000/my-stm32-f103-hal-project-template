@@ -9,6 +9,8 @@ void atk::BaseTimer::Initialize(hal::BaseTimerInitOptions const &options)
 {
 	__HAL_RCC_TIM6_CLK_ENABLE();
 	_handle.Instance = TIM6;
+	_handle.Init = options;
+	HAL_TIM_Base_Init(&_handle);
 	_handle.PeriodElapsedCallback = [](TIM_HandleTypeDef *handle)
 	{
 		try
@@ -23,16 +25,13 @@ void atk::BaseTimer::Initialize(hal::BaseTimerInitOptions const &options)
 
 		}
 	};
-
-	_handle.Init = options;
-	HAL_TIM_Base_Init(&_handle);
 }
 
 void atk::BaseTimer::Start()
 {
 	_have_started = true;
-	hal::Interrupt::SetPriority(TIM6_DAC_IRQn, 10, 0);
-	hal::Interrupt::EnableIRQ(TIM6_DAC_IRQn);
+	hal::Interrupt::SetPriority(TIM6_IRQn, 10, 0);
+	hal::Interrupt::EnableIRQ(TIM6_IRQn);
 	HAL_TIM_Base_Start_IT(&_handle);
 }
 

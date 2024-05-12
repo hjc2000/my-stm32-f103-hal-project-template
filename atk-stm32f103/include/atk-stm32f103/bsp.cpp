@@ -152,7 +152,6 @@ void TestBaseTimer()
 {
 	BSP::Initialize();
 	BSP::Serial().Begin(115200);
-	BSP::GreenDigitalLed().TurnOn();
 
 	BaseTimerInitOptions options;
 	options._counter_mode = BaseTimerInitOptions::CounterMode::Up;
