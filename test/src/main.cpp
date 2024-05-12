@@ -17,7 +17,7 @@ int main(void)
 		{
 			std::shared_ptr<task::Task> test_serial_task = task::Task::Create([]()
 			{
-				TestLcd();
+				TestBaseTimer();
 			}, 512);
 			vTaskStartScheduler();
 		}

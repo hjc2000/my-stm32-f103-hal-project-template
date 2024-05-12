@@ -145,15 +145,31 @@ bsp::ILcd &BSP::Lcd()
 	return Lcd::Instance();
 }
 
+
+#include<BaseTimer.h>
+
 void TestBaseTimer()
 {
 	BSP::Initialize();
 	BSP::Serial().Begin(115200);
 	BSP::GreenDigitalLed().TurnOn();
-	BSP::Lcd().DisplayOn();
+
+	BaseTimerInitOptions options;
+	options._counter_mode = BaseTimerInitOptions::CounterMode::Up;
+	options._prescaler = 7200 - 1;
+	options._period = 5000 - 1;
+	options._is_auto_reload_preload_enabled = false;
+	BaseTimer::Instance().Initialize(options);
+	BaseTimer::Instance().SetPeriodElapsedCallback([]()
+	{
+		BSP::GreenDigitalLed().Toggle();
+	});
+
+	BaseTimer::Instance().Start();
 
 	while (true)
 	{
-
+		BSP::RedDigitalLed().Toggle();
+		BSP::Delayer().Delay(std::chrono::seconds{ 1 });
 	}
 }

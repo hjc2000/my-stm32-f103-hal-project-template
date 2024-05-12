@@ -16,7 +16,7 @@ namespace atk
 	class BaseTimer
 	{
 	private:
-		BaseTimer();
+		BaseTimer() = default;
 
 		friend void ::TIM6_IRQHandler();
 

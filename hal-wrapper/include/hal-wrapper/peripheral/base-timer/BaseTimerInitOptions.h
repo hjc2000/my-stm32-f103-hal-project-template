@@ -35,16 +35,10 @@ namespace hal
 		/// </summary>
 		uint32_t _period;
 
-		enum class AutoReloadPreload
-		{
-			Enable = TIM_AUTORELOAD_PRELOAD_ENABLE,
-			Disable = TIM_AUTORELOAD_PRELOAD_DISABLE,
-		};
-
 		/// <summary>
 		///		自动重载预装载使能。
 		///		* 禁用时，写入预装载寄存器的值会直接送到影子寄存器中，不经过缓冲。
 		/// </summary>
-		AutoReloadPreload _is_auto_reload_preload_enabled;
+		bool _is_auto_reload_preload_enabled;
 	};
 }
