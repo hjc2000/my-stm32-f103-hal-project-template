@@ -17,30 +17,7 @@ int main(void)
 		{
 			std::shared_ptr<task::Task> test_serial_task = task::Task::Create([]()
 			{
-				BSP::Initialize();
-				BSP::Serial().Begin(115200);
-				BSP::GreenDigitalLed().TurnOn();
-				BSP::Lcd().DisplayOn();
-
-				int i = 0;
-				while (true)
-				{
-					BSP::Lcd().SetWindow(
-						BSP::Lcd().Width() / 2,
-						BSP::Lcd().Height() / 2,
-						BSP::Lcd().Width() / 2,
-						BSP::Lcd().Height() / 2
-					);
-
-					BSP::Lcd().Clear(static_cast<bsp::Color>(i++));
-					if (i >= static_cast<int>(bsp::Color::ColorEnd))
-					{
-						i = 0;
-					}
-
-					BSP::RedDigitalLed().Toggle();
-					BSP::Delayer().Delay(std::chrono::seconds{ 1 });
-				}
+				TestLcd();
 			}, 512);
 			vTaskStartScheduler();
 		}

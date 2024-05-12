@@ -6,6 +6,11 @@ namespace hal
 	class BaseTimerInitOptions
 	{
 	public:
+		BaseTimerInitOptions() = default;
+		BaseTimerInitOptions(TIM_Base_InitTypeDef const &o);
+		BaseTimerInitOptions &operator=(TIM_Base_InitTypeDef const &o);
+		operator TIM_Base_InitTypeDef();
+
 		/// <summary>
 		///		预分频器。范围：[0x0000, 0xFFFF]
 		/// </summary>
@@ -20,8 +25,7 @@ namespace hal
 			CenterAligned3 = TIM_COUNTERMODE_CENTERALIGNED3,
 		};
 
-		CounterMode _counter_mode;       /*!< Specifies the counter mode.
-		This parameter can be a value of @ref TIM_Counter_Mode */
+		CounterMode _counter_mode;
 
 		/// <summary>
 		///		范围：[0x0000, 0xFFFF]
@@ -37,16 +41,7 @@ namespace hal
 
 		ClockDivision _clock_division;
 
-		uint32_t _repetition_counter;  /*!< Specifies the repetition counter value. Each time the RCR downcounter
-		reaches zero, an update event is generated and counting restarts
-		from the RCR value (N).
-		This means in PWM mode that (N+1) corresponds to:
-		- the number of PWM periods in edge-aligned mode
-		- the number of half PWM period in center-aligned mode
-		GP timers: this parameter must be a number between Min_Data = 0x00 and
-		Max_Data = 0xFF.
-		Advanced timers: this parameter must be a number between Min_Data = 0x0000 and
-		Max_Data = 0xFFFF. */
+		uint32_t _repetition_counter;
 
 		enum class AutoReloadPreload
 		{

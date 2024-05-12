@@ -4,4 +4,5 @@
 #include<TestIndependentWatchDog.h>
 #include<TestJson.h>
 #include<TestKeyScanner.h>
+#include<TestLcd.h>
 #include<TestSerial.h>
