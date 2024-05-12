@@ -62,3 +62,5 @@ public:
 
 	static bsp::ILcd &Lcd();
 };
+
+void TestBaseTimer();

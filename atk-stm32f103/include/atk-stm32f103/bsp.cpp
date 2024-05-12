@@ -144,3 +144,16 @@ bsp::ILcd &BSP::Lcd()
 {
 	return Lcd::Instance();
 }
+
+void TestBaseTimer()
+{
+	BSP::Initialize();
+	BSP::Serial().Begin(115200);
+	BSP::GreenDigitalLed().TurnOn();
+	BSP::Lcd().DisplayOn();
+
+	while (true)
+	{
+
+	}
+}

@@ -393,9 +393,6 @@ g_pfnVectors:
   .weak UART5_IRQHandler
   .thumb_set UART5_IRQHandler,Default_Handler
 
-  .weak TIM6_IRQHandler
-  .thumb_set TIM6_IRQHandler,Default_Handler
-
   .weak TIM7_IRQHandler
   .thumb_set TIM7_IRQHandler,Default_Handler
 

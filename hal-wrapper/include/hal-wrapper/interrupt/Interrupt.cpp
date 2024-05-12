@@ -1,4 +1,5 @@
 #include"Interrupt.h"
+#include<stdexcept>
 
 using namespace hal;
 
@@ -7,7 +8,7 @@ void hal::Interrupt::SetPriorityGroup(PreemptionPriorityGroup group)
 	static bool have_set = false;
 	if (have_set)
 	{
-		return;
+		throw std::runtime_error{ "不要重复设置中断优先级组" };
 	}
 
 	have_set = true;
