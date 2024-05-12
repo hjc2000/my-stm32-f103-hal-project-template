@@ -1,17 +1,17 @@
 #include"bsp.h"
 #include<AtkKey.h>
+#include<ClockSignal.h>
 #include<Delayer.h>
 #include<DigitalLed.h>
 #include<ExtiWakeUpKey.h>
 #include<FreeRTOS.h>
 #include<Lcd.h>
+#include<Osc.h>
 #include<Serial.h>
+#include<Systic.h>
 #include<atomic>
 #include<bsp-interface/KeyScanner.h>
 #include<functional>
-#include<hal-wrapper/clock/Osc.h>
-#include<hal-wrapper/clock/Systic.h>
-#include<hal-wrapper/clock/clock-signal/ClockSignal.h>
 #include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
 #include<task.h>
 
@@ -41,7 +41,7 @@ void BSP::Initialize()
 
 	auto config_clock_signal = []()
 	{
-		hal::Systic::SetClockSource(hal::SysticClockSource::HCLK_DIV8);
+		Systic::SetClockSource(SysticClockSource::HCLK_DIV8);
 
 		ClockSignalInitOptions clock_init_options;
 		clock_init_options._clock_type = ClockType::SYSCLK
@@ -95,7 +95,7 @@ void BSP::SystemReset()
 
 bsp::IDelayer &BSP::Delayer()
 {
-	return hal::Delayer::Instance();
+	return Delayer::Instance();
 }
 
 bsp::IIndependentWatchDog &BSP::IndependentWatchDog()
@@ -123,7 +123,7 @@ bsp::IKeyScanner &BSP::KeyScanner()
 		keys[(uint16_t)KeyIndex::Key1] = &Key1::Instance();
 	}
 
-	static bsp::KeyScanner key_scanner{ keys, hal::Delayer::Instance() };
+	static bsp::KeyScanner key_scanner{ keys, Delayer::Instance() };
 
 	// 初始化完成
 	initialized = true;

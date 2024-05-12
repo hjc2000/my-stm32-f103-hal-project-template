@@ -1,7 +1,7 @@
 #pragma once
-#include<hal-wrapper/clock/clock-signal/ClockSignalEnum.h>
+#include<ClockSignalEnum.h>
 
-namespace hal
+namespace atk
 {
 	class ClockSignalInitOptions
 	{

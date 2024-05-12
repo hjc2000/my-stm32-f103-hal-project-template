@@ -1,9 +1,9 @@
 #pragma once
-#include<hal-wrapper/clock/OscInitOptions.h>
-#include<hal-wrapper/clock/PllInitOptions.h>
+#include<OscInitOptions.h>
+#include<PllInitOptions.h>
 #include<hal.h>
 
-namespace hal
+namespace atk
 {
 	/// <summary>
 	///		时钟系统只有一个，所以实现为静态类

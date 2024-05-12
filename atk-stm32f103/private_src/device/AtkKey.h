@@ -28,7 +28,7 @@ namespace atk
 
 		void Delay(std::chrono::milliseconds num) override
 		{
-			hal::Delayer::Instance().Delay(num);
+			Delayer::Instance().Delay(num);
 		}
 	};
 
@@ -55,7 +55,7 @@ namespace atk
 
 		void Delay(std::chrono::milliseconds num) override
 		{
-			hal::Delayer::Instance().Delay(num);
+			Delayer::Instance().Delay(num);
 		}
 	};
 }

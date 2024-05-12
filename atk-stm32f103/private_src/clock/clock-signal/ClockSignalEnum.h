@@ -1,7 +1,7 @@
 #pragma once
 #include<hal.h>
 
-namespace hal
+namespace atk
 {
 	/// <summary>
 	///		选择要设置的时钟信号类型。
@@ -89,4 +89,4 @@ namespace hal
 /// <param name="left"></param>
 /// <param name="right"></param>
 /// <returns></returns>
-hal::ClockType operator|(hal::ClockType left, hal::ClockType right);
+atk::ClockType operator|(atk::ClockType left, atk::ClockType right);

@@ -1,7 +1,7 @@
 #pragma once
 #include<hal.h>
 
-namespace hal
+namespace atk
 {
 	/// <summary>
 	///		PLL 状态

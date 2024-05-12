@@ -4,7 +4,7 @@
 #include<hal.h>
 #include<stdint.h>
 
-namespace hal
+namespace atk
 {
 	enum class SysticClockSource
 	{

@@ -1,8 +1,8 @@
 #pragma once
-#include<hal-wrapper/clock/PllInitOptions.h>
+#include<PllInitOptions.h>
 #include<hal.h>
 
-namespace hal
+namespace atk
 {
 	enum class OscillatorType
 	{

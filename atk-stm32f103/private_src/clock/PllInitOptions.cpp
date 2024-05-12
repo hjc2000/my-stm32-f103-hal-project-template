@@ -1,6 +1,6 @@
 #include"PllInitOptions.h"
 
-using namespace hal;
+using namespace atk;
 
 PllInitOptions &PllInitOptions::operator=(RCC_PLLInitTypeDef const &value)
 {

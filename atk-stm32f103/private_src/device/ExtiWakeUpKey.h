@@ -1,7 +1,7 @@
 #pragma once
+#include<Systic.h>
 #include<atomic>
 #include<bsp-interface/IEventDrivenKey.h>
-#include<hal-wrapper/clock/Systic.h>
 #include<hal-wrapper/interrupt/Exti.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>

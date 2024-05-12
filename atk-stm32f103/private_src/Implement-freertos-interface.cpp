@@ -1,5 +1,5 @@
 #include"FreeRTOSConfig.h"
-#include<hal-wrapper/clock/Systic.h>
+#include<Systic.h>
 #include<hal.h>
 
 uint32_t freertos_get_cpu_freq()
@@ -9,5 +9,5 @@ uint32_t freertos_get_cpu_freq()
 
 uint32_t freertos_get_systic_clock_freq()
 {
-	return hal::Systic::ClockSourceFreq();
+	return atk::Systic::ClockSourceFreq();
 }

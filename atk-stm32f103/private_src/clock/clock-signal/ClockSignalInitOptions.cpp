@@ -1,8 +1,8 @@
 #include"ClockSignalInitOptions.h"
 
-using namespace hal;
+using namespace atk;
 
-hal::ClockSignalInitOptions::ClockSignalInitOptions(RCC_ClkInitTypeDef const &def)
+atk::ClockSignalInitOptions::ClockSignalInitOptions(RCC_ClkInitTypeDef const &def)
 {
 	*this = def;
 }

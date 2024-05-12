@@ -1,10 +1,10 @@
 #pragma once
-#include<hal-wrapper/clock/clock-signal/ClockSignalEnum.h>
-#include<hal-wrapper/clock/clock-signal/ClockSignalInitOptions.h>
+#include<ClockSignalEnum.h>
+#include<ClockSignalInitOptions.h>
 #include<hal.h>
 #include<stdint.h>
 
-namespace hal
+namespace atk
 {
 	class ClockSignal
 	{
