@@ -35,6 +35,11 @@ void bsp::BaseTimer1::Initialize(BaseTimerInitOptions const &options)
 	};
 }
 
+void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
+{
+
+}
+
 void bsp::BaseTimer1::Start()
 {
 	bsp::Interrupt::SetPriority(TIM6_IRQn, 10, 0);
@@ -54,3 +59,4 @@ void bsp::BaseTimer1::SetPeriodElapsedCallback(std::function<void()> func)
 		_on_period_elapsed = func;
 	});
 }
+
