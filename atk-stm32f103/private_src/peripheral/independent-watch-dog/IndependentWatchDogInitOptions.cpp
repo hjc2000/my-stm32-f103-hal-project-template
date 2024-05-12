@@ -1,8 +1,8 @@
 #include"IndependentWatchDogInitOptions.h"
 
-using namespace hal;
+using namespace atk;
 
-IndependentWatchDogPrescaler hal::PowerToIndependentWatchDogPrescaler(uint8_t pow)
+IndependentWatchDogPrescaler atk::PowerToIndependentWatchDogPrescaler(uint8_t pow)
 {
 	switch (pow)
 	{
@@ -38,19 +38,19 @@ IndependentWatchDogPrescaler hal::PowerToIndependentWatchDogPrescaler(uint8_t po
 	}
 }
 
-hal::IndependentWatchDogInitOptions::IndependentWatchDogInitOptions(IWDG_InitTypeDef const &o)
+atk::IndependentWatchDogInitOptions::IndependentWatchDogInitOptions(IWDG_InitTypeDef const &o)
 {
 	*this = o;
 }
 
-IndependentWatchDogInitOptions &hal::IndependentWatchDogInitOptions::operator=(IWDG_InitTypeDef const &o)
+IndependentWatchDogInitOptions &atk::IndependentWatchDogInitOptions::operator=(IWDG_InitTypeDef const &o)
 {
 	_prescaler = (IndependentWatchDogPrescaler)o.Prescaler;
 	_reload = o.Reload;
 	return *this;
 }
 
-hal::IndependentWatchDogInitOptions::operator IWDG_InitTypeDef() const
+atk::IndependentWatchDogInitOptions::operator IWDG_InitTypeDef() const
 {
 	IWDG_InitTypeDef def;
 	def.Prescaler = (uint32_t)_prescaler;

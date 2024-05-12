@@ -15,7 +15,7 @@
 #include<functional>
 #include<task.h>
 
-using namespace hal;
+using namespace atk;
 using namespace atk;
 
 void BSP::Initialize()
@@ -100,7 +100,7 @@ bsp::IDelayer &BSP::Delayer()
 
 bsp::IIndependentWatchDog &BSP::IndependentWatchDog()
 {
-	return hal::IndependentWatchDog::Instance();
+	return atk::IndependentWatchDog::Instance();
 }
 
 bsp::IDigitalLed &BSP::RedDigitalLed()

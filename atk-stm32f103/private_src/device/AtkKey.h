@@ -19,9 +19,9 @@ namespace atk
 			return key;
 		}
 
-		hal::IGpioPort &Port()
+		atk::IGpioPort &Port()
 		{
-			return hal::GpioPortE::Instance();
+			return atk::GpioPortE::Instance();
 		}
 
 		bool KeyIsDown() override;
@@ -46,9 +46,9 @@ namespace atk
 			return key;
 		}
 
-		hal::IGpioPort &Port()
+		atk::IGpioPort &Port()
 		{
-			return hal::GpioPortE::Instance();
+			return atk::GpioPortE::Instance();
 		}
 
 		bool KeyIsDown() override;

@@ -1,7 +1,7 @@
 #pragma once
 #include<hal.h>
 
-namespace hal
+namespace atk
 {
 	class FsmcNorSramTiming
 	{

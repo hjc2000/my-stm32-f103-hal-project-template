@@ -7,7 +7,7 @@ extern "C"
 	void HAL_GPIO_EXTI_Callback(uint16_t pin);
 }
 
-namespace hal
+namespace atk
 {
 	/// <summary>
 	///		本类不提供开启中断的功能。设置好回调函数后，需要用 Interrupt 类来开启

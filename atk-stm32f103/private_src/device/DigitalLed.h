@@ -12,7 +12,7 @@ namespace atk
 	public:
 		RedDigitalLed()
 		{
-			using namespace hal;
+			using namespace atk;
 			GpioPortB::Instance().EnableClock();
 
 			/* 使能时钟后写输出寄存器的操作就有效了。先关闭 LED，然后配置为输出模式，
@@ -45,7 +45,7 @@ namespace atk
 	public:
 		GreenDigitalLed()
 		{
-			using namespace hal;
+			using namespace atk;
 			GpioPortE::Instance().EnableClock();
 
 			/* 使能时钟后写输出寄存器的操作就有效了。先关闭 LED，然后配置为输出模式，

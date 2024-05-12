@@ -1,11 +1,11 @@
 #include"FsmcNorSramTiming.h"
 
-hal::FsmcNorSramTiming::FsmcNorSramTiming(FSMC_NORSRAM_TimingTypeDef const &o)
+atk::FsmcNorSramTiming::FsmcNorSramTiming(FSMC_NORSRAM_TimingTypeDef const &o)
 {
 	*this = o;
 }
 
-hal::FsmcNorSramTiming &hal::FsmcNorSramTiming::operator=(FSMC_NORSRAM_TimingTypeDef const &o)
+atk::FsmcNorSramTiming &atk::FsmcNorSramTiming::operator=(FSMC_NORSRAM_TimingTypeDef const &o)
 {
 	_address_setup_time = o.AddressSetupTime;
 	_address_hold_time = o.AddressHoldTime;
@@ -17,7 +17,7 @@ hal::FsmcNorSramTiming &hal::FsmcNorSramTiming::operator=(FSMC_NORSRAM_TimingTyp
 	return *this;
 }
 
-hal::FsmcNorSramTiming::operator FSMC_NORSRAM_TimingTypeDef() const
+atk::FsmcNorSramTiming::operator FSMC_NORSRAM_TimingTypeDef() const
 {
 	FSMC_NORSRAM_TimingTypeDef o;
 	o.AddressSetupTime = _address_setup_time;

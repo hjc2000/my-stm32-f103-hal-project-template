@@ -1,9 +1,9 @@
 #include"Interrupt.h"
 #include<stdexcept>
 
-using namespace hal;
+using namespace atk;
 
-void hal::Interrupt::SetPriorityGroup(PreemptionPriorityGroup group)
+void atk::Interrupt::SetPriorityGroup(PreemptionPriorityGroup group)
 {
 	static bool have_set = false;
 	if (have_set)

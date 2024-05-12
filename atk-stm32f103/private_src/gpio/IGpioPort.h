@@ -1,7 +1,7 @@
 #pragma once
 #include<GpioPinInitOptions.h>
 
-namespace hal
+namespace atk
 {
 	/// <summary>
 	///		GPIO 端口抽象类，有几组 GPIO 端口就派生几个本类。

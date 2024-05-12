@@ -1,11 +1,11 @@
 #include "AtkKey.h"
 
-using namespace hal;
+using namespace atk;
 
 #pragma region Key0
 atk::Key0::Key0()
 {
-	using namespace hal;
+	using namespace atk;
 	Port().EnableClock();
 	GpioPinInitOptions options;
 	options._mode = GpioPinMode::Input;
@@ -24,7 +24,7 @@ bool atk::Key0::KeyIsDown()
 #pragma region Key1
 atk::Key1::Key1()
 {
-	using namespace hal;
+	using namespace atk;
 	Port().EnableClock();
 	GpioPinInitOptions options;
 	options._mode = GpioPinMode::Input;

@@ -1,6 +1,6 @@
 #include"GpioPort.h"
 
-using namespace hal;
+using namespace atk;
 
 #pragma region GpioPortA
 GPIO_TypeDef *GpioPortA::HardwareInstance()

@@ -1,7 +1,7 @@
 #pragma once
 #include<IGpioPort.h>
 
-namespace hal
+namespace atk
 {
 	#ifdef GPIOA
 	class GpioPortA :public IGpioPort

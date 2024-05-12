@@ -1,7 +1,7 @@
 #pragma once
 #include<GpioTypeDef.h>
 
-namespace hal
+namespace atk
 {
 	class GpioPinInitOptions
 	{

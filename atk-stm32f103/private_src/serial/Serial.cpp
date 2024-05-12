@@ -6,7 +6,7 @@
 #include<atk-stm32f103/bsp.h>
 #include<task.h>
 
-using namespace hal;
+using namespace atk;
 using namespace atk;
 
 #pragma region 中断处理函数

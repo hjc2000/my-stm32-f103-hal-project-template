@@ -3,7 +3,7 @@
 #include<bsp-interface/IIndependentWatchDog.h>
 #include<chrono>
 
-namespace hal
+namespace atk
 {
 	/// <summary>
 	///		独立看门狗。

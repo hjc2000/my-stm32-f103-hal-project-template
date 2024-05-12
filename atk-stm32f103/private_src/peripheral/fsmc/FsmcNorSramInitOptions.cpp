@@ -1,11 +1,11 @@
 #include"FsmcNorSramInitOptions.h"
 
-hal::FsmcNorSramInitOptions::FsmcNorSramInitOptions(FSMC_NORSRAM_InitTypeDef const &o)
+atk::FsmcNorSramInitOptions::FsmcNorSramInitOptions(FSMC_NORSRAM_InitTypeDef const &o)
 {
 	*this = o;
 }
 
-hal::FsmcNorSramInitOptions &hal::FsmcNorSramInitOptions::operator=(FSMC_NORSRAM_InitTypeDef const &o)
+atk::FsmcNorSramInitOptions &atk::FsmcNorSramInitOptions::operator=(FSMC_NORSRAM_InitTypeDef const &o)
 {
 	_bank = static_cast<Bank>(o.NSBank);
 	_data_address_mux = static_cast<DataAddressMux>(o.DataAddressMux);
@@ -24,7 +24,7 @@ hal::FsmcNorSramInitOptions &hal::FsmcNorSramInitOptions::operator=(FSMC_NORSRAM
 	return *this;
 }
 
-hal::FsmcNorSramInitOptions::operator FSMC_NORSRAM_InitTypeDef() const
+atk::FsmcNorSramInitOptions::operator FSMC_NORSRAM_InitTypeDef() const
 {
 	FSMC_NORSRAM_InitTypeDef o;
 	o.NSBank = static_cast<uint32_t>(_bank);

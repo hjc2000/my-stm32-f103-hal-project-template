@@ -1,7 +1,7 @@
 #include"Exti.h"
 #include<Interrupt.h>
 
-using namespace hal;
+using namespace atk;
 
 /// <summary>
 ///		EXTI 中断函数的定义。

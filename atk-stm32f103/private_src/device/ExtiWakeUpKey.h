@@ -19,14 +19,14 @@ namespace atk
 		/// </summary>
 		std::atomic_bool _is_pressed = false;
 
-		hal::IGpioPort &Port()
+		atk::IGpioPort &Port()
 		{
-			return hal::GpioPortA::Instance();
+			return atk::GpioPortA::Instance();
 		}
 
-		hal::GpioPin Pin()
+		atk::GpioPin Pin()
 		{
-			return hal::GpioPin::Pin0;
+			return atk::GpioPin::Pin0;
 		}
 
 	public:

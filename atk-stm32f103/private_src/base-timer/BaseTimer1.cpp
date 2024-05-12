@@ -2,7 +2,7 @@
 #include<Interrupt.h>
 #include<stdexcept>
 
-using namespace hal;
+using namespace atk;
 using namespace atk;
 
 void atk::BaseTimer1::Initialize(BaseTimerInitOptions const &options)
@@ -30,8 +30,8 @@ void atk::BaseTimer1::Initialize(BaseTimerInitOptions const &options)
 void atk::BaseTimer1::Start()
 {
 	_have_started = true;
-	hal::Interrupt::SetPriority(TIM6_IRQn, 10, 0);
-	hal::Interrupt::EnableIRQ(TIM6_IRQn);
+	atk::Interrupt::SetPriority(TIM6_IRQn, 10, 0);
+	atk::Interrupt::EnableIRQ(TIM6_IRQn);
 	HAL_TIM_Base_Start_IT(&_handle);
 }
 

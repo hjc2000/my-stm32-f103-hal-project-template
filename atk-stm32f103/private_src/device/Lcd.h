@@ -39,106 +39,106 @@ namespace atk
 		///		连接 LCD 的 RD 引脚。
 		/// </summary>
 		/// <returns></returns>
-		hal::IGpioPort &RD_Port()
+		atk::IGpioPort &RD_Port()
 		{
-			return hal::GpioPortD::Instance();
+			return atk::GpioPortD::Instance();
 		}
-		hal::GpioPin RD_Pin()
+		atk::GpioPin RD_Pin()
 		{
-			return hal::GpioPin::Pin4;
+			return atk::GpioPin::Pin4;
 		}
 
 		/// <summary>
 		///		连接 LCD 的 WR 引脚。
 		/// </summary>
 		/// <returns></returns>
-		hal::IGpioPort &WR_Port()
+		atk::IGpioPort &WR_Port()
 		{
-			return hal::GpioPortD::Instance();
+			return atk::GpioPortD::Instance();
 		}
-		hal::GpioPin WR_Pin()
+		atk::GpioPin WR_Pin()
 		{
-			return hal::GpioPin::Pin5;
+			return atk::GpioPin::Pin5;
 		}
 
 		/// <summary>
 		///		连接 LCD 的 BL 引脚。这是控制背光的。
 		/// </summary>
 		/// <returns></returns>
-		hal::IGpioPort &BL_Port()
+		atk::IGpioPort &BL_Port()
 		{
-			return hal::GpioPortB::Instance();
+			return atk::GpioPortB::Instance();
 		}
-		hal::GpioPin BL_Pin()
+		atk::GpioPin BL_Pin()
 		{
-			return hal::GpioPin::Pin0;
+			return atk::GpioPin::Pin0;
 		}
 
 		/// <summary>
 		///		连接 LCD 的 CS 引脚。这是片选。
 		/// </summary>
 		/// <returns></returns>
-		hal::IGpioPort &CS_Port()
+		atk::IGpioPort &CS_Port()
 		{
-			return hal::GpioPortG::Instance();
+			return atk::GpioPortG::Instance();
 		}
-		hal::GpioPin CS_Pin()
+		atk::GpioPin CS_Pin()
 		{
-			return hal::GpioPin::Pin12;
+			return atk::GpioPin::Pin12;
 		}
 
 		/// <summary>
 		///		连接到 LCD 的 RS 引脚。
 		/// </summary>
 		/// <returns></returns>
-		hal::IGpioPort &RS_Port()
+		atk::IGpioPort &RS_Port()
 		{
-			return hal::GpioPortG::Instance();
+			return atk::GpioPortG::Instance();
 		}
-		hal::GpioPin RS_Pin()
+		atk::GpioPin RS_Pin()
 		{
-			return hal::GpioPin::Pin0;
+			return atk::GpioPin::Pin0;
 		}
 		#pragma endregion
 
 		#pragma region consteval
-		static consteval hal::FsmcNorSramTiming ReadTiming()
+		static consteval atk::FsmcNorSramTiming ReadTiming()
 		{
-			hal::FsmcNorSramTiming read_timing{};
-			read_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
+			atk::FsmcNorSramTiming read_timing{};
+			read_timing._access_mode = atk::FsmcNorSramTiming::AccessMode::ModeA;
 			read_timing._address_setup_time = 0;
 			read_timing._address_hold_time = 0;
 			read_timing._data_setup_time = 15;
 			return read_timing;
 		}
 
-		static consteval hal::FsmcNorSramTiming WriteTiming()
+		static consteval atk::FsmcNorSramTiming WriteTiming()
 		{
-			hal::FsmcNorSramTiming write_timing{};
-			write_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
+			atk::FsmcNorSramTiming write_timing{};
+			write_timing._access_mode = atk::FsmcNorSramTiming::AccessMode::ModeA;
 			write_timing._address_setup_time = 0;
 			write_timing._address_hold_time = 0;
 			write_timing._data_setup_time = 1;
 			return write_timing;
 		}
 
-		static consteval hal::FsmcNorSramInitOptions NorSramInitOptions()
+		static consteval atk::FsmcNorSramInitOptions NorSramInitOptions()
 		{
-			hal::FsmcNorSramInitOptions nor_sram_init_options{};
-			nor_sram_init_options._bank = hal::FsmcNorSramInitOptions::Bank::Bank4;
-			nor_sram_init_options._data_address_mux = hal::FsmcNorSramInitOptions::DataAddressMux::Disable;
-			nor_sram_init_options._memory_type = hal::FsmcNorSramInitOptions::MemoryType::SRSM;
-			nor_sram_init_options._memory_data_width = hal::FsmcNorSramInitOptions::MemoryDataWidth::Width16;
-			nor_sram_init_options._burst_access_mode = hal::FsmcNorSramInitOptions::BurstAccessMode::Disable;
-			nor_sram_init_options._wait_signal_polarity = hal::FsmcNorSramInitOptions::WaitSignalPolarity::Low;
-			nor_sram_init_options._wrap_mode = hal::FsmcNorSramInitOptions::WrapMode::Disable;
-			nor_sram_init_options._wait_signal_active = hal::FsmcNorSramInitOptions::WaitSignalActive::BeforeWs;
-			nor_sram_init_options._write_operation = hal::FsmcNorSramInitOptions::WriteOperation::Enable;
-			nor_sram_init_options._wait_signal = hal::FsmcNorSramInitOptions::WaitSignal::Disable;
-			nor_sram_init_options._extended_mode = hal::FsmcNorSramInitOptions::ExtendedMode::Enable;
-			nor_sram_init_options._asynchronous_wait = hal::FsmcNorSramInitOptions::AsynchronousWait::Disable;
-			nor_sram_init_options._write_burst = hal::FsmcNorSramInitOptions::WriteBurst::Disable;
-			nor_sram_init_options._page_size = hal::FsmcNorSramInitOptions::PageSize::SizeNone;
+			atk::FsmcNorSramInitOptions nor_sram_init_options{};
+			nor_sram_init_options._bank = atk::FsmcNorSramInitOptions::Bank::Bank4;
+			nor_sram_init_options._data_address_mux = atk::FsmcNorSramInitOptions::DataAddressMux::Disable;
+			nor_sram_init_options._memory_type = atk::FsmcNorSramInitOptions::MemoryType::SRSM;
+			nor_sram_init_options._memory_data_width = atk::FsmcNorSramInitOptions::MemoryDataWidth::Width16;
+			nor_sram_init_options._burst_access_mode = atk::FsmcNorSramInitOptions::BurstAccessMode::Disable;
+			nor_sram_init_options._wait_signal_polarity = atk::FsmcNorSramInitOptions::WaitSignalPolarity::Low;
+			nor_sram_init_options._wrap_mode = atk::FsmcNorSramInitOptions::WrapMode::Disable;
+			nor_sram_init_options._wait_signal_active = atk::FsmcNorSramInitOptions::WaitSignalActive::BeforeWs;
+			nor_sram_init_options._write_operation = atk::FsmcNorSramInitOptions::WriteOperation::Enable;
+			nor_sram_init_options._wait_signal = atk::FsmcNorSramInitOptions::WaitSignal::Disable;
+			nor_sram_init_options._extended_mode = atk::FsmcNorSramInitOptions::ExtendedMode::Enable;
+			nor_sram_init_options._asynchronous_wait = atk::FsmcNorSramInitOptions::AsynchronousWait::Disable;
+			nor_sram_init_options._write_burst = atk::FsmcNorSramInitOptions::WriteBurst::Disable;
+			nor_sram_init_options._page_size = atk::FsmcNorSramInitOptions::PageSize::SizeNone;
 			return nor_sram_init_options;
 		}
 		#pragma endregion
