@@ -1,7 +1,7 @@
 #pragma once
-#include<OscInitOptions.h>
-#include<PllInitOptions.h>
 #include<hal.h>
+#include<OscConfig.h>
+#include<PllInitOptions.h>
 
 namespace bsp
 {
@@ -14,15 +14,26 @@ namespace bsp
 		Osc() = delete;
 
 	public:
+		static OscConfig Config()
+		{
+			RCC_OscInitTypeDef def;
+			HAL_RCC_GetOscConfig(&def);
+			return OscConfig{ def };
+		}
+
 		/// <summary>
 		///		配置时钟源
 		/// </summary>
 		/// <param name="options"></param>
 		/// <returns></returns>
-		static HAL_StatusTypeDef Config(OscInitOptions const &options)
+		static void SetConfig(OscConfig const &options)
 		{
 			RCC_OscInitTypeDef rcc_osc_init = options;
-			return HAL_RCC_OscConfig(&rcc_osc_init);
+			HAL_StatusTypeDef result = HAL_RCC_OscConfig(&rcc_osc_init);
+			if (result != HAL_StatusTypeDef::HAL_OK)
+			{
+				throw std::runtime_error{ "时钟源配置失败" };
+			}
 		}
 	};
 }

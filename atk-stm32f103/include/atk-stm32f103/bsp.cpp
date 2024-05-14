@@ -23,21 +23,14 @@ void BSP::Initialize()
 {
 	auto config_clock_source = []()
 	{
-		OscInitOptions osc_init_options;
-		osc_init_options._oscillator_type = OscillatorType::HSE;
-		osc_init_options._hse_state = HseState::On;
-		osc_init_options._hse_prediv = HsePrediv::DIV1;
+		OscConfig osc_init_options;
+		osc_init_options._oscillator_type = OscConfig::OscillatorType::HSE;
+		osc_init_options._hse_state = OscConfig::HseState::On;
+		osc_init_options._hse_prediv = OscConfig::HsePrediv::DIV1;
 		osc_init_options._pll_init_options._state = PllState::On;
 		osc_init_options._pll_init_options._clock_source = PllClockSource::HSE;
 		osc_init_options._pll_init_options._mul = PllMul::Mul9;
-		if (Osc::Config(osc_init_options) != HAL_OK)
-		{
-			BSP::Serial().ReportError("时钟初始化失败");
-			while (1)
-			{
-
-			}
-		}
+		Osc::SetConfig(osc_init_options);
 	};
 
 	auto config_clock_signal = []()

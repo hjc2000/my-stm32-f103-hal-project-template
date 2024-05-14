@@ -1,8 +1,13 @@
-#include"OscInitOptions.h"
+#include"OscConfig.h"
 
 using namespace bsp;
 
-OscInitOptions &OscInitOptions::operator=(RCC_OscInitTypeDef const &value)
+bsp::OscConfig::OscConfig(RCC_OscInitTypeDef const &def)
+{
+	*this = def;
+}
+
+OscConfig &OscConfig::operator=(RCC_OscInitTypeDef const &value)
 {
 	_oscillator_type = (OscillatorType)value.OscillatorType;
 	_hse_state = (HseState)value.HSEState;
@@ -15,7 +20,7 @@ OscInitOptions &OscInitOptions::operator=(RCC_OscInitTypeDef const &value)
 	return *this;
 }
 
-OscInitOptions::operator RCC_OscInitTypeDef() const
+OscConfig::operator RCC_OscInitTypeDef() const
 {
 	RCC_OscInitTypeDef def;
 	def.OscillatorType = (uint32_t)_oscillator_type;
