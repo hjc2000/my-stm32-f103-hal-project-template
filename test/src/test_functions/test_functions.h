@@ -1,4 +1,5 @@
 #pragma once
+#include<TestBaseTimer.h>
 #include<TestEndianConverter.h>
 #include<TestExtiKey.h>
 #include<TestIndependentWatchDog.h>

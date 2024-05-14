@@ -1,4 +1,5 @@
 #pragma once
+#include<bsp-interface/IBaseTimer.h>
 #include<bsp-interface/IDelayer.h>
 #include<bsp-interface/IDigitalLed.h>
 #include<bsp-interface/IEventDrivenKey.h>
@@ -52,6 +53,6 @@ public:
 	static bsp::ISerial &Serial();
 
 	static bsp::ILcd &Lcd();
-};
 
-void TestBaseTimer();
+	static bsp::IBaseTimer &BaseTimer();
+};

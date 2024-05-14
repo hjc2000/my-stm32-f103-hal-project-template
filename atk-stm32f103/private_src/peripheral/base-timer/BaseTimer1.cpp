@@ -21,19 +21,19 @@ void bsp::BaseTimer1::Initialize(BaseTimerInitOptions const &options)
 	_handle.Init = options;
 	HAL_TIM_Base_Init(&_handle);
 	_handle.PeriodElapsedCallback = [](TIM_HandleTypeDef *handle)
+	{
+		try
 		{
-			try
+			if (BaseTimer1::Instance()._on_period_elapsed)
 			{
-				if (BaseTimer1::Instance()._on_period_elapsed)
-				{
-					BaseTimer1::Instance()._on_period_elapsed();
-				}
+				BaseTimer1::Instance()._on_period_elapsed();
 			}
-			catch (...)
-			{
+		}
+		catch (...)
+		{
 
-			}
-		};
+		}
+	};
 }
 
 void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
@@ -42,7 +42,7 @@ void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
 	ClockSignalConfig clock_signal_config = ClockSignal::Config();
 	if (clock_signal_config._apb1_divider != ClockSignalConfig::APBDivider::DIV1)
 	{
-		/* 
+		/*
 		* PCLK1 的来源是 HCLK 分频后的输出。如果分频系数大于 1，
 		* 则定时器会将 PCLK1 进行 2 倍频后作为自己的时钟信号。
 		*/
@@ -63,16 +63,15 @@ void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
 
 	uint32_t count = period.count() * (timer_clock_signal_freq / 1000);
 
-	/* 
+	/*
 	* 定时器中，分频器相当于这个 32 位计数器的低 16 位，而原本的 16 位计数器相当于
 	* 这个 32 位计数器的高 16 位，于是把 count 分成高低 16 位，分别赋予它们。
 	*/
-
 	BaseTimerInitOptions options{};
 	options._counter_mode = BaseTimerInitOptions::CounterMode::Up;
 	options._prescaler = count & 0xffff;
 	options._period = count >> 16;
-	options._is_auto_reload_preload_enabled = false;
+	options._is_auto_reload_preload_enabled = true;
 	Initialize(options);
 }
 
@@ -91,7 +90,7 @@ void bsp::BaseTimer1::Stop()
 void bsp::BaseTimer1::SetPeriodElapsedCallback(std::function<void()> func)
 {
 	task::Critical::Run([&]()
-		{
-			_on_period_elapsed = func;
-		});
+	{
+		_on_period_elapsed = func;
+	});
 }

@@ -1,6 +1,7 @@
 #include"bsp.h"
 #include<AtkKey.h>
 #include<atomic>
+#include<BaseTimer1.h>
 #include<bsp-interface/KeyScanner.h>
 #include<ClockSignal.h>
 #include<Delayer.h>
@@ -78,6 +79,7 @@ void BSP::Initialize()
 	BSP::WakeUpKey();
 	BSP::Serial();
 	BSP::Lcd();
+	BSP::BaseTimer();
 	#pragma endregion
 
 }
@@ -139,30 +141,7 @@ bsp::ILcd &BSP::Lcd()
 	return Lcd::Instance();
 }
 
-
-#include<BaseTimer1.h>
-
-void TestBaseTimer()
+bsp::IBaseTimer &BSP::BaseTimer()
 {
-	BSP::Initialize();
-	BSP::Serial().Begin(115200);
-
-	BaseTimerInitOptions options{};
-	options._counter_mode = BaseTimerInitOptions::CounterMode::Up;
-	options._prescaler = 7200 - 1;
-	options._period = 5000 - 1;
-	options._is_auto_reload_preload_enabled = false;
-	BaseTimer1::Instance().Initialize(std::chrono::milliseconds{ 1000 });
-	BaseTimer1::Instance().SetPeriodElapsedCallback([]()
-	{
-		BSP::GreenDigitalLed().Toggle();
-	});
-
-	BaseTimer1::Instance().Start();
-
-	while (true)
-	{
-		BSP::RedDigitalLed().Toggle();
-		BSP::Delayer().Delay(std::chrono::seconds{ 1 });
-	}
+	return BaseTimer1::Instance();
 }
