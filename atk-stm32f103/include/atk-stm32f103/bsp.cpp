@@ -1,18 +1,18 @@
 #include"bsp.h"
 #include<AtkKey.h>
+#include<atomic>
+#include<bsp-interface/KeyScanner.h>
 #include<ClockSignal.h>
 #include<Delayer.h>
 #include<DigitalLed.h>
 #include<ExtiWakeUpKey.h>
 #include<FreeRTOS.h>
+#include<functional>
 #include<IndependentWatchDog.h>
 #include<Lcd.h>
 #include<Osc.h>
 #include<Serial.h>
 #include<Systic.h>
-#include<atomic>
-#include<bsp-interface/KeyScanner.h>
-#include<functional>
 #include<task.h>
 
 using namespace bsp;
@@ -152,7 +152,7 @@ void TestBaseTimer()
 	options._prescaler = 7200 - 1;
 	options._period = 5000 - 1;
 	options._is_auto_reload_preload_enabled = false;
-	BaseTimer1::Instance().Initialize(options);
+	BaseTimer1::Instance().Initialize(std::chrono::milliseconds{ 1000 });
 	BaseTimer1::Instance().SetPeriodElapsedCallback([]()
 	{
 		BSP::GreenDigitalLed().Toggle();

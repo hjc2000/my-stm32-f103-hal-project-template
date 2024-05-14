@@ -1,5 +1,5 @@
 #pragma once
-#include<ClockSignalInitOptions.h>
+#include<ClockSignalConfig.h>
 
 namespace bsp
 {
@@ -25,5 +25,10 @@ namespace bsp
 		/// <param name="flash_latency"></param>
 		/// <returns></returns>
 		static void SetConfig(ClockSignalConfig const &config);
+
+		static uint32_t Pclk1Freq()
+		{
+			return HAL_RCC_GetPCLK1Freq();
+		}
 	};
 }

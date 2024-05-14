@@ -1,4 +1,4 @@
-#include"ClockSignalInitOptions.h"
+#include"ClockSignalConfig.h"
 #include<type_traits>
 
 using namespace bsp;
