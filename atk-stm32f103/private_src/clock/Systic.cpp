@@ -24,7 +24,7 @@ void Systic::SetClockSource(SysticClockSource value)
 	HAL_SYSTICK_CLKSourceConfig((uint32_t)value);
 }
 
-uint32_t Systic::ClockSourceFreq()
+uint32_t Systic::ClockFreq()
 {
 	return HAL_RCC_GetSysClockFreq();
 }
@@ -83,7 +83,7 @@ void Systic::NopLoopDelayForTicks(uint32_t tick_count)
 
 void Systic::NopLoopDelay(std::chrono::microseconds microseconds)
 {
-	uint32_t freq = ClockSourceFreq();
+	uint32_t freq = ClockFreq();
 
 	/*
 	* 时钟周期 T = 1 / freq

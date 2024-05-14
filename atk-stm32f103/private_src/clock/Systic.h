@@ -1,6 +1,6 @@
 #pragma once
-#include<GpioPort.h>
 #include<chrono>
+#include<GpioPort.h>
 #include<hal.h>
 #include<stdint.h>
 
@@ -49,11 +49,11 @@ namespace bsp
 		static void SetClockSource(SysticClockSource value);
 
 		/// <summary>
-		///		获取 systick 的时钟源频率。
+		///		获取 systick 的时钟频率。
 		///		* 这是最终输入到计数器的频率，后面没有任何分频器。
 		/// </summary>
 		/// <returns></returns>
-		static uint32_t ClockSourceFreq();
+		static uint32_t ClockFreq();
 
 		/// <summary>
 		///		获取 SysTick 的 LOAD 寄存器的 RELOAD 部分的值。
