@@ -15,16 +15,28 @@ namespace bsp
 
 		SRAM_HandleTypeDef _sram_handle;
 
+		/// <summary>
+		///		屏幕初始宽度。与屏幕旋转无关，无论屏幕怎么旋转，本属性都保持不变。
+		/// </summary>
+		/// <returns></returns>
 		static consteval uint32_t OriginalWidth()
 		{
 			return 240;
 		}
 
+		/// <summary>
+		///		屏幕初始高度。与屏幕旋转无关，无论屏幕怎么旋转，本属性都保持不变。
+		/// </summary>
+		/// <returns></returns>
 		static consteval uint32_t OriginHeight()
 		{
 			return 320;
 		}
 
+		/// <summary>
+		///		屏幕总共有多少个点。
+		/// </summary>
+		/// <returns></returns>
 		static consteval uint32_t PointCount()
 		{
 			return OriginalWidth() * OriginHeight();
@@ -185,6 +197,13 @@ namespace bsp
 		}
 
 		void InitGpio();
+
+		/// <summary>
+		///		每次向屏幕中写像素前都需要调用一次本函数，然后就可以连续写入像素了。
+		///		* 推测本函数的作用是让 LCD 驱动芯片内部的一个指针复位，这样写入像素
+		///		  后才能从原点开始填充。或者之前用了其他命令将驱动芯片置于非写入像素的
+		///		  模式下，此时必须调用本函数才能让驱动芯片回到写入像素的模式。
+		/// </summary>
 		void PrepareForRendering();
 
 	public:
