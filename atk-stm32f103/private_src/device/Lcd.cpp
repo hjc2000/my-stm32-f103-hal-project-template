@@ -229,6 +229,8 @@ void bsp::Lcd::DisplayOff()
 
 void bsp::Lcd::Clear(bsp::Color color)
 {
+	SetWindow(0, 0, Width(), Height());
+	SerCursor(0, 0);
 	PrepareForRendering();
 	for (uint32_t i = 0; i < PointCount(); i++)
 	{
