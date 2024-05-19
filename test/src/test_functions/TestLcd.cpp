@@ -3,7 +3,6 @@
 
 void TestLcd()
 {
-	BSP::Initialize();
 	BSP::Serial().Begin(115200);
 	BSP::GreenDigitalLed().TurnOn();
 	BSP::Lcd().DisplayOn();

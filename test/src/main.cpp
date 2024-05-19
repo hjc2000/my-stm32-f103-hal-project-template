@@ -1,6 +1,5 @@
 #include<atk-stm32f103/bsp.h>
 #include<bsp-interface/EndianConverter.h>
-#include<lvgl/lvgl.h>
 #include<stdexcept>
 #include<string>
 #include<task/Task.h>
@@ -20,20 +19,7 @@ int main(void)
 
 			std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create([]()
 			{
-				//BSP::BaseTimer().Initialize(std::chrono::milliseconds{ 10 });
-				//BSP::BaseTimer().SetPeriodElapsedCallback([]()
-				//{
-				//	lv_tick_inc(10);
-				//});
-
-				//BSP::BaseTimer().Start();
-				//BSP::InitializeLvgl();
-
-				while (true)
-				{
-					BSP::GreenDigitalLed().Toggle();
-					BSP::Delayer().Delay(std::chrono::seconds{ 1 });
-				}
+				TestLcd();
 			}, 512);
 
 			vTaskStartScheduler();
