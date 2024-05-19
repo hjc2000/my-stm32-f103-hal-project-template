@@ -1,4 +1,5 @@
 #include"Systic.h"
+#include<ClockSignal.h>
 
 using namespace bsp;
 
@@ -26,7 +27,12 @@ void Systic::SetClockSource(SysticClockSource value)
 
 uint32_t Systic::ClockFreq()
 {
-	return HAL_RCC_GetSysClockFreq();
+	if (ClockSource() == SysticClockSource::HCLK_DIV8)
+	{
+		return ClockSignal::HclkFreq() / 8;
+	}
+
+	return ClockSignal::HclkFreq();
 }
 
 uint32_t Systic::ReloadNum()

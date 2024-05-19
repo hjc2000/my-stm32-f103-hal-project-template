@@ -9,47 +9,16 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_port_disp.h"
-#include <stdbool.h>
+#include"lv_port_disp.h"
+#include<atk-stm32f103/bsp.h>
+#include<stdbool.h>
 
- /*********************
-  *      DEFINES
-  *********************/
 #define MY_DISP_HOR_RES 240
 #define MY_DISP_VER_RES 320
 
-#ifndef MY_DISP_HOR_RES
-#warning Please define or replace the macro MY_DISP_HOR_RES with the actual screen width, default value 320 is used for now.
-#define MY_DISP_HOR_RES    320
-#endif
-
-#ifndef MY_DISP_VER_RES
-#warning Please define or replace the macro MY_DISP_VER_RES with the actual screen height, default value 240 is used for now.
-#define MY_DISP_VER_RES    240
-#endif
-
-/**********************
- *      TYPEDEFS
- **********************/
-
- /**********************
-  *  STATIC PROTOTYPES
-  **********************/
-	static void disp_init(void);
+static void disp_init(void);
 
 static void disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map);
-
-/**********************
- *  STATIC VARIABLES
- **********************/
-
- /**********************
-  *      MACROS
-  **********************/
-
-  /**********************
-   *   GLOBAL FUNCTIONS
-   **********************/
 
 void lv_port_disp_init(void)
 {
@@ -69,27 +38,22 @@ void lv_port_disp_init(void)
 	static lv_color_t buf_1_1[MY_DISP_HOR_RES * 10];                          /*A buffer for 10 rows*/
 	lv_display_set_buffers(disp, buf_1_1, NULL, sizeof(buf_1_1), LV_DISPLAY_RENDER_MODE_PARTIAL);
 
-	/* Example 2
-	 * Two buffers for partial rendering
-	 * In flush_cb DMA or similar hardware should be used to update the display in the background.*/
-	static lv_color_t buf_2_1[MY_DISP_HOR_RES * 10];
-	static lv_color_t buf_2_2[MY_DISP_HOR_RES * 10];
-	lv_display_set_buffers(disp, buf_2_1, buf_2_2, sizeof(buf_2_1), LV_DISPLAY_RENDER_MODE_PARTIAL);
+	///* Example 2
+	// * Two buffers for partial rendering
+	// * In flush_cb DMA or similar hardware should be used to update the display in the background.*/
+	//static lv_color_t buf_2_1[MY_DISP_HOR_RES * 10];
+	//static lv_color_t buf_2_2[MY_DISP_HOR_RES * 10];
+	//lv_display_set_buffers(disp, buf_2_1, buf_2_2, sizeof(buf_2_1), LV_DISPLAY_RENDER_MODE_PARTIAL);
 
-	/* Example 3
-	 * Two buffers screen sized buffer for double buffering.
-	 * Both LV_DISPLAY_RENDER_MODE_DIRECT and LV_DISPLAY_RENDER_MODE_FULL works, see their comments*/
-	static lv_color_t buf_3_1[MY_DISP_HOR_RES * MY_DISP_VER_RES];
-	static lv_color_t buf_3_2[MY_DISP_HOR_RES * MY_DISP_VER_RES];
-	lv_display_set_buffers(disp, buf_3_1, buf_3_2, sizeof(buf_3_1), LV_DISPLAY_RENDER_MODE_DIRECT);
-
+	///* Example 3
+	// * Two buffers screen sized buffer for double buffering.
+	// * Both LV_DISPLAY_RENDER_MODE_DIRECT and LV_DISPLAY_RENDER_MODE_FULL works, see their comments*/
+	//static lv_color_t buf_3_1[MY_DISP_HOR_RES * MY_DISP_VER_RES];
+	//static lv_color_t buf_3_2[MY_DISP_HOR_RES * MY_DISP_VER_RES];
+	//lv_display_set_buffers(disp, buf_3_1, buf_3_2, sizeof(buf_3_1), LV_DISPLAY_RENDER_MODE_DIRECT);
 }
 
-/**********************
- *   STATIC FUNCTIONS
- **********************/
-
- /*Initialize your display and the required peripherals.*/
+/*Initialize your display and the required peripherals.*/
 static void disp_init(void)
 {
 	/*You code here*/
@@ -119,19 +83,16 @@ static void disp_flush(lv_display_t *disp_drv, const lv_area_t *area, uint8_t *p
 {
 	if (disp_flush_enabled)
 	{
-		/*The most simple case (but also the slowest) to put all pixels to the screen one-by-one*/
+		uint32_t width = area->x2 - area->x1 + 1;
+		uint32_t height = area->y2 - area->y1 + 1;
+		BSP::Lcd().SetWindow(
+			area->x1,
+			area->y1,
+			width,
+			height
+		);
 
-		int32_t x;
-		int32_t y;
-		for (y = area->y1; y <= area->y2; y++)
-		{
-			for (x = area->x1; x <= area->x2; x++)
-			{
-				/*Put a pixel to the display. For example:*/
-				/*put_px(x, y, *px_map)*/
-				px_map++;
-			}
-		}
+		BSP::Lcd().Draw(reinterpret_cast<uint16_t *>(px_map), width * height);
 	}
 
 	/*IMPORTANT!!!

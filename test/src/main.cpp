@@ -17,18 +17,24 @@ int main(void)
 		try
 		{
 			BSP::Initialize();
-			BSP::BaseTimer().Initialize(std::chrono::milliseconds{ 1 });
-			BSP::BaseTimer().SetPeriodElapsedCallback([]()
-			{
-				lv_tick_inc(1);
-			});
 
-			BSP::BaseTimer().Start();
-
-			std::shared_ptr<task::Task> test_serial_task = task::Task::Create([]()
+			std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create([]()
 			{
-				TestLcd();
-			}, 1024);
+				//BSP::BaseTimer().Initialize(std::chrono::milliseconds{ 10 });
+				//BSP::BaseTimer().SetPeriodElapsedCallback([]()
+				//{
+				//	lv_tick_inc(10);
+				//});
+
+				//BSP::BaseTimer().Start();
+				//BSP::InitializeLvgl();
+
+				while (true)
+				{
+					BSP::GreenDigitalLed().Toggle();
+					BSP::Delayer().Delay(std::chrono::seconds{ 1 });
+				}
+			}, 512);
 
 			vTaskStartScheduler();
 		}

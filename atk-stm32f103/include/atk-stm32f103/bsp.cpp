@@ -11,6 +11,7 @@
 #include<functional>
 #include<IndependentWatchDog.h>
 #include<Lcd.h>
+#include<lv_port_disp.h>
 #include<Osc.h>
 #include<Serial.h>
 #include<Systic.h>
@@ -55,6 +56,12 @@ void BSP::Initialize()
 	HAL_Init();
 	config_clock_source();
 	config_clock_signal();
+}
+
+void BSP::InitializeLvgl()
+{
+	lv_port_disp_init();
+	disp_enable_update();
 }
 
 void BSP::SystemReset()

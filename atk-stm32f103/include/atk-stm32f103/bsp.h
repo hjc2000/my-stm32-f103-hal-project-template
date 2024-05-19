@@ -25,6 +25,7 @@ public:
 	///		此函数必须在所有 BSP 函数被调用之前调用，否则 BSP 将无法工作。
 	/// </summary>
 	static void Initialize();
+	static void InitializeLvgl();
 
 	/// <summary>
 	///		软复位。
