@@ -16,16 +16,19 @@ int main(void)
 	{
 		try
 		{
-			std::shared_ptr<task::Task> lvgl_tick_task = task::Task::Create([]()
+			BSP::Initialize();
+			BSP::BaseTimer().Initialize(std::chrono::milliseconds{ 1 });
+			BSP::BaseTimer().SetPeriodElapsedCallback([]()
 			{
 				lv_tick_inc(1);
-				BSP::Delayer().Delay(std::chrono::milliseconds{ 1 });
-			}, 512);
+			});
+
+			BSP::BaseTimer().Start();
 
 			std::shared_ptr<task::Task> test_serial_task = task::Task::Create([]()
 			{
-				TestBaseTimer();
-			}, 512);
+				TestLcd();
+			}, 1024);
 
 			vTaskStartScheduler();
 		}

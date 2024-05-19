@@ -1,9 +1,9 @@
 #pragma once
+#include<bsp-interface/DisplayEnum.h>
+#include<bsp-interface/ILcd.h>
 #include<FsmcNorSramInitOptions.h>
 #include<FsmcNorSramTiming.h>
 #include<GpioPort.h>
-#include<bsp-interface/DisplayEnum.h>
-#include<bsp-interface/ILcd.h>
 #include<stdexcept>
 
 namespace bsp
@@ -170,25 +170,25 @@ namespace bsp
 		{
 			switch (color)
 			{
-			case bsp::Color::Red:
+				case bsp::Color::Red:
 				{
 					return 0x001F;
 				}
-			case bsp::Color::Green:
+				case bsp::Color::Green:
 				{
 					return 0x07E0;
 				}
-			case bsp::Color::Blue:
+				case bsp::Color::Blue:
 				{
 					return 0xF800;
 				}
-			case bsp::Color::White:
+				case bsp::Color::White:
 				{
 					// 0xffff 表示该像素的 3 个液晶全部透光度开到最大，呈现出白色
 					return UINT16_MAX;
 				}
-			case bsp::Color::Black:
-			default:
+				case bsp::Color::Black:
+				default:
 				{
 					// 0 表示全不透光，所以是黑色
 					return 0;
@@ -254,5 +254,14 @@ namespace bsp
 		uint32_t Height() override;
 
 		void SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height) override;
+
+		/// <summary>
+		///		将像素数组的像素画到屏幕上。像素格式为 RGB565。
+		///		* 可以先调用 SetWindow 然后再绘制。这样就可以只更新屏幕上的一个部分，
+		///		  其他部分不受影响。
+		/// </summary>
+		/// <param name="pix_buffer"></param>
+		/// <param name="size"></param>
+		void Draw(uint16_t *pix_buffer, uint32_t size) override;
 	};
 }

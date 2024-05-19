@@ -334,3 +334,12 @@ void bsp::Lcd::SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height
 	WriteData((y + height - 1) >> 8);
 	WriteData((y + height - 1) & 0XFF);
 }
+
+void bsp::Lcd::Draw(uint16_t *pix_buffer, uint32_t size)
+{
+	PrepareForRendering();
+	for (uint32_t i = 0; i < size; i++)
+	{
+		WriteData(pix_buffer[i]);
+	}
+}
