@@ -51,31 +51,10 @@ void BSP::Initialize()
 		ClockSignal::SetConfig(clock_init_options);
 	};
 
-	auto init_single_instance = []()
-	{
-		/*
-		* 必须这么做。不能等到真正要使用的时候才调用 Instance，让里面的 static 变量初始化，
-		* 因为这会导致重入问题和线程安全问题。
-		*
-		* 所有 BSP 类中的函数，如果是返回单例的，必须放到这里进行提前初始化。
-		*/
-
-		BSP::Delayer();
-		BSP::IndependentWatchDog();
-		BSP::RedDigitalLed();
-		BSP::GreenDigitalLed();
-		BSP::KeyScanner();
-		BSP::WakeUpKey();
-		BSP::Serial();
-		BSP::Lcd();
-		BSP::BaseTimer();
-	};
-
 	// HAL_Init 函数已经将中断优先级分组设置为 4 了。
 	HAL_Init();
 	config_clock_source();
 	config_clock_signal();
-	init_single_instance();
 }
 
 void BSP::SystemReset()
