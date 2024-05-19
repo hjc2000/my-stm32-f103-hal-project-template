@@ -337,13 +337,17 @@ void bsp::Lcd::SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height
 
 void bsp::Lcd::DrawPoint(uint32_t x, uint32_t y, uint16_t rgb_565)
 {
+	SerCursor(x, y);
+	PrepareForRendering();
+	WriteData(rgb_565);
+}
+
+void bsp::Lcd::SerCursor(uint32_t x, uint32_t y)
+{
 	WriteCommand(0X2A);
 	WriteData(x >> 8);
 	WriteData(x & 0XFF);
 	WriteCommand(0X2B);
 	WriteData(y >> 8);
 	WriteData(y & 0XFF);
-
-	PrepareForRendering();
-	WriteData(rgb_565);
 }
