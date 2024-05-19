@@ -56,6 +56,6 @@ namespace bsp
 		virtual uint32_t Height() = 0;
 
 		virtual void SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height) = 0;
-		virtual void Draw(uint16_t *pix_buffer, uint32_t size) = 0;
+		virtual void DrawPoint(uint32_t x, uint32_t y, uint16_t rgb_565) = 0;
 	};
 }

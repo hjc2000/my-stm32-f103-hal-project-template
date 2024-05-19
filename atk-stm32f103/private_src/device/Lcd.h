@@ -254,14 +254,6 @@ namespace bsp
 		uint32_t Height() override;
 
 		void SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height) override;
-
-		/// <summary>
-		///		将像素数组的像素画到屏幕上。像素格式为 RGB565。
-		///		* 可以先调用 SetWindow 然后再绘制。这样就可以只更新屏幕上的一个部分，
-		///		  其他部分不受影响。
-		/// </summary>
-		/// <param name="pix_buffer"></param>
-		/// <param name="size"></param>
-		void Draw(uint16_t *pix_buffer, uint32_t size) override;
+		void DrawPoint(uint32_t x, uint32_t y, uint16_t rgb_565) override;
 	};
 }
