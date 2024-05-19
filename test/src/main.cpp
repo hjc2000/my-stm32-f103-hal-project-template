@@ -1,5 +1,6 @@
 #include<atk-stm32f103/bsp.h>
 #include<bsp-interface/EndianConverter.h>
+#include<lvgl/lvgl.h>
 #include<stdexcept>
 #include<string>
 #include<task/Task.h>
@@ -15,10 +16,17 @@ int main(void)
 	{
 		try
 		{
+			std::shared_ptr<task::Task> lvgl_tick_task = task::Task::Create([]()
+			{
+				lv_tick_inc(1);
+				BSP::Delayer().Delay(std::chrono::milliseconds{ 1 });
+			}, 512);
+
 			std::shared_ptr<task::Task> test_serial_task = task::Task::Create([]()
 			{
 				TestBaseTimer();
 			}, 512);
+
 			vTaskStartScheduler();
 		}
 		catch (std::exception const &e)
