@@ -37,7 +37,7 @@ void BSP::Initialize()
 	{
 		Systic::SetClockSource(SysticClockSource::HCLK_DIV8);
 
-		ClockSignalConfig clock_init_options{};
+		ClockSignalConfig clock_init_options { };
 		clock_init_options._clock_type = ClockSignalConfig::ClockType::SYSCLK
 			| ClockSignalConfig::ClockType::HCLK
 			| ClockSignalConfig::ClockType::PCLK1
@@ -85,14 +85,14 @@ bsp::IDigitalLed &BSP::GreenDigitalLed()
 bsp::IKeyScanner &BSP::KeyScanner()
 {
 	static std::atomic_bool initialized = false;
-	static std::vector<bsp::IKey *> keys{ (size_t)KeyIndex::EnumEndFlag };
+	static std::vector<bsp::IKey *> keys { (size_t)KeyIndex::EnumEndFlag };
 	if (!initialized)
 	{
 		keys[(uint16_t)KeyIndex::Key0] = &Key0::Instance();
 		keys[(uint16_t)KeyIndex::Key1] = &Key1::Instance();
 	}
 
-	static bsp::KeyScanner key_scanner{ keys, Delayer::Instance() };
+	static bsp::KeyScanner key_scanner { keys, Delayer::Instance() };
 
 	// 初始化完成
 	initialized = true;
