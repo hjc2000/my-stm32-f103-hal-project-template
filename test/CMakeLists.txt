@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 include(${cpp_lib_build_scripts_path}/cmake-module/setup.cmake)
+include(target_import_jc_algorithm)
 
 set(ProjectName test)
 project(${ProjectName})
@@ -10,6 +11,7 @@ set(CMAKE_C_STANDARD 99)
 add_executable(${ProjectName})
 target_import_src(${ProjectName})
 target_import_libfreertos(${ProjectName} PUBLIC)
+target_import_jc_algorithm(${ProjectName} PUBLIC)
 target_link_libraries(
     ${ProjectName} PUBLIC
     c
