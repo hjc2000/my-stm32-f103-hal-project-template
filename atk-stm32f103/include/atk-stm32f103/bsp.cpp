@@ -21,6 +21,9 @@ using namespace bsp;
 
 void BSP::Initialize()
 {
+	// 开启 FPU
+	SCB->CPACR |= ((3UL << 10 * 2) | (3UL << 11 * 2));
+
 	auto config_clock_source = []()
 	{
 		OscConfig osc_init_options;
