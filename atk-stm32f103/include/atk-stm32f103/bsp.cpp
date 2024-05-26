@@ -21,7 +21,7 @@ using namespace bsp;
 
 void BSP::Initialize()
 {
-	// 开启 FPU
+	// 开启 FPU。这个是针对 H7 系列的。
 	SCB->CPACR |= ((3UL << 10 * 2) | (3UL << 11 * 2));
 
 	auto config_clock_source = []()
