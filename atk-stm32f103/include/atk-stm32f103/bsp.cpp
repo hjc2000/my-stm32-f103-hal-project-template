@@ -17,7 +17,6 @@
 #include<task.h>
 
 using namespace bsp;
-using namespace bsp;
 
 void BSP::Initialize()
 {
