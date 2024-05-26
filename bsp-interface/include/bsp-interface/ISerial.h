@@ -1,10 +1,10 @@
 #pragma once
-#include<bsp-interface/stream/Stream.h>
+#include<base/stream/Stream.h>
 #include<string>
 
 namespace bsp
 {
-	class ISerial :public bsp::Stream
+	class ISerial :public base::Stream
 	{
 	public:
 		/// <summary>
