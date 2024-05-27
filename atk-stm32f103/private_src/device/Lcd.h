@@ -1,5 +1,4 @@
 #pragma once
-#include<bsp-interface/DisplayEnum.h>
 #include<bsp-interface/ILcd.h>
 #include<FsmcNorSramInitOptions.h>
 #include<FsmcNorSramTiming.h>
@@ -116,7 +115,7 @@ namespace bsp
 		#pragma region consteval
 		static consteval bsp::FsmcNorSramTiming ReadTiming()
 		{
-			bsp::FsmcNorSramTiming read_timing{};
+			bsp::FsmcNorSramTiming read_timing { };
 			read_timing._access_mode = bsp::FsmcNorSramTiming::AccessMode::ModeA;
 			read_timing._address_setup_time = 0;
 			read_timing._address_hold_time = 0;
@@ -126,7 +125,7 @@ namespace bsp
 
 		static consteval bsp::FsmcNorSramTiming WriteTiming()
 		{
-			bsp::FsmcNorSramTiming write_timing{};
+			bsp::FsmcNorSramTiming write_timing { };
 			write_timing._access_mode = bsp::FsmcNorSramTiming::AccessMode::ModeA;
 			write_timing._address_setup_time = 0;
 			write_timing._address_hold_time = 0;
@@ -136,7 +135,7 @@ namespace bsp
 
 		static consteval bsp::FsmcNorSramInitOptions NorSramInitOptions()
 		{
-			bsp::FsmcNorSramInitOptions nor_sram_init_options{};
+			bsp::FsmcNorSramInitOptions nor_sram_init_options { };
 			nor_sram_init_options._bank = bsp::FsmcNorSramInitOptions::Bank::Bank4;
 			nor_sram_init_options._data_address_mux = bsp::FsmcNorSramInitOptions::DataAddressMux::Disable;
 			nor_sram_init_options._memory_type = bsp::FsmcNorSramInitOptions::MemoryType::SRSM;
@@ -170,25 +169,25 @@ namespace bsp
 		{
 			switch (color)
 			{
-				case bsp::Color::Red:
+			case bsp::Color::Red:
 				{
 					return 0x001F;
 				}
-				case bsp::Color::Green:
+			case bsp::Color::Green:
 				{
 					return 0x07E0;
 				}
-				case bsp::Color::Blue:
+			case bsp::Color::Blue:
 				{
 					return 0xF800;
 				}
-				case bsp::Color::White:
+			case bsp::Color::White:
 				{
 					// 0xffff 表示该像素的 3 个液晶全部透光度开到最大，呈现出白色
 					return UINT16_MAX;
 				}
-				case bsp::Color::Black:
-				default:
+			case bsp::Color::Black:
+			default:
 				{
 					// 0 表示全不透光，所以是黑色
 					return 0;

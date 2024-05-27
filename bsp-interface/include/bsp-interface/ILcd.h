@@ -1,10 +1,31 @@
 #pragma once
-#include<bsp-interface/DisplayEnum.h>
 #include<stdint.h>
 #include<string>
 
 namespace bsp
 {
+	enum class HorizontalDirection
+	{
+		LeftToRight,
+		RightToLeft,
+	};
+
+	enum class VerticalDirection
+	{
+		TopToBottom,
+		BottomToTop,
+	};
+
+	enum class Color
+	{
+		Red,
+		Green,
+		Blue,
+		White,
+		Black,
+		ColorEnd,
+	};
+
 	class ILcd
 	{
 	public:
