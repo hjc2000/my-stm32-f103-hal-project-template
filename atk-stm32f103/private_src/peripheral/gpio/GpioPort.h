@@ -120,5 +120,5 @@ namespace bsp
 		void EnableClock() override;
 		void DisableClock() override;
 	};
-	#endif
+	#endif // GPIOG
 }
