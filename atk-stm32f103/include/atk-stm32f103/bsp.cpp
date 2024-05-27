@@ -20,9 +20,6 @@ using namespace bsp;
 
 void BSP::Initialize()
 {
-	// 开启 FPU。这个是针对 H7 系列的。
-	SCB->CPACR |= ((3UL << 10 * 2) | (3UL << 11 * 2));
-
 	auto config_clock_source = []()
 	{
 		OscConfig osc_init_options;
@@ -52,6 +49,9 @@ void BSP::Initialize()
 		clock_init_options._flash_latency = ClockSignalConfig::FlashLatency::Latency2;
 		ClockSignal::SetConfig(clock_init_options);
 	};
+
+	// 开启 FPU。这个是针对 H7 系列的。
+	SCB->CPACR |= ((3UL << 10 * 2) | (3UL << 11 * 2));
 
 	// HAL_Init 函数已经将中断优先级分组设置为 4 了。
 	HAL_Init();
