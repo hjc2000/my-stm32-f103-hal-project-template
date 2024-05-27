@@ -88,6 +88,23 @@ namespace bsp
 	};
 	#endif // GPIOE
 
+	#ifdef GPIOF
+	class GpioPortF :public IGpioPort
+	{
+	public:
+		static GpioPortF &Instance()
+		{
+			static GpioPortF port{};
+			return port;
+		}
+
+		GPIO_TypeDef *HardwareInstance() override;
+		bool IsClockEnabled() override;
+		void EnableClock() override;
+		void DisableClock() override;
+	};
+	#endif // GPIOF
+
 	#ifdef GPIOG
 	class GpioPortG :public IGpioPort
 	{
