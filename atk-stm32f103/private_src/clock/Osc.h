@@ -1,7 +1,7 @@
 #pragma once
 #include<hal.h>
 #include<OscConfig.h>
-#include<PllInitOptions.h>
+#include<PllConfig.h>
 
 namespace bsp
 {
@@ -18,7 +18,7 @@ namespace bsp
 		{
 			RCC_OscInitTypeDef def;
 			HAL_RCC_GetOscConfig(&def);
-			return OscConfig{ def };
+			return OscConfig { def };
 		}
 
 		/// <summary>
@@ -32,7 +32,7 @@ namespace bsp
 			HAL_StatusTypeDef result = HAL_RCC_OscConfig(&rcc_osc_init);
 			if (result != HAL_StatusTypeDef::HAL_OK)
 			{
-				throw std::runtime_error{ "时钟源配置失败" };
+				throw std::runtime_error { "时钟源配置失败" };
 			}
 		}
 	};

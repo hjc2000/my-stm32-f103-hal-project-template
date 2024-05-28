@@ -1,8 +1,8 @@
-#include"PllInitOptions.h"
+#include"PllConfig.h"
 
 using namespace bsp;
 
-PllInitOptions &PllInitOptions::operator=(RCC_PLLInitTypeDef const &value)
+PllConfig &PllConfig::operator=(RCC_PLLInitTypeDef const &value)
 {
 	_state = (PllState)value.PLLState;
 	_clock_source = (PllClockSource)value.PLLSource;
@@ -10,7 +10,7 @@ PllInitOptions &PllInitOptions::operator=(RCC_PLLInitTypeDef const &value)
 	return *this;
 }
 
-PllInitOptions::operator RCC_PLLInitTypeDef() const
+PllConfig::operator RCC_PLLInitTypeDef() const
 {
 	RCC_PLLInitTypeDef def;
 	def.PLLState = (uint32_t)_state;
