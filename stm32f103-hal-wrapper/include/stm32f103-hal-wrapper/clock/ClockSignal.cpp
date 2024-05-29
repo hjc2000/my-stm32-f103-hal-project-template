@@ -8,8 +8,8 @@ ClockSignalConfig hal::ClockSignal::GetConfig()
 	RCC_ClkInitTypeDef def;
 	uint32_t flash_latency;
 	HAL_RCC_GetClockConfig(&def, &flash_latency);
-	ClockSignalConfig ret{ def };
-	ret._flash_latency = static_cast<ClockSignalConfig::FlashLatency>(flash_latency);
+	ClockSignalConfig ret { def };
+	ret._flash_latency = static_cast<decltype(ret._flash_latency)>(flash_latency);
 	return ret;
 }
 
@@ -23,6 +23,6 @@ void hal::ClockSignal::SetConfig(ClockSignalConfig const &config)
 
 	if (ret != HAL_StatusTypeDef::HAL_OK)
 	{
-		throw std::runtime_error{ "时钟信号配置失败" };
+		throw std::runtime_error { "时钟信号配置失败" };
 	}
 }

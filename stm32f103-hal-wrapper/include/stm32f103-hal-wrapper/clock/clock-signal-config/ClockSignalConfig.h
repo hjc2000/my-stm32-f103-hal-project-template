@@ -16,7 +16,7 @@ namespace hal
 		///		选择要设置的时钟信号类型。
 		///		本枚举类型的枚举值可以按位或，从而选中多个时钟。
 		/// </summary>
-		enum class ClockType :uint32_t
+		enum class ClockType
 		{
 			SYSCLK = RCC_CLOCKTYPE_SYSCLK,
 			HCLK = RCC_CLOCKTYPE_HCLK,
@@ -24,6 +24,9 @@ namespace hal
 			PCLK2 = RCC_CLOCKTYPE_PCLK2,
 		};
 
+		/// <summary>
+		///		选择要配置的时钟信号，可以将多个枚举值按位或同时选中多个时钟信号。
+		/// </summary>
 		ClockType _clock_type;
 
 		SystemClockConfig _system_clk_config;
