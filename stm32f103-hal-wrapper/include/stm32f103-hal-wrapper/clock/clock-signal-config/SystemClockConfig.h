@@ -3,6 +3,12 @@
 
 namespace hal
 {
+	/// <summary>
+	///		系统时钟配置。
+	///		* 时钟源的输出端直接连着系统时钟，作为系统时钟的输入端。
+	///		* 系统时钟可以选择多个时钟源。
+	///		* 系统时钟是时钟信号的根。
+	/// </summary>
 	class SystemClockConfig
 	{
 	public:
