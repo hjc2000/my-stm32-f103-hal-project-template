@@ -1,9 +1,9 @@
 #include"ClockSignalConfig.h"
 #include<type_traits>
 
-using namespace bsp;
+using namespace hal;
 
-bsp::ClockSignalConfig::ClockSignalConfig(RCC_ClkInitTypeDef const &o)
+hal::ClockSignalConfig::ClockSignalConfig(RCC_ClkInitTypeDef const &o)
 {
 	*this = o;
 }
@@ -21,21 +21,21 @@ ClockSignalConfig::operator RCC_ClkInitTypeDef() const
 	return o;
 }
 
-void bsp::ClockSignalConfig::Serialize(RCC_ClkInitTypeDef &o) const
+void hal::ClockSignalConfig::Serialize(RCC_ClkInitTypeDef &o) const
 {
 	o.ClockType = static_cast<uint32_t>(_clock_type);
 	_system_clk_config.Serialize(o);
 }
 
-void bsp::ClockSignalConfig::Deserialize(RCC_ClkInitTypeDef const &o)
+void hal::ClockSignalConfig::Deserialize(RCC_ClkInitTypeDef const &o)
 {
 	_clock_type = static_cast<decltype(_clock_type)>(o.ClockType);
 	_system_clk_config.Deserialize(o);
 }
 
-bsp::ClockSignalConfig::ClockType operator|(
-	bsp::ClockSignalConfig::ClockType left,
-	bsp::ClockSignalConfig::ClockType right
+hal::ClockSignalConfig::ClockType operator|(
+	hal::ClockSignalConfig::ClockType left,
+	hal::ClockSignalConfig::ClockType right
 	)
 {
 	// 获取枚举类型的底层类型

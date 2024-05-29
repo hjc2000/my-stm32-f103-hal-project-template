@@ -1,8 +1,8 @@
 #pragma once
-#include<ApbClkConfig.h>
 #include<hal.h>
+#include<stm32f103-hal-wrapper/clock/clock-signal-config/ApbClkConfig.h>
 
-namespace bsp
+namespace hal
 {
 	class AhbClkConfig
 	{

@@ -3,7 +3,6 @@
 #include<atomic>
 #include<BaseTimer1.h>
 #include<bsp-interface/KeyScanner.h>
-#include<ClockSignal.h>
 #include<ConfigClockSignal.h>
 #include<Delayer.h>
 #include<DigitalLed.h>
@@ -14,6 +13,8 @@
 #include<Lcd.h>
 #include<Osc.h>
 #include<Serial.h>
+#include<stm32f103-hal-wrapper/clock/clock-signal-config/ClockSignalConfig.h>
+#include<stm32f103-hal-wrapper/clock/ClockSignal.h>
 #include<Systic.h>
 #include<task.h>
 

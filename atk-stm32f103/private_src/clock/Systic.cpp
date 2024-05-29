@@ -1,5 +1,5 @@
 #include"Systic.h"
-#include<ClockSignal.h>
+#include<stm32f103-hal-wrapper/clock/ClockSignal.h>
 
 using namespace bsp;
 
@@ -29,10 +29,10 @@ uint32_t Systic::ClockFreq()
 {
 	if (ClockSource() == SysticClockSource::HCLK_DIV8)
 	{
-		return ClockSignal::HclkFreq() / 8;
+		return hal::ClockSignal::HclkFreq() / 8;
 	}
 
-	return ClockSignal::HclkFreq();
+	return hal::ClockSignal::HclkFreq();
 }
 
 uint32_t Systic::ReloadNum()
@@ -105,10 +105,10 @@ void Systic::NopLoopDelay(std::chrono::microseconds microseconds)
 
 void Systic::NopLoopDelay(std::chrono::milliseconds milliseconds)
 {
-	NopLoopDelay(std::chrono::microseconds{ milliseconds });
+	NopLoopDelay(std::chrono::microseconds { milliseconds });
 }
 
 void Systic::NopLoopDelay(std::chrono::seconds seconds)
 {
-	NopLoopDelay(std::chrono::milliseconds{ seconds });
+	NopLoopDelay(std::chrono::milliseconds { seconds });
 }

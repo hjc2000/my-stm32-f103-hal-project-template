@@ -1,7 +1,7 @@
 #pragma once
-#include<AhbClkConfig.h>
+#include<stm32f103-hal-wrapper/clock/clock-signal-config/AhbClkConfig.h>
 
-namespace bsp
+namespace hal
 {
 	class SystemClockConfig
 	{

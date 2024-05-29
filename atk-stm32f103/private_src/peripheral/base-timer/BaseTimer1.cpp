@@ -1,7 +1,7 @@
 #include"BaseTimer1.h"
-#include<ClockSignal.h>
 #include<Interrupt.h>
 #include<stdexcept>
+#include<stm32f103-hal-wrapper/clock/ClockSignal.h>
 #include<task/Critical.h>
 
 using namespace bsp;
@@ -38,9 +38,9 @@ void bsp::BaseTimer1::Initialize(BaseTimerInitOptions const &options)
 
 void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
 {
-	uint32_t timer_clock_signal_freq = ClockSignal::Pclk1Freq();
-	ClockSignalConfig clock_signal_config = ClockSignal::GetConfig();
-	if (clock_signal_config._system_clk_config._ahb_clk_config._apb1_clk_config._input_divider != Apb1ClkConfig::InputDivider::DIV1)
+	uint32_t timer_clock_signal_freq = hal::ClockSignal::Pclk1Freq();
+	hal::ClockSignalConfig clock_signal_config = hal::ClockSignal::GetConfig();
+	if (clock_signal_config._system_clk_config._ahb_clk_config._apb1_clk_config._input_divider != hal::Apb1ClkConfig::InputDivider::DIV1)
 	{
 		/*
 		* PCLK1 的来源是 HCLK 分频后的输出。如果分频系数大于 1，

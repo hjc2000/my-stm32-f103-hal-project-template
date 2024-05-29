@@ -1,8 +1,8 @@
 #pragma once
 #include<hal.h>
-#include<SystemClockConfig.h>
+#include<stm32f103-hal-wrapper/clock/clock-signal-config/SystemClockConfig.h>
 
-namespace bsp
+namespace hal
 {
 	class ClockSignalConfig
 	{
@@ -67,7 +67,7 @@ namespace bsp
 /// <param name="left"></param>
 /// <param name="right"></param>
 /// <returns></returns>
-bsp::ClockSignalConfig::ClockType operator|(
-	bsp::ClockSignalConfig::ClockType left,
-	bsp::ClockSignalConfig::ClockType right
+hal::ClockSignalConfig::ClockType operator|(
+	hal::ClockSignalConfig::ClockType left,
+	hal::ClockSignalConfig::ClockType right
 	);
