@@ -1,5 +1,6 @@
 #include"ConfigClockSignal.h"
 #include<ClockSignal.h>
+#include<hal.h>
 #include<Systic.h>
 
 using namespace bsp;
