@@ -42,14 +42,13 @@ void BSP::Initialize()
 			| ClockSignalConfig::ClockType::PCLK1
 			| ClockSignalConfig::ClockType::PCLK2;
 
-		clock_init_options._system_clk_config._clock_source = SystemClockConfig::ClockSource::PLLCLK;
-
-		auto &ahb_config = clock_init_options._system_clk_config._ahb_clk_config;
-		ahb_config._input_divider = AhbClkConfig::InputDivider::DIV1;
-		ahb_config._apb1_clk_config._input_divider = Apb1ClkConfig::InputDivider::DIV2;
-		ahb_config._apb2_clk_config._input_divider = Apb2ClkConfig::InputDivider::DIV1;
-
 		clock_init_options._flash_latency = ClockSignalConfig::FlashLatency::Latency2;
+
+		clock_init_options._system_clk_config._clock_source = SystemClockConfig::ClockSource::PLLCLK;
+		clock_init_options._system_clk_config._ahb_clk_config._input_divider = AhbClkConfig::InputDivider::DIV1;
+		clock_init_options._system_clk_config._ahb_clk_config._apb1_clk_config._input_divider = Apb1ClkConfig::InputDivider::DIV2;
+		clock_init_options._system_clk_config._ahb_clk_config._apb2_clk_config._input_divider = Apb2ClkConfig::InputDivider::DIV1;
+
 		ClockSignal::SetConfig(clock_init_options);
 	};
 
