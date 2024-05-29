@@ -4,6 +4,7 @@
 #include<BaseTimer1.h>
 #include<bsp-interface/KeyScanner.h>
 #include<ClockSignal.h>
+#include<ConfigClockSignal.h>
 #include<Delayer.h>
 #include<DigitalLed.h>
 #include<ExtiWakeUpKey.h>
@@ -32,33 +33,13 @@ void BSP::Initialize()
 		Osc::SetConfig(osc_init_options);
 	};
 
-	auto config_clock_signal = []()
-	{
-		Systic::SetClockSource(SysticClockSource::HCLK_DIV8);
-
-		ClockSignalConfig clock_init_options { };
-		clock_init_options._clock_type = ClockSignalConfig::ClockType::SYSCLK
-			| ClockSignalConfig::ClockType::HCLK
-			| ClockSignalConfig::ClockType::PCLK1
-			| ClockSignalConfig::ClockType::PCLK2;
-
-		clock_init_options._flash_latency = ClockSignalConfig::FlashLatency::Latency2;
-
-		clock_init_options._system_clk_config._clock_source = SystemClockConfig::ClockSource::PLLCLK;
-		clock_init_options._system_clk_config._ahb_clk_config._input_divider = AhbClkConfig::InputDivider::DIV1;
-		clock_init_options._system_clk_config._ahb_clk_config._apb1_clk_config._input_divider = Apb1ClkConfig::InputDivider::DIV2;
-		clock_init_options._system_clk_config._ahb_clk_config._apb2_clk_config._input_divider = Apb2ClkConfig::InputDivider::DIV1;
-
-		ClockSignal::SetConfig(clock_init_options);
-	};
-
 	// 开启 FPU。这个是针对 H7 系列的。
 	SCB->CPACR |= ((3UL << 10 * 2) | (3UL << 11 * 2));
 
 	// HAL_Init 函数已经将中断优先级分组设置为 4 了。
 	HAL_Init();
 	config_clock_source();
-	config_clock_signal();
+	ConfigClockSignal();
 }
 
 void BSP::SystemReset()
