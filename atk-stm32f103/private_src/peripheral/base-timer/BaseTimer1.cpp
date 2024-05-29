@@ -40,7 +40,7 @@ void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
 {
 	uint32_t timer_clock_signal_freq = ClockSignal::Pclk1Freq();
 	ClockSignalConfig clock_signal_config = ClockSignal::Config();
-	if (clock_signal_config._apb1_divider != ClockSignalConfig::APBDivider::DIV1)
+	if (clock_signal_config._system_clk_config._ahb_clk_config._apb1_clk_config._input_divider != Apb1ClkConfig::InputDivider::DIV1)
 	{
 		/*
 		* PCLK1 的来源是 HCLK 分频后的输出。如果分频系数大于 1，
@@ -67,7 +67,7 @@ void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
 	* 定时器中，分频器相当于这个 32 位计数器的低 16 位，而原本的 16 位计数器相当于
 	* 这个 32 位计数器的高 16 位，于是把 count 分成高低 16 位，分别赋予它们。
 	*/
-	BaseTimerInitOptions options{};
+	BaseTimerInitOptions options { };
 	options._counter_mode = BaseTimerInitOptions::CounterMode::Up;
 	options._prescaler = count & 0xffff;
 	options._period = count >> 16;

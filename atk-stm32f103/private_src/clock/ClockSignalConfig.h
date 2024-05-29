@@ -1,5 +1,6 @@
 #pragma once
 #include<hal.h>
+#include<SystemClockConfig.h>
 
 namespace bsp
 {
@@ -25,63 +26,7 @@ namespace bsp
 
 		ClockType _clock_type;
 
-		/// <summary>
-		///		选择系统时钟的时钟源
-		/// </summary>
-		enum class SysclkSource :uint32_t
-		{
-			HSI = RCC_SYSCLKSOURCE_HSI,
-			HSE = RCC_SYSCLKSOURCE_HSE,
-			PLLCLK = RCC_SYSCLKSOURCE_PLLCLK,
-		};
-
-		SysclkSource _sysclk_source;
-
-		/// <summary>
-		///		AHB 分频器的分频系数。
-		///		SYSCLK 经过 AHB 分频器后变成 HCLK。
-		/// </summary>
-		enum class AHBDivider :uint32_t
-		{
-			DIV1 = RCC_SYSCLK_DIV1,
-			DIV2 = RCC_SYSCLK_DIV2,
-			DIV4 = RCC_SYSCLK_DIV4,
-			DIV8 = RCC_SYSCLK_DIV8,
-			DIV16 = RCC_SYSCLK_DIV16,
-			DIV64 = RCC_SYSCLK_DIV64,
-			DIV128 = RCC_SYSCLK_DIV128,
-			DIV256 = RCC_SYSCLK_DIV256,
-			DIV512 = RCC_SYSCLK_DIV512,
-		};
-
-		/// <summary>
-		///		APB1 和 APB2 分频器的分频系数。
-		///		HCLK 经过 APB1 分频器后变成 PCLK1，此即低速外设时钟。
-		///		HCLK 经过 APB2 分频器后变成 PCLK2，此即高速外设时钟。
-		/// </summary>
-		enum class APBDivider :uint32_t
-		{
-			DIV1 = RCC_HCLK_DIV1,
-			DIV2 = RCC_HCLK_DIV2,
-			DIV4 = RCC_HCLK_DIV4,
-			DIV8 = RCC_HCLK_DIV8,
-			DIV16 = RCC_HCLK_DIV16,
-		};
-
-		/// <summary>
-		///		AHB 分频器。分频后输出 HCLK。
-		/// </summary>
-		AHBDivider _ahb_clk_divider;
-
-		/// <summary>
-		///		APB1 分频器的分频系数。分频后输出 PCLK1，此即低速外设时钟。
-		/// </summary>
-		APBDivider _apb1_divider;
-
-		/// <summary>
-		///		APB2 分频器的分频系数。分频后输出 PCLK2，此即高速外设时钟。
-		/// </summary>
-		APBDivider _apb2_divider;
+		SystemClockConfig _system_clk_config;
 
 		/// <summary>
 		///		读写 flash 时要延迟多少个 CPU 时钟周期。
@@ -110,6 +55,9 @@ namespace bsp
 		};
 
 		FlashLatency _flash_latency;
+
+		void Serialize(RCC_ClkInitTypeDef &o) const;
+		void Deserialize(RCC_ClkInitTypeDef const &o);
 	};
 }
 
