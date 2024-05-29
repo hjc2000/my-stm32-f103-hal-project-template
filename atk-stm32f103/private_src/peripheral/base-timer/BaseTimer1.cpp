@@ -39,7 +39,7 @@ void bsp::BaseTimer1::Initialize(BaseTimerInitOptions const &options)
 void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
 {
 	uint32_t timer_clock_signal_freq = ClockSignal::Pclk1Freq();
-	ClockSignalConfig clock_signal_config = ClockSignal::Config();
+	ClockSignalConfig clock_signal_config = ClockSignal::GetConfig();
 	if (clock_signal_config._system_clk_config._ahb_clk_config._apb1_clk_config._input_divider != Apb1ClkConfig::InputDivider::DIV1)
 	{
 		/*
