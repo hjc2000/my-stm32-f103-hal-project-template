@@ -218,7 +218,7 @@ void Serial::Begin(uint32_t baud_rate)
 	hal::UartConfig options;
 	options._baud_rate = baud_rate;
 
-	_uart_handle.Instance = _uart_hardware_instance;
+	_uart_handle.Instance = USART1;
 	_uart_handle.Init = options;
 	_uart_handle.MspInitCallback = OnMspInitCallback;
 	HAL_UART_Init(&_uart_handle);
