@@ -1,13 +1,13 @@
 #include"UartConfig.h"
 
-using namespace bsp;
+using namespace hal;
 
-bsp::UartConfig::UartConfig(UART_InitTypeDef const &o)
+hal::UartConfig::UartConfig(UART_InitTypeDef const &o)
 {
 	*this = o;
 }
 
-UartConfig &bsp::UartConfig::operator=(UART_InitTypeDef const &o)
+UartConfig &hal::UartConfig::operator=(UART_InitTypeDef const &o)
 {
 	_baud_rate = o.BaudRate;
 	_word_length = (WordLength)o.WordLength;
@@ -19,7 +19,7 @@ UartConfig &bsp::UartConfig::operator=(UART_InitTypeDef const &o)
 	return *this;
 }
 
-bsp::UartConfig::operator UART_InitTypeDef() const
+hal::UartConfig::operator UART_InitTypeDef() const
 {
 	UART_InitTypeDef o;
 	o.BaudRate = _baud_rate;

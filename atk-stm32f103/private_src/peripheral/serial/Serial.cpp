@@ -213,7 +213,7 @@ void Serial::Begin(uint32_t baud_rate)
 	_send_complete_signal.Release();
 
 	_baud_rate = baud_rate;
-	UartConfig options;
+	hal::UartConfig options;
 	options._baud_rate = baud_rate;
 
 	_uart_handle.Instance = _uart_hardware_instance;
