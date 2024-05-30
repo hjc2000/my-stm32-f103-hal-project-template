@@ -9,20 +9,20 @@ DmaConfig::DmaConfig(DMA_InitTypeDef const &o)
 
 DmaConfig &DmaConfig::operator=(DMA_InitTypeDef const &o)
 {
-	_direction = (DmaDataTransferDirection)o.Direction;
-	_peripheral_inc_mode = (DmaPeripheralIncMode)o.PeriphInc;
-	_mem_inc_mode = (DmaMemoryIncMode)o.MemInc;
+	_data_transfer_direction = (DataTransferDirection)o.Direction;
+	_peripheral_inc_mode = (PeripheralIncMode)o.PeriphInc;
+	_mem_inc_mode = (MemoryIncMode)o.MemInc;
 	_peripheral_data_alignment = (PeripheralDataAlignment)o.PeriphDataAlignment;
 	_mem_data_alignment = (MemoryDataAlignment)o.MemDataAlignment;
-	_mode = (DmaMode)o.Mode;
-	_priority = (DmaPriority)o.Priority;
+	_mode = (Mode)o.Mode;
+	_priority = (Priority)o.Priority;
 	return *this;
 }
 
 DmaConfig::operator DMA_InitTypeDef() const
 {
 	DMA_InitTypeDef def;
-	def.Direction = (uint32_t)_direction;
+	def.Direction = (uint32_t)_data_transfer_direction;
 	def.PeriphInc = (uint32_t)_peripheral_inc_mode;
 	def.MemInc = (uint32_t)_mem_inc_mode;
 	def.PeriphDataAlignment = (uint32_t)_peripheral_data_alignment;

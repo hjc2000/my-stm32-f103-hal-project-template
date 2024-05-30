@@ -16,7 +16,7 @@ namespace bsp
 		DmaConfig &operator=(DMA_InitTypeDef const &o);
 		operator DMA_InitTypeDef() const;
 
-		enum class DmaDataTransferDirection
+		enum class DataTransferDirection
 		{
 			PeripheralToMemory = DMA_PERIPH_TO_MEMORY,
 			MemoryToPeripheral = DMA_MEMORY_TO_PERIPH,
@@ -26,9 +26,9 @@ namespace bsp
 		/// <summary>
 		///		数据传输方向
 		/// </summary>
-		DmaDataTransferDirection _direction;
+		DataTransferDirection _data_transfer_direction;
 
-		enum class DmaPeripheralIncMode
+		enum class PeripheralIncMode
 		{
 			Enable = DMA_PINC_ENABLE,
 			Disable = DMA_PINC_DISABLE,
@@ -37,9 +37,9 @@ namespace bsp
 		/// <summary>
 		///		一次传输结束后，外设地址是否应该递增。
 		/// </summary>
-		DmaPeripheralIncMode _peripheral_inc_mode;
+		PeripheralIncMode _peripheral_inc_mode;
 
-		enum class DmaMemoryIncMode
+		enum class MemoryIncMode
 		{
 			Enable = DMA_MINC_ENABLE,
 			Disable = DMA_MINC_DISABLE,
@@ -48,7 +48,7 @@ namespace bsp
 		/// <summary>
 		///		一次传输结束后，内存地址是否应该递增。
 		/// </summary>
-		DmaMemoryIncMode _mem_inc_mode;
+		MemoryIncMode _mem_inc_mode;
 
 		enum class PeripheralDataAlignment
 		{
@@ -90,7 +90,7 @@ namespace bsp
 		/// </summary>
 		MemoryDataAlignment _mem_data_alignment;
 
-		enum class DmaMode
+		enum class Mode
 		{
 			Normal = DMA_NORMAL,
 			Circular = DMA_CIRCULAR,
@@ -100,9 +100,9 @@ namespace bsp
 		///		数据传输模式。
 		///		- 可以选择普通模式或循环模式。循环模式不能用于内存到内存传输模式。
 		/// </summary>
-		DmaMode _mode;
+		Mode _mode;
 
-		enum class DmaPriority
+		enum class Priority
 		{
 			Low = DMA_PRIORITY_LOW,
 			Medium = DMA_PRIORITY_MEDIUM,
@@ -113,6 +113,6 @@ namespace bsp
 		/// <summary>
 		///		此通道的传输优先级。
 		/// </summary>
-		DmaPriority _priority;
+		Priority _priority;
 	};
 }
