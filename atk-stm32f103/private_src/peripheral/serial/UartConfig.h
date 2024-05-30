@@ -21,7 +21,7 @@ namespace bsp
 		/// <summary>
 		///		一个串行帧有多少位
 		/// </summary>
-		enum class UartWordLength
+		enum class WordLength
 		{
 			/// <summary>
 			///		一个串行帧有 8 位。
@@ -37,12 +37,12 @@ namespace bsp
 		/// <summary>
 		///		一个串行帧有多少位
 		/// </summary>
-		UartWordLength _word_length = UartWordLength::WordLength_8bit;
+		WordLength _word_length = WordLength::WordLength_8bit;
 
 		/// <summary>
 		///		有多少位停止位
 		/// </summary>
-		enum class UartStopBitCount
+		enum class StopBitCount
 		{
 			StopBitCount_1bit = UART_STOPBITS_1,
 			StopBitCount_2bit = UART_STOPBITS_2,
@@ -51,12 +51,12 @@ namespace bsp
 		/// <summary>
 		///		一个串行帧有多少个停止位
 		/// </summary>
-		UartStopBitCount _stop_bit_count = UartStopBitCount::StopBitCount_1bit;
+		StopBitCount _stop_bit_count = StopBitCount::StopBitCount_1bit;
 
 		/// <summary>
 		///		UART 校验模式
 		/// </summary>
-		enum class UartParity
+		enum class Parity
 		{
 			None = UART_PARITY_NONE,
 			Even = UART_PARITY_EVEN,
@@ -67,12 +67,12 @@ namespace bsp
 		///		校验模式。
 		///		- 校验位被放到串行帧中除了停止位以外的最高位。
 		/// </summary>
-		UartParity _parity = UartParity::None;
+		Parity _parity = Parity::None;
 
 		/// <summary>
 		///		串口收发模式。
 		/// </summary>
-		enum class UartMode
+		enum class Mode
 		{
 			/// <summary>
 			///		只接收
@@ -93,12 +93,12 @@ namespace bsp
 		/// <summary>
 		///		收发模式
 		/// </summary>
-		UartMode _mode = UartMode::RX_TX;
+		Mode _mode = Mode::RX_TX;
 
 		/// <summary>
 		///		硬件流控
 		/// </summary>
-		enum class UartHardwareFlowControl
+		enum class HardwareFlowControl
 		{
 			None = UART_HWCONTROL_NONE,
 			RTS = UART_HWCONTROL_RTS,
@@ -109,23 +109,23 @@ namespace bsp
 		/// <summary>
 		///		硬件流控
 		/// </summary>
-		UartHardwareFlowControl _hw_flow_ctl = UartHardwareFlowControl::None;
+		HardwareFlowControl _hardware_flow_control = HardwareFlowControl::None;
 
 		/// <summary>
 		///		过采样倍率
 		/// </summary>
-		enum class UartOverSample
+		enum class OverSampling
 		{
-			OverSample_16 = UART_OVERSAMPLING_16,
+			OverSampling_16 = UART_OVERSAMPLING_16,
 
 			#if defined(USART_CR1_OVER8)
-			OverSample_8,
+			OverSampling_8,
 			#endif /* USART_CR1_OVER8 */
 		};
 
 		/// <summary>
 		///		过采样倍率
 		/// </summary>
-		UartOverSample _over_sampling = UartOverSample::OverSample_16;
+		OverSampling _over_sampling = OverSampling::OverSampling_16;
 	};
 }
