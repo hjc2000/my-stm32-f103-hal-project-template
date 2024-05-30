@@ -1,5 +1,5 @@
 #pragma once
-#include<stm32f103-hal-wrapper/clock/clock-signal-config/AhbClkConfig.h>
+#include<hal-wrapper/clock/clock-signal-config/AhbClkConfig.h>
 
 namespace hal
 {

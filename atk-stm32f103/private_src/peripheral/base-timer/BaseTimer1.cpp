@@ -1,7 +1,7 @@
 #include"BaseTimer1.h"
 #include<Interrupt.h>
 #include<stdexcept>
-#include<stm32f103-hal-wrapper/clock/ClockSignal.h>
+#include<hal-wrapper/clock/ClockSignal.h>
 #include<task/Critical.h>
 
 using namespace bsp;

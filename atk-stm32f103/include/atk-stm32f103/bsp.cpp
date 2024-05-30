@@ -9,12 +9,12 @@
 #include<ExtiWakeUpKey.h>
 #include<FreeRTOS.h>
 #include<functional>
+#include<hal-wrapper/clock/clock-signal-config/ClockSignalConfig.h>
+#include<hal-wrapper/clock/ClockSignal.h>
 #include<IndependentWatchDog.h>
 #include<Lcd.h>
 #include<Osc.h>
 #include<Serial.h>
-#include<stm32f103-hal-wrapper/clock/clock-signal-config/ClockSignalConfig.h>
-#include<stm32f103-hal-wrapper/clock/ClockSignal.h>
 #include<Systic.h>
 #include<task.h>
 

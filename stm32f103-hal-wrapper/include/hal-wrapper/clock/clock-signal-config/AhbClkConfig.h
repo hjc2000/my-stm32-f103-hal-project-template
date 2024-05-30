@@ -1,6 +1,6 @@
 #pragma once
 #include<hal.h>
-#include<stm32f103-hal-wrapper/clock/clock-signal-config/ApbClkConfig.h>
+#include<hal-wrapper/clock/clock-signal-config/ApbClkConfig.h>
 
 namespace hal
 {
