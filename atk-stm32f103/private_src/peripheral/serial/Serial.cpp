@@ -1,6 +1,6 @@
 #include"Serial.h"
 #include<bsp/bsp.h>
-#include<DmaInitOptions.h>
+#include<DmaConfig.h>
 #include<FreeRTOS.h>
 #include<GpioPort.h>
 #include<Interrupt.h>
@@ -50,7 +50,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	auto init_tx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		bsp::DmaInitOptions options { };
+		bsp::DmaConfig options { };
 		options._direction = DmaDataTransferDirection::MemoryToPeripheral;
 		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
 		options._mem_inc_mode = DmaMemoryIncMode::Enable;
@@ -67,7 +67,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	auto init_rx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		bsp::DmaInitOptions options { };
+		bsp::DmaConfig options { };
 		options._direction = DmaDataTransferDirection::PeripheralToMemory;
 		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
 		options._mem_inc_mode = DmaMemoryIncMode::Enable;

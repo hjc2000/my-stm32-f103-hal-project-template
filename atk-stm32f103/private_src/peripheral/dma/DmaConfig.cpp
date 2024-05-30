@@ -1,13 +1,13 @@
-#include"DmaInitOptions.h"
+#include"DmaConfig.h"
 
 using namespace bsp;
 
-DmaInitOptions::DmaInitOptions(DMA_InitTypeDef const &o)
+DmaConfig::DmaConfig(DMA_InitTypeDef const &o)
 {
 	*this = o;
 }
 
-DmaInitOptions &DmaInitOptions::operator=(DMA_InitTypeDef const &o)
+DmaConfig &DmaConfig::operator=(DMA_InitTypeDef const &o)
 {
 	_direction = (DmaDataTransferDirection)o.Direction;
 	_peripheral_inc_mode = (DmaPeripheralIncMode)o.PeriphInc;
@@ -19,7 +19,7 @@ DmaInitOptions &DmaInitOptions::operator=(DMA_InitTypeDef const &o)
 	return *this;
 }
 
-DmaInitOptions::operator DMA_InitTypeDef() const
+DmaConfig::operator DMA_InitTypeDef() const
 {
 	DMA_InitTypeDef def;
 	def.Direction = (uint32_t)_direction;
