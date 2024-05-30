@@ -7,7 +7,7 @@ bsp::Key0::Key0()
 {
 	using namespace bsp;
 	Port().EnableClock();
-	GpioPinInitOptions options;
+	GpioPinConfig options;
 	options._mode = GpioPinMode::Input;
 	options._pull_mode = GpioPinPull::PullUp;
 	options._speed = GpioPinSpeed::High;
@@ -26,7 +26,7 @@ bsp::Key1::Key1()
 {
 	using namespace bsp;
 	Port().EnableClock();
-	GpioPinInitOptions options;
+	GpioPinConfig options;
 	options._mode = GpioPinMode::Input;
 	options._pull_mode = GpioPinPull::PullUp;
 	options._speed = GpioPinSpeed::High;

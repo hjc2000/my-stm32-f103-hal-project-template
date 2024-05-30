@@ -71,7 +71,7 @@ namespace bsp
 		High = GPIO_SPEED_FREQ_HIGH,
 	};
 
-	class GpioPinInitOptions
+	class GpioPinConfig
 	{
 	public:
 		GpioPinMode _mode = GpioPinMode::Input;

@@ -34,7 +34,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 		__HAL_RCC_USART1_CLK_ENABLE();
 
 		// 发送引脚 PA9
-		GpioPinInitOptions options;
+		GpioPinConfig options;
 		options._mode = GpioPinMode::AlternateFunction_PushPull;
 		options._pull_mode = GpioPinPull::PullUp;
 		options._speed = GpioPinSpeed::High;

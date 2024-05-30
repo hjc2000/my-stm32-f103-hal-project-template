@@ -28,7 +28,7 @@ void bsp::Lcd::InitGpio()
 		CS_Port().EnableClock();
 		RS_Port().EnableClock();
 
-		bsp::GpioPinInitOptions gpio_init_options;
+		bsp::GpioPinConfig gpio_init_options;
 		gpio_init_options._mode = GpioPinMode::AlternateFunction_PushPull;
 		gpio_init_options._pull_mode = GpioPinPull::PullUp;
 		gpio_init_options._speed = GpioPinSpeed::High;
@@ -47,7 +47,7 @@ void bsp::Lcd::InitGpio()
 		bsp::GpioPortD::Instance().EnableClock();
 		bsp::GpioPortE::Instance().EnableClock();
 
-		bsp::GpioPinInitOptions options;
+		bsp::GpioPinConfig options;
 		options._mode = GpioPinMode::AlternateFunction_PushPull;
 		options._pull_mode = GpioPinPull::PullUp;
 		options._speed = GpioPinSpeed::High;

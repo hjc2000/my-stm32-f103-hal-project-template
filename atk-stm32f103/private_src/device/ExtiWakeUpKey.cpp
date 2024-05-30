@@ -7,7 +7,7 @@ ExtiWakeUpKey::ExtiWakeUpKey()
 {
 	// 配置引脚
 	Port().EnableClock();
-	GpioPinInitOptions options;
+	GpioPinConfig options;
 	options._mode = GpioPinMode::Interrupt_RisingEdgeTrigger;
 	options._pull_mode = GpioPinPull::PullDown;
 	options._speed = GpioPinSpeed::High;

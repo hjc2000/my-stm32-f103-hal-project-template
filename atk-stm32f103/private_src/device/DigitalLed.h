@@ -19,7 +19,7 @@ namespace bsp
 			* 这样 LED 的初始状态就是关闭的。
 			*/
 			TurnOff();
-			GpioPinInitOptions gpio_pin_options;
+			GpioPinConfig gpio_pin_options;
 			gpio_pin_options._mode = GpioPinMode::Output_PushPull;
 			gpio_pin_options._pull_mode = GpioPinPull::PullUp;
 			gpio_pin_options._speed = GpioPinSpeed::High;
@@ -52,7 +52,7 @@ namespace bsp
 			* 这样 LED 的初始状态就是关闭的。
 			*/
 			TurnOff();
-			GpioPinInitOptions gpio_pin_options;
+			GpioPinConfig gpio_pin_options;
 			gpio_pin_options._mode = GpioPinMode::Output_PushPull;
 			gpio_pin_options._pull_mode = GpioPinPull::PullUp;
 			gpio_pin_options._speed = GpioPinSpeed::High;
