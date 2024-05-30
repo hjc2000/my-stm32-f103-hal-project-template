@@ -7,22 +7,24 @@
 #include<task.h>
 
 using namespace bsp;
-using namespace bsp;
 
 #pragma region 中断处理函数
-void USART1_IRQHandler()
+extern "C"
 {
-	HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
-}
+	void USART1_IRQHandler()
+	{
+		HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
+	}
 
-void DMA1_Channel4_IRQHandler()
-{
-	HAL_DMA_IRQHandler(&Serial::Instance()._tx_dma_handle);
-}
+	void DMA1_Channel4_IRQHandler()
+	{
+		HAL_DMA_IRQHandler(&Serial::Instance()._tx_dma_handle);
+	}
 
-void DMA1_Channel5_IRQHandler()
-{
-	HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
+	void DMA1_Channel5_IRQHandler()
+	{
+		HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
+	}
 }
 #pragma endregion
 

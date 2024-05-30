@@ -2,11 +2,11 @@
 #include<atomic>
 #include<bsp-interface/ISerial.h>
 #include<hal.h>
+#include<hal-wrapper/uart/UartConfig.h>
 #include<memory>
 #include<task/BinarySemaphore.h>
 #include<task/Critical.h>
 #include<task/Mutex.h>
-#include<UartConfig.h>
 
 extern "C"
 {
