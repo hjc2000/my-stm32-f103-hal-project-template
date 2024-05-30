@@ -1,13 +1,13 @@
-#include"UartInitOptions.h"
+#include"UartConfig.h"
 
 using namespace bsp;
 
-bsp::UartInitOptions::UartInitOptions(UART_InitTypeDef const &value)
+bsp::UartConfig::UartConfig(UART_InitTypeDef const &value)
 {
 	*this = value;
 }
 
-UartInitOptions &bsp::UartInitOptions::operator=(UART_InitTypeDef const &value)
+UartConfig &bsp::UartConfig::operator=(UART_InitTypeDef const &value)
 {
 	_baud_rate = value.BaudRate;
 	_word_length = (UartWordLength)value.WordLength;
@@ -19,7 +19,7 @@ UartInitOptions &bsp::UartInitOptions::operator=(UART_InitTypeDef const &value)
 	return *this;
 }
 
-bsp::UartInitOptions::operator UART_InitTypeDef() const
+bsp::UartConfig::operator UART_InitTypeDef() const
 {
 	UART_InitTypeDef def;
 	def.BaudRate = _baud_rate;

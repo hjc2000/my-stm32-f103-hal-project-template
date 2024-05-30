@@ -1,9 +1,9 @@
 #include"Serial.h"
+#include<bsp/bsp.h>
 #include<DmaInitOptions.h>
 #include<FreeRTOS.h>
 #include<GpioPort.h>
 #include<Interrupt.h>
-#include<bsp/bsp.h>
 #include<task.h>
 
 using namespace bsp;
@@ -48,7 +48,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	auto init_tx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		bsp::DmaInitOptions options{};
+		bsp::DmaInitOptions options { };
 		options._direction = DmaDataTransferDirection::MemoryToPeripheral;
 		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
 		options._mem_inc_mode = DmaMemoryIncMode::Enable;
@@ -65,7 +65,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	auto init_rx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		bsp::DmaInitOptions options{};
+		bsp::DmaInitOptions options { };
 		options._direction = DmaDataTransferDirection::PeripheralToMemory;
 		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
 		options._mem_inc_mode = DmaMemoryIncMode::Enable;
@@ -138,10 +138,10 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 {
 	if (count > UINT16_MAX)
 	{
-		throw std::invalid_argument{ "count 太大" };
+		throw std::invalid_argument { "count 太大" };
 	}
 
-	task::MutexLockGuard l{ _read_lock };
+	task::MutexLockGuard l { _read_lock };
 	while (true)
 	{
 		task::Critical::Run([&]()
@@ -213,7 +213,7 @@ void Serial::Begin(uint32_t baud_rate)
 	_send_complete_signal.Release();
 
 	_baud_rate = baud_rate;
-	UartInitOptions options;
+	UartConfig options;
 	options._baud_rate = baud_rate;
 
 	_uart_handle.Instance = _uart_hardware_instance;

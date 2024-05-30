@@ -1,5 +1,4 @@
 #pragma once
-#include<UartInitOptions.h>
 #include<atomic>
 #include<bsp-interface/ISerial.h>
 #include<hal.h>
@@ -7,6 +6,7 @@
 #include<task/BinarySemaphore.h>
 #include<task/Critical.h>
 #include<task/Mutex.h>
+#include<UartConfig.h>
 
 extern "C"
 {
@@ -25,14 +25,14 @@ namespace bsp
 
 		bool _have_begun = false;
 		uint32_t _baud_rate = 115200;
-		UART_HandleTypeDef _uart_handle{};
-		DMA_HandleTypeDef _tx_dma_handle{};
-		DMA_HandleTypeDef _rx_dma_handle{};
+		UART_HandleTypeDef _uart_handle { };
+		DMA_HandleTypeDef _tx_dma_handle { };
+		DMA_HandleTypeDef _rx_dma_handle { };
 		USART_TypeDef *_uart_hardware_instance = USART1;
 		DMA_Channel_TypeDef *_dma_channel_hardware_instance = DMA1_Channel4;
 		task::BinarySemaphore _send_complete_signal;
 		task::BinarySemaphore _receive_complete_signal;
-		task::Mutex _read_lock{};
+		task::Mutex _read_lock { };
 		int32_t _current_receive_count = 0;
 
 		friend void ::USART1_IRQHandler();

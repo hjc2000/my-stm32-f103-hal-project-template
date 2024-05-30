@@ -82,17 +82,14 @@ namespace bsp
 		#endif /* USART_CR1_OVER8 */
 	};
 
-	/// <summary>
-	///		串口初始化选项
-	/// </summary>
-	class UartInitOptions
+	class UartConfig
 	{
 	public:
-		UartInitOptions() = default;
-		UartInitOptions(UartInitOptions const &value) = default;
-		UartInitOptions(UART_InitTypeDef const &value);
-		UartInitOptions &operator=(UartInitOptions const &value) = default;
-		UartInitOptions &operator=(UART_InitTypeDef const &value);
+		UartConfig() = default;
+		UartConfig(UartConfig const &value) = default;
+		UartConfig(UART_InitTypeDef const &value);
+		UartConfig &operator=(UartConfig const &value) = default;
+		UartConfig &operator=(UART_InitTypeDef const &value);
 
 		/// <summary>
 		///		波特率
