@@ -51,13 +51,13 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
 		bsp::DmaConfig options { };
-		options._direction = DmaDataTransferDirection::MemoryToPeripheral;
-		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
-		options._mem_inc_mode = DmaMemoryIncMode::Enable;
-		options._peripheral_data_alignment = PeripheralDataAlignment::Byte;
-		options._mem_data_alignment = MemoryDataAlignment::Byte;
-		options._mode = DmaMode::Normal;
-		options._priority = DmaPriority::Medium;
+		options._direction = DmaConfig::DmaDataTransferDirection::MemoryToPeripheral;
+		options._peripheral_inc_mode = DmaConfig::DmaPeripheralIncMode::Disable;
+		options._mem_inc_mode = DmaConfig::DmaMemoryIncMode::Enable;
+		options._peripheral_data_alignment = DmaConfig::PeripheralDataAlignment::Byte;
+		options._mem_data_alignment = DmaConfig::MemoryDataAlignment::Byte;
+		options._mode = DmaConfig::DmaMode::Normal;
+		options._priority = DmaConfig::DmaPriority::Medium;
 
 		Serial::Instance()._tx_dma_handle.Instance = DMA1_Channel4;
 		Serial::Instance()._tx_dma_handle.Init = options;
@@ -68,13 +68,13 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
 		bsp::DmaConfig options { };
-		options._direction = DmaDataTransferDirection::PeripheralToMemory;
-		options._peripheral_inc_mode = DmaPeripheralIncMode::Disable;
-		options._mem_inc_mode = DmaMemoryIncMode::Enable;
-		options._peripheral_data_alignment = PeripheralDataAlignment::Byte;
-		options._mem_data_alignment = MemoryDataAlignment::Byte;
-		options._mode = DmaMode::Normal;
-		options._priority = DmaPriority::Medium;
+		options._direction = DmaConfig::DmaDataTransferDirection::PeripheralToMemory;
+		options._peripheral_inc_mode = DmaConfig::DmaPeripheralIncMode::Disable;
+		options._mem_inc_mode = DmaConfig::DmaMemoryIncMode::Enable;
+		options._peripheral_data_alignment = DmaConfig::PeripheralDataAlignment::Byte;
+		options._mem_data_alignment = DmaConfig::MemoryDataAlignment::Byte;
+		options._mode = DmaConfig::DmaMode::Normal;
+		options._priority = DmaConfig::DmaPriority::Medium;
 
 		Serial::Instance()._rx_dma_handle.Instance = DMA1_Channel5;
 		Serial::Instance()._rx_dma_handle.Init = options;
