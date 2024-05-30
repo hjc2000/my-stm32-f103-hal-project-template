@@ -44,14 +44,14 @@ namespace hal
 		/// </summary>
 		enum class StopBitCount
 		{
-			StopBitCount_1bit = UART_STOPBITS_1,
-			StopBitCount_2bit = UART_STOPBITS_2,
+			StopBitCount_1_bit = UART_STOPBITS_1,
+			StopBitCount_2_bit = UART_STOPBITS_2,
 		};
 
 		/// <summary>
 		///		一个串行帧有多少个停止位
 		/// </summary>
-		StopBitCount _stop_bit_count = StopBitCount::StopBitCount_1bit;
+		StopBitCount _stop_bit_count = StopBitCount::StopBitCount_1_bit;
 
 		/// <summary>
 		///		UART 校验模式
@@ -118,9 +118,9 @@ namespace hal
 		{
 			OverSampling_16 = UART_OVERSAMPLING_16,
 
-			#if defined(USART_CR1_OVER8)
-			OverSampling_8,
-			#endif /* USART_CR1_OVER8 */
+			#if defined(UART_OVERSAMPLING_8)
+			OverSampling_8 = UART_OVERSAMPLING_8,
+			#endif /* UART_OVERSAMPLING_8 */
 		};
 
 		/// <summary>
