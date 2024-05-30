@@ -1,6 +1,6 @@
 #include"DmaConfig.h"
 
-using namespace bsp;
+using namespace hal;
 
 DmaConfig::DmaConfig(DMA_InitTypeDef const &o)
 {
