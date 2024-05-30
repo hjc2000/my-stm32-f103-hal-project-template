@@ -50,34 +50,34 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	auto init_tx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		hal::DmaConfig options { };
-		options._data_transfer_direction = hal::DmaConfig::DataTransferDirection::MemoryToPeripheral;
-		options._peripheral_inc_mode = hal::DmaConfig::PeripheralIncMode::Disable;
-		options._mem_inc_mode = hal::DmaConfig::MemoryIncMode::Enable;
-		options._peripheral_data_alignment = hal::DmaConfig::PeripheralDataAlignment::Byte;
-		options._mem_data_alignment = hal::DmaConfig::MemoryDataAlignment::Byte;
-		options._mode = hal::DmaConfig::Mode::Normal;
-		options._priority = hal::DmaConfig::Priority::Medium;
+		hal::DmaConfig dma_config { };
+		dma_config._data_transfer_direction = hal::DmaConfig::DataTransferDirection::MemoryToPeripheral;
+		dma_config._peripheral_inc_mode = hal::DmaConfig::PeripheralIncMode::Disable;
+		dma_config._mem_inc_mode = hal::DmaConfig::MemoryIncMode::Enable;
+		dma_config._peripheral_data_alignment = hal::DmaConfig::PeripheralDataAlignment::Byte;
+		dma_config._mem_data_alignment = hal::DmaConfig::MemoryDataAlignment::Byte;
+		dma_config._mode = hal::DmaConfig::Mode::Normal;
+		dma_config._priority = hal::DmaConfig::Priority::Medium;
 
 		Serial::Instance()._tx_dma_handle.Instance = DMA1_Channel4;
-		Serial::Instance()._tx_dma_handle.Init = options;
+		Serial::Instance()._tx_dma_handle.Init = dma_config;
 		HAL_DMA_Init(&Serial::Instance()._tx_dma_handle);
 	};
 
 	auto init_rx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		hal::DmaConfig options { };
-		options._data_transfer_direction = hal::DmaConfig::DataTransferDirection::PeripheralToMemory;
-		options._peripheral_inc_mode = hal::DmaConfig::PeripheralIncMode::Disable;
-		options._mem_inc_mode = hal::DmaConfig::MemoryIncMode::Enable;
-		options._peripheral_data_alignment = hal::DmaConfig::PeripheralDataAlignment::Byte;
-		options._mem_data_alignment = hal::DmaConfig::MemoryDataAlignment::Byte;
-		options._mode = hal::DmaConfig::Mode::Normal;
-		options._priority = hal::DmaConfig::Priority::Medium;
+		hal::DmaConfig dma_config { };
+		dma_config._data_transfer_direction = hal::DmaConfig::DataTransferDirection::PeripheralToMemory;
+		dma_config._peripheral_inc_mode = hal::DmaConfig::PeripheralIncMode::Disable;
+		dma_config._mem_inc_mode = hal::DmaConfig::MemoryIncMode::Enable;
+		dma_config._peripheral_data_alignment = hal::DmaConfig::PeripheralDataAlignment::Byte;
+		dma_config._mem_data_alignment = hal::DmaConfig::MemoryDataAlignment::Byte;
+		dma_config._mode = hal::DmaConfig::Mode::Normal;
+		dma_config._priority = hal::DmaConfig::Priority::Medium;
 
 		Serial::Instance()._rx_dma_handle.Instance = DMA1_Channel5;
-		Serial::Instance()._rx_dma_handle.Init = options;
+		Serial::Instance()._rx_dma_handle.Init = dma_config;
 		HAL_DMA_Init(&Serial::Instance()._rx_dma_handle);
 	};
 
