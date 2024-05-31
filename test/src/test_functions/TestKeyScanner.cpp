@@ -5,7 +5,7 @@ using namespace bsp;
 
 void TestKeyScanner()
 {
-	while (1)
+	while (true)
 	{
 		BSP::KeyScanner().ScanKeys();
 		if (BSP::KeyScanner().HasKeyDownEvent((uint16_t)KeyIndex::Key0))
