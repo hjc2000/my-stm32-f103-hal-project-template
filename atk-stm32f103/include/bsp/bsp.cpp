@@ -1,6 +1,7 @@
 #include"bsp.h"
 #include<AtkKey.h>
 #include<atomic>
+#include<base/RentedPtrFactory.h>
 #include<BaseTimer1.h>
 #include<bsp-interface/extension/KeyScanner.h>
 #include<ConfigClockSignal.h>
@@ -42,7 +43,7 @@ void BSP::Initialize()
 	config_clock_source();
 	ConfigClockSignal();
 
-	bsp::Console::Instance().SetOutStream(&BSP::Serial());
+	bsp::Console::Instance().SetOutStream(base::RentedPtrFactory::Create(&BSP::Serial()));
 }
 
 void BSP::SystemReset()
