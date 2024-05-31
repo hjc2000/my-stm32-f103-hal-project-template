@@ -1,7 +1,7 @@
 #pragma once
+#include<bsp-interface/IKey.h>
 #include<Delayer.h>
 #include<GpioPort.h>
-#include<bsp-interface/IKey.h>
 
 namespace bsp
 {
@@ -15,7 +15,7 @@ namespace bsp
 
 		static Key0 &Instance()
 		{
-			static Key0 key{};
+			static Key0 key { };
 			return key;
 		}
 
@@ -25,11 +25,6 @@ namespace bsp
 		}
 
 		bool KeyIsDown() override;
-
-		void Delay(std::chrono::milliseconds num) override
-		{
-			Delayer::Instance().Delay(num);
-		}
 	};
 
 	/// <summary>
@@ -42,7 +37,7 @@ namespace bsp
 
 		static Key1 &Instance()
 		{
-			static Key1 key{};
+			static Key1 key { };
 			return key;
 		}
 
@@ -52,10 +47,5 @@ namespace bsp
 		}
 
 		bool KeyIsDown() override;
-
-		void Delay(std::chrono::milliseconds num) override
-		{
-			Delayer::Instance().Delay(num);
-		}
 	};
 }
