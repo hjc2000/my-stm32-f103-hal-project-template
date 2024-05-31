@@ -1,4 +1,5 @@
 #pragma once
+#include<bsp-interface/extension/Console.h>
 #include<bsp-interface/IBaseTimer.h>
 #include<bsp-interface/IDelayer.h>
 #include<bsp-interface/IDigitalLed.h>
@@ -55,4 +56,6 @@ public:
 	static bsp::ILcd &Lcd();
 
 	static bsp::IBaseTimer &BaseTimer();
+
+	static bsp::Console &Console();
 };

@@ -2,7 +2,7 @@
 #include<AtkKey.h>
 #include<atomic>
 #include<BaseTimer1.h>
-#include<bsp-interface/KeyScanner.h>
+#include<bsp-interface/extension/KeyScanner.h>
 #include<ConfigClockSignal.h>
 #include<Delayer.h>
 #include<DigitalLed.h>
@@ -41,6 +41,8 @@ void BSP::Initialize()
 	HAL_Init();
 	config_clock_source();
 	ConfigClockSignal();
+
+	bsp::Console::Instance().SetOutStream(&BSP::Serial());
 }
 
 void BSP::SystemReset()
@@ -103,4 +105,9 @@ bsp::ILcd &BSP::Lcd()
 bsp::IBaseTimer &BSP::BaseTimer()
 {
 	return BaseTimer1::Instance();
+}
+
+bsp::Console &BSP::Console()
+{
+	return bsp::Console::Instance();
 }
