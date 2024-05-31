@@ -25,12 +25,12 @@ int main(void)
 		}
 		catch (std::exception const &e)
 		{
-			console.WriteError("main 函数中捕获到逃逸的 std::exception。");
-			console.WriteError(e.what());
+			BSP::Console().WriteError("main 函数中捕获到逃逸的 std::exception。");
+			BSP::Console().WriteError(e.what());
 		}
 		catch (...)
 		{
-			console.WriteError("main 函数中捕获到逃逸的未知类型的异常。");
+			BSP::Console().WriteError("main 函数中捕获到逃逸的未知类型的异常。");
 		}
 	}
 }
