@@ -1,6 +1,6 @@
 #pragma once
 #include<atomic>
-#include<BaseTimerInitOptions.h>
+#include<BaseTimerConfig.h>
 #include<bsp-interface/IBaseTimer.h>
 #include<functional>
 
@@ -36,7 +36,7 @@ namespace bsp
 			return o;
 		}
 
-		void Initialize(BaseTimerInitOptions const &options);
+		void Initialize(BaseTimerConfig const &options);
 		void Initialize(std::chrono::milliseconds period) override;
 
 		/// <summary>

@@ -6,12 +6,12 @@ namespace bsp
 	/// <summary>
 	///		基本定时器初始化选项
 	/// </summary>
-	class BaseTimerInitOptions
+	class BaseTimerConfig
 	{
 	public:
-		BaseTimerInitOptions() = default;
-		BaseTimerInitOptions(TIM_Base_InitTypeDef const &o);
-		BaseTimerInitOptions &operator=(TIM_Base_InitTypeDef const &o);
+		BaseTimerConfig() = default;
+		BaseTimerConfig(TIM_Base_InitTypeDef const &o);
+		BaseTimerConfig &operator=(TIM_Base_InitTypeDef const &o);
 		operator TIM_Base_InitTypeDef() const;
 
 		/// <summary>

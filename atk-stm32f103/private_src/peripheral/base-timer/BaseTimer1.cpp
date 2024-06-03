@@ -14,7 +14,7 @@ extern "C"
 	}
 }
 
-void bsp::BaseTimer1::Initialize(BaseTimerInitOptions const &options)
+void bsp::BaseTimer1::Initialize(BaseTimerConfig const &options)
 {
 	__HAL_RCC_TIM6_CLK_ENABLE();
 	_handle.Instance = TIM6;
@@ -67,8 +67,8 @@ void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
 	* 定时器中，分频器相当于这个 32 位计数器的低 16 位，而原本的 16 位计数器相当于
 	* 这个 32 位计数器的高 16 位，于是把 count 分成高低 16 位，分别赋予它们。
 	*/
-	BaseTimerInitOptions options { };
-	options._counter_mode = BaseTimerInitOptions::CounterMode::Up;
+	BaseTimerConfig options { };
+	options._counter_mode = BaseTimerConfig::CounterMode::Up;
 	options._prescaler = count & 0xffff;
 	options._period = count >> 16;
 	options._is_auto_reload_preload_enabled = true;
