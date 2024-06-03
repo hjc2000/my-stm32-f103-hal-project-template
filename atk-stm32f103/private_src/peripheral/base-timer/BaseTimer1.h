@@ -36,7 +36,7 @@ namespace bsp
 			return o;
 		}
 
-		void Initialize(BaseTimerConfig const &options);
+		void Initialize(BaseTimerConfig const &config);
 		void Initialize(std::chrono::milliseconds period) override;
 
 		/// <summary>

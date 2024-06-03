@@ -14,11 +14,11 @@ extern "C"
 	}
 }
 
-void bsp::BaseTimer1::Initialize(BaseTimerConfig const &options)
+void bsp::BaseTimer1::Initialize(BaseTimerConfig const &config)
 {
 	__HAL_RCC_TIM6_CLK_ENABLE();
 	_handle.Instance = TIM6;
-	_handle.Init = options;
+	_handle.Init = config;
 	HAL_TIM_Base_Init(&_handle);
 	_handle.PeriodElapsedCallback = [](TIM_HandleTypeDef *handle)
 	{
