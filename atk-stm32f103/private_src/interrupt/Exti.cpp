@@ -1,5 +1,6 @@
 #include"Exti.h"
 #include<Interrupt.h>
+#include<stdexcept>
 
 using namespace bsp;
 
@@ -140,7 +141,7 @@ void Exti::UseLine(std::function<void()> callback, GpioPin pin)
 		}
 	default:
 		{
-			break;
+			throw std::invalid_argument { "line 超出范围。" };
 		}
 	}
 }
@@ -181,7 +182,7 @@ void Exti::UnuseLine(GpioPin pin)
 		}
 	default:
 		{
-			break;
+			throw std::invalid_argument { "line 超出范围。" };
 		}
 	}
 }
