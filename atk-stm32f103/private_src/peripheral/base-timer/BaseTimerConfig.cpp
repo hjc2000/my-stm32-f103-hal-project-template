@@ -10,7 +10,7 @@ bsp::BaseTimerConfig::BaseTimerConfig(TIM_Base_InitTypeDef const &o)
 BaseTimerConfig &bsp::BaseTimerConfig::operator=(TIM_Base_InitTypeDef const &o)
 {
 	_prescaler = o.Prescaler;
-	_counter_mode = static_cast<CounterMode>(o.CounterMode);
+	_counter_mode = static_cast<CounterModeOption>(o.CounterMode);
 	_period = o.Period;
 	_is_auto_reload_preload_enabled = TIM_AUTORELOAD_PRELOAD_ENABLE == o.AutoReloadPreload;
 	return *this;

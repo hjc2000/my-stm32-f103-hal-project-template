@@ -68,7 +68,7 @@ void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
 	* 这个 32 位计数器的高 16 位，于是把 count 分成高低 16 位，分别赋予它们。
 	*/
 	BaseTimerConfig options { };
-	options._counter_mode = BaseTimerConfig::CounterMode::Up;
+	options._counter_mode = BaseTimerConfig::CounterModeOption::Up;
 	options._prescaler = count & 0xffff;
 	options._period = count >> 16;
 	options._is_auto_reload_preload_enabled = true;

@@ -19,7 +19,7 @@ namespace bsp
 		/// </summary>
 		uint32_t _prescaler;
 
-		enum class CounterMode
+		enum class CounterModeOption
 		{
 			Up = TIM_COUNTERMODE_UP,
 			Down = TIM_COUNTERMODE_DOWN,
@@ -28,7 +28,7 @@ namespace bsp
 			CenterAligned3 = TIM_COUNTERMODE_CENTERALIGNED3,
 		};
 
-		CounterMode _counter_mode;
+		CounterModeOption _counter_mode;
 
 		/// <summary>
 		///		范围：[0x0000, 0xFFFF]
