@@ -18,18 +18,20 @@ int main(void)
 
 			std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create([]()
 			{
-				TestKeyScanner();
+				TestSerial();
 			}, 512);
 
 			vTaskStartScheduler();
 		}
 		catch (std::exception const &e)
 		{
+			BSP::RedDigitalLed().TurnOff();
 			BSP::Console().WriteError("main 函数中捕获到逃逸的 std::exception。");
 			BSP::Console().WriteError(e.what());
 		}
 		catch (...)
 		{
+			BSP::RedDigitalLed().TurnOff();
 			BSP::Console().WriteError("main 函数中捕获到逃逸的未知类型的异常。");
 		}
 	}

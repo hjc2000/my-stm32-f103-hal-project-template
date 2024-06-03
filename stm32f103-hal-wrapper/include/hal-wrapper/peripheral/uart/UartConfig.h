@@ -1,4 +1,5 @@
 #pragma once
+#include<bsp-interface/ISerial.h>
 #include<hal.h>
 
 namespace hal
@@ -127,5 +128,17 @@ namespace hal
 		///		过采样倍率
 		/// </summary>
 		OverSampling _over_sampling = OverSampling::OverSampling_16;
+
+		/// <summary>
+		///		反序列化进来
+		/// </summary>
+		/// <param name="serial"></param>
+		void Deserialize(bsp::ISerial const &serial);
+
+		/// <summary>
+		///		序列化出去
+		/// </summary>
+		/// <param name="serial"></param>
+		void Serialize(bsp::ISerial &serial) const;
 	};
 }

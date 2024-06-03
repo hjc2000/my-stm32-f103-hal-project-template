@@ -198,7 +198,59 @@ void Serial::SetPosition(int64_t value)
 }
 #pragma endregion
 
-void Serial::Begin(uint32_t baud_rate)
+#pragma region 属性
+uint32_t bsp::Serial::BaudRate() const
+{
+	return _baud_rate;
+}
+
+void bsp::Serial::SetBaudRate(uint32_t value)
+{
+	_baud_rate = value;
+}
+
+uint8_t bsp::Serial::DataBits() const
+{
+	return _data_bits;
+}
+
+void bsp::Serial::SetDataBits(uint8_t value)
+{
+	_data_bits = value;
+}
+
+bsp::ISerial::ParityOption bsp::Serial::Parity() const
+{
+	return _parity;
+}
+
+void bsp::Serial::SetParity(bsp::ISerial::ParityOption value)
+{
+	_parity = value;
+}
+
+bsp::ISerial::StopBitsOption bsp::Serial::StopBits() const
+{
+	return _stop_bits;
+}
+
+void bsp::Serial::SetStopBits(bsp::ISerial::StopBitsOption value)
+{
+	_stop_bits = value;
+}
+
+bsp::ISerial::HardwareFlowControlOption bsp::Serial::HardwareFlowControl() const
+{
+	return _hardware_flow_control;
+}
+
+void bsp::Serial::SetHardwareFlowControl(bsp::ISerial::HardwareFlowControlOption value)
+{
+	_hardware_flow_control = value;
+}
+#pragma endregion
+
+void Serial::Open()
 {
 	if (_have_begun)
 	{
@@ -214,9 +266,8 @@ void Serial::Begin(uint32_t baud_rate)
 	*/
 	_send_complete_signal.Release();
 
-	_baud_rate = baud_rate;
 	hal::UartConfig options;
-	options._baud_rate = baud_rate;
+	options.Deserialize(*this);
 
 	_uart_handle.Instance = USART1;
 	_uart_handle.Init = options;
