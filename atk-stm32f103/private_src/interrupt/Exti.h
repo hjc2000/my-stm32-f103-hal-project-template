@@ -10,8 +10,13 @@ extern "C"
 namespace bsp
 {
 	/// <summary>
-	///		本类不提供开启中断的功能。设置好回调函数后，需要用 Interrupt 类来开启
-	///		EXTI 中断。
+	///		* 所有 GPIO 端口的 pin0 连接到中断管理器的 line0，
+	///		  所有 GPIO 端口的 pin1 连接到中断管理器的 line1，
+	///		  以此类推。
+	/// 
+	///		* 例如同样都是 pin0，可能来自 GPIOA，GPIOB,...... 等。所有
+	///		  这些端口的 pin0 都通过一个多路选择开关连接到中断管理器的 line0 上，
+	///		  这个多路选择开关只能同时选择一条路导通。
 	/// </summary>
 	class Exti
 	{

@@ -10,10 +10,6 @@ using namespace bsp;
 /// </summary>
 extern "C"
 {
-	/// <summary>
-	///		这里直接模仿了 HAL 库的 HAL_GPIO_EXTI_IRQHandler 函数。注意，更新 HAL 库
-	///		后要记得查看 HAL_GPIO_EXTI_IRQHandler 函数是否变动。
-	/// </summary>
 	void EXTI0_IRQHandler()
 	{
 		HAL_GPIO_EXTI_IRQHandler((uint16_t)GpioPin::Pin0);
@@ -141,7 +137,7 @@ void Exti::UseLine(std::function<void()> callback, GpioPin pin)
 		}
 	default:
 		{
-			throw std::invalid_argument { "line 超出范围。" };
+			throw std::invalid_argument { "pin 超出范围。" };
 		}
 	}
 }
@@ -182,7 +178,7 @@ void Exti::UnuseLine(GpioPin pin)
 		}
 	default:
 		{
-			throw std::invalid_argument { "line 超出范围。" };
+			throw std::invalid_argument { "pin 超出范围。" };
 		}
 	}
 }
