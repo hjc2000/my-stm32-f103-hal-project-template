@@ -118,6 +118,5 @@ namespace bsp
 		/// </summary>
 		/// <param name="baud_rate">想要的波特率</param>
 		void Open() override;
-
 	};
 }
