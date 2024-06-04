@@ -2,56 +2,20 @@
 
 using namespace hal;
 
-void IndependentWatchDog::Initialize(IndependentWatchDogConfig &config)
+void IndependentWatchDog::Initialize()
 {
 	Handle()->Instance = HardwareInstance();
-	Handle()->Init = config.Handle();
+	Handle()->Init = _config.Handle();
 	HAL_IWDG_Init(Handle());
-}
-
-uint32_t IndependentWatchDog::PrescalerValue()
-{
-	switch (Prescaler())
-	{
-	case IndependentWatchDogConfig::PrescalerOption::Div4:
-		{
-			return 4;
-		}
-	case IndependentWatchDogConfig::PrescalerOption::Div8:
-		{
-			return 8;
-		}
-	case IndependentWatchDogConfig::PrescalerOption::Div16:
-		{
-			return 16;
-		}
-	case IndependentWatchDogConfig::PrescalerOption::Div32:
-		{
-			return 32;
-		}
-	case IndependentWatchDogConfig::PrescalerOption::Div64:
-		{
-			return 64;
-		}
-	case IndependentWatchDogConfig::PrescalerOption::Div128:
-		{
-			return 128;
-		}
-	case IndependentWatchDogConfig::PrescalerOption::Div256:
-		{
-			return 256;
-		}
-	default:
-		{
-			throw std::invalid_argument { "Prescaler() 的值非法" };
-		}
-	}
 }
 
 std::chrono::milliseconds IndependentWatchDog::WatchDogTimeoutDuration()
 {
 	return std::chrono::milliseconds {
-		(uint64_t)1000 * Handle()->Init.Reload * InnerClockSourceFreq_Hz() / PrescalerValue()
+		static_cast<uint64_t>(1000)
+		* _config.ReloadValue()
+		* InnerClockSourceFreq_Hz()
+		/ PrescalerValue()
 	};
 }
 
@@ -79,31 +43,30 @@ void IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds v
 
 	// 所需的 (分频器计数值 + 计数器计数值)
 	uint64_t total_count = value.count() * InnerClockSourceFreq_Hz() / 1000;
-	IndependentWatchDogConfig options;
 
 	// 让计数器重装载值尽量大，溢出了就增大分频系数
 	for (uint16_t i = 2; i <= 8; i++)
 	{
 		// 从 2^2 = 4 开始，到 2^8 = 256，通过移位实现幂。i 代表的是 2 的幂
 		uint16_t prescaler_value = static_cast<uint16_t>(1 << i);
-		options.SetReloadValue(total_count / prescaler_value);
-		if (options.ReloadValue() > 0X0FFF && i == 8)
+		_config.SetReloadValue(total_count / prescaler_value);
+		if (_config.ReloadValue() > 0X0FFF && i == 8)
 		{
 			// 最大分频和最大计数都无法表示这个时间，就按照能达到的最大值来。
-			options.SetReloadValue(0X0FFF);
-			options.SetPrescaler(IndependentWatchDogConfig::PrescalerOption::Div256);
+			_config.SetReloadValue(0X0FFF);
+			_config.SetPrescaler(IndependentWatchDogConfig::PrescalerOption::Div256);
 			break;
 		}
 
-		if (options.ReloadValue() <= 0x0FFF)
+		if (_config.ReloadValue() <= 0x0FFF)
 		{
 			// i 代表的是 2 的幂，将 i 映射到分频系数枚举值
-			options.SetPrescalerByPow(i);
+			_config.SetPrescalerByPow(i);
 			break;
 		}
 	}
 
-	Initialize(options);
+	Initialize();
 }
 
 void IndependentWatchDog::Feed()

@@ -15,7 +15,8 @@ namespace hal
 	{
 	private:
 		IWDG_HandleTypeDef _handle;
-		void Initialize(IndependentWatchDogConfig &config);
+		IndependentWatchDogConfig _config;
+		void Initialize();
 
 	public:
 		static IndependentWatchDog &Instance()
