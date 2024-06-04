@@ -1,9 +1,9 @@
 #pragma once
-#include<IndependentWatchDogInitOptions.h>
 #include<bsp-interface/IIndependentWatchDog.h>
 #include<chrono>
+#include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDogInitOptions.h>
 
-namespace bsp
+namespace hal
 {
 	/// <summary>
 	///		独立看门狗。

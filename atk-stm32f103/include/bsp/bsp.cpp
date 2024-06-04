@@ -13,7 +13,7 @@
 #include<hal-wrapper/clock/clock-signal-config/ClockSignalConfig.h>
 #include<hal-wrapper/clock/ClockSignal.h>
 #include<hal-wrapper/clock/SysTickClock.h>
-#include<IndependentWatchDog.h>
+#include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
 #include<Lcd.h>
 #include<Osc.h>
 #include<Serial.h>
@@ -59,7 +59,7 @@ bsp::IDelayer &BSP::Delayer()
 
 bsp::IIndependentWatchDog &BSP::IndependentWatchDog()
 {
-	return bsp::IndependentWatchDog::Instance();
+	return IndependentWatchDog::Instance();
 }
 
 bsp::IDigitalLed &BSP::RedDigitalLed()

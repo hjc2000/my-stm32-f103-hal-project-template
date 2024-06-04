@@ -1,7 +1,7 @@
 #pragma once
 #include<hal.h>
 
-namespace bsp
+namespace hal
 {
 	/// <summary>
 	///		看门狗预分频器分频系数
