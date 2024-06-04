@@ -22,7 +22,7 @@ namespace hal
 		///		内部时钟信号的频率。还要经过预分频才会输入到计数器。
 		/// </summary>
 		/// <returns></returns>
-		uint32_t InnerClockSourceFreq_Hz()
+		uint32_t InnerClockSourceFreq_Hz() const
 		{
 			// 独立看门狗具有 40 kHz 的内部时钟。
 			return 40 * 1000;
@@ -47,7 +47,7 @@ namespace hal
 			return IWDG;
 		}
 
-		std::chrono::milliseconds WatchDogTimeoutDuration() override;
+		std::chrono::milliseconds WatchDogTimeoutDuration() const override;
 		void SetWatchDogTimeoutDuration(std::chrono::milliseconds value) override;
 		void Feed() override;
 	};

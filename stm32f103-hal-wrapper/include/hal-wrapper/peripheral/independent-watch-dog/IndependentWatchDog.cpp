@@ -9,7 +9,7 @@ void IndependentWatchDog::Initialize()
 	HAL_IWDG_Init(&_handle);
 }
 
-std::chrono::milliseconds IndependentWatchDog::WatchDogTimeoutDuration()
+std::chrono::milliseconds IndependentWatchDog::WatchDogTimeoutDuration() const
 {
 	/*
 	* 设计数器计数间隔为 count_interval，单位：秒。
