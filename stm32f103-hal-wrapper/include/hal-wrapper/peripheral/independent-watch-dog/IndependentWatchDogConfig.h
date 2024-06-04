@@ -41,8 +41,20 @@ namespace hal
 		PrescalerOption Prescaler();
 		void SetPrescaler(PrescalerOption value);
 
+		/// <summary>
+		///		根据 2 的整数幂获取分频系数。例如 PrescalerOption::Div8
+		///		是 2 的 3 次幂，于是返回 3.
+		/// </summary>
+		/// <returns></returns>
 		uint8_t GetPrescalerByPow();
 		void SetPrescalerByPow(uint8_t pow);
+
+		/// <summary>
+		///		获取 uint32_t 类型的分频系数，分多少频，整数值就是多少。
+		/// </summary>
+		/// <returns></returns>
+		uint32_t GetPrescalerByUint32();
+		void SetPrescalerByUint32(uint32_t value);
 
 		/// <summary>
 		///		看门狗重载值。允许的范围：[0, 0x0FFF]

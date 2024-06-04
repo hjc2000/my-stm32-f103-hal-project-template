@@ -112,6 +112,91 @@ void IndependentWatchDogConfig::SetPrescalerByPow(uint8_t pow)
 	SetPrescaler(power_to_prescaler(pow));
 }
 
+uint32_t IndependentWatchDogConfig::GetPrescalerByUint32()
+{
+	switch (Prescaler())
+	{
+	case PrescalerOption::Div4:
+		{
+			return 4;
+		}
+	case PrescalerOption::Div8:
+		{
+			return 8;
+		}
+	case PrescalerOption::Div16:
+		{
+			return 16;
+		}
+	case PrescalerOption::Div32:
+		{
+			return 32;
+		}
+	case PrescalerOption::Div64:
+		{
+			return 64;
+		}
+	case PrescalerOption::Div128:
+		{
+			return 128;
+		}
+	case PrescalerOption::Div256:
+		{
+			return 256;
+		}
+	default:
+		{
+			throw std::invalid_argument { "Prescaler() 的值非法" };
+		}
+	}
+}
+
+void IndependentWatchDogConfig::SetPrescalerByUint32(uint32_t value)
+{
+	switch (value)
+	{
+	case 4:
+		{
+			SetPrescaler(PrescalerOption::Div4);
+			break;
+		}
+	case 8:
+		{
+			SetPrescaler(PrescalerOption::Div8);
+			break;
+		}
+	case 16:
+		{
+			SetPrescaler(PrescalerOption::Div16);
+			break;
+		}
+	case 32:
+		{
+			SetPrescaler(PrescalerOption::Div32);
+			break;
+		}
+	case 64:
+		{
+			SetPrescaler(PrescalerOption::Div64);
+			break;
+		}
+	case 128:
+		{
+			SetPrescaler(PrescalerOption::Div128);
+			break;
+		}
+	case 256:
+		{
+			SetPrescaler(PrescalerOption::Div256);
+			break;
+		}
+	default:
+		{
+			throw std::invalid_argument { "SetPrescalerByUint32 的 value 非法" };
+		}
+	}
+}
+
 uint32_t IndependentWatchDogConfig::ReloadValue()
 {
 	return _config_handle.Reload;
