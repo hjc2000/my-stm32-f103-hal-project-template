@@ -6,14 +6,14 @@ namespace hal
 	/// <summary>
 	///		看门狗初始化选项。
 	/// </summary>
-	class IndependentWatchDogInitOptions
+	class IndependentWatchDogConfig
 	{
 	public:
-		IndependentWatchDogInitOptions() = default;
-		IndependentWatchDogInitOptions(IndependentWatchDogInitOptions const &o) = default;
-		IndependentWatchDogInitOptions(IWDG_InitTypeDef const &o);
-		IndependentWatchDogInitOptions &operator=(IWDG_InitTypeDef const &o);
-		IndependentWatchDogInitOptions &operator=(IndependentWatchDogInitOptions const &o) = default;
+		IndependentWatchDogConfig() = default;
+		IndependentWatchDogConfig(IndependentWatchDogConfig const &o) = default;
+		IndependentWatchDogConfig(IWDG_InitTypeDef const &o);
+		IndependentWatchDogConfig &operator=(IWDG_InitTypeDef const &o);
+		IndependentWatchDogConfig &operator=(IndependentWatchDogConfig const &o) = default;
 		operator IWDG_InitTypeDef() const;
 
 		/// <summary>

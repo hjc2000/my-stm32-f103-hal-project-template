@@ -1,7 +1,7 @@
 #pragma once
 #include<bsp-interface/IIndependentWatchDog.h>
 #include<chrono>
-#include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDogInitOptions.h>
+#include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDogConfig.h>
 
 namespace hal
 {
@@ -15,7 +15,7 @@ namespace hal
 	{
 	private:
 		IWDG_HandleTypeDef _handle;
-		void Initialize(IndependentWatchDogInitOptions const &options);
+		void Initialize(IndependentWatchDogConfig const &options);
 
 	public:
 		static IndependentWatchDog &Instance()
@@ -38,9 +38,9 @@ namespace hal
 		///		分频系数。
 		/// </summary>
 		/// <returns></returns>
-		IndependentWatchDogInitOptions::PrescalerOption Prescaler()
+		IndependentWatchDogConfig::PrescalerOption Prescaler()
 		{
-			return IndependentWatchDogInitOptions::PrescalerOption(Handle()->Init.Prescaler);
+			return IndependentWatchDogConfig::PrescalerOption(Handle()->Init.Prescaler);
 		}
 
 		uint32_t PrescalerValue();

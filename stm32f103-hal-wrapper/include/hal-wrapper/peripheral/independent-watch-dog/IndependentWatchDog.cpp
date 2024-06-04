@@ -2,7 +2,7 @@
 
 using namespace hal;
 
-void IndependentWatchDog::Initialize(IndependentWatchDogInitOptions const &options)
+void IndependentWatchDog::Initialize(IndependentWatchDogConfig const &options)
 {
 	Handle()->Instance = HardwareInstance();
 	Handle()->Init = options;
@@ -13,31 +13,31 @@ uint32_t IndependentWatchDog::PrescalerValue()
 {
 	switch (Prescaler())
 	{
-	case IndependentWatchDogInitOptions::PrescalerOption::Div4:
+	case IndependentWatchDogConfig::PrescalerOption::Div4:
 		{
 			return 4;
 		}
-	case IndependentWatchDogInitOptions::PrescalerOption::Div8:
+	case IndependentWatchDogConfig::PrescalerOption::Div8:
 		{
 			return 8;
 		}
-	case IndependentWatchDogInitOptions::PrescalerOption::Div16:
+	case IndependentWatchDogConfig::PrescalerOption::Div16:
 		{
 			return 16;
 		}
-	case IndependentWatchDogInitOptions::PrescalerOption::Div32:
+	case IndependentWatchDogConfig::PrescalerOption::Div32:
 		{
 			return 32;
 		}
-	case IndependentWatchDogInitOptions::PrescalerOption::Div64:
+	case IndependentWatchDogConfig::PrescalerOption::Div64:
 		{
 			return 64;
 		}
-	case IndependentWatchDogInitOptions::PrescalerOption::Div128:
+	case IndependentWatchDogConfig::PrescalerOption::Div128:
 		{
 			return 128;
 		}
-	case IndependentWatchDogInitOptions::PrescalerOption::Div256:
+	case IndependentWatchDogConfig::PrescalerOption::Div256:
 		{
 			return 256;
 		}
@@ -81,7 +81,7 @@ void IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds v
 	// 所需的分频器和计数器总共的计数值
 	uint64_t needed_counter_and_prescaler_value = value.count() * InnerClockSourceFreq_Hz() / 1000;
 	uint64_t needed_counter_value = 0;
-	IndependentWatchDogInitOptions::PrescalerOption needed_prescaler = IndependentWatchDogInitOptions::PrescalerOption::Div256;
+	IndependentWatchDogConfig::PrescalerOption needed_prescaler = IndependentWatchDogConfig::PrescalerOption::Div256;
 	for (uint16_t i = 2; i <= 8; i++)
 	{
 		// 从 2^2 = 4 开始，到 2^8 = 256，通过移位实现幂。i 代表的是 2 的幂
@@ -92,19 +92,19 @@ void IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds v
 		{
 			// 最大分频和最大计数都无法表示这个时间，就按照能达到的最大值来。
 			needed_counter_value = 0X0FFF;
-			needed_prescaler = IndependentWatchDogInitOptions::PrescalerOption::Div256;
+			needed_prescaler = IndependentWatchDogConfig::PrescalerOption::Div256;
 			break;
 		}
 
 		if (needed_counter_value <= 0x0FFF)
 		{
 			// i 代表的是 2 的幂，将 i 映射到分频系数枚举值
-			needed_prescaler = IndependentWatchDogInitOptions::PowerToIndependentWatchDogPrescaler(i);
+			needed_prescaler = IndependentWatchDogConfig::PowerToIndependentWatchDogPrescaler(i);
 			break;
 		}
 	}
 
-	IndependentWatchDogInitOptions options;
+	IndependentWatchDogConfig options;
 	options._prescaler = needed_prescaler;
 	options._reload = (uint32_t)needed_counter_value;
 	Initialize(options);
