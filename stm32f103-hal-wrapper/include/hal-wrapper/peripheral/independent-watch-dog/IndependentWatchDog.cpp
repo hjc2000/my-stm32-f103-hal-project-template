@@ -43,8 +43,7 @@ uint32_t IndependentWatchDog::PrescalerValue()
 		}
 	default:
 		{
-			// 这里不返回 0，防止调用者拿返回值去做除数
-			return 1;
+			throw std::invalid_argument { "Prescaler() 的值非法" };
 		}
 	}
 }
