@@ -41,9 +41,10 @@ extern "C"
 	/// <param name="GPIO_Pin"></param>
 	void HAL_GPIO_EXTI_Callback(uint16_t pin)
 	{
-		switch (pin)
+		// 这里传进来的是 GpioPin 类型，需要手动强制转换一下。
+		switch (static_cast<GpioPin>(pin))
 		{
-		case (uint16_t)GpioPin::Pin0:
+		case GpioPin::Pin0:
 			{
 				if (Exti::Instance()._on_exti0_interrupt)
 				{
@@ -52,7 +53,7 @@ extern "C"
 
 				break;
 			}
-		case (uint16_t)GpioPin::Pin1:
+		case GpioPin::Pin1:
 			{
 				if (Exti::Instance()._on_exti1_interrupt)
 				{
@@ -61,7 +62,7 @@ extern "C"
 
 				break;
 			}
-		case (uint16_t)GpioPin::Pin2:
+		case GpioPin::Pin2:
 			{
 				if (Exti::Instance()._on_exti2_interrupt)
 				{
@@ -70,7 +71,7 @@ extern "C"
 
 				break;
 			}
-		case (uint16_t)GpioPin::Pin3:
+		case GpioPin::Pin3:
 			{
 				if (Exti::Instance()._on_exti3_interrupt)
 				{
@@ -79,7 +80,7 @@ extern "C"
 
 				break;
 			}
-		case (uint16_t)GpioPin::Pin4:
+		case GpioPin::Pin4:
 			{
 				if (Exti::Instance()._on_exti4_interrupt)
 				{
