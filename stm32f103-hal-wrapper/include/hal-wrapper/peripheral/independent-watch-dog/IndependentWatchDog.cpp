@@ -78,14 +78,16 @@ void IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds v
 	* 找出不让计数器溢出的最小分频系数。
 	*/
 
-	// 所需的分频器和计数器总共的计数值
-	uint64_t needed_counter_and_prescaler_value = value.count() * InnerClockSourceFreq_Hz() / 1000;
+	// 所需的 (分频器计数值 + 计数器计数值)
+	uint64_t total_count = value.count() * InnerClockSourceFreq_Hz() / 1000;
 	IndependentWatchDogConfig options;
+
+	// 让计数器重装载值尽量大，溢出了就增大分频系数
 	for (uint16_t i = 2; i <= 8; i++)
 	{
 		// 从 2^2 = 4 开始，到 2^8 = 256，通过移位实现幂。i 代表的是 2 的幂
-		uint16_t prescaler_value = (uint16_t)1 << i;
-		options.SetReloadValue(needed_counter_and_prescaler_value / prescaler_value);
+		uint16_t prescaler_value = static_cast<uint16_t>(1 << i);
+		options.SetReloadValue(total_count / prescaler_value);
 		if (options.ReloadValue() > 0X0FFF && i == 8)
 		{
 			// 最大分频和最大计数都无法表示这个时间，就按照能达到的最大值来。
