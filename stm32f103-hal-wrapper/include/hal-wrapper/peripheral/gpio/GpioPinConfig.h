@@ -79,3 +79,5 @@ namespace hal
 		GpioPinSpeed _speed = GpioPinSpeed::High;
 	};
 }
+
+hal::GpioPin operator|(hal::GpioPin left, hal::GpioPin right);
