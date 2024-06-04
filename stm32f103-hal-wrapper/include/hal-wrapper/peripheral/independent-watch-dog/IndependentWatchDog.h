@@ -1,4 +1,5 @@
 #pragma once
+#include<base/HandleWrapper.h>
 #include<bsp-interface/IIndependentWatchDog.h>
 #include<chrono>
 #include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDogConfig.h>
@@ -12,7 +13,7 @@ namespace hal
 	/// </summary>
 	class IndependentWatchDog :
 		public bsp::IIndependentWatchDog,
-		public bsp::HandleWrapper<IWDG_HandleTypeDef>
+		public base::HandleWrapper<IWDG_HandleTypeDef>
 	{
 	private:
 		IWDG_HandleTypeDef _handle;

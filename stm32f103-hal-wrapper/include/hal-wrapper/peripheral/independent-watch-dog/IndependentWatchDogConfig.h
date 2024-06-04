@@ -1,5 +1,5 @@
 #pragma once
-#include<bsp-interface/HandleWrapper.h>
+#include<base/HandleWrapper.h>
 #include<hal.h>
 #include<stdint.h>
 
@@ -9,7 +9,7 @@ namespace hal
 	///		看门狗初始化选项。
 	/// </summary>
 	class IndependentWatchDogConfig :
-		public bsp::HandleWrapper<IWDG_InitTypeDef>
+		public base::HandleWrapper<IWDG_InitTypeDef>
 	{
 	private:
 		IWDG_InitTypeDef _config_handle;
