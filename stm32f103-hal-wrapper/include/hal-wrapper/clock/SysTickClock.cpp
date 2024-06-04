@@ -21,14 +21,12 @@ void SysTickClock::SetClockSource(SysTickClock::SysTickClockSourceOption value)
 
 uint32_t SysTickClock::Frequency()
 {
-	//if (ClockSource() == SysTickClockSourceOption::HCLK_DIV8)
-	//{
-	//	return hal::ClockSignal::HclkFreq() / 8;
-	//}
+	if (ClockSource() == SysTickClockSourceOption::HCLK_DIV8)
+	{
+		return hal::ClockSignal::HclkFreq() / 8;
+	}
 
-	//return hal::ClockSignal::HclkFreq();
-
-	return HAL_RCC_GetSysClockFreq();
+	return hal::ClockSignal::HclkFreq();
 }
 
 uint32_t SysTickClock::ReloadValue()
