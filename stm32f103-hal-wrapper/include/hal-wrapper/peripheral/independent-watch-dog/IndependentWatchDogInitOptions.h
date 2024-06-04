@@ -14,6 +14,7 @@ namespace hal
 		IndependentWatchDogInitOptions(IWDG_InitTypeDef const &o);
 		IndependentWatchDogInitOptions &operator=(IWDG_InitTypeDef const &o);
 		IndependentWatchDogInitOptions &operator=(IndependentWatchDogInitOptions const &o) = default;
+		operator IWDG_InitTypeDef() const;
 
 		/// <summary>
 		///		看门狗预分频器分频系数
@@ -46,7 +47,5 @@ namespace hal
 		///		看门狗重载值。允许的范围：[0, 0x0FFF]
 		/// </summary>
 		uint32_t _reload;
-
-		operator IWDG_InitTypeDef() const;
 	};
 }
