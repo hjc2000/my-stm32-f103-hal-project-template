@@ -17,6 +17,17 @@ namespace hal
 	private:
 		IWDG_HandleTypeDef _handle;
 		IndependentWatchDogConfig _config;
+
+		/// <summary>
+		///		内部时钟信号的频率。还要经过预分频才会输入到计数器。
+		/// </summary>
+		/// <returns></returns>
+		uint32_t InnerClockSourceFreq_Hz()
+		{
+			// 独立看门狗具有 40 kHz 的内部时钟。
+			return 40 * 1000;
+		}
+
 		void Initialize();
 
 	public:
@@ -36,21 +47,8 @@ namespace hal
 			return IWDG;
 		}
 
-		/// <summary>
-		///		内部时钟信号的频率。还要经过预分频才会输入到计数器。
-		/// </summary>
-		/// <returns></returns>
-		uint32_t InnerClockSourceFreq_Hz()
-		{
-			// 独立看门狗具有 40 kHz 的内部时钟。
-			return 40 * 1000;
-		}
-
-		#pragma region IWatchDog
 		std::chrono::milliseconds WatchDogTimeoutDuration() override;
 		void SetWatchDogTimeoutDuration(std::chrono::milliseconds value) override;
 		void Feed() override;
-		#pragma endregion
-
 	};
 }
