@@ -7,7 +7,7 @@ using namespace bsp;
 
 void bsp::ConfigClockSignal()
 {
-	hal::SysTickClock::Instance().SetClockSource(hal::SysTickClock::SysTickClockSource::HCLK_DIV8);
+	hal::SysTickClock::Instance().SetClockSource(hal::SysTickClock::SysTickClockSourceOption::HCLK_DIV8);
 
 	hal::ClockSignalConfig clock_init_options { };
 	clock_init_options._clock_type = hal::ClockSignalConfig::ClockType::SYSCLK
