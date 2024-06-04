@@ -39,7 +39,7 @@ namespace hal
 		/// <summary>
 		///		看门狗预分频器分频系数。
 		/// </summary>
-		PrescalerOption Prescaler();
+		PrescalerOption Prescaler() const;
 		void SetPrescaler(PrescalerOption value);
 
 		/// <summary>
@@ -47,21 +47,21 @@ namespace hal
 		///		是 2 的 3 次幂，于是返回 3.
 		/// </summary>
 		/// <returns></returns>
-		uint8_t GetPrescalerByPow();
+		uint8_t GetPrescalerByPow() const;
 		void SetPrescalerByPow(uint8_t pow);
 
 		/// <summary>
 		///		获取 uint32_t 类型的分频系数，分多少频，整数值就是多少。
 		/// </summary>
 		/// <returns></returns>
-		uint32_t GetPrescalerByUint32();
+		uint32_t GetPrescalerByUint32() const;
 		void SetPrescalerByUint32(uint32_t value);
 		#pragma endregion
 
 		/// <summary>
 		///		看门狗重载值。允许的范围：[0, 0x0FFF]
 		/// </summary>
-		uint32_t ReloadValue();
+		uint32_t ReloadValue() const;
 		void SetReloadValue(uint32_t value);
 	};
 }

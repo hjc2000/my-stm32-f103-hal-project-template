@@ -20,7 +20,7 @@ IWDG_InitTypeDef &IndependentWatchDogConfig::Handle()
 }
 
 #pragma region 分频系数
-IndependentWatchDogConfig::PrescalerOption IndependentWatchDogConfig::Prescaler()
+IndependentWatchDogConfig::PrescalerOption IndependentWatchDogConfig::Prescaler() const
 {
 	return static_cast<PrescalerOption>(_config_handle.Prescaler);
 }
@@ -30,7 +30,7 @@ void IndependentWatchDogConfig::SetPrescaler(PrescalerOption value)
 	_config_handle.Prescaler = static_cast<uint32_t>(value);
 }
 
-uint8_t IndependentWatchDogConfig::GetPrescalerByPow()
+uint8_t IndependentWatchDogConfig::GetPrescalerByPow() const
 {
 	switch (Prescaler())
 	{
@@ -113,7 +113,7 @@ void IndependentWatchDogConfig::SetPrescalerByPow(uint8_t pow)
 	SetPrescaler(power_to_prescaler(pow));
 }
 
-uint32_t IndependentWatchDogConfig::GetPrescalerByUint32()
+uint32_t IndependentWatchDogConfig::GetPrescalerByUint32() const
 {
 	switch (Prescaler())
 	{
@@ -199,7 +199,7 @@ void IndependentWatchDogConfig::SetPrescalerByUint32(uint32_t value)
 }
 #pragma endregion
 
-uint32_t IndependentWatchDogConfig::ReloadValue()
+uint32_t IndependentWatchDogConfig::ReloadValue() const
 {
 	return _config_handle.Reload;
 }

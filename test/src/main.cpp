@@ -18,7 +18,7 @@ int main(void)
 
 			std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create([]()
 			{
-				TestSerial();
+				TestIndependentWatchDog();
 			}, 512);
 
 			vTaskStartScheduler();
