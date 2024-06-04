@@ -13,31 +13,31 @@ uint32_t IndependentWatchDog::PrescalerValue()
 {
 	switch (Prescaler())
 	{
-	case IndependentWatchDogPrescaler::Div4:
+	case IndependentWatchDogInitOptions::PrescalerOption::Div4:
 		{
 			return 4;
 		}
-	case IndependentWatchDogPrescaler::Div8:
+	case IndependentWatchDogInitOptions::PrescalerOption::Div8:
 		{
 			return 8;
 		}
-	case IndependentWatchDogPrescaler::Div16:
+	case IndependentWatchDogInitOptions::PrescalerOption::Div16:
 		{
 			return 16;
 		}
-	case IndependentWatchDogPrescaler::Div32:
+	case IndependentWatchDogInitOptions::PrescalerOption::Div32:
 		{
 			return 32;
 		}
-	case IndependentWatchDogPrescaler::Div64:
+	case IndependentWatchDogInitOptions::PrescalerOption::Div64:
 		{
 			return 64;
 		}
-	case IndependentWatchDogPrescaler::Div128:
+	case IndependentWatchDogInitOptions::PrescalerOption::Div128:
 		{
 			return 128;
 		}
-	case IndependentWatchDogPrescaler::Div256:
+	case IndependentWatchDogInitOptions::PrescalerOption::Div256:
 		{
 			return 256;
 		}
@@ -51,7 +51,7 @@ uint32_t IndependentWatchDog::PrescalerValue()
 
 std::chrono::milliseconds IndependentWatchDog::WatchDogTimeoutDuration()
 {
-	return std::chrono::milliseconds{
+	return std::chrono::milliseconds {
 		(uint64_t)1000 * Handle()->Init.Reload * InnerClockSourceFreq_Hz() / PrescalerValue()
 	};
 }
@@ -81,7 +81,7 @@ void IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds v
 	// 所需的分频器和计数器总共的计数值
 	uint64_t needed_counter_and_prescaler_value = value.count() * InnerClockSourceFreq_Hz() / 1000;
 	uint64_t needed_counter_value = 0;
-	IndependentWatchDogPrescaler needed_prescaler = IndependentWatchDogPrescaler::Div256;
+	IndependentWatchDogInitOptions::PrescalerOption needed_prescaler = IndependentWatchDogInitOptions::PrescalerOption::Div256;
 	for (uint16_t i = 2; i <= 8; i++)
 	{
 		// 从 2^2 = 4 开始，到 2^8 = 256，通过移位实现幂。i 代表的是 2 的幂
@@ -92,14 +92,14 @@ void IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds v
 		{
 			// 最大分频和最大计数都无法表示这个时间，就按照能达到的最大值来。
 			needed_counter_value = 0X0FFF;
-			needed_prescaler = IndependentWatchDogPrescaler::Div256;
+			needed_prescaler = IndependentWatchDogInitOptions::PrescalerOption::Div256;
 			break;
 		}
 
 		if (needed_counter_value <= 0x0FFF)
 		{
 			// i 代表的是 2 的幂，将 i 映射到分频系数枚举值
-			needed_prescaler = PowerToIndependentWatchDogPrescaler(i);
+			needed_prescaler = IndependentWatchDogInitOptions::PowerToIndependentWatchDogPrescaler(i);
 			break;
 		}
 	}

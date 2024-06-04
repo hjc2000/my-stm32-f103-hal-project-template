@@ -38,9 +38,9 @@ namespace hal
 		///		分频系数。
 		/// </summary>
 		/// <returns></returns>
-		IndependentWatchDogPrescaler Prescaler()
+		IndependentWatchDogInitOptions::PrescalerOption Prescaler()
 		{
-			return IndependentWatchDogPrescaler(Handle()->Init.Prescaler);
+			return IndependentWatchDogInitOptions::PrescalerOption(Handle()->Init.Prescaler);
 		}
 
 		uint32_t PrescalerValue();
