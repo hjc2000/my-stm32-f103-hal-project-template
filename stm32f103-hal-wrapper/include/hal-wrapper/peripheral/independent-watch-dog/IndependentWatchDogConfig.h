@@ -21,6 +21,7 @@ namespace hal
 
 		IWDG_InitTypeDef &Handle() override;
 
+		#pragma region 分频系数
 		/// <summary>
 		///		看门狗预分频器分频系数
 		/// </summary>
@@ -55,6 +56,7 @@ namespace hal
 		/// <returns></returns>
 		uint32_t GetPrescalerByUint32();
 		void SetPrescalerByUint32(uint32_t value);
+		#pragma endregion
 
 		/// <summary>
 		///		看门狗重载值。允许的范围：[0, 0x0FFF]
