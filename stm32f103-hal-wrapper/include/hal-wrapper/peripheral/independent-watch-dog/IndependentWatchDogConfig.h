@@ -1,20 +1,25 @@
 #pragma once
+#include<bsp-interface/HandleWrapper.h>
 #include<hal.h>
+#include<stdint.h>
 
 namespace hal
 {
 	/// <summary>
 	///		看门狗初始化选项。
 	/// </summary>
-	class IndependentWatchDogConfig
+	class IndependentWatchDogConfig :
+		public bsp::HandleWrapper<IWDG_InitTypeDef>
 	{
+	private:
+		IWDG_InitTypeDef _config_handle;
+
 	public:
 		IndependentWatchDogConfig() = default;
-		IndependentWatchDogConfig(IndependentWatchDogConfig const &o) = default;
 		IndependentWatchDogConfig(IWDG_InitTypeDef const &o);
 		IndependentWatchDogConfig &operator=(IWDG_InitTypeDef const &o);
-		IndependentWatchDogConfig &operator=(IndependentWatchDogConfig const &o) = default;
-		operator IWDG_InitTypeDef() const;
+
+		IWDG_InitTypeDef &Handle() override;
 
 		/// <summary>
 		///		看门狗预分频器分频系数
@@ -31,21 +36,18 @@ namespace hal
 		};
 
 		/// <summary>
-		///		将 2 的整数幂转为 IndependentWatchDogPrescaler。
-		///		- 例如 pow = 8，2^8 = 256，于是返回 IndependentWatchDogPrescaler::Div256
-		/// </summary>
-		/// <param name="pow"></param>
-		/// <returns></returns>
-		static PrescalerOption PowerToIndependentWatchDogPrescaler(uint8_t pow);
-
-		/// <summary>
 		///		看门狗预分频器分频系数。
 		/// </summary>
-		PrescalerOption _prescaler;
+		PrescalerOption Prescaler();
+		void SetPrescaler(PrescalerOption value);
+
+		uint8_t GetPrescalerByPow();
+		void SetPrescalerByPow(uint8_t pow);
 
 		/// <summary>
 		///		看门狗重载值。允许的范围：[0, 0x0FFF]
 		/// </summary>
-		uint32_t _reload;
+		uint32_t ReloadValue();
+		void SetReloadValue(uint32_t value);
 	};
 }
