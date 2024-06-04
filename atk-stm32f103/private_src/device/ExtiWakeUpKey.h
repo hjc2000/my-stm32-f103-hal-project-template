@@ -1,9 +1,9 @@
 #pragma once
 #include<atomic>
 #include<bsp-interface/IEventDrivenKey.h>
+#include<hal-wrapper/clock/SysTickClock.h>
 #include<hal-wrapper/interrupt/Exti.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
-#include<Systic.h>
 
 namespace bsp
 {

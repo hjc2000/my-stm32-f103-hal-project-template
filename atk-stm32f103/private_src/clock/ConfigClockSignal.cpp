@@ -1,13 +1,13 @@
 #include"ConfigClockSignal.h"
 #include<hal.h>
 #include<hal-wrapper/clock/ClockSignal.h>
-#include<Systic.h>
+#include<hal-wrapper/clock/SysTickClock.h>
 
 using namespace bsp;
 
 void bsp::ConfigClockSignal()
 {
-	Systic::SetClockSource(SysticClockSource::HCLK_DIV8);
+	hal::SysTickClock::Instance().SetClockSource(hal::SysTickClock::SysTickClockSource::HCLK_DIV8);
 
 	hal::ClockSignalConfig clock_init_options { };
 	clock_init_options._clock_type = hal::ClockSignalConfig::ClockType::SYSCLK

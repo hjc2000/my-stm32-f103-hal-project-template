@@ -12,11 +12,11 @@
 #include<functional>
 #include<hal-wrapper/clock/clock-signal-config/ClockSignalConfig.h>
 #include<hal-wrapper/clock/ClockSignal.h>
+#include<hal-wrapper/clock/SysTickClock.h>
 #include<IndependentWatchDog.h>
 #include<Lcd.h>
 #include<Osc.h>
 #include<Serial.h>
-#include<Systic.h>
 #include<task.h>
 
 using namespace bsp;
