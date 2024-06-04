@@ -1,7 +1,7 @@
 #pragma once
 #include<bsp-interface/IKey.h>
 #include<Delayer.h>
-#include<GpioPort.h>
+#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
 namespace bsp
 {
@@ -19,9 +19,9 @@ namespace bsp
 			return key;
 		}
 
-		bsp::IGpioPort &Port()
+		hal::IGpioPort &Port()
 		{
-			return bsp::GpioPortE::Instance();
+			return hal::GpioPortE::Instance();
 		}
 
 		bool KeyIsDown() override;
@@ -41,9 +41,9 @@ namespace bsp
 			return key;
 		}
 
-		bsp::IGpioPort &Port()
+		hal::IGpioPort &Port()
 		{
-			return bsp::GpioPortE::Instance();
+			return hal::GpioPortE::Instance();
 		}
 
 		bool KeyIsDown() override;

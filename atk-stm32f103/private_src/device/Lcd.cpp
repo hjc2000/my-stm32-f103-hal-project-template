@@ -2,9 +2,9 @@
 #include<bsp/bsp.h>
 
 using namespace bsp;
-using namespace bsp;
+using namespace hal;
 
-bsp::Lcd::Lcd()
+Lcd::Lcd()
 {
 	InitGpio();
 	__HAL_RCC_FSMC_CLK_ENABLE();
@@ -18,7 +18,7 @@ bsp::Lcd::Lcd()
 	HAL_SRAM_Init(&_sram_handle, &read_timing, &write_timing);
 }
 
-void bsp::Lcd::InitGpio()
+void Lcd::InitGpio()
 {
 	auto init_control_line = [&]()
 	{
@@ -28,7 +28,7 @@ void bsp::Lcd::InitGpio()
 		CS_Port().EnableClock();
 		RS_Port().EnableClock();
 
-		bsp::GpioPinConfig gpio_init_options;
+		GpioPinConfig gpio_init_options;
 		gpio_init_options._mode = GpioPinMode::AlternateFunction_PushPull;
 		gpio_init_options._pull_mode = GpioPinPull::PullUp;
 		gpio_init_options._speed = GpioPinSpeed::High;
@@ -44,75 +44,75 @@ void bsp::Lcd::InitGpio()
 
 	auto init_data_bus = [&]()
 	{
-		bsp::GpioPortD::Instance().EnableClock();
-		bsp::GpioPortE::Instance().EnableClock();
+		GpioPortD::Instance().EnableClock();
+		GpioPortE::Instance().EnableClock();
 
-		bsp::GpioPinConfig options;
+		GpioPinConfig options;
 		options._mode = GpioPinMode::AlternateFunction_PushPull;
 		options._pull_mode = GpioPinPull::PullUp;
 		options._speed = GpioPinSpeed::High;
 
-		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin0, options);
-		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin1, options);
-		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin8, options);
-		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin9, options);
-		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin10, options);
-		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin14, options);
-		bsp::GpioPortD::Instance().InitPin(GpioPin::Pin15, options);
+		GpioPortD::Instance().InitPin(GpioPin::Pin0, options);
+		GpioPortD::Instance().InitPin(GpioPin::Pin1, options);
+		GpioPortD::Instance().InitPin(GpioPin::Pin8, options);
+		GpioPortD::Instance().InitPin(GpioPin::Pin9, options);
+		GpioPortD::Instance().InitPin(GpioPin::Pin10, options);
+		GpioPortD::Instance().InitPin(GpioPin::Pin14, options);
+		GpioPortD::Instance().InitPin(GpioPin::Pin15, options);
 
-		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin7, options);
-		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin8, options);
-		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin9, options);
-		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin10, options);
-		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin11, options);
-		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin12, options);
-		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin13, options);
-		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin14, options);
-		bsp::GpioPortE::Instance().InitPin(GpioPin::Pin15, options);
+		GpioPortE::Instance().InitPin(GpioPin::Pin7, options);
+		GpioPortE::Instance().InitPin(GpioPin::Pin8, options);
+		GpioPortE::Instance().InitPin(GpioPin::Pin9, options);
+		GpioPortE::Instance().InitPin(GpioPin::Pin10, options);
+		GpioPortE::Instance().InitPin(GpioPin::Pin11, options);
+		GpioPortE::Instance().InitPin(GpioPin::Pin12, options);
+		GpioPortE::Instance().InitPin(GpioPin::Pin13, options);
+		GpioPortE::Instance().InitPin(GpioPin::Pin14, options);
+		GpioPortE::Instance().InitPin(GpioPin::Pin15, options);
 	};
 
 	init_control_line();
 	init_data_bus();
 }
 
-void bsp::Lcd::PrepareForRendering()
+void Lcd::PrepareForRendering()
 {
 	// 写入此命令后才可以开始写像素
 	WriteCommand(0X2C);
 }
 
-void bsp::Lcd::WriteCommand(uint16_t cmd)
+void Lcd::WriteCommand(uint16_t cmd)
 {
 	*CommandAddress() = cmd;
 }
 
-void bsp::Lcd::WriteCommand(uint16_t cmd, uint16_t param)
+void Lcd::WriteCommand(uint16_t cmd, uint16_t param)
 {
 	WriteCommand(cmd);
 	WriteData(param);
 }
 
-void bsp::Lcd::WriteData(uint16_t data)
+void Lcd::WriteData(uint16_t data)
 {
 	*DataAddress() = data;
 }
 
-uint16_t bsp::Lcd::ReadData()
+uint16_t Lcd::ReadData()
 {
 	return *DataAddress();
 }
 
-void bsp::Lcd::TurnOnBackLight()
+void Lcd::TurnOnBackLight()
 {
 	BL_Port().DigitalWritePin(BL_Pin(), 1);
 }
 
-void bsp::Lcd::TurnOffBackLight()
+void Lcd::TurnOffBackLight()
 {
 	BL_Port().DigitalWritePin(BL_Pin(), 0);
 }
 
-uint32_t bsp::Lcd::LcdDriverChipId()
+uint32_t Lcd::LcdDriverChipId()
 {
 	uint16_t id = 0;
 	WriteCommand(0X04);
@@ -125,11 +125,11 @@ uint32_t bsp::Lcd::LcdDriverChipId()
 	return id;
 }
 
-void bsp::Lcd::DisplayOn()
+void Lcd::DisplayOn()
 {
-	BSP::Delayer().Delay(std::chrono::milliseconds{ 50 });
+	BSP::Delayer().Delay(std::chrono::milliseconds { 50 });
 	WriteCommand(0x11);
-	BSP::Delayer().Delay(std::chrono::milliseconds{ 120 });
+	BSP::Delayer().Delay(std::chrono::milliseconds { 120 });
 
 	WriteCommand(0x36);
 	WriteData(0x00);
@@ -218,16 +218,16 @@ void bsp::Lcd::DisplayOn()
 
 	// 执行这条后才真正开启显示，不再是那种除了背光什么都没有的状态。
 	WriteCommand(0x29);
-	Clear(bsp::Color::Black);
+	Clear(Color::Black);
 	TurnOnBackLight();
 }
 
-void bsp::Lcd::DisplayOff()
+void Lcd::DisplayOff()
 {
 	WriteCommand(0X28);
 }
 
-void bsp::Lcd::Clear(bsp::Color color)
+void Lcd::Clear(Color color)
 {
 	SetWindow(0, 0, Width(), Height());
 	SerCursor(0, 0);
@@ -238,53 +238,53 @@ void bsp::Lcd::Clear(bsp::Color color)
 	}
 }
 
-void bsp::Lcd::SetScanDirection(
+void Lcd::SetScanDirection(
 	bool horizontal_priority_scanning,
-	bsp::HorizontalDirection hdir,
-	bsp::VerticalDirection vdir
+	HorizontalDirection hdir,
+	VerticalDirection vdir
 )
 {
 	auto direction_code = [](
 		bool horizontal_priority_scanning,
-		bsp::HorizontalDirection hdir,
-		bsp::VerticalDirection vdir
+		HorizontalDirection hdir,
+		VerticalDirection vdir
 		)
 	{
 		if (horizontal_priority_scanning)
 		{
-			if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::TopToBottom)
+			if (hdir == HorizontalDirection::LeftToRight && vdir == VerticalDirection::TopToBottom)
 			{
 				return 0b000 << 5;
 			}
-			else if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::BottomToTop)
+			else if (hdir == HorizontalDirection::LeftToRight && vdir == VerticalDirection::BottomToTop)
 			{
 				return 0b100 << 5;
 			}
-			else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::TopToBottom)
+			else if (hdir == HorizontalDirection::RightToLeft && vdir == VerticalDirection::TopToBottom)
 			{
 				return 0b010 << 5;
 			}
-			else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::BottomToTop)
+			else if (hdir == HorizontalDirection::RightToLeft && vdir == VerticalDirection::BottomToTop)
 			{
 				return 0b110 << 5;
 			}
 		}
 
 		// 以下是垂直优先扫描
-		if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::TopToBottom)
+		if (hdir == HorizontalDirection::LeftToRight && vdir == VerticalDirection::TopToBottom)
 		{
 			return 0b001 << 5;
 		}
-		else if (hdir == bsp::HorizontalDirection::LeftToRight && vdir == bsp::VerticalDirection::BottomToTop)
+		else if (hdir == HorizontalDirection::LeftToRight && vdir == VerticalDirection::BottomToTop)
 		{
 			return 0b101 << 5;
 		}
-		else if (hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::TopToBottom)
+		else if (hdir == HorizontalDirection::RightToLeft && vdir == VerticalDirection::TopToBottom)
 		{
 			return 0b011 << 5;
 		}
 
-		// hdir == bsp::HorizontalDirection::RightToLeft && vdir == bsp::VerticalDirection::BottomToTop
+		// hdir == HorizontalDirection::RightToLeft && vdir == VerticalDirection::BottomToTop
 		return 0b111 << 5;
 	};
 
@@ -299,7 +299,7 @@ void bsp::Lcd::SetScanDirection(
 	SetWindow(0, 0, Width(), Height());
 }
 
-uint32_t bsp::Lcd::Width()
+uint32_t Lcd::Width()
 {
 	if (_is_horizontal_priority_scanning)
 	{
@@ -311,7 +311,7 @@ uint32_t bsp::Lcd::Width()
 	return OriginHeight();
 }
 
-uint32_t bsp::Lcd::Height()
+uint32_t Lcd::Height()
 {
 	if (_is_horizontal_priority_scanning)
 	{
@@ -323,7 +323,7 @@ uint32_t bsp::Lcd::Height()
 	return OriginalWidth();
 }
 
-void bsp::Lcd::SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
+void Lcd::SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 {
 	WriteCommand(0X2A);
 	WriteData(x >> 8);
@@ -337,14 +337,14 @@ void bsp::Lcd::SetWindow(uint32_t x, uint32_t y, uint32_t width, uint32_t height
 	WriteData((y + height - 1) & 0XFF);
 }
 
-void bsp::Lcd::DrawPoint(uint32_t x, uint32_t y, uint16_t rgb_565)
+void Lcd::DrawPoint(uint32_t x, uint32_t y, uint16_t rgb_565)
 {
 	SerCursor(x, y);
 	PrepareForRendering();
 	WriteData(rgb_565);
 }
 
-void bsp::Lcd::SerCursor(uint32_t x, uint32_t y)
+void Lcd::SerCursor(uint32_t x, uint32_t y)
 {
 	WriteCommand(0X2A);
 	WriteData(x >> 8);

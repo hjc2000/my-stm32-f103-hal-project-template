@@ -2,7 +2,7 @@
 #include<bsp-interface/ILcd.h>
 #include<FsmcNorSramInitOptions.h>
 #include<FsmcNorSramTiming.h>
-#include<GpioPort.h>
+#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 #include<stdexcept>
 
 namespace bsp
@@ -50,65 +50,65 @@ namespace bsp
 		///		连接 LCD 的 RD 引脚。
 		/// </summary>
 		/// <returns></returns>
-		bsp::IGpioPort &RD_Port()
+		hal::IGpioPort &RD_Port()
 		{
-			return bsp::GpioPortD::Instance();
+			return hal::GpioPortD::Instance();
 		}
-		bsp::GpioPin RD_Pin()
+		hal::GpioPin RD_Pin()
 		{
-			return bsp::GpioPin::Pin4;
+			return hal::GpioPin::Pin4;
 		}
 
 		/// <summary>
 		///		连接 LCD 的 WR 引脚。
 		/// </summary>
 		/// <returns></returns>
-		bsp::IGpioPort &WR_Port()
+		hal::IGpioPort &WR_Port()
 		{
-			return bsp::GpioPortD::Instance();
+			return hal::GpioPortD::Instance();
 		}
-		bsp::GpioPin WR_Pin()
+		hal::GpioPin WR_Pin()
 		{
-			return bsp::GpioPin::Pin5;
+			return hal::GpioPin::Pin5;
 		}
 
 		/// <summary>
 		///		连接 LCD 的 BL 引脚。这是控制背光的。
 		/// </summary>
 		/// <returns></returns>
-		bsp::IGpioPort &BL_Port()
+		hal::IGpioPort &BL_Port()
 		{
-			return bsp::GpioPortB::Instance();
+			return hal::GpioPortB::Instance();
 		}
-		bsp::GpioPin BL_Pin()
+		hal::GpioPin BL_Pin()
 		{
-			return bsp::GpioPin::Pin0;
+			return hal::GpioPin::Pin0;
 		}
 
 		/// <summary>
 		///		连接 LCD 的 CS 引脚。这是片选。
 		/// </summary>
 		/// <returns></returns>
-		bsp::IGpioPort &CS_Port()
+		hal::IGpioPort &CS_Port()
 		{
-			return bsp::GpioPortG::Instance();
+			return hal::GpioPortG::Instance();
 		}
-		bsp::GpioPin CS_Pin()
+		hal::GpioPin CS_Pin()
 		{
-			return bsp::GpioPin::Pin12;
+			return hal::GpioPin::Pin12;
 		}
 
 		/// <summary>
 		///		连接到 LCD 的 RS 引脚。
 		/// </summary>
 		/// <returns></returns>
-		bsp::IGpioPort &RS_Port()
+		hal::IGpioPort &RS_Port()
 		{
-			return bsp::GpioPortG::Instance();
+			return hal::GpioPortG::Instance();
 		}
-		bsp::GpioPin RS_Pin()
+		hal::GpioPin RS_Pin()
 		{
-			return bsp::GpioPin::Pin0;
+			return hal::GpioPin::Pin0;
 		}
 		#pragma endregion
 

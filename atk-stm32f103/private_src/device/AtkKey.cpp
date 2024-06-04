@@ -1,6 +1,7 @@
 #include "AtkKey.h"
 
 using namespace bsp;
+using namespace hal;
 
 #pragma region Key0
 bsp::Key0::Key0()

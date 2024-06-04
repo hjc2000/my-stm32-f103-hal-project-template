@@ -1,7 +1,7 @@
 #include"BaseTimer1.h"
-#include<Interrupt.h>
-#include<stdexcept>
 #include<hal-wrapper/clock/ClockSignal.h>
+#include<hal-wrapper/interrupt/Interrupt.h>
+#include<stdexcept>
 #include<task/Critical.h>
 
 using namespace bsp;
@@ -77,8 +77,8 @@ void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
 
 void bsp::BaseTimer1::Start()
 {
-	bsp::Interrupt::SetPriority(TIM6_IRQn, 10, 0);
-	bsp::Interrupt::EnableIRQ(TIM6_IRQn);
+	hal::Interrupt::SetPriority(TIM6_IRQn, 10, 0);
+	hal::Interrupt::EnableIRQ(TIM6_IRQn);
 	HAL_TIM_Base_Start_IT(&_handle);
 }
 

@@ -1,13 +1,13 @@
 #pragma once
 #include<functional>
-#include<GpioPort.h>
+#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 
 extern "C"
 {
 	void HAL_GPIO_EXTI_Callback(uint16_t pin);
 }
 
-namespace bsp
+namespace hal
 {
 	/// <summary>
 	///		* 所有 GPIO 端口的 pin0 连接到中断管理器的 line0，

@@ -20,6 +20,7 @@
 #include<task.h>
 
 using namespace bsp;
+using namespace hal;
 
 void BSP::Initialize()
 {

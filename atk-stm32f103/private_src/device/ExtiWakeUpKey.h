@@ -1,10 +1,9 @@
 #pragma once
-#include<Exti.h>
-#include<GpioPort.h>
-#include<Interrupt.h>
-#include<Systic.h>
 #include<atomic>
 #include<bsp-interface/IEventDrivenKey.h>
+#include<hal-wrapper/interrupt/Exti.h>
+#include<hal-wrapper/interrupt/Interrupt.h>
+#include<Systic.h>
 
 namespace bsp
 {
@@ -19,14 +18,14 @@ namespace bsp
 		/// </summary>
 		std::atomic_bool _is_pressed = false;
 
-		bsp::IGpioPort &Port()
+		hal::IGpioPort &Port()
 		{
-			return bsp::GpioPortA::Instance();
+			return hal::GpioPortA::Instance();
 		}
 
-		bsp::GpioPin Pin()
+		hal::GpioPin Pin()
 		{
-			return bsp::GpioPin::Pin0;
+			return hal::GpioPin::Pin0;
 		}
 
 	public:

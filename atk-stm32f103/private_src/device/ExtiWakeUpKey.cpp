@@ -1,7 +1,7 @@
 #include"ExtiWakeUpKey.h"
 
 using namespace bsp;
-using namespace bsp;
+using namespace hal;
 
 ExtiWakeUpKey::ExtiWakeUpKey()
 {

@@ -1,9 +1,9 @@
 #include"Serial.h"
 #include<bsp/bsp.h>
 #include<FreeRTOS.h>
-#include<GpioPort.h>
+#include<hal-wrapper/interrupt/Interrupt.h>
 #include<hal-wrapper/peripheral/dma/DmaConfig.h>
-#include<Interrupt.h>
+#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 #include<task.h>
 
 using namespace bsp;
@@ -32,19 +32,19 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 {
 	auto init_gpio = []()
 	{
-		GpioPortA::Instance().EnableClock();
+		hal::GpioPortA::Instance().EnableClock();
 		__HAL_RCC_USART1_CLK_ENABLE();
 
 		// 发送引脚 PA9
-		GpioPinConfig options;
-		options._mode = GpioPinMode::AlternateFunction_PushPull;
-		options._pull_mode = GpioPinPull::PullUp;
-		options._speed = GpioPinSpeed::High;
-		GpioPortA::Instance().InitPin(GpioPin::Pin9, options);
+		hal::GpioPinConfig options;
+		options._mode = hal::GpioPinMode::AlternateFunction_PushPull;
+		options._pull_mode = hal::GpioPinPull::PullUp;
+		options._speed = hal::GpioPinSpeed::High;
+		hal::GpioPortA::Instance().InitPin(hal::GpioPin::Pin9, options);
 
 		// 接收引脚 PA10
-		options._mode = GpioPinMode::AlternateFunction_Input;
-		GpioPortA::Instance().InitPin(GpioPin::Pin10, options);
+		options._mode = hal::GpioPinMode::AlternateFunction_Input;
+		hal::GpioPortA::Instance().InitPin(hal::GpioPin::Pin10, options);
 	};
 
 	auto init_tx_dma = []()
@@ -181,9 +181,9 @@ void Serial::Flush()
 void Serial::Close()
 {
 	HAL_UART_DMAStop(&_uart_handle);
-	Interrupt::DisableIRQ(IRQn_Type::USART1_IRQn);
-	Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
-	Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
+	hal::Interrupt::DisableIRQ(IRQn_Type::USART1_IRQn);
+	hal::Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
+	hal::Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
 	_have_begun = false;
 }
 
@@ -284,14 +284,14 @@ void Serial::Open()
 	// 启用中断
 	auto enable_interrupt = []()
 	{
-		Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 10, 0);
-		Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
+		hal::Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 10, 0);
+		hal::Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
 
-		Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 10, 0);
-		Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
+		hal::Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 10, 0);
+		hal::Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
 
-		Interrupt::SetPriority(IRQn_Type::DMA1_Channel5_IRQn, 10, 0);
-		Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
+		hal::Interrupt::SetPriority(IRQn_Type::DMA1_Channel5_IRQn, 10, 0);
+		hal::Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
 	};
 
 	enable_interrupt();

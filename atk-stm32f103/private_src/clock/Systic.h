@@ -1,7 +1,7 @@
 #pragma once
 #include<chrono>
-#include<GpioPort.h>
 #include<hal.h>
+#include<hal-wrapper/peripheral/gpio/GpioPort.h>
 #include<stdint.h>
 
 namespace bsp

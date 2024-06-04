@@ -1,6 +1,7 @@
 #include"WindowWatchDog.h"
 
 using namespace bsp;
+using namespace hal;
 
 WWDG_HandleTypeDef *bsp::WindowWatchDog::Handle()
 {

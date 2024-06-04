@@ -1,8 +1,8 @@
 #include"Exti.h"
-#include<Interrupt.h>
+#include<hal-wrapper/interrupt/Interrupt.h>
 #include<stdexcept>
 
-using namespace bsp;
+using namespace hal;
 
 /// <summary>
 ///		EXTI 中断函数的定义。

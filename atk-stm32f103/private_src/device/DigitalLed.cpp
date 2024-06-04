@@ -1,7 +1,7 @@
 #include"DigitalLed.h"
 
 using namespace bsp;
-using namespace bsp;
+using namespace hal;
 
 #pragma region RedDigitalLed
 void bsp::RedDigitalLed::TurnOn()
