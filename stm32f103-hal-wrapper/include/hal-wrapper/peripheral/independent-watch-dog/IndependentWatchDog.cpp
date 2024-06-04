@@ -4,19 +4,25 @@ using namespace hal;
 
 void IndependentWatchDog::Initialize()
 {
-	Handle()->Instance = HardwareInstance();
-	Handle()->Init = _config.Handle();
-	HAL_IWDG_Init(Handle());
+	_handle.Instance = HardwareInstance();
+	_handle.Init = _config.Handle();
+	HAL_IWDG_Init(&_handle);
 }
 
 std::chrono::milliseconds IndependentWatchDog::WatchDogTimeoutDuration()
 {
-	return std::chrono::milliseconds {
-		static_cast<uint64_t>(1000)
-		* _config.ReloadValue()
-		* InnerClockSourceFreq_Hz()
-		/ PrescalerValue()
-	};
+	/*
+	* 设计数器计数间隔为 count_interval，单位：秒。
+	*
+	* timeout = reload_value * count_interval
+	* count_interval = 1 / count_freq
+	* count_freq = InnerClockSourceFreq_Hz / prescaler
+	*
+	* count_interval = 1 / (InnerClockSourceFreq_Hz / prescaler)
+	* count_interval = prescaler / InnerClockSourceFreq_Hz
+	* timeout = reload_value * prescaler / InnerClockSourceFreq_Hz
+	*/
+	return std::chrono::milliseconds { static_cast<int64_t>(1000) * _config.ReloadValue() * _config.GetPrescalerByUint32() / InnerClockSourceFreq_Hz() };
 }
 
 void IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds value)
@@ -71,5 +77,5 @@ void IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds v
 
 void IndependentWatchDog::Feed()
 {
-	HAL_IWDG_Refresh(Handle());
+	HAL_IWDG_Refresh(&_handle);
 }

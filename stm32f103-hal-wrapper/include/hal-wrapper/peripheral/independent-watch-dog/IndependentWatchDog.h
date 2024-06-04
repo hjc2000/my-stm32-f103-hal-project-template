@@ -11,7 +11,8 @@ namespace hal
 	///		  在系统时钟失效时仍然能工作。
 	/// </summary>
 	class IndependentWatchDog :
-		public bsp::IIndependentWatchDog
+		public bsp::IIndependentWatchDog,
+		public bsp::HandleWrapper<IWDG_HandleTypeDef>
 	{
 	private:
 		IWDG_HandleTypeDef _handle;
@@ -25,26 +26,15 @@ namespace hal
 			return o;
 		}
 
-		IWDG_HandleTypeDef *Handle()
+		IWDG_HandleTypeDef &Handle() override
 		{
-			return &_handle;
+			return _handle;
 		}
 
 		IWDG_TypeDef *HardwareInstance()
 		{
 			return IWDG;
 		}
-
-		/// <summary>
-		///		分频系数。
-		/// </summary>
-		/// <returns></returns>
-		IndependentWatchDogConfig::PrescalerOption Prescaler()
-		{
-			return IndependentWatchDogConfig::PrescalerOption(Handle()->Init.Prescaler);
-		}
-
-		uint32_t PrescalerValue();
 
 		/// <summary>
 		///		内部时钟信号的频率。还要经过预分频才会输入到计数器。
