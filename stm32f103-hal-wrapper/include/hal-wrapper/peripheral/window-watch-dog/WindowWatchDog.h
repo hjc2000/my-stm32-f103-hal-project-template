@@ -25,11 +25,7 @@ namespace hal
 		WWDG_TypeDef *HardwareInstance();
 
 		void Initialize(WindowWatchDogConfig &options);
-
-		void Feed()
-		{
-			HAL_WWDG_Refresh(&_handle);
-		}
+		void Feed();
 
 		/// <summary>
 		///		提早唤醒中断发生时触发的回调。

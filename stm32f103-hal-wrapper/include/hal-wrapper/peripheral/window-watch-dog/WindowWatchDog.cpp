@@ -44,3 +44,8 @@ void WindowWatchDog::Initialize(WindowWatchDogConfig &config)
 	_handle.EwiCallback = OnEarlyWakeUpInterruptCallback;
 	HAL_WWDG_Init(&_handle);
 }
+
+void hal::WindowWatchDog::Feed()
+{
+	HAL_WWDG_Refresh(&_handle);
+}
