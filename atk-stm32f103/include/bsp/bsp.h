@@ -59,3 +59,5 @@ public:
 
 	static bsp::Console &Console();
 };
+
+void TestWindowWatchDog();

@@ -23,10 +23,10 @@ namespace hal
 
 		enum class PrescalerOption
 		{
-			Div1 = WWDG_PRESCALER_1,
-			Div2 = WWDG_PRESCALER_2,
-			Div4 = WWDG_PRESCALER_4,
-			Div8 = WWDG_PRESCALER_8,
+			DIV1 = WWDG_PRESCALER_1,
+			DIV2 = WWDG_PRESCALER_2,
+			DIV4 = WWDG_PRESCALER_4,
+			DIV8 = WWDG_PRESCALER_8,
 		};
 
 		PrescalerOption Prescaler() const;

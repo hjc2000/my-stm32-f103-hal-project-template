@@ -16,6 +16,7 @@
 #include<hal-wrapper/peripheral/base-timer/BaseTimer1.h>
 #include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
 #include<hal-wrapper/peripheral/serial/Serial.h>
+#include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDog.h>
 #include<Lcd.h>
 #include<task.h>
 
@@ -134,4 +135,29 @@ bsp::IBaseTimer &BSP::BaseTimer()
 bsp::Console &BSP::Console()
 {
 	return bsp::Console::Instance();
+}
+
+void TestWindowWatchDog()
+{
+	BSP::Delayer().Delay(std::chrono::seconds { 1 });
+	BSP::RedDigitalLed().TurnOn();
+
+	hal::WindowWatchDogConfig config;
+	config.SetCounterReloadValue(0x7f);
+	config.SetWindow(0x5f);
+	config.SetPrescaler(hal::WindowWatchDogConfig::PrescalerOption::DIV2);
+	config.SetEarlyWakeupInterrupt(hal::WindowWatchDogConfig::EarlyWakeupInterruptOption::Enable);
+
+	hal::WindowWatchDog::Instance().SetEarlyWakeupInterruptCallback([&]()
+	{
+		BSP::GreenDigitalLed().Toggle();
+	});
+
+	hal::WindowWatchDog::Instance().Initialize(config);
+
+	while (true)
+	{
+		BSP::RedDigitalLed().Toggle();
+		BSP::Delayer().Delay(std::chrono::seconds { 1 });
+	}
 }
