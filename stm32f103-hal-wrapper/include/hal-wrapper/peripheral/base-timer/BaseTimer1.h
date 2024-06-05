@@ -1,8 +1,8 @@
 #pragma once
 #include<atomic>
-#include<BaseTimerConfig.h>
 #include<bsp-interface/IBaseTimer.h>
 #include<functional>
+#include<hal-wrapper/peripheral/base-timer/BaseTimerConfig.h>
 
 extern "C"
 {
@@ -12,7 +12,7 @@ extern "C"
 	void TIM6_IRQHandler();
 }
 
-namespace bsp
+namespace hal
 {
 	/// <summary>
 	///		TIM6 和 TIM7 是基本定时器。

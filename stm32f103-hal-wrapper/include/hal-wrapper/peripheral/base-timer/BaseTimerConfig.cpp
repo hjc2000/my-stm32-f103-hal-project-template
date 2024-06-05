@@ -1,13 +1,13 @@
 #include"BaseTimerConfig.h"
 
-using namespace bsp;
+using namespace hal;
 
-bsp::BaseTimerConfig::BaseTimerConfig(TIM_Base_InitTypeDef const &o)
+BaseTimerConfig::BaseTimerConfig(TIM_Base_InitTypeDef const &o)
 {
 	*this = o;
 }
 
-BaseTimerConfig &bsp::BaseTimerConfig::operator=(TIM_Base_InitTypeDef const &o)
+BaseTimerConfig &BaseTimerConfig::operator=(TIM_Base_InitTypeDef const &o)
 {
 	_prescaler = o.Prescaler;
 	_counter_mode = static_cast<CounterModeOption>(o.CounterMode);
@@ -16,7 +16,7 @@ BaseTimerConfig &bsp::BaseTimerConfig::operator=(TIM_Base_InitTypeDef const &o)
 	return *this;
 }
 
-bsp::BaseTimerConfig::operator TIM_Base_InitTypeDef() const
+BaseTimerConfig::operator TIM_Base_InitTypeDef() const
 {
 	TIM_Base_InitTypeDef o;
 	o.Prescaler = _prescaler;

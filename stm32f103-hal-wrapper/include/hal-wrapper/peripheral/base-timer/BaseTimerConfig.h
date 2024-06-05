@@ -1,7 +1,7 @@
 #pragma once
 #include<hal.h>
 
-namespace bsp
+namespace hal
 {
 	/// <summary>
 	///		基本定时器初始化选项

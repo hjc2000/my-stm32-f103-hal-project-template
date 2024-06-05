@@ -4,7 +4,7 @@
 #include<stdexcept>
 #include<task/Critical.h>
 
-using namespace bsp;
+using namespace hal;
 
 extern "C"
 {
@@ -14,7 +14,7 @@ extern "C"
 	}
 }
 
-void bsp::BaseTimer1::Initialize(BaseTimerConfig const &config)
+void BaseTimer1::Initialize(BaseTimerConfig const &config)
 {
 	__HAL_RCC_TIM6_CLK_ENABLE();
 	_handle.Instance = TIM6;
@@ -36,7 +36,7 @@ void bsp::BaseTimer1::Initialize(BaseTimerConfig const &config)
 	};
 }
 
-void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
+void BaseTimer1::Initialize(std::chrono::milliseconds period)
 {
 	uint32_t timer_clock_signal_freq = hal::ClockSignal::Pclk1Freq();
 	hal::ClockSignalConfig clock_signal_config = hal::ClockSignal::GetConfig();
@@ -75,19 +75,19 @@ void bsp::BaseTimer1::Initialize(std::chrono::milliseconds period)
 	Initialize(options);
 }
 
-void bsp::BaseTimer1::Start()
+void BaseTimer1::Start()
 {
 	hal::Interrupt::SetPriority(TIM6_IRQn, 10, 0);
 	hal::Interrupt::EnableIRQ(TIM6_IRQn);
 	HAL_TIM_Base_Start_IT(&_handle);
 }
 
-void bsp::BaseTimer1::Stop()
+void BaseTimer1::Stop()
 {
 	HAL_TIM_Base_Stop_IT(&_handle);
 }
 
-void bsp::BaseTimer1::SetPeriodElapsedCallback(std::function<void()> func)
+void BaseTimer1::SetPeriodElapsedCallback(std::function<void()> func)
 {
 	task::Critical::Run([&]()
 	{
