@@ -3,12 +3,12 @@
 
 namespace hal
 {
-	class FsmcNorSramInitOptions
+	class FsmcNorSramConfig
 	{
 	public:
-		FsmcNorSramInitOptions() = default;
-		FsmcNorSramInitOptions(FSMC_NORSRAM_InitTypeDef const &o);
-		FsmcNorSramInitOptions &operator=(FSMC_NORSRAM_InitTypeDef const &o);
+		FsmcNorSramConfig() = default;
+		FsmcNorSramConfig(FSMC_NORSRAM_InitTypeDef const &o);
+		FsmcNorSramConfig &operator=(FSMC_NORSRAM_InitTypeDef const &o);
 		operator FSMC_NORSRAM_InitTypeDef() const;
 
 		enum class Bank
