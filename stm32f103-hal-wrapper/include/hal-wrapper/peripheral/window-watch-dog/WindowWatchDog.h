@@ -1,31 +1,32 @@
 #pragma once
 #include<functional>
 #include<hal-wrapper/interrupt/Interrupt.h>
-#include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDogInitOptions.h>
+#include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDogConfig.h>
 
 namespace hal
 {
 	using WindowWatchDogInitCallbackFunc = void(*)(WWDG_HandleTypeDef *handle);
 
-	class WindowWatchDog
+	class WindowWatchDog :public base::HandleWrapper<WWDG_HandleTypeDef>
 	{
 		WWDG_HandleTypeDef _handle;
+		WindowWatchDogConfig _config;
 		bool IsClockEnabled();
 		void EnableClock();
 		void DisableClock();
 
 	public:
-		WWDG_HandleTypeDef *Handle();
+		WWDG_HandleTypeDef &Handle() override;
 		WWDG_TypeDef *HardwareInstance();
 
 		WindowWatchDogInitCallbackFunc MspInitCallbackFunc();
 		WindowWatchDogInitCallbackFunc EarlyWakeUpInterruptCallbackFunc();
 
-		void Initialize(WindowWatchDogInitOptions const &options);
+		void Initialize(WindowWatchDogConfig const &options);
 
 		void Feed()
 		{
-			HAL_WWDG_Refresh(Handle());
+			HAL_WWDG_Refresh(&_handle);
 		}
 
 		static WindowWatchDog &Instance()

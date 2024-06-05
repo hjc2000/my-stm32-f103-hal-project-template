@@ -2,9 +2,9 @@
 
 using namespace hal;
 
-WWDG_HandleTypeDef *WindowWatchDog::Handle()
+WWDG_HandleTypeDef &WindowWatchDog::Handle()
 {
-	return &_handle;
+	return _handle;
 }
 
 WWDG_TypeDef *WindowWatchDog::HardwareInstance()
@@ -34,13 +34,13 @@ WindowWatchDogInitCallbackFunc WindowWatchDog::EarlyWakeUpInterruptCallbackFunc(
 	};
 }
 
-void WindowWatchDog::Initialize(WindowWatchDogInitOptions const &options)
+void WindowWatchDog::Initialize(WindowWatchDogConfig const &options)
 {
-	Handle()->Instance = HardwareInstance();
-	Handle()->Init = options;
-	Handle()->MspInitCallback = MspInitCallbackFunc();
-	Handle()->EwiCallback = EarlyWakeUpInterruptCallbackFunc();
-	HAL_WWDG_Init(Handle());
+	_handle.Instance = HardwareInstance();
+	_handle.Init = _config.Handle();
+	_handle.MspInitCallback = MspInitCallbackFunc();
+	_handle.EwiCallback = EarlyWakeUpInterruptCallbackFunc();
+	HAL_WWDG_Init(&_handle);
 }
 
 bool WindowWatchDog::IsClockEnabled()
@@ -62,6 +62,6 @@ extern "C"
 {
 	void WWDG_IRQHandler()
 	{
-		HAL_WWDG_IRQHandler(WindowWatchDog::Instance().Handle());
+		HAL_WWDG_IRQHandler(&WindowWatchDog::Instance().Handle());
 	}
 }

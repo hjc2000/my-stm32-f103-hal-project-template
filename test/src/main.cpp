@@ -43,7 +43,7 @@ int main(void)
 //	BSP_RedDigitalLed().TurnOn();
 //	Delayer::Instance().Delay(std::chrono::milliseconds(1000));
 //
-//	WindowWatchDogInitOptions options;
+//	WindowWatchDogConfig options;
 //	options._counter_reload_value = 0x7f;
 //	options._window_upper_bound = 0x5f;
 //	options._prescaler = WindowWatchDogPrescaler::Div8;
