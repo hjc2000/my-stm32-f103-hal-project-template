@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 include(${cpp_lib_build_scripts_path}/cmake-module/setup.cmake)
+include(target_import_bsp_interface)
+include(target_import_freertos)
+include(target_import_task)
 
 set(ProjectName atk-stm32f103)
 project(${ProjectName})
@@ -10,4 +13,7 @@ set(CMAKE_C_STANDARD 99)
 
 add_library(${ProjectName})
 target_import_src(${ProjectName})
-target_link_libraries(${ProjectName} PUBLIC stm32f103-hal-wrapper)
+target_import_bsp_interface(${ProjectName} PUBLIC)
+target_import_freertos(${ProjectName} PUBLIC)
+target_import_task(${ProjectName} PUBLIC)
+target_link_libraries(${ProjectName} PRIVATE stm32f103-hal-wrapper)
