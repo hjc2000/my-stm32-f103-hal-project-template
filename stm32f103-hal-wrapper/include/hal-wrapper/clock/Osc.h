@@ -3,7 +3,7 @@
 #include<hal-wrapper/clock/OscConfig.h>
 #include<hal-wrapper/clock/PllConfig.h>
 
-namespace bsp
+namespace hal
 {
 	/// <summary>
 	///		时钟系统只有一个，所以实现为静态类

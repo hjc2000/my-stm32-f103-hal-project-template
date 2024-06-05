@@ -1,6 +1,6 @@
 #include"PllConfig.h"
 
-using namespace bsp;
+using namespace hal;
 
 PllConfig &PllConfig::operator=(RCC_PLLInitTypeDef const &value)
 {

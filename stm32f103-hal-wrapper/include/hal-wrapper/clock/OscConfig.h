@@ -2,7 +2,7 @@
 #include<hal.h>
 #include<hal-wrapper/clock/PllConfig.h>
 
-namespace bsp
+namespace hal
 {
 	/// <summary>
 	///		振荡器配置。（或者说时钟源配置）

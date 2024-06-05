@@ -3,9 +3,9 @@
 #include<hal-wrapper/clock/ClockSignal.h>
 #include<hal-wrapper/clock/SysTickClock.h>
 
-using namespace bsp;
+using namespace hal;
 
-void bsp::ConfigClockSignal()
+void hal::ConfigClockSignal()
 {
 	hal::SysTickClock::Instance().SetClockSource(hal::SysTickClock::SysTickClockSourceOption::HCLK_DIV8);
 
