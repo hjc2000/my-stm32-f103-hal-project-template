@@ -3,7 +3,6 @@
 #include<atomic>
 #include<base/RentedPtrFactory.h>
 #include<bsp-interface/extension/KeyScanner.h>
-#include<ConfigClockSignal.h>
 #include<Delayer.h>
 #include<DigitalLed.h>
 #include<ExtiWakeUpKey.h>
@@ -11,12 +10,13 @@
 #include<functional>
 #include<hal-wrapper/clock/clock-signal-config/ClockSignalConfig.h>
 #include<hal-wrapper/clock/ClockSignal.h>
+#include<hal-wrapper/clock/ConfigClockSignal.h>
+#include<hal-wrapper/clock/Osc.h>
 #include<hal-wrapper/clock/SysTickClock.h>
 #include<hal-wrapper/peripheral/base-timer/BaseTimer1.h>
 #include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
 #include<hal-wrapper/peripheral/serial/Serial.h>
 #include<Lcd.h>
-#include<Osc.h>
 #include<task.h>
 
 using namespace bsp;

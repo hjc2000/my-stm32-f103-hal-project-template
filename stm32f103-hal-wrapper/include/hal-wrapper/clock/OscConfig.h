@@ -1,6 +1,6 @@
 #pragma once
 #include<hal.h>
-#include<PllConfig.h>
+#include<hal-wrapper/clock/PllConfig.h>
 
 namespace bsp
 {
