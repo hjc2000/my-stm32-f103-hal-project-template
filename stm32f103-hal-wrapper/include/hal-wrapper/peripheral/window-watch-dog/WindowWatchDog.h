@@ -5,34 +5,30 @@
 
 namespace hal
 {
-	using WindowWatchDogInitCallbackFunc = void(*)(WWDG_HandleTypeDef *handle);
-
-	class WindowWatchDog :public base::HandleWrapper<WWDG_HandleTypeDef>
+	class WindowWatchDog :
+		public base::HandleWrapper<WWDG_HandleTypeDef>
 	{
+	private:
 		WWDG_HandleTypeDef _handle;
-		WindowWatchDogConfig _config;
-		bool IsClockEnabled();
-		void EnableClock();
-		void DisableClock();
+
+		static void OnMspInitCallback(WWDG_HandleTypeDef *handle);
+		static void OnEarlyWakeUpInterruptCallback(WWDG_HandleTypeDef *handle);
 
 	public:
-		WWDG_HandleTypeDef &Handle() override;
-		WWDG_TypeDef *HardwareInstance();
-
-		WindowWatchDogInitCallbackFunc MspInitCallbackFunc();
-		WindowWatchDogInitCallbackFunc EarlyWakeUpInterruptCallbackFunc();
-
-		void Initialize(WindowWatchDogConfig const &options);
-
-		void Feed()
-		{
-			HAL_WWDG_Refresh(&_handle);
-		}
-
 		static WindowWatchDog &Instance()
 		{
 			static WindowWatchDog o;
 			return o;
+		}
+
+		WWDG_HandleTypeDef &Handle() override;
+		WWDG_TypeDef *HardwareInstance();
+
+		void Initialize(WindowWatchDogConfig &options);
+
+		void Feed()
+		{
+			HAL_WWDG_Refresh(&_handle);
 		}
 
 		/// <summary>

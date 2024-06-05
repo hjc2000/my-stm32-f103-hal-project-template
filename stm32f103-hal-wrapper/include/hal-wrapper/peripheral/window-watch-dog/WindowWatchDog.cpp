@@ -2,6 +2,30 @@
 
 using namespace hal;
 
+extern "C"
+{
+	void WWDG_IRQHandler()
+	{
+		HAL_WWDG_IRQHandler(&WindowWatchDog::Instance().Handle());
+	}
+}
+
+void WindowWatchDog::OnMspInitCallback(WWDG_HandleTypeDef *handle)
+{
+	__HAL_RCC_WWDG_CLK_ENABLE();
+	Interrupt::SetPriority(IRQn_Type::WWDG_IRQn, 4, 0);
+	Interrupt::EnableIRQ(IRQn_Type::WWDG_IRQn);
+}
+
+void WindowWatchDog::OnEarlyWakeUpInterruptCallback(WWDG_HandleTypeDef *handle)
+{
+	WindowWatchDog::Instance().Feed();
+	if (WindowWatchDog::Instance()._on_early_wakeup_interrupt)
+	{
+		WindowWatchDog::Instance()._on_early_wakeup_interrupt();
+	}
+}
+
 WWDG_HandleTypeDef &WindowWatchDog::Handle()
 {
 	return _handle;
@@ -12,56 +36,11 @@ WWDG_TypeDef *WindowWatchDog::HardwareInstance()
 	return WWDG;
 }
 
-WindowWatchDogInitCallbackFunc WindowWatchDog::MspInitCallbackFunc()
-{
-	return [](WWDG_HandleTypeDef *handle)->void
-	{
-		WindowWatchDog::Instance().EnableClock();
-		Interrupt::SetPriority(IRQn_Type::WWDG_IRQn, 2, 3);
-		Interrupt::EnableIRQ(IRQn_Type::WWDG_IRQn);
-	};
-}
-
-WindowWatchDogInitCallbackFunc WindowWatchDog::EarlyWakeUpInterruptCallbackFunc()
-{
-	return [](WWDG_HandleTypeDef *handle)->void
-	{
-		WindowWatchDog::Instance().Feed();
-		if (WindowWatchDog::Instance()._on_early_wakeup_interrupt)
-		{
-			WindowWatchDog::Instance()._on_early_wakeup_interrupt();
-		}
-	};
-}
-
-void WindowWatchDog::Initialize(WindowWatchDogConfig const &options)
+void WindowWatchDog::Initialize(WindowWatchDogConfig &config)
 {
 	_handle.Instance = HardwareInstance();
-	_handle.Init = _config.Handle();
-	_handle.MspInitCallback = MspInitCallbackFunc();
-	_handle.EwiCallback = EarlyWakeUpInterruptCallbackFunc();
+	_handle.Init = config.Handle();
+	_handle.MspInitCallback = OnMspInitCallback;
+	_handle.EwiCallback = OnEarlyWakeUpInterruptCallback;
 	HAL_WWDG_Init(&_handle);
-}
-
-bool WindowWatchDog::IsClockEnabled()
-{
-	return __HAL_RCC_WWDG_IS_CLK_ENABLED();
-}
-
-void WindowWatchDog::EnableClock()
-{
-	__HAL_RCC_WWDG_CLK_ENABLE();
-}
-
-void WindowWatchDog::DisableClock()
-{
-	__HAL_RCC_WWDG_CLK_DISABLE();
-}
-
-extern "C"
-{
-	void WWDG_IRQHandler()
-	{
-		HAL_WWDG_IRQHandler(&WindowWatchDog::Instance().Handle());
-	}
 }
