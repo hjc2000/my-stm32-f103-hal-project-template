@@ -37,7 +37,7 @@ namespace hal
 		///		* 喂狗时间如果大于该值，会触发看门狗。
 		/// </summary>
 		uint32_t Window() const;
-		void SetWindow(int32_t value);
+		void SetWindow(uint32_t value);
 
 		/// <summary>
 		///		计数器重载值。

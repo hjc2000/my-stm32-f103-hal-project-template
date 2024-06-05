@@ -33,7 +33,7 @@ uint32_t hal::WindowWatchDogConfig::Window() const
 	return _handle.Window;
 }
 
-void hal::WindowWatchDogConfig::SetWindow(int32_t value)
+void hal::WindowWatchDogConfig::SetWindow(uint32_t value)
 {
 	_handle.Window = value;
 }
