@@ -14,9 +14,9 @@
 #include<hal-wrapper/clock/ClockSignal.h>
 #include<hal-wrapper/clock/SysTickClock.h>
 #include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
+#include<hal-wrapper/peripheral/serial/Serial.h>
 #include<Lcd.h>
 #include<Osc.h>
-#include<Serial.h>
 #include<task.h>
 
 using namespace bsp;
