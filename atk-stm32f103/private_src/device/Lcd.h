@@ -1,7 +1,7 @@
 #pragma once
 #include<bsp-interface/ILcd.h>
-#include<FsmcNorSramInitOptions.h>
-#include<FsmcNorSramTiming.h>
+#include<hal-wrapper/peripheral/fsmc/FsmcNorSramInitOptions.h>
+#include<hal-wrapper/peripheral/fsmc/FsmcNorSramTiming.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
 #include<stdexcept>
 
@@ -113,43 +113,43 @@ namespace bsp
 		#pragma endregion
 
 		#pragma region consteval
-		static consteval bsp::FsmcNorSramTiming ReadTiming()
+		static consteval hal::FsmcNorSramTiming ReadTiming()
 		{
-			bsp::FsmcNorSramTiming read_timing { };
-			read_timing._access_mode = bsp::FsmcNorSramTiming::AccessMode::ModeA;
+			hal::FsmcNorSramTiming read_timing { };
+			read_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
 			read_timing._address_setup_time = 0;
 			read_timing._address_hold_time = 0;
 			read_timing._data_setup_time = 15;
 			return read_timing;
 		}
 
-		static consteval bsp::FsmcNorSramTiming WriteTiming()
+		static consteval hal::FsmcNorSramTiming WriteTiming()
 		{
-			bsp::FsmcNorSramTiming write_timing { };
-			write_timing._access_mode = bsp::FsmcNorSramTiming::AccessMode::ModeA;
+			hal::FsmcNorSramTiming write_timing { };
+			write_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
 			write_timing._address_setup_time = 0;
 			write_timing._address_hold_time = 0;
 			write_timing._data_setup_time = 1;
 			return write_timing;
 		}
 
-		static consteval bsp::FsmcNorSramInitOptions NorSramInitOptions()
+		static consteval hal::FsmcNorSramInitOptions NorSramInitOptions()
 		{
-			bsp::FsmcNorSramInitOptions nor_sram_init_options { };
-			nor_sram_init_options._bank = bsp::FsmcNorSramInitOptions::Bank::Bank4;
-			nor_sram_init_options._data_address_mux = bsp::FsmcNorSramInitOptions::DataAddressMux::Disable;
-			nor_sram_init_options._memory_type = bsp::FsmcNorSramInitOptions::MemoryType::SRSM;
-			nor_sram_init_options._memory_data_width = bsp::FsmcNorSramInitOptions::MemoryDataWidth::Width16;
-			nor_sram_init_options._burst_access_mode = bsp::FsmcNorSramInitOptions::BurstAccessMode::Disable;
-			nor_sram_init_options._wait_signal_polarity = bsp::FsmcNorSramInitOptions::WaitSignalPolarity::Low;
-			nor_sram_init_options._wrap_mode = bsp::FsmcNorSramInitOptions::WrapMode::Disable;
-			nor_sram_init_options._wait_signal_active = bsp::FsmcNorSramInitOptions::WaitSignalActive::BeforeWs;
-			nor_sram_init_options._write_operation = bsp::FsmcNorSramInitOptions::WriteOperation::Enable;
-			nor_sram_init_options._wait_signal = bsp::FsmcNorSramInitOptions::WaitSignal::Disable;
-			nor_sram_init_options._extended_mode = bsp::FsmcNorSramInitOptions::ExtendedMode::Enable;
-			nor_sram_init_options._asynchronous_wait = bsp::FsmcNorSramInitOptions::AsynchronousWait::Disable;
-			nor_sram_init_options._write_burst = bsp::FsmcNorSramInitOptions::WriteBurst::Disable;
-			nor_sram_init_options._page_size = bsp::FsmcNorSramInitOptions::PageSize::SizeNone;
+			hal::FsmcNorSramInitOptions nor_sram_init_options { };
+			nor_sram_init_options._bank = hal::FsmcNorSramInitOptions::Bank::Bank4;
+			nor_sram_init_options._data_address_mux = hal::FsmcNorSramInitOptions::DataAddressMux::Disable;
+			nor_sram_init_options._memory_type = hal::FsmcNorSramInitOptions::MemoryType::SRSM;
+			nor_sram_init_options._memory_data_width = hal::FsmcNorSramInitOptions::MemoryDataWidth::Width16;
+			nor_sram_init_options._burst_access_mode = hal::FsmcNorSramInitOptions::BurstAccessMode::Disable;
+			nor_sram_init_options._wait_signal_polarity = hal::FsmcNorSramInitOptions::WaitSignalPolarity::Low;
+			nor_sram_init_options._wrap_mode = hal::FsmcNorSramInitOptions::WrapMode::Disable;
+			nor_sram_init_options._wait_signal_active = hal::FsmcNorSramInitOptions::WaitSignalActive::BeforeWs;
+			nor_sram_init_options._write_operation = hal::FsmcNorSramInitOptions::WriteOperation::Enable;
+			nor_sram_init_options._wait_signal = hal::FsmcNorSramInitOptions::WaitSignal::Disable;
+			nor_sram_init_options._extended_mode = hal::FsmcNorSramInitOptions::ExtendedMode::Enable;
+			nor_sram_init_options._asynchronous_wait = hal::FsmcNorSramInitOptions::AsynchronousWait::Disable;
+			nor_sram_init_options._write_burst = hal::FsmcNorSramInitOptions::WriteBurst::Disable;
+			nor_sram_init_options._page_size = hal::FsmcNorSramInitOptions::PageSize::SizeNone;
 			return nor_sram_init_options;
 		}
 		#pragma endregion
