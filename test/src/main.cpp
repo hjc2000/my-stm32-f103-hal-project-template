@@ -6,8 +6,6 @@
 
 using namespace bsp;
 
-//void TestWindowWatchDog();
-
 int main(void)
 {
 	while (true)
@@ -36,26 +34,3 @@ int main(void)
 		}
 	}
 }
-
-//void TestWindowWatchDog()
-//{
-//	BSP_Initialize();
-//	BSP_RedDigitalLed().TurnOn();
-//	Delayer::Instance().Delay(std::chrono::milliseconds(1000));
-//
-//	WindowWatchDogConfig options;
-//	options._counter_reload_value = 0x7f;
-//	options._window_upper_bound = 0x5f;
-//	options._prescaler = WindowWatchDogPrescaler::Div8;
-//	options._early_wakeup_interrupt_mode = WindowWatchDogEarlyWakeupInterruptMode::Enable;
-//	WindowWatchDog::Instance().Initialize(options);
-//	WindowWatchDog::Instance()._on_early_wakeup_interrupt = []()
-//	{
-//		BSP_GreenDigitalLed().Toggle();
-//	};
-//
-//	while (true)
-//	{
-//		BSP_RedDigitalLed().TurnOff();
-//	}
-//}
