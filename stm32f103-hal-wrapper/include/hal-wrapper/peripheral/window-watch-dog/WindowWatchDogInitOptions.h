@@ -1,7 +1,7 @@
 #pragma once
 #include<hal.h>
 
-namespace bsp
+namespace hal
 {
 	enum class WindowWatchDogPrescaler
 	{

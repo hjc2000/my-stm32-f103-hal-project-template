@@ -1,19 +1,18 @@
 #include"WindowWatchDog.h"
 
-using namespace bsp;
 using namespace hal;
 
-WWDG_HandleTypeDef *bsp::WindowWatchDog::Handle()
+WWDG_HandleTypeDef *WindowWatchDog::Handle()
 {
 	return &_handle;
 }
 
-WWDG_TypeDef *bsp::WindowWatchDog::HardwareInstance()
+WWDG_TypeDef *WindowWatchDog::HardwareInstance()
 {
 	return WWDG;
 }
 
-WindowWatchDogInitCallbackFunc bsp::WindowWatchDog::MspInitCallbackFunc()
+WindowWatchDogInitCallbackFunc WindowWatchDog::MspInitCallbackFunc()
 {
 	return [](WWDG_HandleTypeDef *handle)->void
 	{
@@ -23,7 +22,7 @@ WindowWatchDogInitCallbackFunc bsp::WindowWatchDog::MspInitCallbackFunc()
 	};
 }
 
-WindowWatchDogInitCallbackFunc bsp::WindowWatchDog::EarlyWakeUpInterruptCallbackFunc()
+WindowWatchDogInitCallbackFunc WindowWatchDog::EarlyWakeUpInterruptCallbackFunc()
 {
 	return [](WWDG_HandleTypeDef *handle)->void
 	{
@@ -35,7 +34,7 @@ WindowWatchDogInitCallbackFunc bsp::WindowWatchDog::EarlyWakeUpInterruptCallback
 	};
 }
 
-void bsp::WindowWatchDog::Initialize(WindowWatchDogInitOptions const &options)
+void WindowWatchDog::Initialize(WindowWatchDogInitOptions const &options)
 {
 	Handle()->Instance = HardwareInstance();
 	Handle()->Init = options;
@@ -44,17 +43,17 @@ void bsp::WindowWatchDog::Initialize(WindowWatchDogInitOptions const &options)
 	HAL_WWDG_Init(Handle());
 }
 
-bool bsp::WindowWatchDog::IsClockEnabled()
+bool WindowWatchDog::IsClockEnabled()
 {
 	return __HAL_RCC_WWDG_IS_CLK_ENABLED();
 }
 
-void bsp::WindowWatchDog::EnableClock()
+void WindowWatchDog::EnableClock()
 {
 	__HAL_RCC_WWDG_CLK_ENABLE();
 }
 
-void bsp::WindowWatchDog::DisableClock()
+void WindowWatchDog::DisableClock()
 {
 	__HAL_RCC_WWDG_CLK_DISABLE();
 }

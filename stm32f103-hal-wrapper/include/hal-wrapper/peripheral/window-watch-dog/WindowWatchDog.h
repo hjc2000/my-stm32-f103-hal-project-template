@@ -1,9 +1,9 @@
 #pragma once
 #include<functional>
 #include<hal-wrapper/interrupt/Interrupt.h>
-#include<WindowWatchDogInitOptions.h>
+#include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDogInitOptions.h>
 
-namespace bsp
+namespace hal
 {
 	using WindowWatchDogInitCallbackFunc = void(*)(WWDG_HandleTypeDef *handle);
 
