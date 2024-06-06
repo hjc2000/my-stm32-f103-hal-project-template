@@ -111,31 +111,6 @@ void Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 #pragma endregion
 
 #pragma region Stream
-bool Serial::CanRead()
-{
-	return true;
-}
-
-bool Serial::CanWrite()
-{
-	return true;
-}
-
-bool Serial::CanSeek()
-{
-	return false;
-}
-
-int64_t Serial::Length()
-{
-	return 0;
-}
-
-void Serial::SetLength(int64_t value)
-{
-	// 不支持的操作
-}
-
 int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 {
 	if (count > UINT16_MAX)
@@ -173,11 +148,6 @@ void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 	HAL_UART_Transmit_DMA(&_uart_handle, buffer + offset, count);
 }
 
-void Serial::Flush()
-{
-	// Write 方法利用 DMA 直接发送缓冲区，本类没有内部缓冲区，不需要冲洗。
-}
-
 void Serial::Close()
 {
 	HAL_UART_DMAStop(&_uart_handle);
@@ -185,16 +155,6 @@ void Serial::Close()
 	hal::Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
 	hal::Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
 	_have_begun = false;
-}
-
-int64_t Serial::Position()
-{
-	return 0;
-}
-
-void Serial::SetPosition(int64_t value)
-{
-	// 不支持的操作。
 }
 #pragma endregion
 

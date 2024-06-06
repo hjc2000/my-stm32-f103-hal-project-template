@@ -58,13 +58,6 @@ namespace hal
 		}
 
 		#pragma region Stream
-		bool CanRead() override;
-		bool CanWrite() override;
-		bool CanSeek() override;
-
-		int64_t Length() override;
-		void SetLength(int64_t value) override;
-
 		/// <summary>
 		///		调用后临时启动 DMA 接收一次数据。
 		///		* 本类没有缓冲机制，所以上层应用如果调用 Read 不及时，会丢失数据。
@@ -86,11 +79,7 @@ namespace hal
 		/// <param name="count"></param>
 		void Write(uint8_t const *buffer, int32_t offset, int32_t count) override;
 
-		void Flush() override;
 		void Close() override;
-
-		int64_t Position() override;
-		void SetPosition(int64_t value) override;
 		#pragma endregion
 
 		#pragma region 属性
