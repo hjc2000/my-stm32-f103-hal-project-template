@@ -16,7 +16,7 @@ int main(void)
 
 			std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create([]()
 			{
-				TestLcd();
+				TestKeyScanner();
 			}, 512);
 
 			vTaskStartScheduler();
