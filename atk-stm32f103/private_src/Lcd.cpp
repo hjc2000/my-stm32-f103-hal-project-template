@@ -29,7 +29,7 @@ void Lcd::InitGpio()
 		RS_Port().EnableClock();
 
 		GpioPinConfig gpio_init_options;
-		gpio_init_options._mode = GpioPinMode::AlternateFunction_PushPull;
+		gpio_init_options._mode = hal::GpioPinConfig::GpioPinMode::AlternateFunction_PushPull;
 		gpio_init_options._pull_mode = GpioPinPull::PullUp;
 		gpio_init_options._speed = GpioPinSpeed::High;
 
@@ -38,7 +38,7 @@ void Lcd::InitGpio()
 		CS_Port().InitPin(CS_Pin(), gpio_init_options);
 		RS_Port().InitPin(RS_Pin(), gpio_init_options);
 
-		gpio_init_options._mode = GpioPinMode::Output_PushPull;
+		gpio_init_options._mode = hal::GpioPinConfig::GpioPinMode::Output_PushPull;
 		BL_Port().InitPin(BL_Pin(), gpio_init_options);
 	};
 
@@ -48,7 +48,7 @@ void Lcd::InitGpio()
 		GpioPortE::Instance().EnableClock();
 
 		GpioPinConfig options;
-		options._mode = GpioPinMode::AlternateFunction_PushPull;
+		options._mode = hal::GpioPinConfig::GpioPinMode::AlternateFunction_PushPull;
 		options._pull_mode = GpioPinPull::PullUp;
 		options._speed = GpioPinSpeed::High;
 

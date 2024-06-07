@@ -5,34 +5,9 @@
 namespace hal
 {
 	/// <summary>
-	///		定义 GPIO 引脚模式。
-	/// </summary>
-	enum class GpioPinMode :uint32_t
-	{
-		Input = GPIO_MODE_INPUT,
-
-		Output_PushPull = GPIO_MODE_OUTPUT_PP,
-		Output_OpenDrain = GPIO_MODE_OUTPUT_OD,
-
-		AlternateFunction_PushPull = GPIO_MODE_AF_PP,
-		AlternateFunction_OpenDrain = GPIO_MODE_AF_OD,
-		AlternateFunction_Input = GPIO_MODE_AF_INPUT,
-
-		Analog = GPIO_MODE_ANALOG,
-
-		Interrupt_RisingEdgeTrigger = GPIO_MODE_IT_RISING,
-		Interrupt_FallingEdgeTrigger = GPIO_MODE_IT_FALLING,
-		Interrupt_BothEdgeTrigger = GPIO_MODE_IT_RISING_FALLING,
-
-		Event_RisingEdgeTrigger = GPIO_MODE_EVT_RISING,
-		Event_FallingEdgeTrigger = GPIO_MODE_EVT_FALLING,
-		Event_BothEdgeTrigger = GPIO_MODE_EVT_RISING_FALLING,
-	};
-
-	/// <summary>
 	///		定义 GPIO 引脚的上下拉模式。
 	/// </summary>
-	enum class GpioPinPull :uint32_t
+	enum class GpioPinPull
 	{
 		NoPull = GPIO_NOPULL,
 		PullUp = GPIO_PULLUP,
@@ -42,7 +17,7 @@ namespace hal
 	/// <summary>
 	///		定义 GPIO 引脚的最大速度。
 	/// </summary>
-	enum GpioPinSpeed :uint32_t
+	enum GpioPinSpeed
 	{
 		Low = GPIO_SPEED_FREQ_LOW,
 		Medium = GPIO_SPEED_FREQ_MEDIUM,
@@ -82,6 +57,31 @@ namespace hal
 			Pin13 = GPIO_PIN_13,
 			Pin14 = GPIO_PIN_14,
 			Pin15 = GPIO_PIN_15,
+		};
+
+		/// <summary>
+		///		定义 GPIO 引脚模式。
+		/// </summary>
+		enum class GpioPinMode
+		{
+			Input = GPIO_MODE_INPUT,
+
+			Output_PushPull = GPIO_MODE_OUTPUT_PP,
+			Output_OpenDrain = GPIO_MODE_OUTPUT_OD,
+
+			AlternateFunction_PushPull = GPIO_MODE_AF_PP,
+			AlternateFunction_OpenDrain = GPIO_MODE_AF_OD,
+			AlternateFunction_Input = GPIO_MODE_AF_INPUT,
+
+			Analog = GPIO_MODE_ANALOG,
+
+			Interrupt_RisingEdgeTrigger = GPIO_MODE_IT_RISING,
+			Interrupt_FallingEdgeTrigger = GPIO_MODE_IT_FALLING,
+			Interrupt_BothEdgeTrigger = GPIO_MODE_IT_RISING_FALLING,
+
+			Event_RisingEdgeTrigger = GPIO_MODE_EVT_RISING,
+			Event_FallingEdgeTrigger = GPIO_MODE_EVT_FALLING,
+			Event_BothEdgeTrigger = GPIO_MODE_EVT_RISING_FALLING,
 		};
 
 		GpioPinMode _mode = GpioPinMode::Input;

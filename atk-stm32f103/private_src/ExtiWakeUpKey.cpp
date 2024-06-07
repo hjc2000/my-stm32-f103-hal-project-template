@@ -8,7 +8,7 @@ ExtiWakeUpKey::ExtiWakeUpKey()
 	// 配置引脚
 	Port().EnableClock();
 	GpioPinConfig options;
-	options._mode = GpioPinMode::Interrupt_RisingEdgeTrigger;
+	options._mode = hal::GpioPinConfig::GpioPinMode::Interrupt_RisingEdgeTrigger;
 	options._pull_mode = GpioPinPull::PullDown;
 	options._speed = GpioPinSpeed::High;
 	Port().InitPin(Pin(), options);
