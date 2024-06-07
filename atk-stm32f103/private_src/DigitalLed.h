@@ -23,7 +23,7 @@ namespace bsp
 			gpio_pin_options._mode = GpioPinMode::Output_PushPull;
 			gpio_pin_options._pull_mode = GpioPinPull::PullUp;
 			gpio_pin_options._speed = GpioPinSpeed::High;
-			GpioPortB::Instance().InitPin(GpioPin::Pin5, gpio_pin_options);
+			GpioPortB::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin5, gpio_pin_options);
 		}
 
 		static RedDigitalLed &Instance()
@@ -56,7 +56,7 @@ namespace bsp
 			gpio_pin_options._mode = GpioPinMode::Output_PushPull;
 			gpio_pin_options._pull_mode = GpioPinPull::PullUp;
 			gpio_pin_options._speed = GpioPinSpeed::High;
-			GpioPortE::Instance().InitPin(GpioPin::Pin5, gpio_pin_options);
+			GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin5, gpio_pin_options);
 		}
 
 		static GreenDigitalLed &Instance()

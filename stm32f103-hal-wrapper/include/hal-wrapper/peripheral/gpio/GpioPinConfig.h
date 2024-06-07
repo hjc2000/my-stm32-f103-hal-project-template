@@ -5,29 +5,6 @@
 namespace hal
 {
 	/// <summary>
-	///		定义 GPIO 引脚。
-	/// </summary>
-	enum class GpioPin : uint16_t
-	{
-		Pin0 = GPIO_PIN_0,
-		Pin1 = GPIO_PIN_1,
-		Pin2 = GPIO_PIN_2,
-		Pin3 = GPIO_PIN_3,
-		Pin4 = GPIO_PIN_4,
-		Pin5 = GPIO_PIN_5,
-		Pin6 = GPIO_PIN_6,
-		Pin7 = GPIO_PIN_7,
-		Pin8 = GPIO_PIN_8,
-		Pin9 = GPIO_PIN_9,
-		Pin10 = GPIO_PIN_10,
-		Pin11 = GPIO_PIN_11,
-		Pin12 = GPIO_PIN_12,
-		Pin13 = GPIO_PIN_13,
-		Pin14 = GPIO_PIN_14,
-		Pin15 = GPIO_PIN_15,
-	};
-
-	/// <summary>
 	///		定义 GPIO 引脚模式。
 	/// </summary>
 	enum class GpioPinMode :uint32_t
@@ -84,10 +61,33 @@ namespace hal
 			return _handle;
 		}
 
+		/// <summary>
+		///		定义 GPIO 引脚。
+		/// </summary>
+		enum class PinEnum : uint16_t
+		{
+			Pin0 = GPIO_PIN_0,
+			Pin1 = GPIO_PIN_1,
+			Pin2 = GPIO_PIN_2,
+			Pin3 = GPIO_PIN_3,
+			Pin4 = GPIO_PIN_4,
+			Pin5 = GPIO_PIN_5,
+			Pin6 = GPIO_PIN_6,
+			Pin7 = GPIO_PIN_7,
+			Pin8 = GPIO_PIN_8,
+			Pin9 = GPIO_PIN_9,
+			Pin10 = GPIO_PIN_10,
+			Pin11 = GPIO_PIN_11,
+			Pin12 = GPIO_PIN_12,
+			Pin13 = GPIO_PIN_13,
+			Pin14 = GPIO_PIN_14,
+			Pin15 = GPIO_PIN_15,
+		};
+
 		GpioPinMode _mode = GpioPinMode::Input;
 		GpioPinPull _pull_mode = GpioPinPull::NoPull;
 		GpioPinSpeed _speed = GpioPinSpeed::High;
 	};
 }
 
-hal::GpioPin operator|(hal::GpioPin left, hal::GpioPin right);
+hal::GpioPinConfig::PinEnum operator|(hal::GpioPinConfig::PinEnum left, hal::GpioPinConfig::PinEnum right);

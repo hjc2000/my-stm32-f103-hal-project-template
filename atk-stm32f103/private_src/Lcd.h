@@ -54,9 +54,9 @@ namespace bsp
 		{
 			return hal::GpioPortD::Instance();
 		}
-		hal::GpioPin RD_Pin()
+		hal::GpioPinConfig::PinEnum RD_Pin()
 		{
-			return hal::GpioPin::Pin4;
+			return hal::GpioPinConfig::PinEnum::Pin4;
 		}
 
 		/// <summary>
@@ -67,9 +67,9 @@ namespace bsp
 		{
 			return hal::GpioPortD::Instance();
 		}
-		hal::GpioPin WR_Pin()
+		hal::GpioPinConfig::PinEnum WR_Pin()
 		{
-			return hal::GpioPin::Pin5;
+			return hal::GpioPinConfig::PinEnum::Pin5;
 		}
 
 		/// <summary>
@@ -80,9 +80,9 @@ namespace bsp
 		{
 			return hal::GpioPortB::Instance();
 		}
-		hal::GpioPin BL_Pin()
+		hal::GpioPinConfig::PinEnum BL_Pin()
 		{
-			return hal::GpioPin::Pin0;
+			return hal::GpioPinConfig::PinEnum::Pin0;
 		}
 
 		/// <summary>
@@ -93,9 +93,9 @@ namespace bsp
 		{
 			return hal::GpioPortG::Instance();
 		}
-		hal::GpioPin CS_Pin()
+		hal::GpioPinConfig::PinEnum CS_Pin()
 		{
-			return hal::GpioPin::Pin12;
+			return hal::GpioPinConfig::PinEnum::Pin12;
 		}
 
 		/// <summary>
@@ -106,9 +106,9 @@ namespace bsp
 		{
 			return hal::GpioPortG::Instance();
 		}
-		hal::GpioPin RS_Pin()
+		hal::GpioPinConfig::PinEnum RS_Pin()
 		{
-			return hal::GpioPin::Pin0;
+			return hal::GpioPinConfig::PinEnum::Pin0;
 		}
 		#pragma endregion
 

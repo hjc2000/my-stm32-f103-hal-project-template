@@ -2,7 +2,7 @@
 
 using namespace hal;
 
-void IGpioPort::InitPin(GpioPin pin, GpioPinConfig const &options)
+void IGpioPort::InitPin(hal::GpioPinConfig::PinEnum pin, GpioPinConfig const &options)
 {
 	GPIO_InitTypeDef gpio_init_options{};
 	gpio_init_options.Pin = (uint32_t)pin;
@@ -12,13 +12,13 @@ void IGpioPort::InitPin(GpioPin pin, GpioPinConfig const &options)
 	HAL_GPIO_Init(HardwareInstance(), &gpio_init_options);
 }
 
-void IGpioPort::DigitalWritePin(GpioPin pin, bool value)
+void IGpioPort::DigitalWritePin(hal::GpioPinConfig::PinEnum pin, bool value)
 {
 	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
 	HAL_GPIO_WritePin(HardwareInstance(), (uint16_t)pin, state);
 }
 
-bool IGpioPort::DigitalReadPin(GpioPin pin)
+bool IGpioPort::DigitalReadPin(hal::GpioPinConfig::PinEnum pin)
 {
 	GPIO_PinState pin_state = HAL_GPIO_ReadPin(HardwareInstance(), (uint16_t)pin);
 	if (pin_state == GPIO_PinState::GPIO_PIN_SET)
@@ -29,7 +29,7 @@ bool IGpioPort::DigitalReadPin(GpioPin pin)
 	return false;
 }
 
-void IGpioPort::DigitalTogglePin(GpioPin pin)
+void IGpioPort::DigitalTogglePin(hal::GpioPinConfig::PinEnum pin)
 {
 	HAL_GPIO_TogglePin(HardwareInstance(), (uint16_t)pin);
 }

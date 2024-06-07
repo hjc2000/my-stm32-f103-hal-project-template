@@ -7,18 +7,18 @@ using namespace hal;
 void bsp::RedDigitalLed::TurnOn()
 {
 	// GPIO 引脚连接着 LED 的阴极，所以写 0 是打开
-	GpioPortB::Instance().DigitalWritePin(GpioPin::Pin5, 0);
+	GpioPortB::Instance().DigitalWritePin(hal::GpioPinConfig::PinEnum::Pin5, 0);
 }
 
 void bsp::RedDigitalLed::TurnOff()
 {
 	// GPIO 引脚连接着 LED 的阴极，所以写 1 是关闭。
-	GpioPortB::Instance().DigitalWritePin(GpioPin::Pin5, 1);
+	GpioPortB::Instance().DigitalWritePin(hal::GpioPinConfig::PinEnum::Pin5, 1);
 }
 
 void bsp::RedDigitalLed::Toggle()
 {
-	GpioPortB::Instance().DigitalTogglePin(GpioPin::Pin5);
+	GpioPortB::Instance().DigitalTogglePin(hal::GpioPinConfig::PinEnum::Pin5);
 }
 #pragma endregion
 
@@ -26,17 +26,17 @@ void bsp::RedDigitalLed::Toggle()
 void bsp::GreenDigitalLed::TurnOn()
 {
 	// GPIO 引脚连接着 LED 的阴极，所以写 0 是打开
-	GpioPortE::Instance().DigitalWritePin(GpioPin::Pin5, 0);
+	GpioPortE::Instance().DigitalWritePin(hal::GpioPinConfig::PinEnum::Pin5, 0);
 }
 
 void bsp::GreenDigitalLed::TurnOff()
 {
 	// GPIO 引脚连接着 LED 的阴极，所以写 1 是关闭。
-	GpioPortE::Instance().DigitalWritePin(GpioPin::Pin5, 1);
+	GpioPortE::Instance().DigitalWritePin(hal::GpioPinConfig::PinEnum::Pin5, 1);
 }
 
 void bsp::GreenDigitalLed::Toggle()
 {
-	GpioPortE::Instance().DigitalTogglePin(GpioPin::Pin5);
+	GpioPortE::Instance().DigitalTogglePin(hal::GpioPinConfig::PinEnum::Pin5);
 }
 #pragma endregion

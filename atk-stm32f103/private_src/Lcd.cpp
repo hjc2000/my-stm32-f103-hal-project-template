@@ -52,23 +52,23 @@ void Lcd::InitGpio()
 		options._pull_mode = GpioPinPull::PullUp;
 		options._speed = GpioPinSpeed::High;
 
-		GpioPortD::Instance().InitPin(GpioPin::Pin0, options);
-		GpioPortD::Instance().InitPin(GpioPin::Pin1, options);
-		GpioPortD::Instance().InitPin(GpioPin::Pin8, options);
-		GpioPortD::Instance().InitPin(GpioPin::Pin9, options);
-		GpioPortD::Instance().InitPin(GpioPin::Pin10, options);
-		GpioPortD::Instance().InitPin(GpioPin::Pin14, options);
-		GpioPortD::Instance().InitPin(GpioPin::Pin15, options);
+		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin0, options);
+		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin1, options);
+		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin8, options);
+		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin9, options);
+		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin10, options);
+		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin14, options);
+		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin15, options);
 
-		GpioPortE::Instance().InitPin(GpioPin::Pin7, options);
-		GpioPortE::Instance().InitPin(GpioPin::Pin8, options);
-		GpioPortE::Instance().InitPin(GpioPin::Pin9, options);
-		GpioPortE::Instance().InitPin(GpioPin::Pin10, options);
-		GpioPortE::Instance().InitPin(GpioPin::Pin11, options);
-		GpioPortE::Instance().InitPin(GpioPin::Pin12, options);
-		GpioPortE::Instance().InitPin(GpioPin::Pin13, options);
-		GpioPortE::Instance().InitPin(GpioPin::Pin14, options);
-		GpioPortE::Instance().InitPin(GpioPin::Pin15, options);
+		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin7, options);
+		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin8, options);
+		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin9, options);
+		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin10, options);
+		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin11, options);
+		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin12, options);
+		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin13, options);
+		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin14, options);
+		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin15, options);
 	};
 
 	init_control_line();

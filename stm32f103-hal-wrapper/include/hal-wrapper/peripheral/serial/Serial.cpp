@@ -40,11 +40,11 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 		options._mode = hal::GpioPinMode::AlternateFunction_PushPull;
 		options._pull_mode = hal::GpioPinPull::PullUp;
 		options._speed = hal::GpioPinSpeed::High;
-		hal::GpioPortA::Instance().InitPin(hal::GpioPin::Pin9, options);
+		hal::GpioPortA::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin9, options);
 
 		// 接收引脚 PA10
 		options._mode = hal::GpioPinMode::AlternateFunction_Input;
-		hal::GpioPortA::Instance().InitPin(hal::GpioPin::Pin10, options);
+		hal::GpioPortA::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin10, options);
 	};
 
 	auto init_tx_dma = []()
