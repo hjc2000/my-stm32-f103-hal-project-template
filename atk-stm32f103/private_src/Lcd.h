@@ -1,4 +1,5 @@
 #pragma once
+#include<base/HandleWrapper.h>
 #include<bsp-interface/ILcd.h>
 #include<hal-wrapper/peripheral/fsmc/FsmcNorSramConfig.h>
 #include<hal-wrapper/peripheral/fsmc/FsmcNorSramTiming.h>
@@ -7,7 +8,9 @@
 
 namespace bsp
 {
-	class Lcd :public bsp::ILcd
+	class Lcd :
+		public bsp::ILcd,
+		public base::HandleWrapper<SRAM_HandleTypeDef>
 	{
 	private:
 		Lcd();
@@ -112,7 +115,6 @@ namespace bsp
 		}
 		#pragma endregion
 
-		#pragma region consteval
 		static consteval hal::FsmcNorSramTiming ReadTiming()
 		{
 			hal::FsmcNorSramTiming read_timing { };
@@ -132,7 +134,6 @@ namespace bsp
 			write_timing._data_setup_time = 1;
 			return write_timing;
 		}
-		#pragma endregion
 
 		volatile uint16_t *CommandAddress()
 		{
@@ -190,6 +191,11 @@ namespace bsp
 		{
 			static Lcd o;
 			return o;
+		}
+
+		SRAM_HandleTypeDef &Handle() override
+		{
+			return _sram_handle;
 		}
 
 		void WriteCommand(uint16_t cmd);
