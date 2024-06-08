@@ -11,7 +11,23 @@ Lcd::Lcd()
 
 	_sram_handle.Instance = FSMC_NORSRAM_DEVICE;
 	_sram_handle.Extended = FSMC_NORSRAM_EXTENDED_DEVICE;
-	_sram_handle.Init = NorSramInitOptions();
+
+	hal::FsmcNorSramConfig nor_sram_init_options { };
+	nor_sram_init_options.SetBank(hal::FsmcNorSramConfig::BankEnum::Bank4);
+	nor_sram_init_options.SetDataAddressMux(hal::FsmcNorSramConfig::DataAddressMuxOption::Disable);
+	nor_sram_init_options.SetMemoryType(hal::FsmcNorSramConfig::MemoryTypeEnum::SRSM);
+	nor_sram_init_options.SetMemoryDataWidth(hal::FsmcNorSramConfig::MemoryDataWidthOption::Width16);
+	nor_sram_init_options.SetBurstAccessMode(hal::FsmcNorSramConfig::BurstAccessModeOption::Disable);
+	nor_sram_init_options.SetWaitSignalPolarity(hal::FsmcNorSramConfig::WaitSignalPolarityOption::Low);
+	nor_sram_init_options.SetWrapMode(hal::FsmcNorSramConfig::WrapModeOption::Disable);
+	nor_sram_init_options.SetWaitSignalActive(hal::FsmcNorSramConfig::WaitSignalActiveOption::BeforeWs);
+	nor_sram_init_options.SetWriteOperation(hal::FsmcNorSramConfig::WriteOperationOption::Enable);
+	nor_sram_init_options.SetWaitSignal(hal::FsmcNorSramConfig::WaitSignalOption::Disable);
+	nor_sram_init_options.SetExtendedMode(hal::FsmcNorSramConfig::ExtendedModeOption::Enable);
+	nor_sram_init_options.SetAsynchronousWait(hal::FsmcNorSramConfig::AsynchronousWaitOption::Disable);
+	nor_sram_init_options.SetWriteBurst(hal::FsmcNorSramConfig::WriteBurstOption::Disable);
+	nor_sram_init_options.SetPageSize(hal::FsmcNorSramConfig::PageSizeOption::SizeNone);
+	_sram_handle.Init = nor_sram_init_options.Handle();
 
 	FSMC_NORSRAM_TimingTypeDef read_timing = ReadTiming();
 	FSMC_NORSRAM_TimingTypeDef write_timing = WriteTiming();

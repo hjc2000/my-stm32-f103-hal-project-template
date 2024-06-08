@@ -1,17 +1,22 @@
 #pragma once
+#include<base/HandleWrapper.h>
 #include<hal.h>
 
 namespace hal
 {
-	class FsmcNorSramConfig
+	class FsmcNorSramConfig :
+		public base::HandleWrapper<FSMC_NORSRAM_InitTypeDef>
 	{
-	public:
-		FsmcNorSramConfig() = default;
-		FsmcNorSramConfig(FSMC_NORSRAM_InitTypeDef const &o);
-		FsmcNorSramConfig &operator=(FSMC_NORSRAM_InitTypeDef const &o);
-		operator FSMC_NORSRAM_InitTypeDef() const;
+	private:
+		FSMC_NORSRAM_InitTypeDef _handle { };
 
-		enum class Bank
+	public:
+		FSMC_NORSRAM_InitTypeDef &Handle() override
+		{
+			return _handle;
+		}
+
+		enum class BankEnum
 		{
 			Bank1 = FSMC_NORSRAM_BANK1,
 			Bank2 = FSMC_NORSRAM_BANK2,
@@ -19,9 +24,16 @@ namespace hal
 			Bank4 = FSMC_NORSRAM_BANK4,
 		};
 
-		Bank _bank;
+		BankEnum Bank() const
+		{
+			return static_cast<BankEnum>(_handle.NSBank);
+		}
+		void SetBank(BankEnum value)
+		{
+			_handle.NSBank = static_cast<uint32_t>(value);
+		}
 
-		enum class DataAddressMux
+		enum class DataAddressMuxOption
 		{
 			Disable = FSMC_DATA_ADDRESS_MUX_DISABLE,
 			Enable = FSMC_DATA_ADDRESS_MUX_ENABLE,
@@ -30,99 +42,183 @@ namespace hal
 		/// <summary>
 		///		地址总线和数据总线是否复用，即数据和地址全部通过 FSMC 的数据总线进行传输。
 		/// </summary>
-		DataAddressMux _data_address_mux;
+		DataAddressMuxOption DataAddressMux() const
+		{
+			return static_cast<DataAddressMuxOption>(_handle.DataAddressMux);
+		}
+		void SetDataAddressMux(DataAddressMuxOption value)
+		{
+			_handle.DataAddressMux = static_cast<uint32_t>(value);
+		}
 
-		enum class MemoryType
+		enum class MemoryTypeEnum
 		{
 			SRSM = FSMC_MEMORY_TYPE_SRAM,
 			PSRAM = FSMC_MEMORY_TYPE_PSRAM,
 			NOR = FSMC_MEMORY_TYPE_NOR,
 		};
 
-		MemoryType _memory_type;
+		MemoryTypeEnum MemoryType() const
+		{
+			return static_cast<MemoryTypeEnum>(_handle.MemoryType);
+		}
+		void SetMemoryType(MemoryTypeEnum value)
+		{
+			_handle.MemoryType = static_cast<uint32_t>(value);
+		}
 
-		enum class MemoryDataWidth
+		enum class MemoryDataWidthOption
 		{
 			Width8 = FSMC_NORSRAM_MEM_BUS_WIDTH_8,
 			Width16 = FSMC_NORSRAM_MEM_BUS_WIDTH_16,
 			Width32 = FSMC_NORSRAM_MEM_BUS_WIDTH_32,
 		};
 
-		MemoryDataWidth _memory_data_width;
+		MemoryDataWidthOption MemoryDataWidth() const
+		{
+			return static_cast<MemoryDataWidthOption>(_handle.MemoryDataWidth);
+		}
+		void SetMemoryDataWidth(MemoryDataWidthOption value)
+		{
+			_handle.MemoryDataWidth = static_cast<uint32_t>(value);
+		}
 
-		enum class BurstAccessMode
+		enum class BurstAccessModeOption
 		{
 			Disable = FSMC_BURST_ACCESS_MODE_DISABLE,
 			Enable = FSMC_BURST_ACCESS_MODE_ENABLE,
 		};
 
-		BurstAccessMode _burst_access_mode;
+		BurstAccessModeOption BurstAccessMode() const
+		{
+			return static_cast<BurstAccessModeOption>(_handle.BurstAccessMode);
+		}
+		void SetBurstAccessMode(BurstAccessModeOption value)
+		{
+			_handle.BurstAccessMode = static_cast<uint32_t>(value);
+		}
 
-		enum class WaitSignalPolarity
+		enum class WaitSignalPolarityOption
 		{
 			Low = FSMC_WAIT_SIGNAL_POLARITY_LOW,
 			High = FSMC_WAIT_SIGNAL_POLARITY_HIGH,
 		};
 
-		WaitSignalPolarity _wait_signal_polarity;
+		WaitSignalPolarityOption WaitSignalPolarity() const
+		{
+			return static_cast<WaitSignalPolarityOption>(_handle.WaitSignalPolarity);
+		}
+		void SetWaitSignalPolarity(WaitSignalPolarityOption value)
+		{
+			_handle.WaitSignalPolarity = static_cast<uint32_t>(value);
+		}
 
-		enum class WrapMode
+		enum class WrapModeOption
 		{
 			Disable = FSMC_WRAP_MODE_DISABLE,
 			Enable = FSMC_WRAP_MODE_ENABLE,
 		};
 
-		WrapMode _wrap_mode;
+		WrapModeOption WrapMode() const
+		{
+			return static_cast<WrapModeOption>(_handle.WrapMode);
+		}
+		void SetWrapMode(WrapModeOption value)
+		{
+			_handle.WrapMode = static_cast<uint32_t>(value);
+		}
 
-		enum class WaitSignalActive
+		enum class WaitSignalActiveOption
 		{
 			BeforeWs = FSMC_WAIT_TIMING_BEFORE_WS,
 			DuringWs = FSMC_WAIT_TIMING_DURING_WS,
 		};
 
-		WaitSignalActive _wait_signal_active;
+		WaitSignalActiveOption WaitSignalActive() const
+		{
+			return static_cast<WaitSignalActiveOption>(_handle.WaitSignalActive);
+		}
+		void SetWaitSignalActive(WaitSignalActiveOption value)
+		{
+			_handle.WaitSignalActive = static_cast<uint32_t>(value);
+		}
 
-		enum class WriteOperation
+		enum class WriteOperationOption
 		{
 			Disable = FSMC_WRITE_OPERATION_DISABLE,
 			Enable = FSMC_WRITE_OPERATION_ENABLE,
 		};
 
-		WriteOperation _write_operation;
+		WriteOperationOption WriteOperation() const
+		{
+			return static_cast<WriteOperationOption>(_handle.WriteOperation);
+		}
+		void SetWriteOperation(WriteOperationOption value)
+		{
+			_handle.WriteOperation = static_cast<uint32_t>(value);
+		}
 
-		enum class WaitSignal
+		enum class WaitSignalOption
 		{
 			Disable = FSMC_WAIT_SIGNAL_DISABLE,
 			Enable = FSMC_WAIT_SIGNAL_ENABLE,
 		};
 
-		WaitSignal _wait_signal;
+		WaitSignalOption WaitSignal() const
+		{
+			return static_cast<WaitSignalOption>(_handle.WaitSignal);
+		}
+		void SetWaitSignal(WaitSignalOption value)
+		{
+			_handle.WaitSignal = static_cast<uint32_t>(value);
+		}
 
-		enum class ExtendedMode
+		enum class ExtendedModeOption
 		{
 			Disable = FSMC_EXTENDED_MODE_DISABLE,
 			Enable = FSMC_EXTENDED_MODE_ENABLE,
 		};
 
-		ExtendedMode _extended_mode;
+		ExtendedModeOption ExtendedMode() const
+		{
+			return static_cast<ExtendedModeOption>(_handle.ExtendedMode);
+		}
+		void SetExtendedMode(ExtendedModeOption value)
+		{
+			_handle.ExtendedMode = static_cast<uint32_t>(value);
+		}
 
-		enum class AsynchronousWait
+		enum class AsynchronousWaitOption
 		{
 			Disable = FSMC_ASYNCHRONOUS_WAIT_DISABLE,
 			Enable = FSMC_ASYNCHRONOUS_WAIT_ENABLE,
 		};
 
-		AsynchronousWait _asynchronous_wait;
+		AsynchronousWaitOption AsynchronousWait() const
+		{
+			return static_cast<AsynchronousWaitOption>(_handle.AsynchronousWait);
+		}
+		void SetAsynchronousWait(AsynchronousWaitOption value)
+		{
+			_handle.AsynchronousWait = static_cast<uint32_t>(value);
+		}
 
-		enum class WriteBurst
+		enum class WriteBurstOption
 		{
 			Disable = FSMC_WRITE_BURST_DISABLE,
 			Enable = FSMC_WRITE_BURST_ENABLE,
 		};
 
-		WriteBurst _write_burst;
+		WriteBurstOption WriteBurst() const
+		{
+			return static_cast<WriteBurstOption>(_handle.WriteBurst);
+		}
+		void SetWriteBurst(WriteBurstOption value)
+		{
+			_handle.WriteBurst = static_cast<uint32_t>(value);
+		}
 
-		enum class PageSize
+		enum class PageSizeOption
 		{
 			SizeNone = FSMC_PAGE_SIZE_NONE,
 			Size128 = FSMC_PAGE_SIZE_128,
@@ -131,6 +227,13 @@ namespace hal
 			Size1024 = FSMC_PAGE_SIZE_1024,
 		};
 
-		PageSize _page_size;
+		PageSizeOption PageSize() const
+		{
+			return static_cast<PageSizeOption>(_handle.PageSize);
+		}
+		void SetPageSize(PageSizeOption value)
+		{
+			_handle.PageSize = static_cast<uint32_t>(value);
+		}
 	};
 }

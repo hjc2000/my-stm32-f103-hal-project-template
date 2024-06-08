@@ -132,26 +132,6 @@ namespace bsp
 			write_timing._data_setup_time = 1;
 			return write_timing;
 		}
-
-		static consteval hal::FsmcNorSramConfig NorSramInitOptions()
-		{
-			hal::FsmcNorSramConfig nor_sram_init_options { };
-			nor_sram_init_options._bank = hal::FsmcNorSramConfig::Bank::Bank4;
-			nor_sram_init_options._data_address_mux = hal::FsmcNorSramConfig::DataAddressMux::Disable;
-			nor_sram_init_options._memory_type = hal::FsmcNorSramConfig::MemoryType::SRSM;
-			nor_sram_init_options._memory_data_width = hal::FsmcNorSramConfig::MemoryDataWidth::Width16;
-			nor_sram_init_options._burst_access_mode = hal::FsmcNorSramConfig::BurstAccessMode::Disable;
-			nor_sram_init_options._wait_signal_polarity = hal::FsmcNorSramConfig::WaitSignalPolarity::Low;
-			nor_sram_init_options._wrap_mode = hal::FsmcNorSramConfig::WrapMode::Disable;
-			nor_sram_init_options._wait_signal_active = hal::FsmcNorSramConfig::WaitSignalActive::BeforeWs;
-			nor_sram_init_options._write_operation = hal::FsmcNorSramConfig::WriteOperation::Enable;
-			nor_sram_init_options._wait_signal = hal::FsmcNorSramConfig::WaitSignal::Disable;
-			nor_sram_init_options._extended_mode = hal::FsmcNorSramConfig::ExtendedMode::Enable;
-			nor_sram_init_options._asynchronous_wait = hal::FsmcNorSramConfig::AsynchronousWait::Disable;
-			nor_sram_init_options._write_burst = hal::FsmcNorSramConfig::WriteBurst::Disable;
-			nor_sram_init_options._page_size = hal::FsmcNorSramConfig::PageSize::SizeNone;
-			return nor_sram_init_options;
-		}
 		#pragma endregion
 
 		volatile uint16_t *CommandAddress()
