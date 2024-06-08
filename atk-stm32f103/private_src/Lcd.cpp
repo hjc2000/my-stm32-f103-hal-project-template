@@ -29,17 +29,25 @@ void Lcd::InitGpio()
 		RS_Port().EnableClock();
 
 		GpioPinConfig gpio_init_options;
-		gpio_init_options._mode = hal::GpioPinConfig::ModeOption::AlternateFunction_PushPull;
-		gpio_init_options._pull_mode = GpioPinPull::PullUp;
-		gpio_init_options._speed = GpioPinSpeed::High;
+		gpio_init_options.SetMode(hal::GpioPinConfig::ModeOption::AlternateFunction_PushPull);
+		gpio_init_options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
+		gpio_init_options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
 
-		RD_Port().InitPin(RD_Pin(), gpio_init_options);
-		WR_Port().InitPin(WR_Pin(), gpio_init_options);
-		CS_Port().InitPin(CS_Pin(), gpio_init_options);
-		RS_Port().InitPin(RS_Pin(), gpio_init_options);
+		gpio_init_options.SetPin(RD_Pin());
+		RD_Port().InitPin(gpio_init_options);
 
-		gpio_init_options._mode = hal::GpioPinConfig::ModeOption::Output_PushPull;
-		BL_Port().InitPin(BL_Pin(), gpio_init_options);
+		gpio_init_options.SetPin(WR_Pin());
+		WR_Port().InitPin(gpio_init_options);
+
+		gpio_init_options.SetPin(CS_Pin());
+		CS_Port().InitPin(gpio_init_options);
+
+		gpio_init_options.SetPin(RS_Pin());
+		RS_Port().InitPin(gpio_init_options);
+
+		gpio_init_options.SetPin(BL_Pin());
+		gpio_init_options.SetMode(hal::GpioPinConfig::ModeOption::Output_PushPull);
+		BL_Port().InitPin(gpio_init_options);
 	};
 
 	auto init_data_bus = [&]()
@@ -48,27 +56,33 @@ void Lcd::InitGpio()
 		GpioPortE::Instance().EnableClock();
 
 		GpioPinConfig options;
-		options._mode = hal::GpioPinConfig::ModeOption::AlternateFunction_PushPull;
-		options._pull_mode = GpioPinPull::PullUp;
-		options._speed = GpioPinSpeed::High;
+		options.SetMode(hal::GpioPinConfig::ModeOption::AlternateFunction_PushPull);
+		options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
+		options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
 
-		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin0, options);
-		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin1, options);
-		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin8, options);
-		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin9, options);
-		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin10, options);
-		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin14, options);
-		GpioPortD::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin15, options);
+		options.SetPin(
+			hal::GpioPinConfig::PinEnum::Pin0
+			| hal::GpioPinConfig::PinEnum::Pin1
+			| hal::GpioPinConfig::PinEnum::Pin8
+			| hal::GpioPinConfig::PinEnum::Pin9
+			| hal::GpioPinConfig::PinEnum::Pin10
+			| hal::GpioPinConfig::PinEnum::Pin14
+			| hal::GpioPinConfig::PinEnum::Pin15
+		);
+		GpioPortD::Instance().InitPin(options);
 
-		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin7, options);
-		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin8, options);
-		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin9, options);
-		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin10, options);
-		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin11, options);
-		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin12, options);
-		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin13, options);
-		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin14, options);
-		GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin15, options);
+		options.SetPin(
+			hal::GpioPinConfig::PinEnum::Pin7
+			| hal::GpioPinConfig::PinEnum::Pin8
+			| hal::GpioPinConfig::PinEnum::Pin9
+			| hal::GpioPinConfig::PinEnum::Pin10
+			| hal::GpioPinConfig::PinEnum::Pin11
+			| hal::GpioPinConfig::PinEnum::Pin12
+			| hal::GpioPinConfig::PinEnum::Pin13
+			| hal::GpioPinConfig::PinEnum::Pin14
+			| hal::GpioPinConfig::PinEnum::Pin15
+		);
+		GpioPortE::Instance().InitPin(options);
 	};
 
 	init_control_line();

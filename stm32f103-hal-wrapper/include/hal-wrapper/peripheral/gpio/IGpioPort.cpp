@@ -2,14 +2,9 @@
 
 using namespace hal;
 
-void IGpioPort::InitPin(hal::GpioPinConfig::PinEnum pin, GpioPinConfig const &options)
+void IGpioPort::InitPin(GpioPinConfig &config)
 {
-	GPIO_InitTypeDef gpio_init_options{};
-	gpio_init_options.Pin = (uint32_t)pin;
-	gpio_init_options.Mode = (uint32_t)options._mode;
-	gpio_init_options.Pull = (uint32_t)options._pull_mode;
-	gpio_init_options.Speed = (uint32_t)options._speed;
-	HAL_GPIO_Init(HardwareInstance(), &gpio_init_options);
+	HAL_GPIO_Init(HardwareInstance(), config);
 }
 
 void IGpioPort::DigitalWritePin(hal::GpioPinConfig::PinEnum pin, bool value)

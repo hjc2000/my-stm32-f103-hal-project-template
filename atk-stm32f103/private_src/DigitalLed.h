@@ -20,10 +20,11 @@ namespace bsp
 			*/
 			TurnOff();
 			GpioPinConfig gpio_pin_options;
-			gpio_pin_options._mode = hal::GpioPinConfig::ModeOption::Output_PushPull;
-			gpio_pin_options._pull_mode = GpioPinPull::PullUp;
-			gpio_pin_options._speed = GpioPinSpeed::High;
-			GpioPortB::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin5, gpio_pin_options);
+			gpio_pin_options.SetPin(hal::GpioPinConfig::PinEnum::Pin5);
+			gpio_pin_options.SetMode(hal::GpioPinConfig::ModeOption::Output_PushPull);
+			gpio_pin_options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
+			gpio_pin_options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
+			GpioPortB::Instance().InitPin(gpio_pin_options);
 		}
 
 		static RedDigitalLed &Instance()
@@ -53,10 +54,11 @@ namespace bsp
 			*/
 			TurnOff();
 			GpioPinConfig gpio_pin_options;
-			gpio_pin_options._mode = hal::GpioPinConfig::ModeOption::Output_PushPull;
-			gpio_pin_options._pull_mode = GpioPinPull::PullUp;
-			gpio_pin_options._speed = GpioPinSpeed::High;
-			GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin5, gpio_pin_options);
+			gpio_pin_options.SetPin(hal::GpioPinConfig::PinEnum::Pin5);
+			gpio_pin_options.SetMode(hal::GpioPinConfig::ModeOption::Output_PushPull);
+			gpio_pin_options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
+			gpio_pin_options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
+			GpioPortE::Instance().InitPin(gpio_pin_options);
 		}
 
 		static GreenDigitalLed &Instance()

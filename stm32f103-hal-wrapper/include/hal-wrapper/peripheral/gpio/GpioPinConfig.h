@@ -4,26 +4,6 @@
 
 namespace hal
 {
-	/// <summary>
-	///		定义 GPIO 引脚的上下拉模式。
-	/// </summary>
-	enum class GpioPinPull
-	{
-		NoPull = GPIO_NOPULL,
-		PullUp = GPIO_PULLUP,
-		PullDown = GPIO_PULLDOWN,
-	};
-
-	/// <summary>
-	///		定义 GPIO 引脚的最大速度。
-	/// </summary>
-	enum GpioPinSpeed
-	{
-		Low = GPIO_SPEED_FREQ_LOW,
-		Medium = GPIO_SPEED_FREQ_MEDIUM,
-		High = GPIO_SPEED_FREQ_HIGH,
-	};
-
 	class GpioPinConfig :
 		public base::HandleWrapper<GPIO_InitTypeDef>
 	{
@@ -93,9 +73,52 @@ namespace hal
 			Event_BothEdgeTrigger = GPIO_MODE_EVT_RISING_FALLING,
 		};
 
-		ModeOption _mode = ModeOption::Input;
-		GpioPinPull _pull_mode = GpioPinPull::NoPull;
-		GpioPinSpeed _speed = GpioPinSpeed::High;
+		ModeOption Mode() const
+		{
+			return static_cast<ModeOption>(_handle.Mode);
+		}
+		void SetMode(ModeOption value)
+		{
+			_handle.Mode = static_cast<uint32_t>(value);
+		}
+
+		/// <summary>
+		///		定义 GPIO 引脚的上下拉模式。
+		/// </summary>
+		enum class PullOption
+		{
+			NoPull = GPIO_NOPULL,
+			PullUp = GPIO_PULLUP,
+			PullDown = GPIO_PULLDOWN,
+		};
+
+		PullOption Pull() const
+		{
+			return static_cast<PullOption>(_handle.Pull);
+		}
+		void SetPull(PullOption value)
+		{
+			_handle.Pull = static_cast<uint32_t>(value);
+		}
+
+		/// <summary>
+		///		定义 GPIO 引脚的最大速度。
+		/// </summary>
+		enum SpeedOption
+		{
+			Low = GPIO_SPEED_FREQ_LOW,
+			Medium = GPIO_SPEED_FREQ_MEDIUM,
+			High = GPIO_SPEED_FREQ_HIGH,
+		};
+
+		SpeedOption Speed() const
+		{
+			return static_cast<SpeedOption>(_handle.Speed);
+		}
+		void SetSpeed(SpeedOption value)
+		{
+			_handle.Speed = static_cast<uint32_t>(value);
+		}
 	};
 }
 

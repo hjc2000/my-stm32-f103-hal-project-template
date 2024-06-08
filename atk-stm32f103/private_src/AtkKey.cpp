@@ -9,10 +9,11 @@ bsp::Key0::Key0()
 	using namespace bsp;
 	Port().EnableClock();
 	GpioPinConfig options;
-	options._mode = hal::GpioPinConfig::ModeOption::Input;
-	options._pull_mode = GpioPinPull::PullUp;
-	options._speed = GpioPinSpeed::High;
-	Port().InitPin(hal::GpioPinConfig::PinEnum::Pin4, options);
+	options.SetPin(hal::GpioPinConfig::PinEnum::Pin4);
+	options.SetMode(hal::GpioPinConfig::ModeOption::Input);
+	options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
+	options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
+	Port().InitPin(options);
 }
 
 bool bsp::Key0::KeyIsDown()
@@ -28,10 +29,11 @@ bsp::Key1::Key1()
 	using namespace bsp;
 	Port().EnableClock();
 	GpioPinConfig options;
-	options._mode = hal::GpioPinConfig::ModeOption::Input;
-	options._pull_mode = GpioPinPull::PullUp;
-	options._speed = GpioPinSpeed::High;
-	Port().InitPin(hal::GpioPinConfig::PinEnum::Pin3, options);
+	options.SetPin(hal::GpioPinConfig::PinEnum::Pin3);
+	options.SetMode(hal::GpioPinConfig::ModeOption::Input);
+	options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
+	options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
+	Port().InitPin(options);
 }
 
 bool bsp::Key1::KeyIsDown()
