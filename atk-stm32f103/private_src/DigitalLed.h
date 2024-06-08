@@ -20,7 +20,7 @@ namespace bsp
 			*/
 			TurnOff();
 			GpioPinConfig gpio_pin_options;
-			gpio_pin_options._mode = hal::GpioPinConfig::GpioPinMode::Output_PushPull;
+			gpio_pin_options._mode = hal::GpioPinConfig::ModeOption::Output_PushPull;
 			gpio_pin_options._pull_mode = GpioPinPull::PullUp;
 			gpio_pin_options._speed = GpioPinSpeed::High;
 			GpioPortB::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin5, gpio_pin_options);
@@ -53,7 +53,7 @@ namespace bsp
 			*/
 			TurnOff();
 			GpioPinConfig gpio_pin_options;
-			gpio_pin_options._mode = hal::GpioPinConfig::GpioPinMode::Output_PushPull;
+			gpio_pin_options._mode = hal::GpioPinConfig::ModeOption::Output_PushPull;
 			gpio_pin_options._pull_mode = GpioPinPull::PullUp;
 			gpio_pin_options._speed = GpioPinSpeed::High;
 			GpioPortE::Instance().InitPin(hal::GpioPinConfig::PinEnum::Pin5, gpio_pin_options);

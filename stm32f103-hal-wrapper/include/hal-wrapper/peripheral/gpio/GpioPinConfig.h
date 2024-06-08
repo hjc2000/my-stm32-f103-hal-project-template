@@ -59,10 +59,19 @@ namespace hal
 			Pin15 = GPIO_PIN_15,
 		};
 
+		PinEnum Pin() const
+		{
+			return static_cast<PinEnum>(_handle.Pin);
+		}
+		void SetPin(PinEnum value)
+		{
+			_handle.Pin = static_cast<uint32_t>(value);
+		}
+
 		/// <summary>
 		///		定义 GPIO 引脚模式。
 		/// </summary>
-		enum class GpioPinMode
+		enum class ModeOption
 		{
 			Input = GPIO_MODE_INPUT,
 
@@ -84,7 +93,7 @@ namespace hal
 			Event_BothEdgeTrigger = GPIO_MODE_EVT_RISING_FALLING,
 		};
 
-		GpioPinMode _mode = GpioPinMode::Input;
+		ModeOption _mode = ModeOption::Input;
 		GpioPinPull _pull_mode = GpioPinPull::NoPull;
 		GpioPinSpeed _speed = GpioPinSpeed::High;
 	};

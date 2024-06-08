@@ -9,7 +9,7 @@ bsp::Key0::Key0()
 	using namespace bsp;
 	Port().EnableClock();
 	GpioPinConfig options;
-	options._mode = hal::GpioPinConfig::GpioPinMode::Input;
+	options._mode = hal::GpioPinConfig::ModeOption::Input;
 	options._pull_mode = GpioPinPull::PullUp;
 	options._speed = GpioPinSpeed::High;
 	Port().InitPin(hal::GpioPinConfig::PinEnum::Pin4, options);
@@ -28,7 +28,7 @@ bsp::Key1::Key1()
 	using namespace bsp;
 	Port().EnableClock();
 	GpioPinConfig options;
-	options._mode = hal::GpioPinConfig::GpioPinMode::Input;
+	options._mode = hal::GpioPinConfig::ModeOption::Input;
 	options._pull_mode = GpioPinPull::PullUp;
 	options._speed = GpioPinSpeed::High;
 	Port().InitPin(hal::GpioPinConfig::PinEnum::Pin3, options);
