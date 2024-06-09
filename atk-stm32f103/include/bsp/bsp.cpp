@@ -2,7 +2,7 @@
 #include<AtkKey.h>
 #include<atomic>
 #include<base/RentedPtrFactory.h>
-#include<bsp-interface/extension/KeyScanner.h>
+#include<bsp-interface/key/KeyScanner.h>
 #include<DigitalLed.h>
 #include<ExtiWakeUpKey.h>
 #include<FreeRTOS.h>
