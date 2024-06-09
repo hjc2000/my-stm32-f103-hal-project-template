@@ -18,6 +18,7 @@ namespace bsp
 		SRAM_HandleTypeDef _sram_handle;
 
 		#pragma region 连接到LCD的GPIO引脚
+	private:
 		/// <summary>
 		///		连接 LCD 的 RD 引脚。
 		/// </summary>
