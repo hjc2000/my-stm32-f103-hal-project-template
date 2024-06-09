@@ -1,15 +1,20 @@
 #pragma once
+#include<base/HandleWrapper.h>
 #include<hal.h>
 
 namespace hal
 {
-	class FsmcNorSramTiming
+	class FsmcNorSramTiming :
+		public base::HandleWrapper<FSMC_NORSRAM_TimingTypeDef>
 	{
+	private:
+		FSMC_NORSRAM_TimingTypeDef _handle { };
+
 	public:
-		FsmcNorSramTiming() = default;
-		FsmcNorSramTiming(FSMC_NORSRAM_TimingTypeDef const &o);
-		FsmcNorSramTiming &operator=(FSMC_NORSRAM_TimingTypeDef const &o);
-		operator FSMC_NORSRAM_TimingTypeDef() const;
+		FSMC_NORSRAM_TimingTypeDef &Handle() override
+		{
+			return _handle;
+		}
 
 		/// <summary>
 		///		地址建立时间。
@@ -24,7 +29,14 @@ namespace hal
 		///		总线上输出信号后要等一段时间后才能将 WR 或 RD 拉低，进入读写操作的准备阶段
 		///		这个时间就是地址建立时间。
 		/// </remark>
-		uint32_t _address_setup_time;
+		uint32_t AddressSetupTime() const
+		{
+			return _handle.AddressSetupTime;
+		}
+		void SetAddressSetupTime(uint32_t value)
+		{
+			_handle.AddressSetupTime = value;
+		}
 
 		/// <summary>
 		///		地址保持时间。
@@ -32,7 +44,14 @@ namespace hal
 		///		* 取值范围：[0, 15]
 		///		* 同步模式下本参数不被使用。
 		/// </summary>
-		uint32_t _address_hold_time;
+		uint32_t AddressHoldTime() const
+		{
+			return _handle.AddressHoldTime;
+		}
+		void SetAddressHoldTime(uint32_t value)
+		{
+			_handle.AddressHoldTime = value;
+		}
 
 		/// <summary>
 		///		数据建立时间。
@@ -51,23 +70,51 @@ namespace hal
 		///		
 		///		WR 拉高后，数据总线上的数据还会被 FSMC 保持 1 个 HCLK 周期。
 		/// </remark>
-		uint32_t _data_setup_time;
+		uint32_t DataSetupTime() const
+		{
+			return _handle.DataSetupTime;
+		}
+		void SetDataSetupTime(uint32_t value)
+		{
+			_handle.DataSetupTime = value;
+		}
 
 		/// <summary>
 		///		* 单位：HCLK 的周期数
 		///		* 取值范围：[0, 15]
 		/// </summary>
-		uint32_t _bus_turn_around_duration;
+		uint32_t BusTurnAroundDuration() const
+		{
+			return _handle.BusTurnAroundDuration;
+		}
+		void SetBusTurnAroundDuration(uint32_t value)
+		{
+			_handle.BusTurnAroundDuration = value;
+		}
 
 		/// <summary>
 		///		* 单位：HCLK 的周期数
 		///		* 取值范围：[2, 16]
 		/// </summary>
-		uint32_t _clk_division;
+		uint32_t ClockDivision() const
+		{
+			return _handle.CLKDivision;
+		}
+		void SetClockDivision(uint32_t value)
+		{
+			_handle.CLKDivision = value;
+		}
 
-		uint32_t _data_latency;
+		uint32_t DataLatency() const
+		{
+			return _handle.DataLatency;
+		}
+		void SetDataLatency(uint32_t value)
+		{
+			_handle.DataLatency = value;
+		}
 
-		enum class AccessMode
+		enum class AccessModeOption
 		{
 			ModeA = FSMC_ACCESS_MODE_A,
 			ModeB = FSMC_ACCESS_MODE_B,
@@ -75,6 +122,13 @@ namespace hal
 			ModeD = FSMC_ACCESS_MODE_D,
 		};
 
-		AccessMode _access_mode;
+		AccessModeOption AccessMode() const
+		{
+			return static_cast<AccessModeOption>(_handle.AccessMode);
+		}
+		void SetAccessMode(AccessModeOption value)
+		{
+			_handle.AccessMode = static_cast<uint32_t>(value);
+		}
 	};
 }

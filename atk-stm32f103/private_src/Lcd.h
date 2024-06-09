@@ -115,26 +115,6 @@ namespace bsp
 		}
 		#pragma endregion
 
-		static consteval hal::FsmcNorSramTiming ReadTiming()
-		{
-			hal::FsmcNorSramTiming read_timing { };
-			read_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
-			read_timing._address_setup_time = 0;
-			read_timing._address_hold_time = 0;
-			read_timing._data_setup_time = 15;
-			return read_timing;
-		}
-
-		static consteval hal::FsmcNorSramTiming WriteTiming()
-		{
-			hal::FsmcNorSramTiming write_timing { };
-			write_timing._access_mode = hal::FsmcNorSramTiming::AccessMode::ModeA;
-			write_timing._address_setup_time = 0;
-			write_timing._address_hold_time = 0;
-			write_timing._data_setup_time = 1;
-			return write_timing;
-		}
-
 		volatile uint16_t *CommandAddress()
 		{
 			constexpr uint32_t addr = (uint32_t)((0X60000000 + (0X4000000 * (4 - 1))) | (((1 << 10) * 2) - 2));

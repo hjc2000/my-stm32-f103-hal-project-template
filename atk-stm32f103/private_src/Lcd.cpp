@@ -29,9 +29,18 @@ Lcd::Lcd()
 	nor_sram_init_options.SetPageSize(hal::FsmcNorSramConfig::PageSizeOption::SizeNone);
 	_sram_handle.Init = nor_sram_init_options.Handle();
 
-	FSMC_NORSRAM_TimingTypeDef read_timing = ReadTiming();
-	FSMC_NORSRAM_TimingTypeDef write_timing = WriteTiming();
-	HAL_SRAM_Init(&_sram_handle, &read_timing, &write_timing);
+	hal::FsmcNorSramTiming read_timing { };
+	read_timing.SetAccessMode(hal::FsmcNorSramTiming::AccessModeOption::ModeA);
+	read_timing.SetAddressSetupTime(0);
+	read_timing.SetAddressHoldTime(0);
+	read_timing.SetDataSetupTime(15);
+
+	hal::FsmcNorSramTiming write_timing { };
+	write_timing.SetAccessMode(hal::FsmcNorSramTiming::AccessModeOption::ModeA);
+	write_timing.SetAddressSetupTime(0);
+	write_timing.SetAddressHoldTime(0);
+	write_timing.SetDataSetupTime(1);
+	HAL_SRAM_Init(&_sram_handle, read_timing, write_timing);
 }
 
 void Lcd::InitGpio()
