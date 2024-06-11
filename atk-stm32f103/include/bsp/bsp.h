@@ -1,6 +1,5 @@
 #pragma once
 #include<bsp-interface/Console.h>
-#include<bsp-interface/IBaseTimer.h>
 #include<bsp-interface/IDelayer.h>
 #include<bsp-interface/IDigitalLed.h>
 #include<bsp-interface/IEventDrivenKey.h>
@@ -8,6 +7,7 @@
 #include<bsp-interface/ISerial.h>
 #include<bsp-interface/key/IKeyScanner.h>
 #include<bsp-interface/lcd/ILcd.h>
+#include<bsp-interface/timer/IBaseTimer.h>
 
 enum class KeyIndex :uint16_t
 {

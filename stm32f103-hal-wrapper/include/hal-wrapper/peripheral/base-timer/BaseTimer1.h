@@ -1,6 +1,6 @@
 #pragma once
 #include<atomic>
-#include<bsp-interface/IBaseTimer.h>
+#include<bsp-interface/timer/IBaseTimer.h>
 #include<functional>
 #include<hal-wrapper/peripheral/base-timer/BaseTimerConfig.h>
 
