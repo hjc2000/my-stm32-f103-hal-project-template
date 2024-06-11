@@ -1,32 +1,13 @@
 #include"Serial.h"
 #include<FreeRTOS.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
+#include<hal-wrapper/interrupt/IsrManager.h>
 #include<hal-wrapper/peripheral/dma/DmaConfig.h>
 #include<hal-wrapper/peripheral/gpio/GpioPort.h>
 #include<task.h>
 
 using namespace hal;
 using namespace bsp;
-
-#pragma region 中断处理函数
-extern "C"
-{
-	void USART1_IRQHandler()
-	{
-		HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
-	}
-
-	void DMA1_Channel4_IRQHandler()
-	{
-		HAL_DMA_IRQHandler(&Serial::Instance()._tx_dma_handle);
-	}
-
-	void DMA1_Channel5_IRQHandler()
-	{
-		HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
-	}
-}
-#pragma endregion
 
 void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 {
@@ -247,13 +228,22 @@ void Serial::Open()
 	auto enable_interrupt = []()
 	{
 		hal::Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 10, 0);
-		hal::Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
+		hal::GetIsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::USART1_IRQn), []()
+		{
+			HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
+		});
 
 		hal::Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 10, 0);
-		hal::Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
+		hal::GetIsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel4_IRQn), []()
+		{
+			HAL_DMA_IRQHandler(&Serial::Instance()._tx_dma_handle);
+		});
 
 		hal::Interrupt::SetPriority(IRQn_Type::DMA1_Channel5_IRQn, 10, 0);
-		hal::Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
+		hal::GetIsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel5_IRQn), []()
+		{
+			HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
+		});
 	};
 
 	enable_interrupt();

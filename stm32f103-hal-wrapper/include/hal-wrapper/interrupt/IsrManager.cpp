@@ -47,4 +47,52 @@ extern "C"
 
 		}
 	}
+
+	void USART1_IRQHandler()
+	{
+		try
+		{
+			auto func = hal::GetIsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::USART1_IRQn));
+			if (func)
+			{
+				func();
+			}
+		}
+		catch (...)
+		{
+
+		}
+	}
+
+	void DMA1_Channel4_IRQHandler()
+	{
+		try
+		{
+			auto func = hal::GetIsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel4_IRQn));
+			if (func)
+			{
+				func();
+			}
+		}
+		catch (...)
+		{
+
+		}
+	}
+
+	void DMA1_Channel5_IRQHandler()
+	{
+		try
+		{
+			auto func = hal::GetIsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel5_IRQn));
+			if (func)
+			{
+				func();
+			}
+		}
+		catch (...)
+		{
+
+		}
+	}
 }

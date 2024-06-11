@@ -8,13 +8,6 @@
 #include<task/Critical.h>
 #include<task/Mutex.h>
 
-extern "C"
-{
-	void USART1_IRQHandler();
-	void DMA1_Channel4_IRQHandler();
-	void DMA1_Channel5_IRQHandler();
-}
-
 namespace hal
 {
 	class Serial :
@@ -40,9 +33,6 @@ namespace hal
 		task::Mutex _read_lock { };
 		int32_t _current_receive_count = 0;
 
-		friend void ::USART1_IRQHandler();
-		friend void ::DMA1_Channel4_IRQHandler();
-		friend void ::DMA1_Channel5_IRQHandler();
 		static void OnMspInitCallback(UART_HandleTypeDef *huart);
 
 		#pragma region 被中断处理函数回调的函数
