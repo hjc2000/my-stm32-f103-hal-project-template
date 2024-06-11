@@ -1,18 +1,11 @@
 #include"BaseTimer1.h"
 #include<hal-wrapper/clock/ClockSignal.h>
 #include<hal-wrapper/interrupt/Interrupt.h>
+#include<hal-wrapper/interrupt/IsrManager.h>
 #include<stdexcept>
 #include<task/Critical.h>
 
 using namespace hal;
-
-extern "C"
-{
-	void TIM6_IRQHandler()
-	{
-		HAL_TIM_IRQHandler(&BaseTimer1::Instance()._handle);
-	}
-}
 
 void BaseTimer1::Initialize(BaseTimerConfig const &config)
 {
@@ -34,6 +27,11 @@ void BaseTimer1::Initialize(BaseTimerConfig const &config)
 
 		}
 	};
+
+	hal::GetIsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::TIM6_IRQn), []()
+	{
+		HAL_TIM_IRQHandler(&BaseTimer1::Instance()._handle);
+	});
 }
 
 void BaseTimer1::Initialize(std::chrono::milliseconds period)

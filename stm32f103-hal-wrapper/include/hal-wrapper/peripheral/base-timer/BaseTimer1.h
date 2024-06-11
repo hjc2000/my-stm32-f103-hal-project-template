@@ -4,14 +4,6 @@
 #include<functional>
 #include<hal-wrapper/peripheral/base-timer/BaseTimerConfig.h>
 
-extern "C"
-{
-	/// <summary>
-	///		中断向量函数
-	/// </summary>
-	void TIM6_IRQHandler();
-}
-
 namespace hal
 {
 	/// <summary>
@@ -23,8 +15,6 @@ namespace hal
 	{
 	private:
 		BaseTimer1() = default;
-
-		friend void ::TIM6_IRQHandler();
 
 		TIM_HandleTypeDef _handle;
 		std::function<void()> _on_period_elapsed;
