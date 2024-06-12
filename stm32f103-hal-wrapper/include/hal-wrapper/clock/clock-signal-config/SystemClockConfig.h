@@ -24,7 +24,7 @@ namespace hal
 		/// </summary>
 		ClockSource _clock_source = ClockSource::PLLCLK;
 
-		AhbClkConfig _ahb_clk_config;
+		AhbClkConfig _ahb_clk_config { };
 
 		void Serialize(RCC_ClkInitTypeDef &o) const;
 		void Deserialize(RCC_ClkInitTypeDef const &o);

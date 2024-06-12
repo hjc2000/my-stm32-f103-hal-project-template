@@ -27,9 +27,9 @@ namespace hal
 		/// <summary>
 		///		选择要配置的时钟信号，可以将多个枚举值按位或同时选中多个时钟信号。
 		/// </summary>
-		ClockType _clock_type;
+		ClockType _clock_type { };
 
-		SystemClockConfig _system_clk_config;
+		SystemClockConfig _system_clk_config { };
 
 		/// <summary>
 		///		读写 flash 时要延迟多少个 CPU 时钟周期。
@@ -57,7 +57,7 @@ namespace hal
 			Latency2 = FLASH_LATENCY_2,
 		};
 
-		FlashLatency _flash_latency;
+		FlashLatency _flash_latency { };
 
 		void Serialize(RCC_ClkInitTypeDef &o) const;
 		void Deserialize(RCC_ClkInitTypeDef const &o);

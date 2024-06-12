@@ -73,6 +73,6 @@ namespace hal
 
 		LsiState _lsi_state = LsiState::Off;
 
-		PllConfig _pll_init_options;
+		PllConfig _pll_init_options { };
 	};
 }

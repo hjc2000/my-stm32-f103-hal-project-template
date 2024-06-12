@@ -20,9 +20,9 @@ namespace hal
 			DIV512 = RCC_SYSCLK_DIV512,
 		};
 
-		InputDivider _input_divider;
-		Apb1ClkConfig _apb1_clk_config;
-		Apb2ClkConfig _apb2_clk_config;
+		InputDivider _input_divider { };
+		Apb1ClkConfig _apb1_clk_config { };
+		Apb2ClkConfig _apb2_clk_config { };
 
 		void Serialize(RCC_ClkInitTypeDef &o) const;
 		void Deserialize(RCC_ClkInitTypeDef const &o);

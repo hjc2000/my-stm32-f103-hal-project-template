@@ -15,7 +15,7 @@ namespace hal
 			DIV16 = RCC_HCLK_DIV16,
 		};
 
-		InputDivider _input_divider;
+		InputDivider _input_divider { };
 
 		void Serialize(RCC_ClkInitTypeDef &o) const;
 		void Deserialize(RCC_ClkInitTypeDef const &o);
@@ -33,7 +33,7 @@ namespace hal
 			DIV16 = RCC_HCLK_DIV16,
 		};
 
-		InputDivider _input_divider;
+		InputDivider _input_divider { };
 
 		void Serialize(RCC_ClkInitTypeDef &o) const;
 		void Deserialize(RCC_ClkInitTypeDef const &o);
