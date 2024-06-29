@@ -1,8 +1,9 @@
-#include<bsp/bsp.h>
-#include<stdexcept>
-#include<string>
-#include<task/Task.h>
-#include<test_functions.h>
+#include <base/math/Fraction.h>
+#include <bsp/bsp.h>
+#include <stdexcept>
+#include <string>
+#include <task/Task.h>
+#include <test_functions.h>
 
 using namespace bsp;
 
@@ -14,10 +15,12 @@ int main(void)
 		{
 			BSP::Initialize();
 
-			std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create([]()
-			{
-				TestSerial();
-			}, 512);
+			std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create(
+				[]()
+				{
+					TestSerial();
+				},
+				512);
 
 			vTaskStartScheduler();
 		}
