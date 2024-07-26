@@ -8,6 +8,9 @@ namespace bsp
 		: public bsp::IGpioManager
 	{
 	private:
+		static std::map<GPIO_TypeDef *, int> _port_map;
+		static std::map<int, int> _mod_map;
+
 		/// @brief 将引脚定义转为引脚索引。
 		/// @param pin_define
 		/// @return

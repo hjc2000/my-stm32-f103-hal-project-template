@@ -2,6 +2,32 @@
 #include <map>
 #include <stdexcept>
 
+std::map<GPIO_TypeDef *, int> bsp::GpioManager::_port_map{
+	{GPIOA, 0},
+	{GPIOB, 1},
+	{GPIOC, 2},
+	{GPIOD, 3},
+	{GPIOE, 4},
+	{GPIOF, 5},
+	{GPIOG, 6},
+};
+
+std::map<int, int> bsp::GpioManager::_mod_map{
+	{GPIO_MODE_INPUT, 0},
+	{GPIO_MODE_OUTPUT_PP, 1},
+	{GPIO_MODE_OUTPUT_OD, 2},
+	{GPIO_MODE_AF_PP, 3},
+	{GPIO_MODE_AF_OD, 4},
+	{GPIO_MODE_AF_INPUT, 5},
+	{GPIO_MODE_ANALOG, 6},
+	{GPIO_MODE_IT_RISING, 7},
+	{GPIO_MODE_IT_FALLING, 8},
+	{GPIO_MODE_IT_RISING_FALLING, 9},
+	{GPIO_MODE_EVT_RISING, 10},
+	{GPIO_MODE_EVT_FALLING, 11},
+	{GPIO_MODE_EVT_RISING_FALLING, 12},
+};
+
 int bsp::GpioManager::PinDefineToIndex(int pin_define)
 {
 	switch (pin_define)
@@ -77,18 +103,8 @@ int bsp::GpioManager::PinDefineToIndex(int pin_define)
 
 int bsp::GpioManager::PortToIndex(GPIO_TypeDef *port)
 {
-	static std::map<GPIO_TypeDef *, int> port_map{
-		{GPIOA, 0},
-		{GPIOB, 1},
-		{GPIOC, 2},
-		{GPIOD, 3},
-		{GPIOE, 4},
-		{GPIOF, 5},
-		{GPIOG, 6},
-	};
-
-	auto it = port_map.find(port);
-	if (it == port_map.end())
+	auto it = _port_map.find(port);
+	if (it == _port_map.end())
 	{
 		throw std::runtime_error{"非法端口"};
 	}
@@ -217,24 +233,8 @@ int bsp::GpioManager::GetPinDefineOfPinId(int pin_id)
 
 int bsp::GpioManager::PinModeDefineToIndex(int mode_define)
 {
-	static std::map<int, int> mod_map{
-		{GPIO_MODE_INPUT, 0},
-		{GPIO_MODE_OUTPUT_PP, 1},
-		{GPIO_MODE_OUTPUT_OD, 2},
-		{GPIO_MODE_AF_PP, 3},
-		{GPIO_MODE_AF_OD, 4},
-		{GPIO_MODE_AF_INPUT, 5},
-		{GPIO_MODE_ANALOG, 6},
-		{GPIO_MODE_IT_RISING, 7},
-		{GPIO_MODE_IT_FALLING, 8},
-		{GPIO_MODE_IT_RISING_FALLING, 9},
-		{GPIO_MODE_EVT_RISING, 10},
-		{GPIO_MODE_EVT_FALLING, 11},
-		{GPIO_MODE_EVT_RISING_FALLING, 12},
-	};
-
-	auto it = mod_map.find(mode_define);
-	if (it == mod_map.end())
+	auto it = _mod_map.find(mode_define);
+	if (it == _mod_map.end())
 	{
 		throw std::runtime_error{"非法引脚模式"};
 	}
