@@ -51,9 +51,9 @@ namespace bsp
 		void InitializePin(int pin_id,
 						   int pin_mode,
 						   int pin_pull,
-						   std::map<std::string, int> *ex_options = nullptr);
+						   std::map<std::string, int> *ex_options = nullptr) override;
 
-		void DigitalWritePin(int pin_id, bool value);
-		bool DigitalReadPin(int pin_id);
+		void DigitalWritePin(int pin_id, bool value) override;
+		bool DigitalReadPin(int pin_id) override;
 	};
 }
