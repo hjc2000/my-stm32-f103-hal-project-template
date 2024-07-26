@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 include(${cpp_lib_build_scripts_path}/cmake-module/setup.cmake)
+include(target_import_freertos)
+include(target_import_task)
 
 set(ProjectName test)
 project(${ProjectName})
@@ -9,7 +11,16 @@ set(CMAKE_C_STANDARD 99)
 
 add_executable(${ProjectName})
 target_import_src(${ProjectName})
+
+target_link_libraries(${ProjectName} PUBLIC -Wl,--start-group)
+target_import_freertos(${ProjectName} PUBLIC)
+target_import_task(${ProjectName} PUBLIC)
 target_link_libraries(${ProjectName} PUBLIC c m atk-stm32f103)
+target_link_libraries(${ProjectName} PUBLIC -Wl,--end-group)
+
+
+
+
 
 add_custom_command(TARGET ${ProjectName} POST_BUILD 
 				   COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${ProjectName}>)

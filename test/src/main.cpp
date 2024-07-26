@@ -18,7 +18,8 @@ int main(void)
 			std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create(
 				[]()
 				{
-					TestSerial();
+					// TestSerial();
+					TestKeyScanner();
 				},
 				512);
 

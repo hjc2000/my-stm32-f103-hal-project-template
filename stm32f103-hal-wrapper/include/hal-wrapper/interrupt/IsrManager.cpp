@@ -1,9 +1,9 @@
-#include"IsrManager.h"
-#include<hal-wrapper/interrupt/Interrupt.h>
+#include "IsrManager.h"
+#include <hal-wrapper/interrupt/Interrupt.h>
 
 bsp::IsrManager &hal::GetIsrManager()
 {
-	class InterruptSwitch :public bsp::IInterruptSwitch
+	class InterruptSwitch : public bsp::IInterruptSwitch
 	{
 	private:
 		InterruptSwitch() = default;
@@ -24,9 +24,21 @@ bsp::IsrManager &hal::GetIsrManager()
 		{
 			hal::Interrupt::EnableIRQ(static_cast<IRQn_Type>(irq));
 		}
+
+		/// @brief 禁止全局中断
+		virtual void DisableGlobalInterrupt() noexcept
+		{
+			__disable_irq();
+		}
+
+		/// @brief 启用全局中断
+		virtual void EnableGlobalInterrupt() noexcept
+		{
+			__enable_irq();
+		}
 	};
 
-	static bsp::IsrManager manager { InterruptSwitch::Instance() };
+	static bsp::IsrManager manager{InterruptSwitch::Instance()};
 	return manager;
 }
 
@@ -44,7 +56,6 @@ extern "C"
 		}
 		catch (...)
 		{
-
 		}
 	}
 
@@ -60,7 +71,6 @@ extern "C"
 		}
 		catch (...)
 		{
-
 		}
 	}
 
@@ -76,7 +86,6 @@ extern "C"
 		}
 		catch (...)
 		{
-
 		}
 	}
 
@@ -92,7 +101,6 @@ extern "C"
 		}
 		catch (...)
 		{
-
 		}
 	}
 }

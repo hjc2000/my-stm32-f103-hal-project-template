@@ -1,12 +1,12 @@
 #pragma once
-#include<bsp-interface/ISysTick.h>
-#include<chrono>
-#include<hal.h>
-#include<stdint.h>
+#include <bsp-interface/ISysTick.h>
+#include <chrono>
+#include <hal.h>
+#include <stdint.h>
 
 namespace hal
 {
-	class SysTickClock :public bsp::ISysTick
+	class SysTickClock : public bsp::ISysTick
 	{
 	private:
 		SysTickClock() = default;
@@ -24,7 +24,7 @@ namespace hal
 			HCLK_DIV8 = SYSTICK_CLKSOURCE_HCLK_DIV8,
 		};
 
-		SysTickClock::SysTickClockSourceOption ClockSource();
+		SysTickClock::SysTickClockSourceOption ClockSource() const;
 		void SetClockSource(SysTickClock::SysTickClockSourceOption value);
 
 		/// <summary>
@@ -32,16 +32,16 @@ namespace hal
 		///		* 这是最终输入到计数器的频率，后面没有任何分频器。
 		/// </summary>
 		/// <returns></returns>
-		uint32_t Frequency() override;
+		uint32_t Frequency() const override;
 
 		/// <summary>
 		///		获取 SysTick 的 LOAD 寄存器的 RELOAD 部分的值。
 		///		RELOAD 占据 LOAD 寄存器的低 23 位。
-		///		
+		///
 		///		RELOAD 是用来在计数值递减到 0 后，下一个时钟周期装载到计数器中的。
 		/// </summary>
 		/// <returns></returns>
-		uint32_t ReloadValue() override;
+		uint32_t ReloadValue() const override;
 
 		/// <summary>
 		///		获取 SysTick 的 VAL 寄存器的 CURRENT 部分的值。
@@ -53,6 +53,6 @@ namespace hal
 		///		COUNTFLAG 位清零。
 		/// </note>
 		/// <returns>当前计数值</returns>
-		uint32_t CurrentValue() override;
+		uint32_t CurrentValue() const override;
 	};
 }

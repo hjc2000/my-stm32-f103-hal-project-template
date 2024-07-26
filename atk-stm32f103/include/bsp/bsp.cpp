@@ -1,24 +1,24 @@
-#include"bsp.h"
-#include<AtkKey.h>
-#include<atomic>
-#include<base/RentedPtrFactory.h>
-#include<bsp-interface/key/KeyScanner.h>
-#include<DigitalLed.h>
-#include<ExtiWakeUpKey.h>
-#include<FreeRTOS.h>
-#include<functional>
-#include<hal-wrapper/clock/clock-signal-config/ClockSignalConfig.h>
-#include<hal-wrapper/clock/ClockSignal.h>
-#include<hal-wrapper/clock/ConfigClockSignal.h>
-#include<hal-wrapper/clock/Delayer.h>
-#include<hal-wrapper/clock/Osc.h>
-#include<hal-wrapper/clock/SysTickClock.h>
-#include<hal-wrapper/peripheral/base-timer/BaseTimer1.h>
-#include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
-#include<hal-wrapper/peripheral/serial/Serial.h>
-#include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDog.h>
-#include<Lcd.h>
-#include<task.h>
+#include "bsp.h"
+#include <AtkKey.h>
+#include <DigitalLed.h>
+#include <ExtiWakeUpKey.h>
+#include <FreeRTOS.h>
+#include <Lcd.h>
+#include <atomic>
+#include <base/RentedPtrFactory.h>
+#include <bsp-interface/key/KeyScanner.h>
+#include <functional>
+#include <hal-wrapper/clock/ClockSignal.h>
+#include <hal-wrapper/clock/ConfigClockSignal.h>
+#include <hal-wrapper/clock/Delayer.h>
+#include <hal-wrapper/clock/Osc.h>
+#include <hal-wrapper/clock/SysTickClock.h>
+#include <hal-wrapper/clock/clock-signal-config/ClockSignalConfig.h>
+#include <hal-wrapper/peripheral/base-timer/BaseTimer1.h>
+#include <hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
+#include <hal-wrapper/peripheral/serial/Serial.h>
+#include <hal-wrapper/peripheral/window-watch-dog/WindowWatchDog.h>
+#include <task.h>
 
 using namespace bsp;
 using namespace hal;
@@ -82,10 +82,9 @@ bsp::IKeyScanner &BSP::KeyScanner()
 		{
 			_keys[(uint16_t)KeyIndex::Key0] = &Key0::Instance();
 			_keys[(uint16_t)KeyIndex::Key1] = &Key1::Instance();
-			_key_scanner = std::shared_ptr<bsp::KeyScanner> { new bsp::KeyScanner {
+			_key_scanner = std::shared_ptr<bsp::KeyScanner>{new bsp::KeyScanner{
 				_keys,
-				Delayer::Instance()
-			} };
+			}};
 		}
 
 		KeyScannerInitializer(KeyScannerInitializer const &o) = delete;
@@ -93,7 +92,7 @@ bsp::IKeyScanner &BSP::KeyScanner()
 		KeyScannerInitializer &operator=(KeyScannerInitializer const &o) = delete;
 		KeyScannerInitializer &operator=(KeyScannerInitializer &&o) = delete;
 
-		std::vector<bsp::IKey *> _keys { (size_t)KeyIndex::EnumEndFlag };
+		std::vector<bsp::IKey *> _keys{(size_t)KeyIndex::EnumEndFlag};
 		std::shared_ptr<bsp::KeyScanner> _key_scanner;
 
 	public:
@@ -139,7 +138,7 @@ bsp::Console &BSP::Console()
 
 void TestWindowWatchDog()
 {
-	BSP::Delayer().Delay(std::chrono::seconds { 1 });
+	BSP::Delayer().Delay(std::chrono::seconds{1});
 	BSP::RedDigitalLed().TurnOn();
 
 	hal::WindowWatchDogConfig config;
@@ -149,15 +148,13 @@ void TestWindowWatchDog()
 	config.SetEarlyWakeupInterrupt(hal::WindowWatchDogConfig::EarlyWakeupInterruptOption::Enable);
 
 	hal::WindowWatchDog::Instance().SetEarlyWakeupInterruptCallback([&]()
-	{
-		BSP::GreenDigitalLed().Toggle();
-	});
+																	{ BSP::GreenDigitalLed().Toggle(); });
 
 	hal::WindowWatchDog::Instance().Initialize(config);
 
 	while (true)
 	{
 		BSP::RedDigitalLed().Toggle();
-		BSP::Delayer().Delay(std::chrono::seconds { 1 });
+		BSP::Delayer().Delay(std::chrono::seconds{1});
 	}
 }
