@@ -1,10 +1,10 @@
-#include"Serial.h"
-#include<FreeRTOS.h>
-#include<hal-wrapper/interrupt/Interrupt.h>
-#include<hal-wrapper/interrupt/IsrManager.h>
-#include<hal-wrapper/peripheral/dma/DmaConfig.h>
-#include<hal-wrapper/peripheral/gpio/GpioPort.h>
-#include<task.h>
+#include "Serial.h"
+#include <FreeRTOS.h>
+#include <bsp-interface/di.h>
+#include <hal-wrapper/interrupt/Interrupt.h>
+#include <hal-wrapper/peripheral/dma/DmaConfig.h>
+#include <hal-wrapper/peripheral/gpio/GpioPort.h>
+#include <task.h>
 
 using namespace hal;
 using namespace bsp;
@@ -33,7 +33,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	auto init_tx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		hal::DmaConfig dma_config { };
+		hal::DmaConfig dma_config{};
 		dma_config._data_transfer_direction = hal::DmaConfig::DataTransferDirection::MemoryToPeripheral;
 		dma_config._peripheral_inc_mode = hal::DmaConfig::PeripheralIncMode::Disable;
 		dma_config._mem_inc_mode = hal::DmaConfig::MemoryIncMode::Enable;
@@ -50,7 +50,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 	auto init_rx_dma = []()
 	{
 		__HAL_RCC_DMA1_CLK_ENABLE();
-		hal::DmaConfig dma_config { };
+		hal::DmaConfig dma_config{};
 		dma_config._data_transfer_direction = hal::DmaConfig::DataTransferDirection::PeripheralToMemory;
 		dma_config._peripheral_inc_mode = hal::DmaConfig::PeripheralIncMode::Disable;
 		dma_config._mem_inc_mode = hal::DmaConfig::MemoryIncMode::Enable;
@@ -98,14 +98,14 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 {
 	if (count > UINT16_MAX)
 	{
-		throw std::invalid_argument { "count 太大" };
+		throw std::invalid_argument{"count 太大"};
 	}
 
-	task::MutexLockGuard l { _read_lock };
+	task::MutexLockGuard l{_read_lock};
 	while (true)
 	{
 		task::Critical::Run([&]()
-		{
+							{
 			HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, buffer + offset, count);
 
 			/*
@@ -114,8 +114,7 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 			*
 			* 这个操作需要在临界区中，并且 DMA 的中断要处于 freertos 的管理范围内，否则无效。
 			*/
-			_rx_dma_handle.XferHalfCpltCallback = nullptr;
-		});
+			_rx_dma_handle.XferHalfCpltCallback = nullptr; });
 
 		_receive_complete_signal.Acquire();
 		if (_current_receive_count > 0)
@@ -203,10 +202,10 @@ void Serial::Open()
 	_have_begun = true;
 
 	/*
-	* 先立刻释放一次信号量，等会 Write 方法被调用时直接通过，不被阻塞。
-	* 然后在发送完成之前，第二次 Write 就会被阻塞了，这还能防止 Write
-	* 被多线程同时调用。
-	*/
+	 * 先立刻释放一次信号量，等会 Write 方法被调用时直接通过，不被阻塞。
+	 * 然后在发送完成之前，第二次 Write 就会被阻塞了，这还能防止 Write
+	 * 被多线程同时调用。
+	 */
 	_send_complete_signal.Release();
 
 	hal::UartConfig options;
@@ -218,32 +217,44 @@ void Serial::Open()
 	HAL_UART_Init(&_uart_handle);
 
 	/*
-	* HAL_UART_Init 函数会把中断处理函数中回调的函数都设为默认的，所以必须在 HAL_UART_Init
-	* 之后对函数指针赋值。
-	*/
+	 * HAL_UART_Init 函数会把中断处理函数中回调的函数都设为默认的，所以必须在 HAL_UART_Init
+	 * 之后对函数指针赋值。
+	 */
 	_uart_handle.RxEventCallback = OnReceiveEventCallback;
 	_uart_handle.TxCpltCallback = OnSendCompleteCallback;
 
 	// 启用中断
 	auto enable_interrupt = []()
 	{
-		hal::Interrupt::SetPriority(IRQn_Type::USART1_IRQn, 10, 0);
-		hal::GetIsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::USART1_IRQn), []()
-		{
-			HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
-		});
+		hal::Interrupt::SetPriority(IRQn_Type::USART1_IRQn,
+									10,
+									0);
+		DI_IsrManager().AddIsr(
+			static_cast<uint32_t>(IRQn_Type::USART1_IRQn),
+			[]()
+			{
+				HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
+			});
 
-		hal::Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn, 10, 0);
-		hal::GetIsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel4_IRQn), []()
-		{
-			HAL_DMA_IRQHandler(&Serial::Instance()._tx_dma_handle);
-		});
+		hal::Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn,
+									10,
+									0);
+		DI_IsrManager().AddIsr(
+			static_cast<uint32_t>(IRQn_Type::DMA1_Channel4_IRQn),
+			[]()
+			{
+				HAL_DMA_IRQHandler(&Serial::Instance()._tx_dma_handle);
+			});
 
-		hal::Interrupt::SetPriority(IRQn_Type::DMA1_Channel5_IRQn, 10, 0);
-		hal::GetIsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel5_IRQn), []()
-		{
-			HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
-		});
+		hal::Interrupt::SetPriority(IRQn_Type::DMA1_Channel5_IRQn,
+									10,
+									0);
+		DI_IsrManager().AddIsr(
+			static_cast<uint32_t>(IRQn_Type::DMA1_Channel5_IRQn),
+			[]()
+			{
+				HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
+			});
 	};
 
 	enable_interrupt();
