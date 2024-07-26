@@ -1,7 +1,14 @@
 #include <base/Initializer.h>
 #include <bsp-interface/di.h>
+#include <hal-wrapper/clock/SysTickClock.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
 
+bsp::ISysTick &DI_SysTick()
+{
+	return hal::SysTickClock::Instance();
+}
+
+#pragma region DI_InterruptSwitch
 class InterruptSwitch : public bsp::IInterruptSwitch
 {
 public:
@@ -39,7 +46,9 @@ static base::Initializer _interrupt_switch_initializer{
 	{
 		DI_InterruptSwitch();
 	}};
+#pragma endregion
 
+#pragma region DI_IsrManager
 bsp::IsrManager &DI_IsrManager()
 {
 	static bsp::IsrManager manager{};
@@ -114,3 +123,4 @@ extern "C"
 		}
 	}
 }
+#pragma endregion
