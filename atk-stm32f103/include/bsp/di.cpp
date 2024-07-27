@@ -2,6 +2,7 @@
 #include <base/Initializer.h>
 #include <bsp-interface/di.h>
 #include <bsp-interface/key/KeyScanner.h>
+#include <bsp/bsp.h>
 
 using namespace bsp;
 
@@ -15,15 +16,29 @@ static base::Initializer _initializer{
 #pragma region DI_KeyScanner
 base::IReadOnlyCollection<int, bsp::IKey *> &DI_KeyCollection()
 {
+	class ArrayCollection
+		: public base::IReadOnlyCollection<int, bsp::IKey *>
+	{
+	private:
+		std::array<bsp::IKey *, static_cast<int>(KeyIndex::EnumEndFlag)> _array = {
+			&Key0::Instance(),
+			&Key1::Instance(),
+		};
 
-	static base::ArrayCollection<2, bsp::IKey *> keys{
-		std::array<bsp::IKey *, 2>{
-			static_cast<bsp::IKey *>(&Key0::Instance()),
-			static_cast<bsp::IKey *>(&Key1::Instance()),
-		},
+	public:
+		int Count() const override
+		{
+			return static_cast<int>(_array.size());
+		}
+
+		bsp::IKey *Get(int key) const override
+		{
+			return _array[key];
+		}
 	};
 
-	return keys;
+	static ArrayCollection o;
+	return o;
 }
 
 bsp::IKeyScanner &DI_KeyScanner()
