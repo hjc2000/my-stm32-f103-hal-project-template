@@ -1,8 +1,8 @@
 #pragma once
-#include<base/HandleWrapper.h>
-#include<bsp-interface/IIndependentWatchDog.h>
-#include<chrono>
-#include<hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDogConfig.h>
+#include <base/HandleWrapper.h>
+#include <bsp-interface/IIndependentWatchDog.h>
+#include <chrono>
+#include <hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDogConfig.h>
 
 namespace hal
 {
@@ -11,9 +11,9 @@ namespace hal
 	///		- 所谓独立看门狗就是具有自己的内部时钟源，不依赖单片机的系统时钟。
 	///		  在系统时钟失效时仍然能工作。
 	/// </summary>
-	class IndependentWatchDog :
-		public bsp::IIndependentWatchDog,
-		public base::HandleWrapper<IWDG_HandleTypeDef>
+	class IndependentWatchDog
+		: public bsp::IIndependentWatchDog,
+		  public base::HandleWrapper<IWDG_HandleTypeDef>
 	{
 	private:
 		IWDG_HandleTypeDef _handle;

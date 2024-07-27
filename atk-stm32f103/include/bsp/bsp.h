@@ -28,12 +28,6 @@ public:
 	/// </summary>
 	static void Initialize();
 
-	/// <summary>
-	///		独立看门狗。
-	/// </summary>
-	/// <returns></returns>
-	static bsp::IIndependentWatchDog &IndependentWatchDog();
-
 	static bsp::IEventDrivenKey &WakeUpKey();
 
 	static bsp::ISerial &Serial();

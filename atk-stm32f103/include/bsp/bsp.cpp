@@ -48,11 +48,6 @@ void BSP::Initialize()
 	bsp::Console::Instance().SetOutStream(base::RentedPtrFactory::Create(&BSP::Serial()));
 }
 
-bsp::IIndependentWatchDog &BSP::IndependentWatchDog()
-{
-	return IndependentWatchDog::Instance();
-}
-
 bsp::IEventDrivenKey &BSP::WakeUpKey()
 {
 	return bsp::ExtiWakeUpKey::Instance();

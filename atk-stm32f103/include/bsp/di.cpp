@@ -5,6 +5,7 @@
 #include <bsp-interface/di.h>
 #include <bsp-interface/key/KeyScanner.h>
 #include <bsp/bsp.h>
+#include <hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
 
 using namespace bsp;
 
@@ -95,4 +96,9 @@ bsp::IDigitalLed &DI_GreenDigitalLed()
 bsp::ILcd &DI_Lcd()
 {
 	return Lcd::Instance();
+}
+
+bsp::IIndependentWatchDog &DI_IndependentWatchDog()
+{
+	return hal::IndependentWatchDog::Instance();
 }

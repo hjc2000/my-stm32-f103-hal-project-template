@@ -1,6 +1,13 @@
-#include"IndependentWatchDog.h"
+#include "IndependentWatchDog.h"
+#include <base/Initializer.h>
 
 using namespace hal;
+
+static base::Initializer _init{
+	[]()
+	{
+		hal::IndependentWatchDog::Instance();
+	}};
 
 void IndependentWatchDog::Initialize()
 {
@@ -12,40 +19,40 @@ void IndependentWatchDog::Initialize()
 std::chrono::milliseconds IndependentWatchDog::WatchDogTimeoutDuration() const
 {
 	/*
-	* 设计数器计数间隔为 count_interval，单位：秒。
-	*
-	* timeout = reload_value * count_interval
-	* count_interval = 1 / count_freq
-	* count_freq = InnerClockSourceFreq_Hz / prescaler
-	*
-	* count_interval = 1 / (InnerClockSourceFreq_Hz / prescaler)
-	* count_interval = prescaler / InnerClockSourceFreq_Hz
-	* timeout = reload_value * prescaler / InnerClockSourceFreq_Hz
-	*/
-	return std::chrono::milliseconds { static_cast<int64_t>(1000) * _config.ReloadValue() * _config.GetPrescalerByUint32() / InnerClockSourceFreq_Hz() };
+	 * 设计数器计数间隔为 count_interval，单位：秒。
+	 *
+	 * timeout = reload_value * count_interval
+	 * count_interval = 1 / count_freq
+	 * count_freq = InnerClockSourceFreq_Hz / prescaler
+	 *
+	 * count_interval = 1 / (InnerClockSourceFreq_Hz / prescaler)
+	 * count_interval = prescaler / InnerClockSourceFreq_Hz
+	 * timeout = reload_value * prescaler / InnerClockSourceFreq_Hz
+	 */
+	return std::chrono::milliseconds{static_cast<int64_t>(1000) * _config.ReloadValue() * _config.GetPrescalerByUint32() / InnerClockSourceFreq_Hz()};
 }
 
 void IndependentWatchDog::SetWatchDogTimeoutDuration(std::chrono::milliseconds value)
 {
 	/*
-	* 计数器的计数周期为：
-	*	T = 1 / CounterFreq_Hz()
-	* 单位是秒。
-	* value 化成秒是：
-	*	seconds = value / 1000
-	* 想要持续 seconds 秒，计数值是：
-	*	count = seconds / T
-	*	count = value / 1000 / T
-	*	count = value / 1000 * CounterFreq_Hz()
-	* 先乘再除可以防止截断误差
-	*	count = value * CounterFreq_Hz() / 1000
-	*	count = value * InnerClockSourceFreq_Hz() / PrescalerValue() / 1000
-	*	count * PrescalerValue() = value * InnerClockSourceFreq_Hz() / 1000
-	*
-	* count * PrescalerValue() 是具有物理意义的。分频器也可以看作是计数器，分频器计数满了，
-	* 进位给计数器，就实现分频了。看门狗的分频系数都是 2 的整数次幂，从 4 到 256，我们只需要
-	* 找出不让计数器溢出的最小分频系数。
-	*/
+	 * 计数器的计数周期为：
+	 *	T = 1 / CounterFreq_Hz()
+	 * 单位是秒。
+	 * value 化成秒是：
+	 *	seconds = value / 1000
+	 * 想要持续 seconds 秒，计数值是：
+	 *	count = seconds / T
+	 *	count = value / 1000 / T
+	 *	count = value / 1000 * CounterFreq_Hz()
+	 * 先乘再除可以防止截断误差
+	 *	count = value * CounterFreq_Hz() / 1000
+	 *	count = value * InnerClockSourceFreq_Hz() / PrescalerValue() / 1000
+	 *	count * PrescalerValue() = value * InnerClockSourceFreq_Hz() / 1000
+	 *
+	 * count * PrescalerValue() 是具有物理意义的。分频器也可以看作是计数器，分频器计数满了，
+	 * 进位给计数器，就实现分频了。看门狗的分频系数都是 2 的整数次幂，从 4 到 256，我们只需要
+	 * 找出不让计数器溢出的最小分频系数。
+	 */
 
 	// 所需的 (分频器计数值 + 计数器计数值)
 	uint64_t total_count = value.count() * InnerClockSourceFreq_Hz() / 1000;
