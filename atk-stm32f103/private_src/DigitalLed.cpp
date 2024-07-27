@@ -1,7 +1,15 @@
-#include"DigitalLed.h"
+#include "DigitalLed.h"
+#include <base/Initializer.h>
 
 using namespace bsp;
 using namespace hal;
+
+static base::Initializer _initializer{
+	[]()
+	{
+		RedDigitalLed::Instance();
+		GreenDigitalLed::Instance();
+	}};
 
 #pragma region RedDigitalLed
 void bsp::RedDigitalLed::TurnOn()

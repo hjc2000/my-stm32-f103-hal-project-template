@@ -1,5 +1,5 @@
 #pragma once
-#include<hal.h>
+#include <hal.h>
 
 namespace hal
 {
@@ -91,14 +91,6 @@ namespace hal
 		static void DisableIRQ(IRQn_Type irq_n)
 		{
 			HAL_NVIC_DisableIRQ(irq_n);
-		}
-
-		/// <summary>
-		///		执行复位。
-		/// </summary>
-		static void SystemReset()
-		{
-			HAL_NVIC_SystemReset();
 		}
 	};
 }

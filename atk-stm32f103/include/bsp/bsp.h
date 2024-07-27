@@ -28,11 +28,6 @@ public:
 	/// </summary>
 	static void Initialize();
 
-	/// <summary>
-	///		软复位。
-	/// </summary>
-	static void SystemReset();
-
 	static bsp::IDelayer &Delayer();
 
 	/// <summary>

@@ -48,11 +48,6 @@ void BSP::Initialize()
 	bsp::Console::Instance().SetOutStream(base::RentedPtrFactory::Create(&BSP::Serial()));
 }
 
-void BSP::SystemReset()
-{
-	Interrupt::SystemReset();
-}
-
 bsp::IDelayer &BSP::Delayer()
 {
 	return Delayer::Instance();

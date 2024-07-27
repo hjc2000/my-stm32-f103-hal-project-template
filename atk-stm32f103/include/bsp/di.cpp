@@ -1,4 +1,5 @@
 #include <AtkKey.h>
+#include <DigitalLed.h>
 #include <base/Initializer.h>
 #include <bsp-interface/di.h>
 #include <bsp-interface/key/KeyScanner.h>
@@ -11,12 +12,13 @@ static base::Initializer _initializer{
 	{
 		DI_KeyCollection();
 		DI_KeyScanner();
+		DI_DigitalLedCollection();
 	}};
 
 #pragma region DI_KeyScanner
 base::IReadOnlyCollection<int, bsp::IKey *> &DI_KeyCollection()
 {
-	class ArrayCollection
+	class Collection
 		: public base::IReadOnlyCollection<int, bsp::IKey *>
 	{
 	private:
@@ -37,7 +39,7 @@ base::IReadOnlyCollection<int, bsp::IKey *> &DI_KeyCollection()
 		}
 	};
 
-	static ArrayCollection o;
+	static Collection o;
 	return o;
 }
 
@@ -45,5 +47,34 @@ bsp::IKeyScanner &DI_KeyScanner()
 {
 	static bsp::KeyScanner key_scanner{};
 	return key_scanner;
+}
+#pragma endregion
+
+#pragma region DI_DigitalLedCollection
+base::IReadOnlyCollection<int, bsp::IDigitalLed *> &DI_DigitalLedCollection()
+{
+	class Collection
+		: public base::IReadOnlyCollection<int, bsp::IDigitalLed *>
+	{
+	private:
+		std::array<bsp::IDigitalLed *, 2> _array = {
+			&RedDigitalLed::Instance(),
+			&GreenDigitalLed::Instance(),
+		};
+
+	public:
+		int Count() const override
+		{
+			return static_cast<int>(_array.size());
+		}
+
+		bsp::IDigitalLed *Get(int key) const override
+		{
+			return _array[key];
+		}
+	};
+
+	static Collection o;
+	return o;
 }
 #pragma endregion

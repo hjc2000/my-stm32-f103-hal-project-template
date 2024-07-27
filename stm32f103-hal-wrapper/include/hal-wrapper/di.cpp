@@ -10,6 +10,11 @@ static base::Initializer _initializer{
 		DI_InterruptSwitch();
 	}};
 
+void DI_Reset()
+{
+	HAL_NVIC_SystemReset();
+}
+
 #pragma region DI_SysTick
 bsp::ISysTick &DI_SysTick()
 {
