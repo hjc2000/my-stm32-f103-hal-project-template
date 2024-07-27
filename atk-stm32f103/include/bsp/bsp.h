@@ -10,7 +10,7 @@
 #include <bsp-interface/lcd/ILcd.h>
 #include <bsp-interface/timer/IBaseTimer.h>
 
-enum class KeyIndex : uint16_t
+enum class KeyIndex
 {
 	Key0,
 	Key1,
@@ -43,12 +43,6 @@ public:
 
 	static bsp::IDigitalLed &RedDigitalLed();
 	static bsp::IDigitalLed &GreenDigitalLed();
-
-	/// <summary>
-	///		获取按键扫描器。
-	/// </summary>
-	/// <returns></returns>
-	static bsp::IKeyScanner &KeyScanner();
 
 	static bsp::IEventDrivenKey &WakeUpKey();
 

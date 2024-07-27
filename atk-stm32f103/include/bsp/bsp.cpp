@@ -73,46 +73,6 @@ bsp::IDigitalLed &BSP::GreenDigitalLed()
 	return GreenDigitalLed::Instance();
 }
 
-bsp::IKeyScanner &BSP::KeyScanner()
-{
-	class KeyScannerInitializer
-	{
-	private:
-		KeyScannerInitializer()
-		{
-			_keys[(uint16_t)KeyIndex::Key0] = &Key0::Instance();
-			_keys[(uint16_t)KeyIndex::Key1] = &Key1::Instance();
-			_key_scanner = std::shared_ptr<bsp::KeyScanner>{
-				new bsp::KeyScanner{
-					_keys,
-				},
-			};
-		}
-
-		KeyScannerInitializer(KeyScannerInitializer const &o) = delete;
-		KeyScannerInitializer(KeyScannerInitializer &&o) = delete;
-		KeyScannerInitializer &operator=(KeyScannerInitializer const &o) = delete;
-		KeyScannerInitializer &operator=(KeyScannerInitializer &&o) = delete;
-
-		std::vector<bsp::IKey *> _keys{(size_t)KeyIndex::EnumEndFlag};
-		std::shared_ptr<bsp::KeyScanner> _key_scanner;
-
-	public:
-		static KeyScannerInitializer &Instance()
-		{
-			static KeyScannerInitializer o;
-			return o;
-		}
-
-		IKeyScanner &Scanner()
-		{
-			return *_key_scanner;
-		}
-	};
-
-	return KeyScannerInitializer::Instance().Scanner();
-}
-
 bsp::IEventDrivenKey &BSP::WakeUpKey()
 {
 	return bsp::ExtiWakeUpKey::Instance();

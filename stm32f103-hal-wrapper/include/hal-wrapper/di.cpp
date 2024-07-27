@@ -1,5 +1,6 @@
 #include <base/Initializer.h>
 #include <bsp-interface/di.h>
+#include <bsp-interface/key/KeyScanner.h>
 #include <hal-wrapper/clock/SysTickClock.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
 
