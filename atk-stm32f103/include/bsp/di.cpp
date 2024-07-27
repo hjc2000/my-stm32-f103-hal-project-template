@@ -43,7 +43,7 @@ base::IReadOnlyCollection<int, bsp::IKey *> &DI_KeyCollection()
 
 bsp::IKeyScanner &DI_KeyScanner()
 {
-	static bsp::KeyScanner key_scanner{DI_KeyCollection()};
+	static bsp::KeyScanner key_scanner{};
 	return key_scanner;
 }
 #pragma endregion
