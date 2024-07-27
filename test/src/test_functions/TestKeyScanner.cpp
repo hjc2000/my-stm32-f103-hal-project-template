@@ -10,12 +10,12 @@ void TestKeyScanner()
 		DI_KeyScanner().ScanKeys();
 		if (DI_KeyScanner().HasKeyDownEvent(static_cast<int>(KeyIndex::Key0)))
 		{
-			BSP::RedDigitalLed().Toggle();
+			DI_RedDigitalLed().Toggle();
 		}
 
 		if (DI_KeyScanner().HasKeyDownEvent(static_cast<int>(KeyIndex::Key1)))
 		{
-			BSP::GreenDigitalLed().Toggle();
+			DI_GreenDigitalLed().Toggle();
 		}
 	}
 }

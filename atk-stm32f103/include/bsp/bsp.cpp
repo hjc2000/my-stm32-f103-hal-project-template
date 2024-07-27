@@ -58,16 +58,6 @@ bsp::IIndependentWatchDog &BSP::IndependentWatchDog()
 	return IndependentWatchDog::Instance();
 }
 
-bsp::IDigitalLed &BSP::RedDigitalLed()
-{
-	return RedDigitalLed::Instance();
-}
-
-bsp::IDigitalLed &BSP::GreenDigitalLed()
-{
-	return GreenDigitalLed::Instance();
-}
-
 bsp::IEventDrivenKey &BSP::WakeUpKey()
 {
 	return bsp::ExtiWakeUpKey::Instance();
@@ -96,7 +86,7 @@ bsp::Console &BSP::Console()
 void TestWindowWatchDog()
 {
 	BSP::Delayer().Delay(std::chrono::seconds{1});
-	BSP::RedDigitalLed().TurnOn();
+	DI_RedDigitalLed().TurnOn();
 
 	hal::WindowWatchDogConfig config;
 	config.SetCounterReloadValue(0x7f);
@@ -104,14 +94,17 @@ void TestWindowWatchDog()
 	config.SetPrescaler(hal::WindowWatchDogConfig::PrescalerOption::DIV2);
 	config.SetEarlyWakeupInterrupt(hal::WindowWatchDogConfig::EarlyWakeupInterruptOption::Enable);
 
-	hal::WindowWatchDog::Instance().SetEarlyWakeupInterruptCallback([&]()
-																	{ BSP::GreenDigitalLed().Toggle(); });
+	hal::WindowWatchDog::Instance().SetEarlyWakeupInterruptCallback(
+		[&]()
+		{
+			DI_GreenDigitalLed().Toggle();
+		});
 
 	hal::WindowWatchDog::Instance().Initialize(config);
 
 	while (true)
 	{
-		BSP::RedDigitalLed().Toggle();
+		DI_RedDigitalLed().Toggle();
 		BSP::Delayer().Delay(std::chrono::seconds{1});
 	}
 }

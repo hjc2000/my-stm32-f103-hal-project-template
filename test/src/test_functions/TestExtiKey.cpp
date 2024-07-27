@@ -1,15 +1,15 @@
-#include"TestExtiKey.h"
-#include<bsp/bsp.h>
+#include "TestExtiKey.h"
+#include <bsp/bsp.h>
 
 void TestExtiKey()
 {
-	BSP::RedDigitalLed().TurnOn();
+	DI_RedDigitalLed().TurnOn();
 	while (1)
 	{
 		if (BSP::WakeUpKey().IsPressed())
 		{
-			BSP::RedDigitalLed().Toggle();
-			BSP::GreenDigitalLed().Toggle();
+			DI_RedDigitalLed().Toggle();
+			DI_GreenDigitalLed().Toggle();
 			BSP::WakeUpKey().ClearPressedFlag();
 		}
 	}

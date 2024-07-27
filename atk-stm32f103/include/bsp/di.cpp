@@ -78,3 +78,15 @@ base::IReadOnlyCollection<int, bsp::IDigitalLed *> &DI_DigitalLedCollection()
 	return o;
 }
 #pragma endregion
+
+#pragma region 具体颜色的 LED
+bsp::IDigitalLed &DI_RedDigitalLed()
+{
+	return RedDigitalLed::Instance();
+}
+
+bsp::IDigitalLed &DI_GreenDigitalLed()
+{
+	return GreenDigitalLed::Instance();
+}
+#pragma endregion

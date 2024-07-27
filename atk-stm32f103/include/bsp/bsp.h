@@ -36,9 +36,6 @@ public:
 	/// <returns></returns>
 	static bsp::IIndependentWatchDog &IndependentWatchDog();
 
-	static bsp::IDigitalLed &RedDigitalLed();
-	static bsp::IDigitalLed &GreenDigitalLed();
-
 	static bsp::IEventDrivenKey &WakeUpKey();
 
 	static bsp::ISerial &Serial();
