@@ -1,11 +1,10 @@
-#include"Lcd.h"
-#include<bsp/bsp.h>
+#include "Lcd.h"
+#include <bsp/bsp.h>
 
 using namespace bsp;
 using namespace hal;
 
-Lcd::Lcd() :
-	bsp::ST7789LcdDriver(BSP::Delayer())
+Lcd::Lcd() : bsp::ST7789LcdDriver(DI_Delayer())
 {
 	InitGpio();
 	__HAL_RCC_FSMC_CLK_ENABLE();
@@ -13,7 +12,7 @@ Lcd::Lcd() :
 	_sram_handle.Instance = FSMC_NORSRAM_DEVICE;
 	_sram_handle.Extended = FSMC_NORSRAM_EXTENDED_DEVICE;
 
-	hal::FsmcNorSramConfig nor_sram_init_options { };
+	hal::FsmcNorSramConfig nor_sram_init_options{};
 	nor_sram_init_options.SetBank(hal::FsmcNorSramConfig::BankEnum::Bank4);
 	nor_sram_init_options.SetDataAddressMux(hal::FsmcNorSramConfig::DataAddressMuxOption::Disable);
 	nor_sram_init_options.SetMemoryType(hal::FsmcNorSramConfig::MemoryTypeEnum::SRSM);
@@ -30,13 +29,13 @@ Lcd::Lcd() :
 	nor_sram_init_options.SetPageSize(hal::FsmcNorSramConfig::PageSizeOption::SizeNone);
 	_sram_handle.Init = nor_sram_init_options.Handle();
 
-	hal::FsmcNorSramTiming read_timing { };
+	hal::FsmcNorSramTiming read_timing{};
 	read_timing.SetAccessMode(hal::FsmcNorSramTiming::AccessModeOption::ModeA);
 	read_timing.SetAddressSetupTime(0);
 	read_timing.SetAddressHoldTime(0);
 	read_timing.SetDataSetupTime(15);
 
-	hal::FsmcNorSramTiming write_timing { };
+	hal::FsmcNorSramTiming write_timing{};
 	write_timing.SetAccessMode(hal::FsmcNorSramTiming::AccessModeOption::ModeA);
 	write_timing.SetAddressSetupTime(0);
 	write_timing.SetAddressHoldTime(0);
@@ -87,27 +86,11 @@ void Lcd::InitGpio()
 		options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
 
 		options.SetPin(
-			hal::GpioPinConfig::PinEnum::Pin0
-			| hal::GpioPinConfig::PinEnum::Pin1
-			| hal::GpioPinConfig::PinEnum::Pin8
-			| hal::GpioPinConfig::PinEnum::Pin9
-			| hal::GpioPinConfig::PinEnum::Pin10
-			| hal::GpioPinConfig::PinEnum::Pin14
-			| hal::GpioPinConfig::PinEnum::Pin15
-		);
+			hal::GpioPinConfig::PinEnum::Pin0 | hal::GpioPinConfig::PinEnum::Pin1 | hal::GpioPinConfig::PinEnum::Pin8 | hal::GpioPinConfig::PinEnum::Pin9 | hal::GpioPinConfig::PinEnum::Pin10 | hal::GpioPinConfig::PinEnum::Pin14 | hal::GpioPinConfig::PinEnum::Pin15);
 		GpioPortD::Instance().InitPin(options);
 
 		options.SetPin(
-			hal::GpioPinConfig::PinEnum::Pin7
-			| hal::GpioPinConfig::PinEnum::Pin8
-			| hal::GpioPinConfig::PinEnum::Pin9
-			| hal::GpioPinConfig::PinEnum::Pin10
-			| hal::GpioPinConfig::PinEnum::Pin11
-			| hal::GpioPinConfig::PinEnum::Pin12
-			| hal::GpioPinConfig::PinEnum::Pin13
-			| hal::GpioPinConfig::PinEnum::Pin14
-			| hal::GpioPinConfig::PinEnum::Pin15
-		);
+			hal::GpioPinConfig::PinEnum::Pin7 | hal::GpioPinConfig::PinEnum::Pin8 | hal::GpioPinConfig::PinEnum::Pin9 | hal::GpioPinConfig::PinEnum::Pin10 | hal::GpioPinConfig::PinEnum::Pin11 | hal::GpioPinConfig::PinEnum::Pin12 | hal::GpioPinConfig::PinEnum::Pin13 | hal::GpioPinConfig::PinEnum::Pin14 | hal::GpioPinConfig::PinEnum::Pin15);
 		GpioPortE::Instance().InitPin(options);
 	};
 

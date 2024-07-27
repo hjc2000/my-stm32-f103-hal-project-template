@@ -48,11 +48,6 @@ void BSP::Initialize()
 	bsp::Console::Instance().SetOutStream(base::RentedPtrFactory::Create(&BSP::Serial()));
 }
 
-bsp::IDelayer &BSP::Delayer()
-{
-	return Delayer::Instance();
-}
-
 bsp::IIndependentWatchDog &BSP::IndependentWatchDog()
 {
 	return IndependentWatchDog::Instance();
@@ -85,7 +80,7 @@ bsp::Console &BSP::Console()
 
 void TestWindowWatchDog()
 {
-	BSP::Delayer().Delay(std::chrono::seconds{1});
+	DI_Delayer().Delay(std::chrono::seconds{1});
 	DI_RedDigitalLed().TurnOn();
 
 	hal::WindowWatchDogConfig config;
@@ -105,6 +100,6 @@ void TestWindowWatchDog()
 	while (true)
 	{
 		DI_RedDigitalLed().Toggle();
-		BSP::Delayer().Delay(std::chrono::seconds{1});
+		DI_Delayer().Delay(std::chrono::seconds{1});
 	}
 }

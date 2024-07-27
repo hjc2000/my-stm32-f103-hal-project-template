@@ -18,6 +18,6 @@ void TestBaseTimer()
 	while (true)
 	{
 		DI_RedDigitalLed().Toggle();
-		BSP::Delayer().Delay(std::chrono::seconds{1});
+		DI_Delayer().Delay(std::chrono::seconds{1});
 	}
 }

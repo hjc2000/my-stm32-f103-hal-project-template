@@ -28,8 +28,6 @@ public:
 	/// </summary>
 	static void Initialize();
 
-	static bsp::IDelayer &Delayer();
-
 	/// <summary>
 	///		独立看门狗。
 	/// </summary>
