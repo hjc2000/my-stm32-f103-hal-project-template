@@ -21,7 +21,8 @@ int main(void)
 				{
 					// TestSerial();
 					// TestKeyScanner();
-					TestLcd();
+					// TestLcd();
+					TestIndependentWatchDog();
 				},
 				512);
 
