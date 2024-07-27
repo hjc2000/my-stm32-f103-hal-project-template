@@ -19,7 +19,8 @@ int main(void)
 				[]()
 				{
 					// TestSerial();
-					TestKeyScanner();
+					// TestKeyScanner();
+					TestLcd();
 				},
 				512);
 

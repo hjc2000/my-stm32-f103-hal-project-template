@@ -63,11 +63,6 @@ bsp::ISerial &BSP::Serial()
 	return Serial::Instance();
 }
 
-bsp::ILcd &BSP::Lcd()
-{
-	return Lcd::Instance();
-}
-
 bsp::IBaseTimer &BSP::BaseTimer()
 {
 	return BaseTimer1::Instance();

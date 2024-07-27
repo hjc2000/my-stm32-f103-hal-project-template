@@ -38,8 +38,6 @@ public:
 
 	static bsp::ISerial &Serial();
 
-	static bsp::ILcd &Lcd();
-
 	static bsp::IBaseTimer &BaseTimer();
 
 	static bsp::Console &Console();

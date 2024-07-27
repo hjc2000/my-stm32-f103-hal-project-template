@@ -1,5 +1,6 @@
 #include <AtkKey.h>
 #include <DigitalLed.h>
+#include <Lcd.h>
 #include <base/Initializer.h>
 #include <bsp-interface/di.h>
 #include <bsp-interface/key/KeyScanner.h>
@@ -90,3 +91,8 @@ bsp::IDigitalLed &DI_GreenDigitalLed()
 	return GreenDigitalLed::Instance();
 }
 #pragma endregion
+
+bsp::ILcd &DI_Lcd()
+{
+	return Lcd::Instance();
+}

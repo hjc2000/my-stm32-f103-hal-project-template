@@ -1,8 +1,15 @@
 #include "Lcd.h"
+#include <base/Initializer.h>
 #include <bsp/bsp.h>
 
 using namespace bsp;
 using namespace hal;
+
+static base::Initializer _init{
+	[]()
+	{
+		Lcd::Instance();
+	}};
 
 Lcd::Lcd() : bsp::ST7789LcdDriver(DI_Delayer())
 {
