@@ -3,6 +3,12 @@
 #include <hal-wrapper/clock/SysTickClock.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
 
+static base::Initializer _initializer{
+	[]()
+	{
+		DI_InterruptSwitch();
+	}};
+
 #pragma region DI_SysTick
 bsp::ISysTick &DI_SysTick()
 {
@@ -42,27 +48,9 @@ bsp::IInterruptSwitch &DI_InterruptSwitch()
 	static InterruptSwitch o;
 	return o;
 }
-
-static base::Initializer _interrupt_switch_initializer{
-	[]()
-	{
-		DI_InterruptSwitch();
-	}};
 #pragma endregion
 
 #pragma region DI_IsrManager
-bsp::IsrManager &DI_IsrManager()
-{
-	static bsp::IsrManager manager{};
-	return manager;
-}
-
-static base::Initializer _isr_manager_initializer{
-	[]()
-	{
-		DI_IsrManager();
-	}};
-
 extern "C"
 {
 	void TIM6_IRQHandler()
