@@ -1,15 +1,15 @@
 #pragma once
-#include<hal-wrapper/peripheral/gpio/IGpioPort.h>
+#include <hal-wrapper/peripheral/gpio/IGpioPort.h>
 
 namespace hal
 {
-	#ifdef GPIOA
-	class GpioPortA :public IGpioPort
+#ifdef GPIOA
+	class GpioPortA : public IGpioPort
 	{
 	public:
 		static GpioPortA &Instance()
 		{
-			static GpioPortA port { };
+			static GpioPortA port{};
 			return port;
 		}
 
@@ -18,15 +18,15 @@ namespace hal
 		void EnableClock() override;
 		void DisableClock() override;
 	};
-	#endif // GPIOA
+#endif // GPIOA
 
-	#ifdef GPIOB
-	class GpioPortB :public IGpioPort
+#ifdef GPIOB
+	class GpioPortB : public IGpioPort
 	{
 	public:
 		static GpioPortB &Instance()
 		{
-			static GpioPortB port { };
+			static GpioPortB port{};
 			return port;
 		}
 
@@ -35,15 +35,15 @@ namespace hal
 		void EnableClock() override;
 		void DisableClock() override;
 	};
-	#endif // GPIOB
+#endif // GPIOB
 
-	#ifdef GPIOC
-	class GpioPortC :public IGpioPort
+#ifdef GPIOC
+	class GpioPortC : public IGpioPort
 	{
 	public:
 		static GpioPortC &Instance()
 		{
-			static GpioPortC port { };
+			static GpioPortC port{};
 			return port;
 		}
 
@@ -52,15 +52,15 @@ namespace hal
 		void EnableClock() override;
 		void DisableClock() override;
 	};
-	#endif // GPIOC
+#endif // GPIOC
 
-	#ifdef GPIOD
-	class GpioPortD :public IGpioPort
+#ifdef GPIOD
+	class GpioPortD : public IGpioPort
 	{
 	public:
 		static GpioPortD &Instance()
 		{
-			static GpioPortD port { };
+			static GpioPortD port{};
 			return port;
 		}
 
@@ -69,15 +69,15 @@ namespace hal
 		void EnableClock() override;
 		void DisableClock() override;
 	};
-	#endif // GPIOD
+#endif // GPIOD
 
-	#ifdef GPIOE
-	class GpioPortE :public IGpioPort
+#ifdef GPIOE
+	class GpioPortE : public IGpioPort
 	{
 	public:
 		static GpioPortE &Instance()
 		{
-			static GpioPortE port { };
+			static GpioPortE port{};
 			return port;
 		}
 
@@ -86,15 +86,15 @@ namespace hal
 		void EnableClock() override;
 		void DisableClock() override;
 	};
-	#endif // GPIOE
+#endif // GPIOE
 
-	#ifdef GPIOF
-	class GpioPortF :public IGpioPort
+#ifdef GPIOF
+	class GpioPortF : public IGpioPort
 	{
 	public:
 		static GpioPortF &Instance()
 		{
-			static GpioPortF port { };
+			static GpioPortF port{};
 			return port;
 		}
 
@@ -103,15 +103,15 @@ namespace hal
 		void EnableClock() override;
 		void DisableClock() override;
 	};
-	#endif // GPIOF
+#endif // GPIOF
 
-	#ifdef GPIOG
-	class GpioPortG :public IGpioPort
+#ifdef GPIOG
+	class GpioPortG : public IGpioPort
 	{
 	public:
 		static GpioPortG &Instance()
 		{
-			static GpioPortG port { };
+			static GpioPortG port{};
 			return port;
 		}
 
@@ -120,5 +120,5 @@ namespace hal
 		void EnableClock() override;
 		void DisableClock() override;
 	};
-	#endif // GPIOG
+#endif // GPIOG
 }
