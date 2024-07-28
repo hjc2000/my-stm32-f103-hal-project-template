@@ -11,7 +11,7 @@ namespace bsp
 		/// @brief 将引脚定义转为引脚索引。
 		/// @param pin_define
 		/// @return
-		int PinDefineToIndex(uint16_t pin_define);
+		int PinDefineToIndex(int pin_define);
 
 		/// @brief 将端口实例指针转为端口索引。
 		/// @param port
@@ -22,7 +22,7 @@ namespace bsp
 		/// @param port
 		/// @param pin_define
 		/// @return
-		int GetPinId(GPIO_TypeDef *port, uint16_t pin_define);
+		int GetPinId(GPIO_TypeDef *port, int pin_define);
 
 		/// @brief 获取 pin_id 所属的 GPIO 端口。
 		/// @param pin_id
@@ -32,7 +32,20 @@ namespace bsp
 		/// @brief 获取 pin_id 所属的引脚宏定义。
 		/// @param pin_id
 		/// @return
-		uint16_t GetPinDefineOfPinId(int pin_id);
+		int GetPinDefineOfPinId(int pin_id);
+
+		/// @brief 将引脚模式宏定义转为模式索引。
+		/// @param mode_define
+		/// @return
+		int PinModeDefineToIndex(int mode_define);
+
+		/// @brief 将引脚模式索引转换为引脚模式宏定义
+		/// @param mod_index
+		/// @return
+		int PinModeIndexToDefine(int mod_index);
+
+		int PinPullIndexToDefine(int pin_pull_index);
+		int PinPullDefineToIndex(int pin_pull_define);
 
 	public:
 		void InitializePin(int pin_id,

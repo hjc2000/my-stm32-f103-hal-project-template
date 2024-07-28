@@ -1,7 +1,8 @@
 #include "GpioManager.h"
+#include <map>
 #include <stdexcept>
 
-int bsp::GpioManager::PinDefineToIndex(uint16_t pin_define)
+int bsp::GpioManager::PinDefineToIndex(int pin_define)
 {
 	switch (pin_define)
 	{
@@ -76,43 +77,26 @@ int bsp::GpioManager::PinDefineToIndex(uint16_t pin_define)
 
 int bsp::GpioManager::PortToIndex(GPIO_TypeDef *port)
 {
-	size_t addr = reinterpret_cast<size_t>(port);
-	switch (addr)
+	static std::map<GPIO_TypeDef *, int> port_map{
+		{GPIOA, 0},
+		{GPIOB, 1},
+		{GPIOC, 2},
+		{GPIOD, 3},
+		{GPIOE, 4},
+		{GPIOF, 5},
+		{GPIOG, 6},
+	};
+
+	auto it = port_map.find(port);
+	if (it == port_map.end())
 	{
-	case reinterpret_cast<size_t>(GPIOA):
-	{
-		return 0;
-	}
-	case reinterpret_cast<size_t>(GPIOB):
-	{
-		return 1;
-	}
-	case reinterpret_cast<size_t>(GPIOC):
-	{
-		return 2;
-	}
-	case reinterpret_cast<size_t>(GPIOD):
-	{
-		return 3;
-	}
-	case reinterpret_cast<size_t>(GPIOE):
-	{
-		return 4;
-	}
-	case reinterpret_cast<size_t>(GPIOF):
-	{
-		return 5;
-	}
-	case reinterpret_cast<size_t>(GPIOG):
-	{
-		return 6;
-	}
+		throw std::runtime_error{"非法端口"};
 	}
 
-	throw std::runtime_error{"非法端口"};
+	return it->second;
 }
 
-int bsp::GpioManager::GetPinId(GPIO_TypeDef *port, uint16_t pin_define)
+int bsp::GpioManager::GetPinId(GPIO_TypeDef *port, int pin_define)
 {
 	int pin_index = PinDefineToIndex(pin_define);
 	int port_index = PortToIndex(port);
@@ -157,7 +141,7 @@ GPIO_TypeDef *bsp::GpioManager::GetPortOfPinId(int pin_id)
 	throw std::runtime_error{"此 pin_id 没有对应的端口"};
 }
 
-uint16_t bsp::GpioManager::GetPinDefineOfPinId(int pin_id)
+int bsp::GpioManager::GetPinDefineOfPinId(int pin_id)
 {
 	int pin_index = pin_id % 16;
 	switch (pin_index)
@@ -231,11 +215,149 @@ uint16_t bsp::GpioManager::GetPinDefineOfPinId(int pin_id)
 	throw std::runtime_error{"此 pin_id 没有对应的引脚"};
 }
 
+int bsp::GpioManager::PinModeDefineToIndex(int mode_define)
+{
+	static std::map<int, int> mod_map{
+		{GPIO_MODE_INPUT, 0},
+		{GPIO_MODE_OUTPUT_PP, 1},
+		{GPIO_MODE_OUTPUT_OD, 2},
+		{GPIO_MODE_AF_PP, 3},
+		{GPIO_MODE_AF_OD, 4},
+		{GPIO_MODE_AF_INPUT, 5},
+		{GPIO_MODE_ANALOG, 6},
+		{GPIO_MODE_IT_RISING, 7},
+		{GPIO_MODE_IT_FALLING, 8},
+		{GPIO_MODE_IT_RISING_FALLING, 9},
+		{GPIO_MODE_EVT_RISING, 10},
+		{GPIO_MODE_EVT_FALLING, 11},
+		{GPIO_MODE_EVT_RISING_FALLING, 12},
+	};
+
+	auto it = mod_map.find(mode_define);
+	if (it == mod_map.end())
+	{
+		throw std::runtime_error{"非法引脚模式"};
+	}
+
+	return it->second;
+}
+
+int bsp::GpioManager::PinModeIndexToDefine(int mod_index)
+{
+	switch (mod_index)
+	{
+	case 0:
+	{
+		return GPIO_MODE_INPUT;
+	}
+	case 1:
+	{
+		return GPIO_MODE_OUTPUT_PP;
+	}
+	case 2:
+	{
+		return GPIO_MODE_OUTPUT_OD;
+	}
+	case 3:
+	{
+		return GPIO_MODE_AF_PP;
+	}
+	case 4:
+	{
+		return GPIO_MODE_AF_OD;
+	}
+	case 5:
+	{
+		return GPIO_MODE_AF_INPUT;
+	}
+	case 6:
+	{
+		return GPIO_MODE_ANALOG;
+	}
+	case 7:
+	{
+		return GPIO_MODE_IT_RISING;
+	}
+	case 8:
+	{
+		return GPIO_MODE_IT_FALLING;
+	}
+	case 9:
+	{
+		return GPIO_MODE_IT_RISING_FALLING;
+	}
+	case 10:
+	{
+		return GPIO_MODE_EVT_RISING;
+	}
+	case 11:
+	{
+		return GPIO_MODE_EVT_FALLING;
+	}
+	case 12:
+	{
+		return GPIO_MODE_EVT_RISING_FALLING;
+	}
+	}
+
+	throw std::runtime_error{"非法引脚模式索引"};
+}
+
+int bsp::GpioManager::PinPullIndexToDefine(int pin_pull_index)
+{
+	switch (pin_pull_index)
+	{
+	case 0:
+	{
+		return GPIO_NOPULL;
+	}
+	case 1:
+	{
+		return GPIO_PULLUP;
+	}
+	case 2:
+	{
+		return GPIO_PULLDOWN;
+	}
+	}
+
+	throw std::runtime_error{"非法引脚上下拉模式索引"};
+}
+
+int bsp::GpioManager::PinPullDefineToIndex(int pin_pull_define)
+{
+	switch (pin_pull_define)
+	{
+	case GPIO_NOPULL:
+	{
+		return 0;
+	}
+	case GPIO_PULLUP:
+	{
+		return 1;
+	}
+	case GPIO_PULLDOWN:
+	{
+		return 2;
+	}
+	}
+
+	throw std::runtime_error{"非法引脚上下拉模式定义"};
+}
+
 void bsp::GpioManager::InitializePin(int pin_id,
 									 int pin_mode,
 									 int pin_pull,
 									 std::map<std::string, int> *ex_options)
 {
+	GPIO_TypeDef *port = GetPortOfPinId(pin_id);
+
+	GPIO_InitTypeDef init_def;
+	init_def.Pin = GetPinDefineOfPinId(pin_id);
+	init_def.Mode = PinModeIndexToDefine(pin_mode);
+	init_def.Pull = PinPullIndexToDefine(pin_pull);
+	init_def.Speed = GPIO_SPEED_FREQ_HIGH;
+	HAL_GPIO_Init(port, &init_def);
 }
 
 void bsp::GpioManager::DigitalWritePin(int pin_id, bool value)

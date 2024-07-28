@@ -1,14 +1,13 @@
 #pragma once
-#include<base/HandleWrapper.h>
-#include<hal.h>
+#include <base/HandleWrapper.h>
+#include <hal.h>
 
 namespace hal
 {
-	class GpioPinConfig :
-		public base::HandleWrapper<GPIO_InitTypeDef>
+	class GpioPinConfig : public base::HandleWrapper<GPIO_InitTypeDef>
 	{
 	private:
-		GPIO_InitTypeDef _handle { };
+		GPIO_InitTypeDef _handle{};
 
 	public:
 		GPIO_InitTypeDef &Handle() override
