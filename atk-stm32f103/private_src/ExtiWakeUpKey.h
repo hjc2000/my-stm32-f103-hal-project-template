@@ -2,8 +2,8 @@
 #include <atomic>
 #include <bsp-interface/key/IEventDrivenKey.h>
 #include <hal-wrapper/clock/SysTickClock.h>
-#include <hal-wrapper/interrupt/Exti.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
+#include <hal-wrapper/peripheral/gpio/GpioPort.h>
 
 namespace bsp
 {

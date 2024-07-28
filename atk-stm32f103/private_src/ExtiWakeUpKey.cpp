@@ -1,4 +1,5 @@
 #include "ExtiWakeUpKey.h"
+#include <bsp-interface/di.h>
 
 using namespace bsp;
 using namespace hal;
@@ -13,7 +14,7 @@ ExtiWakeUpKey::ExtiWakeUpKey()
 	options.SetPull(hal::GpioPinConfig::PullOption::PullDown);
 	options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
 	Port().InitPin(options);
-	Exti::Instance().Register(
+	DI_ExtiManager().Register(
 		static_cast<int>(Pin()),
 		[&]()
 		{

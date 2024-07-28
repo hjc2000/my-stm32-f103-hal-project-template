@@ -2,6 +2,7 @@
 #include <bsp-interface/di.h>
 #include <bsp-interface/key/KeyScanner.h>
 #include <hal-wrapper/clock/SysTickClock.h>
+#include <hal-wrapper/interrupt/Exti.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
 
 static base::Initializer _initializer{
@@ -136,3 +137,8 @@ extern "C"
 	}
 }
 #pragma endregion
+
+bsp::IExtiManager &DI_ExtiManager()
+{
+	return hal::Exti::Instance();
+}
