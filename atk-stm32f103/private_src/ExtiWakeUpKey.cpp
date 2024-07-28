@@ -15,7 +15,7 @@ ExtiWakeUpKey::ExtiWakeUpKey()
 	options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
 	Port().InitPin(options);
 	DI_ExtiManager().Register(
-		static_cast<int>(Pin()),
+		0,
 		[&]()
 		{
 			// 这是在中断函数中，禁止使用 Delayer 进行延时。

@@ -38,13 +38,10 @@ extern "C"
 		HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin4);
 	}
 
-	/// <summary>
-	///		重写 HAL 库中的 weak 版本
-	/// </summary>
-	/// <param name="GPIO_Pin"></param>
+	/// @brief 重写 HAL 库中的 weak 版本
+	/// @param pin
 	void HAL_GPIO_EXTI_Callback(uint16_t pin)
 	{
-		// 这里传进来的是 hal::GpioPinConfig::PinEnum 类型，需要手动强制转换一下。
 		switch (static_cast<hal::GpioPinConfig::PinEnum>(pin))
 		{
 		case hal::GpioPinConfig::PinEnum::Pin0:
@@ -102,38 +99,43 @@ extern "C"
 
 void hal::Exti::Register(int line_id, std::function<void()> callback)
 {
-	switch (static_cast<hal::GpioPinConfig::PinEnum>(line_id))
+	switch (line_id)
 	{
-	case hal::GpioPinConfig::PinEnum::Pin0:
+	case 0:
 	{
+		Interrupt::DisableIRQ(IRQn_Type::EXTI0_IRQn);
 		_on_exti0_interrupt = callback;
 		Interrupt::SetPriority(IRQn_Type::EXTI0_IRQn, 4, 0);
 		Interrupt::EnableIRQ(IRQn_Type::EXTI0_IRQn);
 		break;
 	}
-	case hal::GpioPinConfig::PinEnum::Pin1:
+	case 1:
 	{
+		Interrupt::DisableIRQ(IRQn_Type::EXTI1_IRQn);
 		_on_exti1_interrupt = callback;
 		Interrupt::SetPriority(IRQn_Type::EXTI1_IRQn, 4, 0);
 		Interrupt::EnableIRQ(IRQn_Type::EXTI1_IRQn);
 		break;
 	}
-	case hal::GpioPinConfig::PinEnum::Pin2:
+	case 2:
 	{
+		Interrupt::DisableIRQ(IRQn_Type::EXTI2_IRQn);
 		_on_exti2_interrupt = callback;
 		Interrupt::SetPriority(IRQn_Type::EXTI2_IRQn, 4, 0);
 		Interrupt::EnableIRQ(IRQn_Type::EXTI2_IRQn);
 		break;
 	}
-	case hal::GpioPinConfig::PinEnum::Pin3:
+	case 3:
 	{
+		Interrupt::DisableIRQ(IRQn_Type::EXTI3_IRQn);
 		_on_exti3_interrupt = callback;
 		Interrupt::SetPriority(IRQn_Type::EXTI3_IRQn, 4, 0);
 		Interrupt::EnableIRQ(IRQn_Type::EXTI3_IRQn);
 		break;
 	}
-	case hal::GpioPinConfig::PinEnum::Pin4:
+	case 4:
 	{
+		Interrupt::DisableIRQ(IRQn_Type::EXTI4_IRQn);
 		_on_exti4_interrupt = callback;
 		Interrupt::SetPriority(IRQn_Type::EXTI4_IRQn, 4, 0);
 		Interrupt::EnableIRQ(IRQn_Type::EXTI4_IRQn);
@@ -148,33 +150,33 @@ void hal::Exti::Register(int line_id, std::function<void()> callback)
 
 void hal::Exti::Unregister(int line_id)
 {
-	switch (static_cast<hal::GpioPinConfig::PinEnum>(line_id))
+	switch (line_id)
 	{
-	case hal::GpioPinConfig::PinEnum::Pin0:
+	case 0:
 	{
 		Interrupt::DisableIRQ(IRQn_Type::EXTI0_IRQn);
 		_on_exti0_interrupt = nullptr;
 		break;
 	}
-	case hal::GpioPinConfig::PinEnum::Pin1:
+	case 1:
 	{
 		Interrupt::DisableIRQ(IRQn_Type::EXTI1_IRQn);
 		_on_exti1_interrupt = nullptr;
 		break;
 	}
-	case hal::GpioPinConfig::PinEnum::Pin2:
+	case 2:
 	{
 		Interrupt::DisableIRQ(IRQn_Type::EXTI2_IRQn);
 		_on_exti2_interrupt = nullptr;
 		break;
 	}
-	case hal::GpioPinConfig::PinEnum::Pin3:
+	case 3:
 	{
 		Interrupt::DisableIRQ(IRQn_Type::EXTI3_IRQn);
 		_on_exti3_interrupt = nullptr;
 		break;
 	}
-	case hal::GpioPinConfig::PinEnum::Pin4:
+	case 4:
 	{
 		Interrupt::DisableIRQ(IRQn_Type::EXTI4_IRQn);
 		_on_exti4_interrupt = nullptr;
