@@ -23,7 +23,8 @@ int main(void)
 					// TestSerial();
 					// TestKeyScanner();
 					// TestLcd();
-					TestIndependentWatchDog();
+					// TestIndependentWatchDog();
+					TestExtiKey();
 				},
 				512);
 

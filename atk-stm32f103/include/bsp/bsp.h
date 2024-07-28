@@ -2,10 +2,10 @@
 #include <bsp-interface/Console.h>
 #include <bsp-interface/IDelayer.h>
 #include <bsp-interface/IDigitalLed.h>
-#include <bsp-interface/IEventDrivenKey.h>
 #include <bsp-interface/IIndependentWatchDog.h>
 #include <bsp-interface/ISerial.h>
 #include <bsp-interface/di.h>
+#include <bsp-interface/key/IEventDrivenKey.h>
 #include <bsp-interface/key/IKeyScanner.h>
 #include <bsp-interface/lcd/ILcd.h>
 #include <bsp-interface/timer/IBaseTimer.h>
