@@ -1,8 +1,15 @@
 #include "ExtiWakeUpKey.h"
+#include <base/Initializer.h>
 #include <bsp-interface/di.h>
 
 using namespace bsp;
 using namespace hal;
+
+static base::Initializer _init{
+	[]()
+	{
+		bsp::ExtiWakeUpKey::Instance();
+	}};
 
 ExtiWakeUpKey::ExtiWakeUpKey()
 {

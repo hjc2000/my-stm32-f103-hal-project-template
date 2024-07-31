@@ -20,7 +20,7 @@ namespace hal
 		: public bsp::IExtiManager
 	{
 	private:
-		Exti() = default;
+		Exti();
 		friend void ::HAL_GPIO_EXTI_Callback(uint16_t pin);
 
 		std::function<void()> _on_exti0_interrupt;

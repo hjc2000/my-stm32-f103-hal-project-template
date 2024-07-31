@@ -1,5 +1,6 @@
 #include "Exti.h"
 #include <base/Initializer.h>
+#include <bsp-interface/di.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
 #include <stdexcept>
 
@@ -13,31 +14,6 @@ static base::Initializer _initializer{
 
 extern "C"
 {
-	void EXTI0_IRQHandler()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin0);
-	}
-
-	void EXTI1_IRQHandler()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin1);
-	}
-
-	void EXTI2_IRQHandler()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin2);
-	}
-
-	void EXTI3_IRQHandler()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin3);
-	}
-
-	void EXTI4_IRQHandler()
-	{
-		HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin4);
-	}
-
 	/// @brief 重写 HAL 库中的 weak 版本
 	/// @param pin
 	void HAL_GPIO_EXTI_Callback(uint16_t pin)
@@ -96,6 +72,44 @@ extern "C"
 		}
 	}
 } // extern "C"
+
+hal::Exti::Exti()
+{
+	DI_IsrManager().AddIsr(
+		static_cast<uint32_t>(IRQn_Type::EXTI0_IRQn),
+		[]()
+		{
+			HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin0);
+		});
+
+	DI_IsrManager().AddIsr(
+		static_cast<uint32_t>(IRQn_Type::EXTI1_IRQn),
+		[]()
+		{
+			HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin1);
+		});
+
+	DI_IsrManager().AddIsr(
+		static_cast<uint32_t>(IRQn_Type::EXTI2_IRQn),
+		[]()
+		{
+			HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin2);
+		});
+
+	DI_IsrManager().AddIsr(
+		static_cast<uint32_t>(IRQn_Type::EXTI3_IRQn),
+		[]()
+		{
+			HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin3);
+		});
+
+	DI_IsrManager().AddIsr(
+		static_cast<uint32_t>(IRQn_Type::EXTI4_IRQn),
+		[]()
+		{
+			HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin4);
+		});
+}
 
 void hal::Exti::Register(int line_id, std::function<void()> callback)
 {

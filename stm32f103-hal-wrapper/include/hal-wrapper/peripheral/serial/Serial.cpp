@@ -1,5 +1,6 @@
 #include "Serial.h"
 #include <FreeRTOS.h>
+#include <base/Initializer.h>
 #include <bsp-interface/di.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
 #include <hal-wrapper/peripheral/dma/DmaConfig.h>
@@ -8,6 +9,12 @@
 
 using namespace hal;
 using namespace bsp;
+
+static base::Initializer _init{
+	[]()
+	{
+		hal::Serial::Instance();
+	}};
 
 void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 {
@@ -104,17 +111,19 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 	task::MutexLockGuard l{_read_lock};
 	while (true)
 	{
-		task::Critical::Run([&]()
-							{
-			HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, buffer + offset, count);
+		task::Critical::Run(
+			[&]()
+			{
+				HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, buffer + offset, count);
 
-			/*
-			* 通过赋值为空指针，把传输半满回调给禁用，不然接收的数据较长，超过缓冲区一半时，
-			* 即使是一次性接收的，UART 也会回调 OnReceiveEventCallback 两次。
-			*
-			* 这个操作需要在临界区中，并且 DMA 的中断要处于 freertos 的管理范围内，否则无效。
-			*/
-			_rx_dma_handle.XferHalfCpltCallback = nullptr; });
+				/*
+				 * 通过赋值为空指针，把传输半满回调给禁用，不然接收的数据较长，超过缓冲区一半时，
+				 * 即使是一次性接收的，UART 也会回调 OnReceiveEventCallback 两次。
+				 *
+				 * 这个操作需要在临界区中，并且 DMA 的中断要处于 freertos 的管理范围内，否则无效。
+				 */
+				_rx_dma_handle.XferHalfCpltCallback = nullptr;
+			});
 
 		_receive_complete_signal.Acquire();
 		if (_current_receive_count > 0)
