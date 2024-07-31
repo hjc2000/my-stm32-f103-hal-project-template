@@ -264,6 +264,10 @@ void Serial::Open()
 			{
 				HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
 			});
+
+		hal::Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
+		hal::Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
+		hal::Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
 	};
 
 	enable_interrupt();
