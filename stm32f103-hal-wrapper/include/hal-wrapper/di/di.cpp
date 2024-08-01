@@ -1,4 +1,6 @@
 #include <base/Initializer.h>
+#include <base/RentedPtrFactory.h>
+#include <base/container/StdContainerEnumerable.h>
 #include <bsp-interface/di.h>
 #include <bsp-interface/key/KeyScanner.h>
 #include <hal-wrapper/clock/SysTickClock.h>
@@ -10,6 +12,7 @@ static base::Initializer _initializer{
 	[]()
 	{
 		DI_InterruptSwitch();
+		DI_SerialList();
 	}};
 
 void DI_Reset()
@@ -222,5 +225,16 @@ std::shared_ptr<bsp::ISerialOptions> DICreate_ISerialOptions()
 bsp::ISerial &DI_Serial()
 {
 	return hal::Serial::Instance();
+}
+
+base::IEnumerable<bsp::ISerial *> &DI_SerialList()
+{
+	static std::array<bsp::ISerial *, 1> array{&DI_Serial()};
+
+	static base::StdContainerEnumerable<bsp::ISerial *, std::array<bsp::ISerial *, 1>> std_enumerable{
+		base::RentedPtrFactory::Create<std::array<bsp::ISerial *, 1>>(&array),
+	};
+
+	return std_enumerable;
 }
 #pragma endregion
