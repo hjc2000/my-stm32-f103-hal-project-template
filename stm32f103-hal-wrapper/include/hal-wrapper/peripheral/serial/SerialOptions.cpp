@@ -3,6 +3,11 @@
 
 hal::SerialOptions::SerialOptions()
 {
+	UseDefaultOptions();
+}
+
+void hal::SerialOptions::UseDefaultOptions()
+{
 	_hal_uart_init.OverSampling = UART_OVERSAMPLING_16;
 	SetDirection(bsp::ISerialDirection::RX_TX);
 	SetBaudRate(115200);

@@ -18,6 +18,8 @@ namespace hal
 			return _hal_uart_init;
 		}
 
+		void UseDefaultOptions() override;
+
 		bsp::ISerialDirection Direction() override;
 		void SetDirection(bsp::ISerialDirection value) override;
 
