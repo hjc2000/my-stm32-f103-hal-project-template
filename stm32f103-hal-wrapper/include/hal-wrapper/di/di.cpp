@@ -213,7 +213,14 @@ bsp::IExtiManager &DI_ExtiManager()
 	return hal::Exti::Instance();
 }
 
+#pragma region 串口
 std::shared_ptr<bsp::ISerialOptions> DICreate_ISerialOptions()
 {
 	return std::shared_ptr<bsp::ISerialOptions>{new hal::SerialOptions{}};
 }
+
+bsp::ISerial &DI_Serial()
+{
+	return hal::Serial::Instance();
+}
+#pragma endregion
