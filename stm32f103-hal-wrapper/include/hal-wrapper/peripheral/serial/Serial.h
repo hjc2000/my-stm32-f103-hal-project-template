@@ -10,12 +10,12 @@
 
 namespace hal
 {
-	class Serial : public bsp::ISerial
+	class Serial
+		: public bsp::ISerial
 	{
 	private:
 		Serial() = default;
 
-		bool _have_begun = false;
 		UART_HandleTypeDef _uart_handle{};
 		DMA_HandleTypeDef _tx_dma_handle{};
 		DMA_HandleTypeDef _rx_dma_handle{};
@@ -52,24 +52,17 @@ namespace hal
 		/// <returns></returns>
 		int32_t Read(uint8_t *buffer, int32_t offset, int32_t count) override;
 
-		/// <summary>
-		///		调用后临时启动 DMA 进行一次发送。
-		/// </summary>
-		/// <param name="buffer"></param>
-		/// <param name="offset"></param>
-		/// <param name="count"></param>
+		/// @brief 调用后临时启动 DMA 进行一次发送。
+		/// @param buffer
+		/// @param offset
+		/// @param count
 		void Write(uint8_t const *buffer, int32_t offset, int32_t count) override;
 
 		void Close() override;
 #pragma endregion
 
-		/// <summary>
-		///		启动串口。
-		///		* 本函数幂等，调用后，启动串口，再次调用会直接返回，只有调用 Close
-		///		  后才能重新启动串口。
-		///		* 本函数不是线程安全和可重入的，包括实现幂等的机制也不是线程安全和可重入的。
-		/// </summary>
-		/// <param name="baud_rate">想要的波特率</param>
+		/// @brief 打开串口
+		/// @param options
 		void Open(bsp::ISerialOptions const &options) override;
 	};
 }
