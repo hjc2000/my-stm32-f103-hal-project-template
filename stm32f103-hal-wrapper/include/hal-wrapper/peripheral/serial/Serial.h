@@ -39,17 +39,16 @@ namespace hal
 		}
 
 #pragma region Stream
-		/// <summary>
-		///		调用后临时启动 DMA 接收一次数据。
-		///		* 本类没有缓冲机制，所以上层应用如果调用 Read 不及时，会丢失数据。
-		///		* 因为调用一次 Read 具有一定开销，需要设置寄存器，使能中断，设置一些
-		///		  状态变量。所以为了提高效率，每次调用 Read 时传入的 buffer 适当大一些，
-		///		  并且 count 大一些。
-		/// </summary>
-		/// <param name="buffer"></param>
-		/// <param name="offset"></param>
-		/// <param name="count"></param>
-		/// <returns></returns>
+		/// @brief 调用后临时启动 DMA 接收一次数据。
+		/// @note 本类没有缓冲机制，所以上层应用如果调用 Read 不及时，会丢失数据。
+		/// @note 因为调用一次 Read 具有一定开销，需要设置寄存器，使能中断，设置一些
+		/// 状态变量。所以为了提高效率，每次调用 Read 时传入的 buffer 适当大一些，
+		/// 并且 count 大一些。
+		///
+		/// @param buffer
+		/// @param offset
+		/// @param count
+		/// @return
 		int32_t Read(uint8_t *buffer, int32_t offset, int32_t count) override;
 
 		/// @brief 调用后临时启动 DMA 进行一次发送。
