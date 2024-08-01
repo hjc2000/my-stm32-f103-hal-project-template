@@ -1,6 +1,7 @@
 #include <base/math/Fraction.h>
 #include <bsp-interface/test/TestIndependentWatchDog.h>
 #include <bsp-interface/test/TestLcd.h>
+#include <bsp-interface/test/TestSerial.h>
 #include <bsp/bsp.h>
 #include <stdexcept>
 #include <string>
@@ -20,7 +21,7 @@ int main(void)
 			std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create(
 				[]()
 				{
-					TestSerial();
+					bsp::TestSerial();
 					// TestKeyScanner();
 					// TestLcd();
 					// TestIndependentWatchDog();
