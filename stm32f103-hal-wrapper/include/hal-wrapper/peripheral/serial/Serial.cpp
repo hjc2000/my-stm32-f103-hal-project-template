@@ -100,54 +100,6 @@ void Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 }
 #pragma endregion
 
-#pragma region Stream
-int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
-{
-	if (count > UINT16_MAX)
-	{
-		throw std::invalid_argument{"count 太大"};
-	}
-
-	task::MutexLockGuard l{_read_lock};
-	while (true)
-	{
-		task::Critical::Run(
-			[&]()
-			{
-				HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, buffer + offset, count);
-
-				/*
-				 * 通过赋值为空指针，把传输半满回调给禁用，不然接收的数据较长，超过缓冲区一半时，
-				 * 即使是一次性接收的，UART 也会回调 OnReceiveEventCallback 两次。
-				 *
-				 * 这个操作需要在临界区中，并且 DMA 的中断要处于 freertos 的管理范围内，否则无效。
-				 */
-				_rx_dma_handle.XferHalfCpltCallback = nullptr;
-			});
-
-		_receive_complete_signal.Acquire();
-		if (_current_receive_count > 0)
-		{
-			return _current_receive_count;
-		}
-	}
-}
-
-void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
-{
-	_send_complete_signal.Acquire();
-	HAL_UART_Transmit_DMA(&_uart_handle, buffer + offset, count);
-}
-
-void Serial::Close()
-{
-	HAL_UART_DMAStop(&_uart_handle);
-	hal::Interrupt::DisableIRQ(IRQn_Type::USART1_IRQn);
-	hal::Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
-	hal::Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
-}
-#pragma endregion
-
 void Serial::Open(bsp::ISerialOptions const &options)
 {
 	/*
@@ -208,3 +160,51 @@ void Serial::Open(bsp::ISerialOptions const &options)
 
 	enable_interrupt();
 }
+
+#pragma region Stream
+int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
+{
+	if (count > UINT16_MAX)
+	{
+		throw std::invalid_argument{"count 太大"};
+	}
+
+	task::MutexLockGuard l{_read_lock};
+	while (true)
+	{
+		task::Critical::Run(
+			[&]()
+			{
+				HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, buffer + offset, count);
+
+				/*
+				 * 通过赋值为空指针，把传输半满回调给禁用，不然接收的数据较长，超过缓冲区一半时，
+				 * 即使是一次性接收的，UART 也会回调 OnReceiveEventCallback 两次。
+				 *
+				 * 这个操作需要在临界区中，并且 DMA 的中断要处于 freertos 的管理范围内，否则无效。
+				 */
+				_rx_dma_handle.XferHalfCpltCallback = nullptr;
+			});
+
+		_receive_complete_signal.Acquire();
+		if (_current_receive_count > 0)
+		{
+			return _current_receive_count;
+		}
+	}
+}
+
+void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
+{
+	_send_complete_signal.Acquire();
+	HAL_UART_Transmit_DMA(&_uart_handle, buffer + offset, count);
+}
+
+void Serial::Close()
+{
+	HAL_UART_DMAStop(&_uart_handle);
+	hal::Interrupt::DisableIRQ(IRQn_Type::USART1_IRQn);
+	hal::Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
+	hal::Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
+}
+#pragma endregion

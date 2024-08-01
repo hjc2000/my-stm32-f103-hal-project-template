@@ -38,6 +38,15 @@ namespace hal
 			return o;
 		}
 
+		std::string Name()
+		{
+			return "usart1";
+		}
+
+		/// @brief 打开串口
+		/// @param options
+		void Open(bsp::ISerialOptions const &options) override;
+
 #pragma region Stream
 		/// @brief 调用后临时启动 DMA 接收一次数据。
 		/// @note 本类没有缓冲机制，所以上层应用如果调用 Read 不及时，会丢失数据。
@@ -59,9 +68,5 @@ namespace hal
 
 		void Close() override;
 #pragma endregion
-
-		/// @brief 打开串口
-		/// @param options
-		void Open(bsp::ISerialOptions const &options) override;
 	};
 }
