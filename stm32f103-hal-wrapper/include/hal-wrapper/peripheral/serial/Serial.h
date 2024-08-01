@@ -1,6 +1,6 @@
 #pragma once
 #include <atomic>
-#include <bsp-interface/ISerial.h>
+#include <bsp-interface/serial/ISerial.h>
 #include <hal-wrapper/peripheral/serial/SerialOptions.h>
 #include <hal.h>
 #include <memory>
