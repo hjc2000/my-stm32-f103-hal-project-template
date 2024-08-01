@@ -1,11 +1,12 @@
 #include "TestSerial.h"
+#include <bsp-interface/di.h>
 #include <bsp/bsp.h>
 #include <memory>
 
 void TestSerial()
 {
 	DI_RedDigitalLed().TurnOn();
-	BSP::Serial().Open();
+	BSP::Serial().Open(*DICreate_ISerialOptions());
 	std::unique_ptr<uint8_t[]> buffer{new uint8_t[128]};
 	while (1)
 	{

@@ -149,59 +149,7 @@ void Serial::Close()
 }
 #pragma endregion
 
-#pragma region 属性
-uint32_t Serial::BaudRate() const
-{
-	return _baud_rate;
-}
-
-void Serial::SetBaudRate(uint32_t value)
-{
-	_baud_rate = value;
-}
-
-uint8_t Serial::DataBits() const
-{
-	return _data_bits;
-}
-
-void Serial::SetDataBits(uint8_t value)
-{
-	_data_bits = value;
-}
-
-ISerialParity Serial::Parity() const
-{
-	return _parity;
-}
-
-void Serial::SetParity(ISerialParity value)
-{
-	_parity = value;
-}
-
-ISerialStopBits Serial::StopBits() const
-{
-	return _stop_bits;
-}
-
-void Serial::SetStopBits(ISerialStopBits value)
-{
-	_stop_bits = value;
-}
-
-ISerialHardwareFlowControl Serial::HardwareFlowControl() const
-{
-	return _hardware_flow_control;
-}
-
-void Serial::SetHardwareFlowControl(ISerialHardwareFlowControl value)
-{
-	_hardware_flow_control = value;
-}
-#pragma endregion
-
-void Serial::Open()
+void Serial::Open(bsp::ISerialOptions const &options)
 {
 	if (_have_begun)
 	{
@@ -216,12 +164,8 @@ void Serial::Open()
 	 * 被多线程同时调用。
 	 */
 	_send_complete_signal.Release();
-
-	hal::UartConfig options;
-	options.Deserialize(*this);
-
 	_uart_handle.Instance = USART1;
-	_uart_handle.Init = options;
+	_uart_handle.Init = static_cast<SerialOptions const &>(options);
 	_uart_handle.MspInitCallback = OnMspInitCallback;
 	HAL_UART_Init(&_uart_handle);
 

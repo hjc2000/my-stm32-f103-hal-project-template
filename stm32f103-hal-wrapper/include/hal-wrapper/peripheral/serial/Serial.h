@@ -1,7 +1,7 @@
 #pragma once
 #include <atomic>
 #include <bsp-interface/ISerial.h>
-#include <hal-wrapper/peripheral/uart/UartConfig.h>
+#include <hal-wrapper/peripheral/serial/SerialOptions.h>
 #include <hal.h>
 #include <memory>
 #include <task/BinarySemaphore.h>
@@ -14,14 +14,6 @@ namespace hal
 	{
 	private:
 		Serial() = default;
-
-#pragma region 属性的字段
-		uint32_t _baud_rate = 115200;
-		uint8_t _data_bits = 8;
-		bsp::ISerialParity _parity = bsp::ISerialParity::None;
-		bsp::ISerialStopBits _stop_bits = bsp::ISerialStopBits::One;
-		bsp::ISerialHardwareFlowControl _hardware_flow_control = bsp::ISerialHardwareFlowControl::None;
-#pragma endregion
 
 		bool _have_begun = false;
 		UART_HandleTypeDef _uart_handle{};
@@ -71,23 +63,6 @@ namespace hal
 		void Close() override;
 #pragma endregion
 
-#pragma region 属性
-		uint32_t BaudRate() const override;
-		void SetBaudRate(uint32_t value) override;
-
-		uint8_t DataBits() const override;
-		void SetDataBits(uint8_t value) override;
-
-		bsp::ISerialParity Parity() const override;
-		void SetParity(bsp::ISerialParity value) override;
-
-		bsp::ISerialStopBits StopBits() const override;
-		void SetStopBits(bsp::ISerialStopBits value) override;
-
-		bsp::ISerialHardwareFlowControl HardwareFlowControl() const override;
-		void SetHardwareFlowControl(bsp::ISerialHardwareFlowControl value) override;
-#pragma endregion
-
 		/// <summary>
 		///		启动串口。
 		///		* 本函数幂等，调用后，启动串口，再次调用会直接返回，只有调用 Close
@@ -95,6 +70,6 @@ namespace hal
 		///		* 本函数不是线程安全和可重入的，包括实现幂等的机制也不是线程安全和可重入的。
 		/// </summary>
 		/// <param name="baud_rate">想要的波特率</param>
-		void Open() override;
+		void Open(bsp::ISerialOptions const &options) override;
 	};
 }
