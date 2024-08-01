@@ -15,10 +15,12 @@ static base::Initializer _initializer{
 		DI_SerialList();
 	}};
 
+#pragma region DI_Reset
 void DI_Reset()
 {
 	HAL_NVIC_SystemReset();
 }
+#pragma endregion
 
 #pragma region DI_SysTick
 bsp::ISysTick &DI_SysTick()
@@ -211,10 +213,12 @@ extern "C"
 }
 #pragma endregion
 
+#pragma region DI_ExtiManager
 bsp::IExtiManager &DI_ExtiManager()
 {
 	return hal::Exti::Instance();
 }
+#pragma endregion
 
 #pragma region 串口
 std::shared_ptr<bsp::ISerialOptions> DICreate_ISerialOptions()
