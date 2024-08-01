@@ -1,44 +1,43 @@
 #pragma once
-#include<atomic>
-#include<bsp-interface/ISerial.h>
-#include<hal.h>
-#include<hal-wrapper/peripheral/uart/UartConfig.h>
-#include<memory>
-#include<task/BinarySemaphore.h>
-#include<task/Critical.h>
-#include<task/Mutex.h>
+#include <atomic>
+#include <bsp-interface/ISerial.h>
+#include <hal-wrapper/peripheral/uart/UartConfig.h>
+#include <hal.h>
+#include <memory>
+#include <task/BinarySemaphore.h>
+#include <task/Critical.h>
+#include <task/Mutex.h>
 
 namespace hal
 {
-	class Serial :
-		public bsp::ISerial
+	class Serial : public bsp::ISerial
 	{
 	private:
 		Serial() = default;
 
-		#pragma region 属性的字段
+#pragma region 属性的字段
 		uint32_t _baud_rate = 115200;
 		uint8_t _data_bits = 8;
-		bsp::ISerial::ParityOption _parity = bsp::ISerial::ParityOption::None;
-		bsp::ISerial::StopBitsOption _stop_bits = bsp::ISerial::StopBitsOption::One;
-		bsp::ISerial::HardwareFlowControlOption _hardware_flow_control = bsp::ISerial::HardwareFlowControlOption::None;
-		#pragma endregion
+		bsp::ISerialParity _parity = bsp::ISerialParity::None;
+		bsp::ISerialStopBits _stop_bits = bsp::ISerialStopBits::One;
+		bsp::ISerialHardwareFlowControl _hardware_flow_control = bsp::ISerialHardwareFlowControl::None;
+#pragma endregion
 
 		bool _have_begun = false;
-		UART_HandleTypeDef _uart_handle { };
-		DMA_HandleTypeDef _tx_dma_handle { };
-		DMA_HandleTypeDef _rx_dma_handle { };
+		UART_HandleTypeDef _uart_handle{};
+		DMA_HandleTypeDef _tx_dma_handle{};
+		DMA_HandleTypeDef _rx_dma_handle{};
 		task::BinarySemaphore _send_complete_signal;
 		task::BinarySemaphore _receive_complete_signal;
-		task::Mutex _read_lock { };
+		task::Mutex _read_lock{};
 		int32_t _current_receive_count = 0;
 
 		static void OnMspInitCallback(UART_HandleTypeDef *huart);
 
-		#pragma region 被中断处理函数回调的函数
+#pragma region 被中断处理函数回调的函数
 		static void OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos);
 		static void OnSendCompleteCallback(UART_HandleTypeDef *huart);
-		#pragma endregion
+#pragma endregion
 
 	public:
 		static Serial &Instance()
@@ -47,7 +46,7 @@ namespace hal
 			return o;
 		}
 
-		#pragma region Stream
+#pragma region Stream
 		/// <summary>
 		///		调用后临时启动 DMA 接收一次数据。
 		///		* 本类没有缓冲机制，所以上层应用如果调用 Read 不及时，会丢失数据。
@@ -70,24 +69,24 @@ namespace hal
 		void Write(uint8_t const *buffer, int32_t offset, int32_t count) override;
 
 		void Close() override;
-		#pragma endregion
+#pragma endregion
 
-		#pragma region 属性
+#pragma region 属性
 		uint32_t BaudRate() const override;
 		void SetBaudRate(uint32_t value) override;
 
 		uint8_t DataBits() const override;
 		void SetDataBits(uint8_t value) override;
 
-		bsp::ISerial::ParityOption Parity() const override;
-		void SetParity(bsp::ISerial::ParityOption value) override;
+		bsp::ISerialParity Parity() const override;
+		void SetParity(bsp::ISerialParity value) override;
 
-		bsp::ISerial::StopBitsOption StopBits() const override;
-		void SetStopBits(bsp::ISerial::StopBitsOption value) override;
+		bsp::ISerialStopBits StopBits() const override;
+		void SetStopBits(bsp::ISerialStopBits value) override;
 
-		bsp::ISerial::HardwareFlowControlOption HardwareFlowControl() const override;
-		void SetHardwareFlowControl(bsp::ISerial::HardwareFlowControlOption value) override;
-		#pragma endregion
+		bsp::ISerialHardwareFlowControl HardwareFlowControl() const override;
+		void SetHardwareFlowControl(bsp::ISerialHardwareFlowControl value) override;
+#pragma endregion
 
 		/// <summary>
 		///		启动串口。

@@ -170,32 +170,32 @@ void Serial::SetDataBits(uint8_t value)
 	_data_bits = value;
 }
 
-ISerial::ParityOption Serial::Parity() const
+ISerialParity Serial::Parity() const
 {
 	return _parity;
 }
 
-void Serial::SetParity(ISerial::ParityOption value)
+void Serial::SetParity(ISerialParity value)
 {
 	_parity = value;
 }
 
-ISerial::StopBitsOption Serial::StopBits() const
+ISerialStopBits Serial::StopBits() const
 {
 	return _stop_bits;
 }
 
-void Serial::SetStopBits(ISerial::StopBitsOption value)
+void Serial::SetStopBits(ISerialStopBits value)
 {
 	_stop_bits = value;
 }
 
-ISerial::HardwareFlowControlOption Serial::HardwareFlowControl() const
+ISerialHardwareFlowControl Serial::HardwareFlowControl() const
 {
 	return _hardware_flow_control;
 }
 
-void Serial::SetHardwareFlowControl(ISerial::HardwareFlowControlOption value)
+void Serial::SetHardwareFlowControl(ISerialHardwareFlowControl value)
 {
 	_hardware_flow_control = value;
 }
