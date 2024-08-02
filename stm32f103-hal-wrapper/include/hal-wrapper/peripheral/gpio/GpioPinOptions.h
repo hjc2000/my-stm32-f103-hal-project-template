@@ -11,7 +11,7 @@ namespace hal
 		GPIO_InitTypeDef _hal_gpio_init;
 
 	public:
-		operator GPIO_InitTypeDef();
+		operator GPIO_InitTypeDef() const;
 
 		/// @brief 方向。
 		/// @return

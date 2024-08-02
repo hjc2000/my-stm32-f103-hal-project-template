@@ -1,9 +1,10 @@
 #include "GpioPinOptions.h"
 
-hal::GpioPinOptions::operator GPIO_InitTypeDef()
+hal::GpioPinOptions::operator GPIO_InitTypeDef() const
 {
 	switch (WorkMode())
 	{
+	default:
 	case bsp::IGpioPinWorkMode::Gpio:
 	{
 		break;
