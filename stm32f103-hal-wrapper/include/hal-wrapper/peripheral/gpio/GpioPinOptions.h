@@ -1,12 +1,41 @@
 #pragma once
 #include <bsp-interface/gpio/IGpioPinOptions.h>
+#include <hal.h>
 
 namespace hal
 {
 	class GpioPinOptions
 		: public bsp::IGpioPinOptions
 	{
+	private:
+		GPIO_InitTypeDef _hal_gpio_init;
+
 	public:
+		operator GPIO_InitTypeDef()
+		{
+			switch (WorkMode())
+			{
+			case bsp::IGpioPinWorkMode::Gpio:
+			{
+				break;
+			}
+			case bsp::IGpioPinWorkMode::AlternateFunction:
+			{
+				break;
+			}
+			case bsp::IGpioPinWorkMode::Event:
+			{
+				break;
+			}
+			case bsp::IGpioPinWorkMode::Analog:
+			{
+				break;
+			}
+			}
+
+			return _hal_gpio_init;
+		}
+
 		/// @brief 方向。
 		/// @return
 		bsp::IGpioPinDirection Direction() const = 0;
@@ -24,14 +53,14 @@ namespace hal
 
 		/// @brief 引脚上下拉模式。
 		/// @return
-		bsp::IGpioPinPullMode PullMode() const = 0;
-		void SetPullMode(bsp::IGpioPinPullMode value) = 0;
+		bsp::IGpioPinPullMode PullMode() const override;
+		void SetPullMode(bsp::IGpioPinPullMode value) override;
 
 		/// @brief 引脚速度等级。等级越高速度越快。
 		/// @note 有的平台引脚支持设置速度等级。不支持的平台忽略就好。
 		/// @return
-		int SpeedLevel() const = 0;
-		void SetSpeedLevel(int value) = 0;
+		int SpeedLevel() const override;
+		void SetSpeedLevel(int value) override;
 
 		/// @brief 复用功能。
 		/// @return
