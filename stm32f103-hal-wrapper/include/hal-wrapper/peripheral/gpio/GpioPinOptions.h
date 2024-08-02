@@ -8,17 +8,22 @@ namespace hal
 		: public bsp::IGpioPinOptions
 	{
 	private:
-		GPIO_InitTypeDef _hal_gpio_init{};
+		GPIO_InitTypeDef _hal_gpio_init;
+		bsp::IGpioPinDirection _direction{};
 		bsp::IGpioPinWorkMode _work_mode{};
 		bsp::IGpioPinTriggerEdge _trigger_edge{};
+		bsp::IGpioPinDriver _driver{};
+		std::string _af_mode;
+
+		void InitAsGpioMode(GPIO_InitTypeDef &o) const;
 
 	public:
 		operator GPIO_InitTypeDef() const;
 
 		/// @brief 方向。
 		/// @return
-		bsp::IGpioPinDirection Direction() const = 0;
-		void SetDirection(bsp::IGpioPinDirection value) = 0;
+		bsp::IGpioPinDirection Direction() const override;
+		void SetDirection(bsp::IGpioPinDirection value) override;
 
 		/// @brief 引脚工作模式。
 		/// @return
@@ -35,6 +40,12 @@ namespace hal
 		bsp::IGpioPinPullMode PullMode() const override;
 		void SetPullMode(bsp::IGpioPinPullMode value) override;
 
+		/// @brief 引脚驱动模式。
+		/// @note 引脚方向为输出时才有效。
+		/// @return
+		bsp::IGpioPinDriver Driver() const override;
+		void SetDriver(bsp::IGpioPinDriver value) override;
+
 		/// @brief 引脚速度等级。等级越高速度越快。
 		/// @note 有的平台引脚支持设置速度等级。不支持的平台忽略就好。
 		/// @return
@@ -43,13 +54,13 @@ namespace hal
 
 		/// @brief 复用功能。
 		/// @return
-		std::string AlternateFunction() const = 0;
+		std::string AlternateFunction() const override;
 
 		/// @brief 设置复用功能。
 		/// @note 复用功能是非常复杂的，各个型号单片机都不一样，所以采用字符串。
 		/// @note 假设某个单片机的一个引脚的复用功能有：uart1, timer1_compare_output 等。
 		/// 这种名称是与具体型号高度相关的，所以本库无法提供一个枚举来列举这些情况。
 		/// @param value
-		void SetAlternateFunction(std::string value) = 0;
+		void SetAlternateFunction(std::string value) override;
 	};
 }

@@ -1,12 +1,80 @@
 #include "GpioPinOptions.h"
+#include <stdexcept>
+
+void hal::GpioPinOptions::InitAsGpioMode(GPIO_InitTypeDef &o) const
+{
+	switch (Direction())
+	{
+	case bsp::IGpioPinDirection::Input:
+	{
+		switch (TriggerEdge())
+		{
+		case bsp::IGpioPinTriggerEdge::Disable:
+		{
+			o.Mode = GPIO_MODE_INPUT;
+			break;
+		}
+		case bsp::IGpioPinTriggerEdge::RisingEdge:
+		{
+			o.Mode = GPIO_MODE_IT_RISING;
+			break;
+		}
+		case bsp::IGpioPinTriggerEdge::FallingEdge:
+		{
+			o.Mode = GPIO_MODE_IT_FALLING;
+			break;
+		}
+		case bsp::IGpioPinTriggerEdge::BothEdge:
+		{
+			o.Mode = GPIO_MODE_IT_RISING_FALLING;
+			break;
+		}
+		default:
+		{
+			throw std::invalid_argument{"不支持的值"};
+		}
+		}
+
+		break;
+	}
+	case bsp::IGpioPinDirection::Output:
+	{
+		switch (Driver())
+		{
+		case bsp::IGpioPinDriver::PushPull:
+		{
+			o.Mode = GPIO_MODE_OUTPUT_PP;
+			break;
+		}
+		case bsp::IGpioPinDriver::OpenDrain:
+		{
+			o.Mode = GPIO_MODE_OUTPUT_OD;
+			break;
+		}
+		default:
+		{
+			throw std::invalid_argument{"不支持的值"};
+		}
+		}
+
+		break;
+	}
+	default:
+	{
+		throw std::invalid_argument{"不支持的值"};
+	}
+	}
+}
 
 hal::GpioPinOptions::operator GPIO_InitTypeDef() const
 {
+	GPIO_InitTypeDef o = _hal_gpio_init;
 	switch (WorkMode())
 	{
 	default:
 	case bsp::IGpioPinWorkMode::Gpio:
 	{
+		InitAsGpioMode(o);
 		break;
 	}
 	case bsp::IGpioPinWorkMode::AlternateFunction:
@@ -24,6 +92,16 @@ hal::GpioPinOptions::operator GPIO_InitTypeDef() const
 	}
 
 	return _hal_gpio_init;
+}
+
+bsp::IGpioPinDirection hal::GpioPinOptions::Direction() const
+{
+	return _direction;
+}
+
+void hal::GpioPinOptions::SetDirection(bsp::IGpioPinDirection value)
+{
+	_direction = value;
 }
 
 bsp::IGpioPinWorkMode hal::GpioPinOptions::WorkMode() const
@@ -89,6 +167,16 @@ void hal::GpioPinOptions::SetPullMode(bsp::IGpioPinPullMode value)
 	}
 }
 
+bsp::IGpioPinDriver hal::GpioPinOptions::Driver() const
+{
+	return _driver;
+}
+
+void hal::GpioPinOptions::SetDriver(bsp::IGpioPinDriver value)
+{
+	_driver = value;
+}
+
 int hal::GpioPinOptions::SpeedLevel() const
 {
 	switch (_hal_gpio_init.Speed)
@@ -130,4 +218,14 @@ void hal::GpioPinOptions::SetSpeedLevel(int value)
 		break;
 	}
 	}
+}
+
+std::string hal::GpioPinOptions::AlternateFunction() const
+{
+	return _af_mode;
+}
+
+void hal::GpioPinOptions::SetAlternateFunction(std::string value)
+{
+	_af_mode = value;
 }
