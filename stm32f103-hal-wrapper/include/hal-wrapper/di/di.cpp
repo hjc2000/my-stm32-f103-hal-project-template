@@ -235,9 +235,11 @@ base::IEnumerable<bsp::ISerial *> &DI_SerialList()
 {
 	static std::array<bsp::ISerial *, 1> array{&DI_Serial()};
 
-	static base::StdContainerEnumerable<bsp::ISerial *, std::array<bsp::ISerial *, 1>> std_enumerable{
-		base::RentedPtrFactory::Create<std::array<bsp::ISerial *, 1>>(&array),
-	};
+	static base::StdContainerEnumerable<bsp::ISerial *,
+										std::array<bsp::ISerial *, 1>>
+		std_enumerable{
+			base::RentedPtrFactory::Create(&array),
+		};
 
 	return std_enumerable;
 }
