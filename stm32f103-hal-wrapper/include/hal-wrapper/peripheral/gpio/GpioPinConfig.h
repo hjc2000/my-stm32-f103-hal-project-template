@@ -4,7 +4,8 @@
 
 namespace hal
 {
-	class GpioPinConfig : public base::HandleWrapper<GPIO_InitTypeDef>
+	class GpioPinConfig
+		: public base::HandleWrapper<GPIO_InitTypeDef>
 	{
 	private:
 		GPIO_InitTypeDef _handle{};
