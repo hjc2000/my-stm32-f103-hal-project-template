@@ -16,6 +16,9 @@ namespace hal
 		std::string _af_mode;
 
 		void InitAsGpioMode(GPIO_InitTypeDef &o) const;
+		void InitAsAlternateFunctionMode(GPIO_InitTypeDef &o) const;
+		void InitAsEventMode(GPIO_InitTypeDef &o) const;
+		void InitAsAnalogMode(GPIO_InitTypeDef &o) const;
 
 	public:
 		operator GPIO_InitTypeDef() const;

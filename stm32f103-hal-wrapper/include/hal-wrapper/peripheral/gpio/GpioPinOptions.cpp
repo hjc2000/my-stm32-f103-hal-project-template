@@ -66,12 +66,80 @@ void hal::GpioPinOptions::InitAsGpioMode(GPIO_InitTypeDef &o) const
 	}
 }
 
+void hal::GpioPinOptions::InitAsAlternateFunctionMode(GPIO_InitTypeDef &o) const
+{
+	switch (Direction())
+	{
+	case bsp::IGpioPinDirection::Input:
+	{
+		o.Mode = GPIO_MODE_AF_INPUT;
+		break;
+	}
+	case bsp::IGpioPinDirection::Output:
+	{
+		switch (Driver())
+		{
+		case bsp::IGpioPinDriver::PushPull:
+		{
+			o.Mode = GPIO_MODE_AF_PP;
+			break;
+		}
+		case bsp::IGpioPinDriver::OpenDrain:
+		{
+			o.Mode = GPIO_MODE_AF_OD;
+			break;
+		}
+		default:
+		{
+			throw std::invalid_argument{"不支持的值"};
+		}
+		}
+
+		break;
+	}
+	default:
+	{
+		throw std::invalid_argument{"不支持的值"};
+	}
+	}
+}
+
+void hal::GpioPinOptions::InitAsEventMode(GPIO_InitTypeDef &o) const
+{
+	switch (TriggerEdge())
+	{
+	case bsp::IGpioPinTriggerEdge::RisingEdge:
+	{
+		o.Mode = GPIO_MODE_EVT_RISING;
+		break;
+	}
+	case bsp::IGpioPinTriggerEdge::FallingEdge:
+	{
+		o.Mode = GPIO_MODE_EVT_FALLING;
+		break;
+	}
+	case bsp::IGpioPinTriggerEdge::BothEdge:
+	{
+		o.Mode = GPIO_MODE_EVT_RISING_FALLING;
+		break;
+	}
+	default:
+	{
+		throw std::invalid_argument{"不支持的值"};
+	}
+	}
+}
+
+void hal::GpioPinOptions::InitAsAnalogMode(GPIO_InitTypeDef &o) const
+{
+	o.Mode = GPIO_MODE_ANALOG;
+}
+
 hal::GpioPinOptions::operator GPIO_InitTypeDef() const
 {
 	GPIO_InitTypeDef o = _hal_gpio_init;
 	switch (WorkMode())
 	{
-	default:
 	case bsp::IGpioPinWorkMode::Gpio:
 	{
 		InitAsGpioMode(o);
@@ -79,21 +147,29 @@ hal::GpioPinOptions::operator GPIO_InitTypeDef() const
 	}
 	case bsp::IGpioPinWorkMode::AlternateFunction:
 	{
+		InitAsAlternateFunctionMode(o);
 		break;
 	}
 	case bsp::IGpioPinWorkMode::Event:
 	{
+		InitAsEventMode(o);
 		break;
 	}
 	case bsp::IGpioPinWorkMode::Analog:
 	{
+		InitAsAnalogMode(o);
 		break;
+	}
+	default:
+	{
+		throw std::invalid_argument{"非法工作模式"};
 	}
 	}
 
 	return _hal_gpio_init;
 }
 
+#pragma region IGpioPinOptions
 bsp::IGpioPinDirection hal::GpioPinOptions::Direction() const
 {
 	return _direction;
@@ -229,3 +305,4 @@ void hal::GpioPinOptions::SetAlternateFunction(std::string value)
 {
 	_af_mode = value;
 }
+#pragma endregion
