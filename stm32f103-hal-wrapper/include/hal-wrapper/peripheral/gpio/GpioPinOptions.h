@@ -15,6 +15,7 @@ namespace hal
 		bsp::IGpioPinDriver _driver{};
 		std::string _af_mode;
 
+#pragma region 初始化为各种模式
 		/// @brief 初始化为通用输入输出模式。
 		/// @param o
 		void InitAsGpioMode(GPIO_InitTypeDef &o) const;
@@ -30,10 +31,12 @@ namespace hal
 		/// @brief 初始化为模拟功能。
 		/// @param o
 		void InitAsAnalogMode(GPIO_InitTypeDef &o) const;
+#pragma endregion
 
 	public:
 		operator GPIO_InitTypeDef() const;
 
+#pragma region IGpioPinOptions
 		/// @brief 方向。
 		/// @return
 		bsp::IGpioPinDirection Direction() const override;
@@ -76,5 +79,6 @@ namespace hal
 		/// 这种名称是与具体型号高度相关的，所以本库无法提供一个枚举来列举这些情况。
 		/// @param value
 		void SetAlternateFunction(std::string value) override;
+#pragma endregion
 	};
 }
