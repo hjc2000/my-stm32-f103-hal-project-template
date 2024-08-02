@@ -1,5 +1,30 @@
 #include "GpioPinOptions.h"
 
+hal::GpioPinOptions::operator GPIO_InitTypeDef()
+{
+	switch (WorkMode())
+	{
+	case bsp::IGpioPinWorkMode::Gpio:
+	{
+		break;
+	}
+	case bsp::IGpioPinWorkMode::AlternateFunction:
+	{
+		break;
+	}
+	case bsp::IGpioPinWorkMode::Event:
+	{
+		break;
+	}
+	case bsp::IGpioPinWorkMode::Analog:
+	{
+		break;
+	}
+	}
+
+	return _hal_gpio_init;
+}
+
 bsp::IGpioPinPullMode hal::GpioPinOptions::PullMode() const
 {
 	switch (_hal_gpio_init.Pull)
