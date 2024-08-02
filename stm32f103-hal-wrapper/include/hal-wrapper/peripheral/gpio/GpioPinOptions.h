@@ -8,7 +8,9 @@ namespace hal
 		: public bsp::IGpioPinOptions
 	{
 	private:
-		GPIO_InitTypeDef _hal_gpio_init;
+		GPIO_InitTypeDef _hal_gpio_init{};
+		bsp::IGpioPinWorkMode _work_mode{};
+		bsp::IGpioPinTriggerEdge _trigger_edge{};
 
 	public:
 		operator GPIO_InitTypeDef() const;
@@ -20,13 +22,13 @@ namespace hal
 
 		/// @brief 引脚工作模式。
 		/// @return
-		bsp::IGpioPinWorkMode WorkMode() const = 0;
-		void SetWorkMode(bsp::IGpioPinWorkMode value) = 0;
+		bsp::IGpioPinWorkMode WorkMode() const override;
+		void SetWorkMode(bsp::IGpioPinWorkMode value) override;
 
 		/// @brief 触发边沿。
 		/// @return
-		bsp::IGpioPinTriggerEdge TriggerEdge() const = 0;
-		void SetTriggerEdge(bsp::IGpioPinTriggerEdge value) = 0;
+		bsp::IGpioPinTriggerEdge TriggerEdge() const override;
+		void SetTriggerEdge(bsp::IGpioPinTriggerEdge value) override;
 
 		/// @brief 引脚上下拉模式。
 		/// @return

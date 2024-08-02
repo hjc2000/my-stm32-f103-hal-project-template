@@ -26,6 +26,26 @@ hal::GpioPinOptions::operator GPIO_InitTypeDef() const
 	return _hal_gpio_init;
 }
 
+bsp::IGpioPinWorkMode hal::GpioPinOptions::WorkMode() const
+{
+	return _work_mode;
+}
+
+void hal::GpioPinOptions::SetWorkMode(bsp::IGpioPinWorkMode value)
+{
+	_work_mode = value;
+}
+
+bsp::IGpioPinTriggerEdge hal::GpioPinOptions::TriggerEdge() const
+{
+	return _trigger_edge;
+}
+
+void hal::GpioPinOptions::SetTriggerEdge(bsp::IGpioPinTriggerEdge value)
+{
+	_trigger_edge = value;
+}
+
 bsp::IGpioPinPullMode hal::GpioPinOptions::PullMode() const
 {
 	switch (_hal_gpio_init.Pull)
