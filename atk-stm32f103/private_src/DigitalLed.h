@@ -4,9 +4,7 @@
 
 namespace bsp
 {
-	/// <summary>
-	///		红色 LED
-	/// </summary>
+	/// @brief 红色 LED
 	class RedDigitalLed : public bsp::IDigitalLed
 	{
 	public:
@@ -38,9 +36,7 @@ namespace bsp
 		void Toggle() override;
 	};
 
-	/// <summary>
-	///		绿色 LED
-	/// </summary>
+	/// @brief 绿色 LED
 	class GreenDigitalLed : public bsp::IDigitalLed
 	{
 	public:

@@ -93,12 +93,16 @@ bsp::IDigitalLed &DI_GreenDigitalLed()
 }
 #pragma endregion
 
+#pragma region DI_Lcd
 bsp::ILcd &DI_Lcd()
 {
 	return Lcd::Instance();
 }
+#pragma endregion
 
+#pragma region DI_IndependentWatchDog
 bsp::IIndependentWatchDog &DI_IndependentWatchDog()
 {
 	return hal::IndependentWatchDog::Instance();
 }
+#pragma endregion

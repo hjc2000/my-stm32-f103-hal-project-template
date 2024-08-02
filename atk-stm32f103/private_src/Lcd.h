@@ -1,28 +1,26 @@
 #pragma once
-#include<base/HandleWrapper.h>
-#include<bsp-interface/lcd/ST7789LcdDriver.h>
-#include<hal-wrapper/peripheral/fsmc/FsmcNorSramConfig.h>
-#include<hal-wrapper/peripheral/fsmc/FsmcNorSramTiming.h>
-#include<hal-wrapper/peripheral/gpio/GpioPort.h>
-#include<stdexcept>
+#include <base/HandleWrapper.h>
+#include <bsp-interface/lcd/ST7789LcdDriver.h>
+#include <hal-wrapper/peripheral/fsmc/FsmcNorSramConfig.h>
+#include <hal-wrapper/peripheral/fsmc/FsmcNorSramTiming.h>
+#include <hal-wrapper/peripheral/gpio/GpioPort.h>
+#include <stdexcept>
 
 namespace bsp
 {
-	class Lcd :
-		public bsp::ST7789LcdDriver,
-		public base::HandleWrapper<SRAM_HandleTypeDef>
+	class Lcd
+		: public bsp::ST7789LcdDriver,
+		  public base::HandleWrapper<SRAM_HandleTypeDef>
 	{
 	private:
 		Lcd();
 
 		SRAM_HandleTypeDef _sram_handle;
 
-		#pragma region 连接到LCD的GPIO引脚
+#pragma region 连接到LCD的GPIO引脚
 	private:
-		/// <summary>
-		///		连接 LCD 的 RD 引脚。
-		/// </summary>
-		/// <returns></returns>
+		/// @brief 连接 LCD 的 RD 引脚。
+		/// @return
 		hal::IGpioPort &RD_Port()
 		{
 			return hal::GpioPortD::Instance();
@@ -32,10 +30,8 @@ namespace bsp
 			return hal::GpioPinConfig::PinEnum::Pin4;
 		}
 
-		/// <summary>
-		///		连接 LCD 的 WR 引脚。
-		/// </summary>
-		/// <returns></returns>
+		/// @brief 连接 LCD 的 WR 引脚。
+		/// @return
 		hal::IGpioPort &WR_Port()
 		{
 			return hal::GpioPortD::Instance();
@@ -45,10 +41,8 @@ namespace bsp
 			return hal::GpioPinConfig::PinEnum::Pin5;
 		}
 
-		/// <summary>
-		///		连接 LCD 的 BL 引脚。这是控制背光的。
-		/// </summary>
-		/// <returns></returns>
+		/// @brief 连接 LCD 的 BL 引脚。这是控制背光的。
+		/// @return
 		hal::IGpioPort &BL_Port()
 		{
 			return hal::GpioPortB::Instance();
@@ -58,10 +52,8 @@ namespace bsp
 			return hal::GpioPinConfig::PinEnum::Pin0;
 		}
 
-		/// <summary>
-		///		连接 LCD 的 CS 引脚。这是片选。
-		/// </summary>
-		/// <returns></returns>
+		/// @brief 连接 LCD 的 CS 引脚。这是片选。
+		/// @return
 		hal::IGpioPort &CS_Port()
 		{
 			return hal::GpioPortG::Instance();
@@ -71,10 +63,8 @@ namespace bsp
 			return hal::GpioPinConfig::PinEnum::Pin12;
 		}
 
-		/// <summary>
-		///		连接到 LCD 的 RS 引脚。
-		/// </summary>
-		/// <returns></returns>
+		/// @brief 连接到 LCD 的 RS 引脚。
+		/// @return
 		hal::IGpioPort &RS_Port()
 		{
 			return hal::GpioPortG::Instance();
@@ -83,7 +73,7 @@ namespace bsp
 		{
 			return hal::GpioPinConfig::PinEnum::Pin0;
 		}
-		#pragma endregion
+#pragma endregion
 
 		volatile uint16_t *CommandAddress()
 		{
@@ -98,7 +88,7 @@ namespace bsp
 
 		void InitGpio();
 
-		#pragma region ST7789LcdDriver
+#pragma region ST7789LcdDriver
 	public:
 		void WriteCommand(uint16_t cmd) override;
 		void WriteCommand(uint16_t cmd, uint16_t param) override;
@@ -108,7 +98,7 @@ namespace bsp
 
 		void TurnOnBackLight() override;
 		void TurnOffBackLight() override;
-		#pragma endregion
+#pragma endregion
 
 	public:
 		static Lcd &Instance()
