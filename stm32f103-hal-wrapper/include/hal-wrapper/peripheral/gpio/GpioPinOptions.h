@@ -15,9 +15,20 @@ namespace hal
 		bsp::IGpioPinDriver _driver{};
 		std::string _af_mode;
 
+		/// @brief 初始化为通用输入输出模式。
+		/// @param o
 		void InitAsGpioMode(GPIO_InitTypeDef &o) const;
+
+		/// @brief 初始化为复用功能。
+		/// @param o
 		void InitAsAlternateFunctionMode(GPIO_InitTypeDef &o) const;
+
+		/// @brief 初始化为事件功能。
+		/// @param o
 		void InitAsEventMode(GPIO_InitTypeDef &o) const;
+
+		/// @brief 初始化为模拟功能。
+		/// @param o
 		void InitAsAnalogMode(GPIO_InitTypeDef &o) const;
 
 	public:
