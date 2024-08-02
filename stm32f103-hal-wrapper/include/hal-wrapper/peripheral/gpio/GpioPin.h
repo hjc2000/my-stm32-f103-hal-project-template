@@ -4,7 +4,7 @@
 #include <base/container/StdContainerEnumerable.h>
 #include <bsp-interface/gpio/IGpioPin.h>
 
-namespace bsp
+namespace hal
 {
 	/// @brief PB5 引脚。
 	class GpioPinPB5
@@ -32,22 +32,6 @@ namespace bsp
 		std::string PinName() const override
 		{
 			return "PB5";
-		}
-
-		/// @brief 端口索引。
-		/// @note 例如 stm32 的 PB0 的端口索引为 1.
-		/// @return
-		int PortIndex() override
-		{
-			return 1;
-		}
-
-		/// @brief 引脚索引。
-		/// @note 例如 stm32 的 PB0 的引脚索引为 0.
-		/// @return
-		int PinIndex() override
-		{
-			return 6;
 		}
 
 		/// @brief 支持的复用功能。

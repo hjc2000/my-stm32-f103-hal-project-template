@@ -166,7 +166,7 @@ hal::GpioPinOptions::operator GPIO_InitTypeDef() const
 	}
 	}
 
-	return _hal_gpio_init;
+	return o;
 }
 
 #pragma region IGpioPinOptions
