@@ -121,4 +121,5 @@ namespace hal
 	};
 }
 
-hal::GpioPinConfig::PinEnum operator|(hal::GpioPinConfig::PinEnum left, hal::GpioPinConfig::PinEnum right);
+hal::GpioPinConfig::PinEnum operator|(hal::GpioPinConfig::PinEnum left,
+									  hal::GpioPinConfig::PinEnum right);
