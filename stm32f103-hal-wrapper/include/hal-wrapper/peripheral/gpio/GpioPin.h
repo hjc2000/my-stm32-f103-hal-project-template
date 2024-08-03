@@ -14,11 +14,12 @@ namespace hal
 		GpioPinPB5() = default;
 
 		bool _is_open = false;
-		std::array<std::string, 1> _supported_alternate_functions{"gpio"};
 
-		base::StdContainerEnumerable<std::string, std::array<std::string, 1>> _supported_alternate_functions_enumerable{
-			base::RentedPtrFactory::Create(&_supported_alternate_functions),
-		};
+		std::array<std::string, 1> _supported_alternate_functions{"gpio"};
+		base::StdContainerEnumerable<std::string, std::array<std::string, 1>>
+			_supported_alternate_functions_enumerable{
+				base::RentedPtrFactory::Create(&_supported_alternate_functions),
+			};
 
 	public:
 		static GpioPinPB5 &Instance()

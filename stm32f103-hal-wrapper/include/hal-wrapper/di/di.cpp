@@ -6,6 +6,7 @@
 #include <hal-wrapper/clock/SysTickClock.h>
 #include <hal-wrapper/interrupt/Exti.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
+#include <hal-wrapper/peripheral/gpio/GpioPin.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>
 
 static base::Initializer _initializer{
@@ -13,6 +14,7 @@ static base::Initializer _initializer{
 	{
 		DI_InterruptSwitch();
 		DI_SerialList();
+		DI_GpioPinCollection();
 	}};
 
 #pragma region DI_Reset
@@ -217,6 +219,40 @@ extern "C"
 bsp::IExtiManager &DI_ExtiManager()
 {
 	return hal::Exti::Instance();
+}
+#pragma endregion
+
+#pragma region DI_GpioPinCollection
+base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
+{
+	class Collection
+		: public base::IReadOnlyCollection<std::string, bsp::IGpioPin *>
+	{
+	private:
+		std::map<std::string, bsp::IGpioPin *> _pin_map{
+			{"PB5", &hal::GpioPinPB5::Instance()},
+		};
+
+	public:
+		int Count() const override
+		{
+			return _pin_map.size();
+		}
+
+		bsp::IGpioPin *Get(std::string key) const override
+		{
+			auto it = _pin_map.find(key);
+			if (it == _pin_map.end())
+			{
+				return nullptr;
+			}
+
+			return it->second;
+		}
+	};
+
+	static Collection o;
+	return o;
 }
 #pragma endregion
 
