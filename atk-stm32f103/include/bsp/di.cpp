@@ -52,36 +52,40 @@ bsp::IKeyScanner &DI_KeyScanner()
 }
 #pragma endregion
 
-#pragma region DI_DigitalLedCollection
-base::IReadOnlyCollection<int, bsp::IDigitalLed *> &DI_DigitalLedCollection()
+#pragma region LED
+base::IReadOnlyCollection<std::string, bsp::IDigitalLed *> &DI_DigitalLedCollection()
 {
 	class Collection
-		: public base::IReadOnlyCollection<int, bsp::IDigitalLed *>
+		: public base::IReadOnlyCollection<std::string, bsp::IDigitalLed *>
 	{
 	private:
-		std::array<bsp::IDigitalLed *, 2> _array = {
-			&RedDigitalLed::Instance(),
-			&GreenDigitalLed::Instance(),
+		std::map<std::string, bsp::IDigitalLed *> _led_map{
+			{"red_led", &RedDigitalLed::Instance()},
+			{"green_led", &GreenDigitalLed::Instance()},
 		};
 
 	public:
 		int Count() const override
 		{
-			return static_cast<int>(_array.size());
+			return static_cast<int>(_led_map.size());
 		}
 
-		bsp::IDigitalLed *Get(int key) const override
+		bsp::IDigitalLed *Get(std::string key) const override
 		{
-			return _array[key];
+			auto it = _led_map.find(key);
+			if (it == _led_map.end())
+			{
+				return nullptr;
+			}
+
+			return it->second;
 		}
 	};
 
 	static Collection o;
 	return o;
 }
-#pragma endregion
 
-#pragma region 具体颜色的 LED
 bsp::IDigitalLed &DI_RedDigitalLed()
 {
 	return RedDigitalLed::Instance();
