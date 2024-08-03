@@ -230,7 +230,7 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 	{
 	private:
 		std::map<std::string, bsp::IGpioPin *> _pin_map{
-			{"PB5", &hal::GpioPinPB5::Instance()},
+			{hal::GpioPinPB5::Instance().PinName(), &hal::GpioPinPB5::Instance()},
 		};
 
 	public:
