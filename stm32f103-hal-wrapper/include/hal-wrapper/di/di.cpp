@@ -14,7 +14,7 @@ static base::Initializer _initializer{
 	[]()
 	{
 		DI_InterruptSwitch();
-		DI_SerialList();
+		DI_SerialCollection();
 		DI_GpioPinCollection();
 	}};
 
@@ -273,16 +273,35 @@ bsp::ISerial &DI_Serial()
 	return hal::Serial::Instance();
 }
 
-base::IEnumerable<bsp::ISerial *> &DI_SerialList()
+base::IReadOnlyCollection<std::string, bsp::ISerial *> &DI_SerialCollection()
 {
-	static std::array<bsp::ISerial *, 1> array{&DI_Serial()};
-
-	static base::StdContainerEnumerable<bsp::ISerial *,
-										std::array<bsp::ISerial *, 1>>
-		std_enumerable{
-			base::RentedPtrFactory::Create(&array),
+	class Collection
+		: public base::IReadOnlyCollection<std::string, bsp::ISerial *>
+	{
+	private:
+		std::map<std::string, bsp::ISerial *> _map{
+			{"serial", &hal::Serial::Instance()},
 		};
 
-	return std_enumerable;
+	public:
+		int Count() const override
+		{
+			return _map.size();
+		}
+
+		bsp::ISerial *Get(std::string key) const override
+		{
+			auto it = _map.find(key);
+			if (it == _map.end())
+			{
+				return nullptr;
+			}
+
+			return it->second;
+		}
+	};
+
+	static Collection o;
+	return o;
 }
 #pragma endregion
