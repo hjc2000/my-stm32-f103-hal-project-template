@@ -1,5 +1,6 @@
 #pragma once
 #include <bsp-interface/IDigitalLed.h>
+#include <bsp-interface/di.h>
 #include <hal-wrapper/peripheral/gpio/GpioPin.h>
 #include <hal-wrapper/peripheral/gpio/GpioPinOptions.h>
 #include <hal-wrapper/peripheral/gpio/GpioPort.h>
@@ -7,19 +8,28 @@
 namespace bsp
 {
 	/// @brief 红色 LED
-	class RedDigitalLed : public bsp::IDigitalLed
+	class RedDigitalLed
+		: public bsp::IDigitalLed
 	{
+	private:
+		bsp::IGpioPin *_pin = nullptr;
+
 	public:
 		RedDigitalLed()
 		{
-			using namespace hal;
-			hal::GpioPinOptions options;
-			options.SetWorkMode(bsp::IGpioPinWorkMode::Gpio);
-			options.SetDirection(bsp::IGpioPinDirection::Output);
-			options.SetDriver(bsp::IGpioPinDriver::PushPull);
-			options.SetPullMode(bsp::IGpioPinPullMode::PullUp);
-			options.SetSpeedLevel(2);
-			hal::GpioPinPB5::Instance().Open(options);
+			_pin = DI_GpioPinCollection().Get("PB5");
+			if (_pin == nullptr)
+			{
+				throw std::runtime_error{"无法找到 PB5 引脚"};
+			}
+
+			std::shared_ptr<bsp::IGpioPinOptions> options = DICreate_GpioPinOptions();
+			options->SetWorkMode(bsp::IGpioPinWorkMode::Gpio);
+			options->SetDirection(bsp::IGpioPinDirection::Output);
+			options->SetDriver(bsp::IGpioPinDriver::PushPull);
+			options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
+			options->SetSpeedLevel(2);
+			_pin->Open(*options);
 		}
 
 		static RedDigitalLed &Instance()

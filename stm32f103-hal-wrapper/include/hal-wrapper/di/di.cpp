@@ -7,6 +7,7 @@
 #include <hal-wrapper/interrupt/Exti.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
 #include <hal-wrapper/peripheral/gpio/GpioPin.h>
+#include <hal-wrapper/peripheral/gpio/GpioPinOptions.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>
 
 static base::Initializer _initializer{
@@ -222,7 +223,12 @@ bsp::IExtiManager &DI_ExtiManager()
 }
 #pragma endregion
 
-#pragma region DI_GpioPinCollection
+#pragma region GPIO
+std::shared_ptr<bsp::IGpioPinOptions> DICreate_GpioPinOptions()
+{
+	return std::shared_ptr<bsp::IGpioPinOptions>{new hal::GpioPinOptions{}};
+}
+
 base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 {
 	class Collection
