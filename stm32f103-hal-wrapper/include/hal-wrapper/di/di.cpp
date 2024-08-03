@@ -6,8 +6,8 @@
 #include <hal-wrapper/clock/SysTickClock.h>
 #include <hal-wrapper/interrupt/Exti.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
-#include <hal-wrapper/peripheral/gpio/GpioPin.h>
 #include <hal-wrapper/peripheral/gpio/GpioPinOptions.h>
+#include <hal-wrapper/peripheral/gpio/GpioPinPB5.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>
 
 static base::Initializer _initializer{

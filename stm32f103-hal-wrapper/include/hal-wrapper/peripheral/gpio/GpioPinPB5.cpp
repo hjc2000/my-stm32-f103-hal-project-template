@@ -1,4 +1,4 @@
-#include "GpioPin.h"
+#include "GpioPinPB5.h"
 #include <base/Initializer.h>
 #include <hal-wrapper/peripheral/gpio/GpioPinOptions.h>
 #include <hal.h>
