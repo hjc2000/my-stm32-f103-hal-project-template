@@ -18,10 +18,21 @@ static base::Initializer _init{
 
 void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 {
+	__HAL_RCC_USART1_CLK_ENABLE();
+
 	auto init_gpio = []()
 	{
+		auto &pa9_options = *DICreate_GpioPinOptions();
+		pa9_options.SetAlternateFunction("af_push_pull");
+		pa9_options.SetDirection(bsp::IGpioPinDirection::Output);
+		pa9_options.SetDriver(bsp::IGpioPinDriver::PushPull);
+		pa9_options.SetPullMode(bsp::IGpioPinPullMode::PullUp);
+		pa9_options.SetSpeedLevel(2);
+		pa9_options.SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
+		bsp::IGpioPin *pin_pa9 = DI_GpioPinCollection().Get("PA9");
+		pin_pa9->Open(pa9_options);
+
 		hal::GpioPortA::Instance().EnableClock();
-		__HAL_RCC_USART1_CLK_ENABLE();
 
 		// 发送引脚 PA9
 		hal::GpioPinConfig options;
@@ -29,7 +40,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 		options.SetMode(hal::GpioPinConfig::ModeOption::AlternateFunction_PushPull);
 		options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
 		options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
-		hal::GpioPortA::Instance().InitPin(options);
+		// hal::GpioPortA::Instance().InitPin(options);
 
 		// 接收引脚 PA10
 		options.SetPin(hal::GpioPinConfig::PinEnum::Pin10);
