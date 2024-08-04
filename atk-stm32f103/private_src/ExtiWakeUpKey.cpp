@@ -19,6 +19,7 @@ ExtiWakeUpKey::ExtiWakeUpKey()
 	options->SetTriggerEdge(bsp::IGpioPinTriggerEdge::RisingEdge);
 	options->SetWorkMode(bsp::IGpioPinWorkMode::Gpio);
 	_pin = DI_GpioPinCollection().Get("PA0");
+	_pin->Open(*options);
 
 	_pin->RegisterInterruptCallback(
 		[&]()
@@ -27,6 +28,4 @@ ExtiWakeUpKey::ExtiWakeUpKey()
 			hal::SysTickClock::Instance().Delay(std::chrono::milliseconds{20});
 			_is_pressed = Port().DigitalReadPin(Pin());
 		});
-
-	_pin->Open(*options);
 }
