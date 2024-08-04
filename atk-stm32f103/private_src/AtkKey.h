@@ -1,4 +1,5 @@
 #pragma once
+#include <bsp-interface/di.h>
 #include <bsp-interface/key/IKey.h>
 #include <hal-wrapper/clock/Delayer.h>
 #include <hal-wrapper/peripheral/gpio/GpioPort.h>
@@ -30,6 +31,9 @@ namespace bsp
 	class Key1
 		: public bsp::IKey
 	{
+	private:
+		bsp::IGpioPin *_pin = nullptr;
+
 	public:
 		Key1();
 

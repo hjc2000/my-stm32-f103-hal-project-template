@@ -21,8 +21,8 @@ int main(void)
 			std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create(
 				[]()
 				{
-					bsp::TestSerial();
-					// TestKeyScanner();
+					// bsp::TestSerial();
+					TestKeyScanner();
 					// TestLcd();
 					// TestIndependentWatchDog();
 					// TestExtiKey();

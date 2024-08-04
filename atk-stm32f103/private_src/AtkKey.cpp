@@ -26,19 +26,19 @@ bool bsp::Key0::KeyIsDown()
 #pragma region Key1
 bsp::Key1::Key1()
 {
-	using namespace bsp;
-	Port().EnableClock();
-	GpioPinConfig options;
-	options.SetPin(hal::GpioPinConfig::PinEnum::Pin3);
-	options.SetMode(hal::GpioPinConfig::ModeOption::Input);
-	options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
-	options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
-	Port().InitPin(options);
+	auto options = DICreate_GpioPinOptions();
+	options->SetDirection(bsp::IGpioPinDirection::Input);
+	options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
+	options->SetSpeedLevel(2);
+	options->SetTriggerEdge(bsp::IGpioPinTriggerEdge::Disable);
+	options->SetWorkMode(bsp::IGpioPinWorkMode::Gpio);
+	_pin = DI_GpioPinCollection().Get("PE3");
+	_pin->Open(*options);
 }
 
 bool bsp::Key1::KeyIsDown()
 {
 	// 被按下是低电平，否则是高电平
-	return !Port().DigitalReadPin(hal::GpioPinConfig::PinEnum::Pin3);
+	return !_pin->ReadPin();
 }
 #pragma endregion
