@@ -54,7 +54,7 @@ void Lcd::InitGpio()
 {
 	auto init_control_line = [&]()
 	{
-		// PB0
+		// _bl_pin
 		{
 			auto options = DICreate_GpioPinOptions();
 			options->SetDirection(bsp::IGpioPinDirection::Output);
@@ -66,7 +66,7 @@ void Lcd::InitGpio()
 			_bl_pin->Open(*options);
 		}
 
-		// PD4
+		// _rd_pin
 		{
 			auto options = DICreate_GpioPinOptions();
 			options->SetAlternateFunction("af_input");
@@ -78,7 +78,7 @@ void Lcd::InitGpio()
 			_rd_pin->Open(*options);
 		}
 
-		// PD5
+		// _wr_pin
 		{
 			auto options = DICreate_GpioPinOptions();
 			options->SetAlternateFunction("af_push_pull");
@@ -91,7 +91,7 @@ void Lcd::InitGpio()
 			_wr_pin->Open(*options);
 		}
 
-		// PG12
+		// _cs_pin
 		{
 			auto options = DICreate_GpioPinOptions();
 			options->SetAlternateFunction("af_push_pull");
@@ -104,7 +104,7 @@ void Lcd::InitGpio()
 			_cs_pin->Open(*options);
 		}
 
-		// PG0
+		// _rs_pin
 		{
 			auto options = DICreate_GpioPinOptions();
 			options->SetAlternateFunction("af_push_pull");
