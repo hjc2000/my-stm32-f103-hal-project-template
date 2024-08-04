@@ -2,7 +2,6 @@
 #include <bsp-interface/di.h>
 #include <bsp-interface/key/IKey.h>
 #include <hal-wrapper/clock/Delayer.h>
-#include <hal-wrapper/peripheral/gpio/GpioPort.h>
 
 namespace bsp
 {
@@ -22,11 +21,6 @@ namespace bsp
 			return key;
 		}
 
-		hal::IGpioPort &Port()
-		{
-			return hal::GpioPortE::Instance();
-		}
-
 		bool KeyIsDown() override;
 	};
 
@@ -44,11 +38,6 @@ namespace bsp
 		{
 			static Key1 key{};
 			return key;
-		}
-
-		hal::IGpioPort &Port()
-		{
-			return hal::GpioPortE::Instance();
 		}
 
 		bool KeyIsDown() override;
