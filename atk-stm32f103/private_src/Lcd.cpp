@@ -58,11 +58,11 @@ void Lcd::InitGpio()
 		CS_Port().EnableClock();
 		RS_Port().EnableClock();
 
+		// PD4
 		{
 			auto options = DICreate_GpioPinOptions();
 			options->SetAlternateFunction("af_push_pull");
 			options->SetDirection(bsp::IGpioPinDirection::Input);
-			options->SetDriver(bsp::IGpioPinDriver::PushPull);
 			options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
 			options->SetSpeedLevel(2);
 			options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
@@ -70,6 +70,7 @@ void Lcd::InitGpio()
 			_rd_pin->Open(*options);
 		}
 
+		// PD5
 		{
 			auto options = DICreate_GpioPinOptions();
 			options->SetAlternateFunction("af_push_pull");
