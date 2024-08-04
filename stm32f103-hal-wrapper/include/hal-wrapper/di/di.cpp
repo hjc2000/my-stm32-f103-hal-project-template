@@ -7,6 +7,7 @@
 #include <gpio/GpioPinPA0.h>
 #include <gpio/GpioPinPA10.h>
 #include <gpio/GpioPinPA9.h>
+#include <gpio/GpioPinPB0.h>
 #include <gpio/GpioPinPB5.h>
 #include <gpio/GpioPinPD4.h>
 #include <gpio/GpioPinPD5.h>
@@ -247,6 +248,7 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 			{bsp::GpioPinPA0::Instance().PinName(), &bsp::GpioPinPA0::Instance()},
 			{bsp::GpioPinPA9::Instance().PinName(), &bsp::GpioPinPA9::Instance()},
 			{bsp::GpioPinPA10::Instance().PinName(), &bsp::GpioPinPA10::Instance()},
+			{bsp::GpioPinPB0::Instance().PinName(), &bsp::GpioPinPB0::Instance()},
 			{bsp::GpioPinPB5::Instance().PinName(), &bsp::GpioPinPB5::Instance()},
 			{bsp::GpioPinPD4::Instance().PinName(), &bsp::GpioPinPD4::Instance()},
 			{bsp::GpioPinPD5::Instance().PinName(), &bsp::GpioPinPD5::Instance()},

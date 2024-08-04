@@ -27,15 +27,7 @@ namespace bsp
 		bsp::IGpioPin *_wr_pin = nullptr;
 
 		/// @brief 连接 LCD 的 BL 引脚。这是控制背光的。
-		/// @return
-		hal::IGpioPort &BL_Port()
-		{
-			return hal::GpioPortB::Instance();
-		}
-		hal::GpioPinConfig::PinEnum BL_Pin()
-		{
-			return hal::GpioPinConfig::PinEnum::Pin0;
-		}
+		bsp::IGpioPin *_bl_pin = nullptr;
 
 		/// @brief 连接 LCD 的 CS 引脚。这是片选。
 		/// @return

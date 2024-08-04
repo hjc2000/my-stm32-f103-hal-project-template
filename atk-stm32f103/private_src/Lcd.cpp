@@ -54,7 +54,6 @@ void Lcd::InitGpio()
 {
 	auto init_control_line = [&]()
 	{
-		BL_Port().EnableClock();
 		CS_Port().EnableClock();
 		RS_Port().EnableClock();
 
@@ -79,8 +78,20 @@ void Lcd::InitGpio()
 			options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
 			options->SetSpeedLevel(2);
 			options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
-			_rd_pin = DI_GpioPinCollection().Get("PD5");
-			_rd_pin->Open(*options);
+			_wr_pin = DI_GpioPinCollection().Get("PD5");
+			_wr_pin->Open(*options);
+		}
+
+		// PB0
+		{
+			auto options = DICreate_GpioPinOptions();
+			options->SetDirection(bsp::IGpioPinDirection::Output);
+			options->SetDriver(bsp::IGpioPinDriver::PushPull);
+			options->SetPullMode(bsp::IGpioPinPullMode::NoPull);
+			options->SetSpeedLevel(2);
+			options->SetWorkMode(bsp::IGpioPinWorkMode::Gpio);
+			_bl_pin = DI_GpioPinCollection().Get("PB0");
+			_bl_pin->Open(*options);
 		}
 
 		GpioPinConfig gpio_init_options;
@@ -93,10 +104,6 @@ void Lcd::InitGpio()
 
 		gpio_init_options.SetPin(RS_Pin());
 		RS_Port().InitPin(gpio_init_options);
-
-		gpio_init_options.SetPin(BL_Pin());
-		gpio_init_options.SetMode(hal::GpioPinConfig::ModeOption::Output_PushPull);
-		BL_Port().InitPin(gpio_init_options);
 	};
 
 	auto init_data_bus = [&]()
@@ -160,10 +167,10 @@ uint16_t Lcd::ReadData()
 
 void Lcd::TurnOnBackLight()
 {
-	BL_Port().DigitalWritePin(BL_Pin(), 1);
+	_bl_pin->WritePin(1);
 }
 
 void Lcd::TurnOffBackLight()
 {
-	BL_Port().DigitalWritePin(BL_Pin(), 0);
+	_bl_pin->WritePin(0);
 }
