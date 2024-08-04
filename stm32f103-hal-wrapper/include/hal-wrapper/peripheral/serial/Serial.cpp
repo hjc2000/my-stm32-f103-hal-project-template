@@ -32,20 +32,14 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 		bsp::IGpioPin *pin_pa9 = DI_GpioPinCollection().Get("PA9");
 		pin_pa9->Open(pa9_options);
 
-		hal::GpioPortA::Instance().EnableClock();
-
-		// 发送引脚 PA9
-		hal::GpioPinConfig options;
-		options.SetPin(hal::GpioPinConfig::PinEnum::Pin9);
-		options.SetMode(hal::GpioPinConfig::ModeOption::AlternateFunction_PushPull);
-		options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
-		options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
-		// hal::GpioPortA::Instance().InitPin(options);
-
-		// 接收引脚 PA10
-		options.SetPin(hal::GpioPinConfig::PinEnum::Pin10);
-		options.SetMode(hal::GpioPinConfig::ModeOption::AlternateFunction_Input);
-		hal::GpioPortA::Instance().InitPin(options);
+		auto &pa10_options = *DICreate_GpioPinOptions();
+		pa10_options.SetAlternateFunction("af_input");
+		pa10_options.SetDirection(bsp::IGpioPinDirection::Input);
+		pa10_options.SetPullMode(bsp::IGpioPinPullMode::PullUp);
+		pa10_options.SetSpeedLevel(2);
+		pa10_options.SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
+		bsp::IGpioPin *pin_pa10 = DI_GpioPinCollection().Get("PA10");
+		pin_pa10->Open(pa10_options);
 	};
 
 	auto init_tx_dma = []()
