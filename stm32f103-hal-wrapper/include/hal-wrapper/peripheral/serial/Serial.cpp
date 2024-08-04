@@ -22,24 +22,30 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 
 	auto init_gpio = []()
 	{
-		auto &pa9_options = *DICreate_GpioPinOptions();
-		pa9_options.SetAlternateFunction("af_push_pull");
-		pa9_options.SetDirection(bsp::IGpioPinDirection::Output);
-		pa9_options.SetDriver(bsp::IGpioPinDriver::PushPull);
-		pa9_options.SetPullMode(bsp::IGpioPinPullMode::PullUp);
-		pa9_options.SetSpeedLevel(2);
-		pa9_options.SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
-		bsp::IGpioPin *pin_pa9 = DI_GpioPinCollection().Get("PA9");
-		pin_pa9->Open(pa9_options);
+		// PA9
+		{
+			auto &options = *DICreate_GpioPinOptions();
+			options.SetAlternateFunction("af_push_pull");
+			options.SetDirection(bsp::IGpioPinDirection::Output);
+			options.SetDriver(bsp::IGpioPinDriver::PushPull);
+			options.SetPullMode(bsp::IGpioPinPullMode::PullUp);
+			options.SetSpeedLevel(2);
+			options.SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
+			bsp::IGpioPin *pin = DI_GpioPinCollection().Get("PA9");
+			pin->Open(options);
+		}
 
-		auto &pa10_options = *DICreate_GpioPinOptions();
-		pa10_options.SetAlternateFunction("af_input");
-		pa10_options.SetDirection(bsp::IGpioPinDirection::Input);
-		pa10_options.SetPullMode(bsp::IGpioPinPullMode::PullUp);
-		pa10_options.SetSpeedLevel(2);
-		pa10_options.SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
-		bsp::IGpioPin *pin_pa10 = DI_GpioPinCollection().Get("PA10");
-		pin_pa10->Open(pa10_options);
+		// PA10
+		{
+			auto &options = *DICreate_GpioPinOptions();
+			options.SetAlternateFunction("af_input");
+			options.SetDirection(bsp::IGpioPinDirection::Input);
+			options.SetPullMode(bsp::IGpioPinPullMode::PullUp);
+			options.SetSpeedLevel(2);
+			options.SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
+			bsp::IGpioPin *pin = DI_GpioPinCollection().Get("PA10");
+			pin->Open(options);
+		}
 	};
 
 	auto init_tx_dma = []()
