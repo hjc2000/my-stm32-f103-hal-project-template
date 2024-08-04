@@ -19,7 +19,6 @@ namespace bsp
 		SRAM_HandleTypeDef _sram_handle;
 
 #pragma region 连接到 LCD 的 GPIO 引脚
-	private:
 		/// @brief 连接 LCD 的 RD 引脚
 		bsp::IGpioPin *_rd_pin = nullptr;
 
@@ -49,8 +48,14 @@ namespace bsp
 
 		void InitGpio();
 
-#pragma region ST7789LcdDriver
 	public:
+		static Lcd &Instance()
+		{
+			static Lcd o;
+			return o;
+		}
+
+#pragma region ST7789LcdDriver
 		void WriteCommand(uint16_t cmd) override;
 		void WriteCommand(uint16_t cmd, uint16_t param) override;
 
@@ -60,13 +65,6 @@ namespace bsp
 		void TurnOnBackLight() override;
 		void TurnOffBackLight() override;
 #pragma endregion
-
-	public:
-		static Lcd &Instance()
-		{
-			static Lcd o;
-			return o;
-		}
 
 		SRAM_HandleTypeDef &Handle() override
 		{
