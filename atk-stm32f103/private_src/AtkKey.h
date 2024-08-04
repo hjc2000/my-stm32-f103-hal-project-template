@@ -10,6 +10,9 @@ namespace bsp
 	class Key0
 		: public bsp::IKey
 	{
+	private:
+		bsp::IGpioPin *_pin = nullptr;
+
 	public:
 		Key0();
 

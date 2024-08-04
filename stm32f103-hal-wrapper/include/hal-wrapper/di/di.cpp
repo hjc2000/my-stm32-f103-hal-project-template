@@ -11,6 +11,7 @@
 #include <hal-wrapper/peripheral/gpio/GpioPinPA9.h>
 #include <hal-wrapper/peripheral/gpio/GpioPinPB5.h>
 #include <hal-wrapper/peripheral/gpio/GpioPinPE3.h>
+#include <hal-wrapper/peripheral/gpio/GpioPinPE4.h>
 #include <hal-wrapper/peripheral/gpio/GpioPinPE5.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>
 
@@ -244,6 +245,7 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 			{hal::GpioPinPA10::Instance().PinName(), &hal::GpioPinPA10::Instance()},
 			{hal::GpioPinPB5::Instance().PinName(), &hal::GpioPinPB5::Instance()},
 			{hal::GpioPinPE3::Instance().PinName(), &hal::GpioPinPE3::Instance()},
+			{hal::GpioPinPE4::Instance().PinName(), &hal::GpioPinPE4::Instance()},
 			{hal::GpioPinPE5::Instance().PinName(), &hal::GpioPinPE5::Instance()},
 		};
 
