@@ -61,7 +61,7 @@ void Lcd::InitGpio()
 		// PD4
 		{
 			auto options = DICreate_GpioPinOptions();
-			options->SetAlternateFunction("af_push_pull");
+			options->SetAlternateFunction("af_input");
 			options->SetDirection(bsp::IGpioPinDirection::Input);
 			options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
 			options->SetSpeedLevel(2);
