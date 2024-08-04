@@ -232,7 +232,7 @@ bsp::IExtiManager &DI_ExtiManager()
 #pragma region GPIO
 std::shared_ptr<bsp::IGpioPinOptions> DICreate_GpioPinOptions()
 {
-	return std::shared_ptr<bsp::IGpioPinOptions>{new hal::GpioPinOptions{}};
+	return std::shared_ptr<bsp::IGpioPinOptions>{new bsp::GpioPinOptions{}};
 }
 
 base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
@@ -242,13 +242,13 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 	{
 	private:
 		std::map<std::string, bsp::IGpioPin *> _pin_map{
-			{hal::GpioPinPA0::Instance().PinName(), &hal::GpioPinPA0::Instance()},
-			{hal::GpioPinPA9::Instance().PinName(), &hal::GpioPinPA9::Instance()},
-			{hal::GpioPinPA10::Instance().PinName(), &hal::GpioPinPA10::Instance()},
-			{hal::GpioPinPB5::Instance().PinName(), &hal::GpioPinPB5::Instance()},
-			{hal::GpioPinPE3::Instance().PinName(), &hal::GpioPinPE3::Instance()},
-			{hal::GpioPinPE4::Instance().PinName(), &hal::GpioPinPE4::Instance()},
-			{hal::GpioPinPE5::Instance().PinName(), &hal::GpioPinPE5::Instance()},
+			{bsp::GpioPinPA0::Instance().PinName(), &bsp::GpioPinPA0::Instance()},
+			{bsp::GpioPinPA9::Instance().PinName(), &bsp::GpioPinPA9::Instance()},
+			{bsp::GpioPinPA10::Instance().PinName(), &bsp::GpioPinPA10::Instance()},
+			{bsp::GpioPinPB5::Instance().PinName(), &bsp::GpioPinPB5::Instance()},
+			{bsp::GpioPinPE3::Instance().PinName(), &bsp::GpioPinPE3::Instance()},
+			{bsp::GpioPinPE4::Instance().PinName(), &bsp::GpioPinPE4::Instance()},
+			{bsp::GpioPinPE5::Instance().PinName(), &bsp::GpioPinPE5::Instance()},
 		};
 
 	public:
