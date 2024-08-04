@@ -7,6 +7,7 @@
 #include <hal-wrapper/interrupt/Exti.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
 #include <hal-wrapper/peripheral/gpio/GpioPinOptions.h>
+#include <hal-wrapper/peripheral/gpio/GpioPinPA0.h>
 #include <hal-wrapper/peripheral/gpio/GpioPinPA10.h>
 #include <hal-wrapper/peripheral/gpio/GpioPinPA9.h>
 #include <hal-wrapper/peripheral/gpio/GpioPinPB5.h>
@@ -241,6 +242,7 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 	{
 	private:
 		std::map<std::string, bsp::IGpioPin *> _pin_map{
+			{hal::GpioPinPA0::Instance().PinName(), &hal::GpioPinPA0::Instance()},
 			{hal::GpioPinPA9::Instance().PinName(), &hal::GpioPinPA9::Instance()},
 			{hal::GpioPinPA10::Instance().PinName(), &hal::GpioPinPA10::Instance()},
 			{hal::GpioPinPB5::Instance().PinName(), &hal::GpioPinPB5::Instance()},

@@ -22,10 +22,10 @@ int main(void)
 				[]()
 				{
 					// bsp::TestSerial();
-					TestKeyScanner();
+					// TestKeyScanner();
 					// TestLcd();
 					// TestIndependentWatchDog();
-					// TestExtiKey();
+					TestExtiKey();
 				},
 				512);
 
