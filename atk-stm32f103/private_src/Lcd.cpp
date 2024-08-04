@@ -54,22 +54,38 @@ void Lcd::InitGpio()
 {
 	auto init_control_line = [&]()
 	{
-		RD_Port().EnableClock();
-		WR_Port().EnableClock();
 		BL_Port().EnableClock();
 		CS_Port().EnableClock();
 		RS_Port().EnableClock();
+
+		{
+			auto options = DICreate_GpioPinOptions();
+			options->SetAlternateFunction("af_push_pull");
+			options->SetDirection(bsp::IGpioPinDirection::Input);
+			options->SetDriver(bsp::IGpioPinDriver::PushPull);
+			options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
+			options->SetSpeedLevel(2);
+			options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
+			_rd_pin = DI_GpioPinCollection().Get("PD4");
+			_rd_pin->Open(*options);
+		}
+
+		{
+			auto options = DICreate_GpioPinOptions();
+			options->SetAlternateFunction("af_push_pull");
+			options->SetDirection(bsp::IGpioPinDirection::Output);
+			options->SetDriver(bsp::IGpioPinDriver::PushPull);
+			options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
+			options->SetSpeedLevel(2);
+			options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
+			_rd_pin = DI_GpioPinCollection().Get("PD5");
+			_rd_pin->Open(*options);
+		}
 
 		GpioPinConfig gpio_init_options;
 		gpio_init_options.SetMode(hal::GpioPinConfig::ModeOption::AlternateFunction_PushPull);
 		gpio_init_options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
 		gpio_init_options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
-
-		gpio_init_options.SetPin(RD_Pin());
-		RD_Port().InitPin(gpio_init_options);
-
-		gpio_init_options.SetPin(WR_Pin());
-		WR_Port().InitPin(gpio_init_options);
 
 		gpio_init_options.SetPin(CS_Pin());
 		CS_Port().InitPin(gpio_init_options);
