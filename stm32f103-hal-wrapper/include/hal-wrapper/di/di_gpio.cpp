@@ -25,18 +25,54 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 	{
 	private:
 		std::map<std::string, bsp::IGpioPin *> _pin_map{
-			{bsp::GpioPinPA0::Instance().PinName(), &bsp::GpioPinPA0::Instance()},
-			{bsp::GpioPinPA9::Instance().PinName(), &bsp::GpioPinPA9::Instance()},
-			{bsp::GpioPinPA10::Instance().PinName(), &bsp::GpioPinPA10::Instance()},
-			{bsp::GpioPinPB0::Instance().PinName(), &bsp::GpioPinPB0::Instance()},
-			{bsp::GpioPinPB5::Instance().PinName(), &bsp::GpioPinPB5::Instance()},
-			{bsp::GpioPinPD4::Instance().PinName(), &bsp::GpioPinPD4::Instance()},
-			{bsp::GpioPinPD5::Instance().PinName(), &bsp::GpioPinPD5::Instance()},
-			{bsp::GpioPinPE3::Instance().PinName(), &bsp::GpioPinPE3::Instance()},
-			{bsp::GpioPinPE4::Instance().PinName(), &bsp::GpioPinPE4::Instance()},
-			{bsp::GpioPinPE5::Instance().PinName(), &bsp::GpioPinPE5::Instance()},
-			{bsp::GpioPinPG0::Instance().PinName(), &bsp::GpioPinPG0::Instance()},
-			{bsp::GpioPinPG12::Instance().PinName(), &bsp::GpioPinPG12::Instance()},
+			{
+				bsp::GpioPinPA0::Instance().PinName(),
+				&bsp::GpioPinPA0::Instance(),
+			},
+			{
+				bsp::GpioPinPA9::Instance().PinName(),
+				&bsp::GpioPinPA9::Instance(),
+			},
+			{
+				bsp::GpioPinPA10::Instance().PinName(),
+				&bsp::GpioPinPA10::Instance(),
+			},
+			{
+				bsp::GpioPinPB0::Instance().PinName(),
+				&bsp::GpioPinPB0::Instance(),
+			},
+			{
+				bsp::GpioPinPB5::Instance().PinName(),
+				&bsp::GpioPinPB5::Instance(),
+			},
+			{
+				bsp::GpioPinPD4::Instance().PinName(),
+				&bsp::GpioPinPD4::Instance(),
+			},
+			{
+				bsp::GpioPinPD5::Instance().PinName(),
+				&bsp::GpioPinPD5::Instance(),
+			},
+			{
+				bsp::GpioPinPE3::Instance().PinName(),
+				&bsp::GpioPinPE3::Instance(),
+			},
+			{
+				bsp::GpioPinPE4::Instance().PinName(),
+				&bsp::GpioPinPE4::Instance(),
+			},
+			{
+				bsp::GpioPinPE5::Instance().PinName(),
+				&bsp::GpioPinPE5::Instance(),
+			},
+			{
+				bsp::GpioPinPG0::Instance().PinName(),
+				&bsp::GpioPinPG0::Instance(),
+			},
+			{
+				bsp::GpioPinPG12::Instance().PinName(),
+				&bsp::GpioPinPG12::Instance(),
+			},
 		};
 
 	public:
