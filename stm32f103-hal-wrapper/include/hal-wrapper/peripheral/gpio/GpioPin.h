@@ -1,5 +1,5 @@
 #pragma once
-#include <bsp-interface/gpio/IGpioPin.h>
+#include <bsp-interface/di.h>
 #include <hal.h>
 
 namespace hal
@@ -15,11 +15,12 @@ namespace hal
 		void WritePin(bool value) override;
 		void TogglePin() override;
 
-		/// @brief 设置中断回调函数
+		/// @brief 设置中断回调函数。
 		/// @warning 只有当前引脚处于关闭状态才能设置。
 		/// @param callback
-		void SetInterruptCallback(std::function<void()> callback) override
-		{
-		}
+		void RegisterInterruptCallback(std::function<void()> callback) override;
+
+		/// @brief 取消注册此引脚的中断回调函数。
+		void UnregisterInterruptCallback() override;
 	};
 }
