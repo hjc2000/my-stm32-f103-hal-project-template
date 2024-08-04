@@ -3,17 +3,17 @@
 #include <base/container/StdContainerEnumerable.h>
 #include <bsp-interface/di.h>
 #include <bsp-interface/key/KeyScanner.h>
+#include <gpio/GpioPinOptions.h>
+#include <gpio/GpioPinPA0.h>
+#include <gpio/GpioPinPA10.h>
+#include <gpio/GpioPinPA9.h>
+#include <gpio/GpioPinPB5.h>
+#include <gpio/GpioPinPE3.h>
+#include <gpio/GpioPinPE4.h>
+#include <gpio/GpioPinPE5.h>
 #include <hal-wrapper/clock/SysTickClock.h>
 #include <hal-wrapper/interrupt/Exti.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
-#include <hal-wrapper/peripheral/gpio/GpioPinOptions.h>
-#include <hal-wrapper/peripheral/gpio/GpioPinPA0.h>
-#include <hal-wrapper/peripheral/gpio/GpioPinPA10.h>
-#include <hal-wrapper/peripheral/gpio/GpioPinPA9.h>
-#include <hal-wrapper/peripheral/gpio/GpioPinPB5.h>
-#include <hal-wrapper/peripheral/gpio/GpioPinPE3.h>
-#include <hal-wrapper/peripheral/gpio/GpioPinPE4.h>
-#include <hal-wrapper/peripheral/gpio/GpioPinPE5.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>
 
 static base::Initializer _initializer{

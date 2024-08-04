@@ -1,9 +1,9 @@
 #pragma once
 #include <bsp-interface/IDigitalLed.h>
 #include <bsp-interface/di.h>
-#include <hal-wrapper/peripheral/gpio/GpioPinOptions.h>
-#include <hal-wrapper/peripheral/gpio/GpioPinPB5.h>
-#include <hal-wrapper/peripheral/gpio/GpioPinPE5.h>
+#include <gpio/GpioPinOptions.h>
+#include <gpio/GpioPinPB5.h>
+#include <gpio/GpioPinPE5.h>
 #include <hal-wrapper/peripheral/gpio/GpioPort.h>
 
 namespace bsp
