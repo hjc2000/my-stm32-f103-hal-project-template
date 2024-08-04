@@ -18,7 +18,7 @@ namespace bsp
 
 		SRAM_HandleTypeDef _sram_handle;
 
-#pragma region 连接到LCD的GPIO引脚
+#pragma region 连接到 LCD 的 GPIO 引脚
 	private:
 		/// @brief 连接 LCD 的 RD 引脚
 		bsp::IGpioPin *_rd_pin = nullptr;
@@ -30,15 +30,7 @@ namespace bsp
 		bsp::IGpioPin *_bl_pin = nullptr;
 
 		/// @brief 连接 LCD 的 CS 引脚。这是片选。
-		/// @return
-		hal::IGpioPort &CS_Port()
-		{
-			return hal::GpioPortG::Instance();
-		}
-		hal::GpioPinConfig::PinEnum CS_Pin()
-		{
-			return hal::GpioPinConfig::PinEnum::Pin12;
-		}
+		bsp::IGpioPin *_cs_pin = nullptr;
 
 		/// @brief 连接到 LCD 的 RS 引脚。
 		/// @return
