@@ -33,15 +33,7 @@ namespace bsp
 		bsp::IGpioPin *_cs_pin = nullptr;
 
 		/// @brief 连接到 LCD 的 RS 引脚。
-		/// @return
-		hal::IGpioPort &RS_Port()
-		{
-			return hal::GpioPortG::Instance();
-		}
-		hal::GpioPinConfig::PinEnum RS_Pin()
-		{
-			return hal::GpioPinConfig::PinEnum::Pin0;
-		}
+		bsp::IGpioPin *_rs_pin = nullptr;
 #pragma endregion
 
 		volatile uint16_t *CommandAddress()

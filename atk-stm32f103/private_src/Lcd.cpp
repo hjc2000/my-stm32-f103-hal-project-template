@@ -54,8 +54,6 @@ void Lcd::InitGpio()
 {
 	auto init_control_line = [&]()
 	{
-		RS_Port().EnableClock();
-
 		// PB0
 		{
 			auto options = DICreate_GpioPinOptions();
@@ -106,13 +104,18 @@ void Lcd::InitGpio()
 			_cs_pin->Open(*options);
 		}
 
-		GpioPinConfig gpio_init_options;
-		gpio_init_options.SetMode(hal::GpioPinConfig::ModeOption::AlternateFunction_PushPull);
-		gpio_init_options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
-		gpio_init_options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
-
-		gpio_init_options.SetPin(RS_Pin());
-		RS_Port().InitPin(gpio_init_options);
+		// PG0
+		{
+			auto options = DICreate_GpioPinOptions();
+			options->SetAlternateFunction("af_push_pull");
+			options->SetDirection(bsp::IGpioPinDirection::Output);
+			options->SetDriver(bsp::IGpioPinDriver::PushPull);
+			options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
+			options->SetSpeedLevel(2);
+			options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
+			_rs_pin = DI_GpioPinCollection().Get("PG0");
+			_rs_pin->Open(*options);
+		}
 	};
 
 	auto init_data_bus = [&]()

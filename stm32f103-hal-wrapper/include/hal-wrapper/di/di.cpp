@@ -14,6 +14,7 @@
 #include <gpio/GpioPinPE3.h>
 #include <gpio/GpioPinPE4.h>
 #include <gpio/GpioPinPE5.h>
+#include <gpio/GpioPinPG0.h>
 #include <gpio/GpioPinPG12.h>
 #include <hal-wrapper/clock/SysTickClock.h>
 #include <hal-wrapper/interrupt/Exti.h>
@@ -256,6 +257,7 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 			{bsp::GpioPinPE3::Instance().PinName(), &bsp::GpioPinPE3::Instance()},
 			{bsp::GpioPinPE4::Instance().PinName(), &bsp::GpioPinPE4::Instance()},
 			{bsp::GpioPinPE5::Instance().PinName(), &bsp::GpioPinPE5::Instance()},
+			{bsp::GpioPinPG0::Instance().PinName(), &bsp::GpioPinPG0::Instance()},
 			{bsp::GpioPinPG12::Instance().PinName(), &bsp::GpioPinPG12::Instance()},
 		};
 
