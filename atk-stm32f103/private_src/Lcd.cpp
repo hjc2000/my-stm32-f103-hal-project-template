@@ -92,12 +92,27 @@ void Lcd::InitGpio()
 		options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
 		options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
 
-		options.SetPin(
-			hal::GpioPinConfig::PinEnum::Pin0 | hal::GpioPinConfig::PinEnum::Pin1 | hal::GpioPinConfig::PinEnum::Pin8 | hal::GpioPinConfig::PinEnum::Pin9 | hal::GpioPinConfig::PinEnum::Pin10 | hal::GpioPinConfig::PinEnum::Pin14 | hal::GpioPinConfig::PinEnum::Pin15);
+		options.SetPin(hal::GpioPinConfig::PinEnum::Pin0 |
+					   hal::GpioPinConfig::PinEnum::Pin1 |
+					   hal::GpioPinConfig::PinEnum::Pin8 |
+					   hal::GpioPinConfig::PinEnum::Pin9 |
+					   hal::GpioPinConfig::PinEnum::Pin10 |
+					   hal::GpioPinConfig::PinEnum::Pin14 |
+					   hal::GpioPinConfig::PinEnum::Pin15);
+
 		GpioPortD::Instance().InitPin(options);
 
 		options.SetPin(
-			hal::GpioPinConfig::PinEnum::Pin7 | hal::GpioPinConfig::PinEnum::Pin8 | hal::GpioPinConfig::PinEnum::Pin9 | hal::GpioPinConfig::PinEnum::Pin10 | hal::GpioPinConfig::PinEnum::Pin11 | hal::GpioPinConfig::PinEnum::Pin12 | hal::GpioPinConfig::PinEnum::Pin13 | hal::GpioPinConfig::PinEnum::Pin14 | hal::GpioPinConfig::PinEnum::Pin15);
+			hal::GpioPinConfig::PinEnum::Pin7 |
+			hal::GpioPinConfig::PinEnum::Pin8 |
+			hal::GpioPinConfig::PinEnum::Pin9 |
+			hal::GpioPinConfig::PinEnum::Pin10 |
+			hal::GpioPinConfig::PinEnum::Pin11 |
+			hal::GpioPinConfig::PinEnum::Pin12 |
+			hal::GpioPinConfig::PinEnum::Pin13 |
+			hal::GpioPinConfig::PinEnum::Pin14 |
+			hal::GpioPinConfig::PinEnum::Pin15);
+
 		GpioPortE::Instance().InitPin(options);
 	};
 

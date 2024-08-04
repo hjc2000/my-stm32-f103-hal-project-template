@@ -23,7 +23,7 @@ uint32_t SysTickClock::Frequency() const
 {
 	if (ClockSource() == SysTickClockSourceOption::HCLK_DIV8)
 	{
-		return hal::ClockSignal::HclkFreq() / 8;
+		// return hal::ClockSignal::HclkFreq() / 8;
 	}
 
 	return hal::ClockSignal::HclkFreq();

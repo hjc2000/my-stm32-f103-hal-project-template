@@ -2,7 +2,6 @@
 #include <atomic>
 #include <bsp-interface/di.h>
 #include <bsp-interface/key/IEventDrivenKey.h>
-#include <hal-wrapper/clock/SysTickClock.h>
 
 namespace bsp
 {
