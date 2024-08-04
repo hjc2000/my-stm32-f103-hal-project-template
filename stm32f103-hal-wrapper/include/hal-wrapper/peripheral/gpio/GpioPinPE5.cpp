@@ -9,6 +9,16 @@ static base::Initializer _init{
 		hal::GpioPinPE5::Instance();
 	}};
 
+GPIO_TypeDef *hal::GpioPinPE5::Port()
+{
+	return GPIOE;
+}
+
+uint32_t hal::GpioPinPE5::Pin()
+{
+	return GPIO_PIN_5;
+}
+
 void hal::GpioPinPE5::Open(bsp::IGpioPinOptions const &options)
 {
 	if (_is_open)
@@ -32,26 +42,4 @@ void hal::GpioPinPE5::Close()
 	}
 
 	_is_open = false;
-}
-
-bool hal::GpioPinPE5::ReadPin()
-{
-	GPIO_PinState pin_state = HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_5);
-	if (pin_state == GPIO_PinState::GPIO_PIN_SET)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-void hal::GpioPinPE5::WritePin(bool value)
-{
-	GPIO_PinState state = value ? GPIO_PinState::GPIO_PIN_SET : GPIO_PinState::GPIO_PIN_RESET;
-	HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, state);
-}
-
-void hal::GpioPinPE5::TogglePin()
-{
-	HAL_GPIO_TogglePin(GPIOE, GPIO_PIN_5);
 }

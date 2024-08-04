@@ -2,13 +2,13 @@
 #include <array>
 #include <base/RentedPtrFactory.h>
 #include <base/container/StdContainerEnumerable.h>
-#include <bsp-interface/gpio/IGpioPin.h>
+#include <hal-wrapper/peripheral/gpio/GpioPin.h>
 
 namespace hal
 {
 	/// @brief PB5 引脚。
 	class GpioPinPB5
-		: public bsp::IGpioPin
+		: public hal::GpioPin
 	{
 	private:
 		GpioPinPB5() = default;
@@ -27,6 +27,9 @@ namespace hal
 			static GpioPinPB5 o;
 			return o;
 		}
+
+		GPIO_TypeDef *Port() override;
+		uint32_t Pin() override;
 
 		/// @brief 引脚名称
 		/// @return
@@ -54,16 +57,5 @@ namespace hal
 
 		void Open(bsp::IGpioPinOptions const &options) override;
 		void Close() override;
-
-		bool ReadPin() override;
-		void WritePin(bool value) override;
-		void TogglePin() override;
-
-		/// @brief 设置中断回调函数
-		/// @warning 只有当前引脚处于关闭状态才能设置。
-		/// @param callback
-		void SetInterruptCallback(std::function<void()> callback) override
-		{
-		}
 	};
 }
