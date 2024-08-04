@@ -1,4 +1,4 @@
-#include "GpioPinPE5.h"
+#include "GpioPinPE3.h"
 #include <base/Initializer.h>
 #include <hal-wrapper/peripheral/gpio/GpioPinOptions.h>
 #include <hal.h>
@@ -6,20 +6,20 @@
 static base::Initializer _init{
 	[]()
 	{
-		hal::GpioPinPE5::Instance();
+		hal::GpioPinPE3::Instance();
 	}};
 
-GPIO_TypeDef *hal::GpioPinPE5::Port()
+GPIO_TypeDef *hal::GpioPinPE3::Port()
 {
 	return GPIOE;
 }
 
-uint32_t hal::GpioPinPE5::Pin()
+uint32_t hal::GpioPinPE3::Pin()
 {
-	return GPIO_PIN_5;
+	return GPIO_PIN_3;
 }
 
-void hal::GpioPinPE5::Open(bsp::IGpioPinOptions const &options)
+void hal::GpioPinPE3::Open(bsp::IGpioPinOptions const &options)
 {
 	if (_is_open)
 	{
@@ -34,7 +34,7 @@ void hal::GpioPinPE5::Open(bsp::IGpioPinOptions const &options)
 	HAL_GPIO_Init(Port(), &init);
 }
 
-void hal::GpioPinPE5::Close()
+void hal::GpioPinPE3::Close()
 {
 	if (!_is_open)
 	{

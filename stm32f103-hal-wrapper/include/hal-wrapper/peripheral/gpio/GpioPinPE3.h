@@ -6,11 +6,11 @@
 
 namespace hal
 {
-	class GpioPinPE5
+	class GpioPinPE3
 		: public hal::GpioPin
 	{
 	private:
-		GpioPinPE5() = default;
+		GpioPinPE3() = default;
 
 		bool _is_open = false;
 
@@ -21,9 +21,9 @@ namespace hal
 			};
 
 	public:
-		static GpioPinPE5 &Instance()
+		static GpioPinPE3 &Instance()
 		{
-			static GpioPinPE5 o;
+			static GpioPinPE3 o;
 			return o;
 		}
 
@@ -34,7 +34,7 @@ namespace hal
 		/// @return
 		std::string PinName() const override
 		{
-			return "PE5";
+			return "PE3";
 		}
 
 		/// @brief 支持的复用功能。
