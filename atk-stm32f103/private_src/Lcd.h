@@ -20,6 +20,9 @@ namespace bsp
 
 #pragma region 连接到LCD的GPIO引脚
 	private:
+		/// @brief 连接 LCD 的 RD 引脚
+		bsp::IGpioPin *_rd_pin = nullptr;
+
 		/// @brief 连接 LCD 的 RD 引脚。
 		/// @return
 		hal::IGpioPort &RD_Port()
