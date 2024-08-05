@@ -62,6 +62,7 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 #pragma endregion
 		}
 
+#pragma region IReadOnlyCollection
 		int Count() const override
 		{
 			return _pin_map.size();
@@ -77,6 +78,7 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 
 			return it->second;
 		}
+#pragma endregion
 	};
 
 	static Collection o;
