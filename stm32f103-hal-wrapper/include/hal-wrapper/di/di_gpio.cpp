@@ -34,18 +34,32 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 	public:
 		Collection()
 		{
+#pragma region PA
 			AddPin(bsp::GpioPinPA0::Instance());
 			AddPin(bsp::GpioPinPA9::Instance());
 			AddPin(bsp::GpioPinPA10::Instance());
+#pragma endregion
+
+#pragma region PB
 			AddPin(bsp::GpioPinPB0::Instance());
 			AddPin(bsp::GpioPinPB5::Instance());
+#pragma endregion
+
+#pragma region PD
 			AddPin(bsp::GpioPinPD4::Instance());
 			AddPin(bsp::GpioPinPD5::Instance());
+#pragma endregion
+
+#pragma region PE
 			AddPin(bsp::GpioPinPE3::Instance());
 			AddPin(bsp::GpioPinPE4::Instance());
 			AddPin(bsp::GpioPinPE5::Instance());
+#pragma endregion
+
+#pragma region PG
 			AddPin(bsp::GpioPinPG0::Instance());
 			AddPin(bsp::GpioPinPG12::Instance());
+#pragma endregion
 		}
 
 		int Count() const override
