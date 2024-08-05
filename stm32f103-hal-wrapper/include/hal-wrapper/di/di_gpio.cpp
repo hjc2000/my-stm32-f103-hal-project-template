@@ -24,58 +24,30 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 		: public base::IReadOnlyCollection<std::string, bsp::IGpioPin *>
 	{
 	private:
-		std::map<std::string, bsp::IGpioPin *> _pin_map{
-			{
-				bsp::GpioPinPA0::Instance().PinName(),
-				&bsp::GpioPinPA0::Instance(),
-			},
-			{
-				bsp::GpioPinPA9::Instance().PinName(),
-				&bsp::GpioPinPA9::Instance(),
-			},
-			{
-				bsp::GpioPinPA10::Instance().PinName(),
-				&bsp::GpioPinPA10::Instance(),
-			},
-			{
-				bsp::GpioPinPB0::Instance().PinName(),
-				&bsp::GpioPinPB0::Instance(),
-			},
-			{
-				bsp::GpioPinPB5::Instance().PinName(),
-				&bsp::GpioPinPB5::Instance(),
-			},
-			{
-				bsp::GpioPinPD4::Instance().PinName(),
-				&bsp::GpioPinPD4::Instance(),
-			},
-			{
-				bsp::GpioPinPD5::Instance().PinName(),
-				&bsp::GpioPinPD5::Instance(),
-			},
-			{
-				bsp::GpioPinPE3::Instance().PinName(),
-				&bsp::GpioPinPE3::Instance(),
-			},
-			{
-				bsp::GpioPinPE4::Instance().PinName(),
-				&bsp::GpioPinPE4::Instance(),
-			},
-			{
-				bsp::GpioPinPE5::Instance().PinName(),
-				&bsp::GpioPinPE5::Instance(),
-			},
-			{
-				bsp::GpioPinPG0::Instance().PinName(),
-				&bsp::GpioPinPG0::Instance(),
-			},
-			{
-				bsp::GpioPinPG12::Instance().PinName(),
-				&bsp::GpioPinPG12::Instance(),
-			},
-		};
+		std::map<std::string, bsp::IGpioPin *> _pin_map{};
+
+		void AddPin(bsp::IGpioPin &pin)
+		{
+			_pin_map[pin.PinName()] = &pin;
+		}
 
 	public:
+		Collection()
+		{
+			AddPin(bsp::GpioPinPA0::Instance());
+			AddPin(bsp::GpioPinPA9::Instance());
+			AddPin(bsp::GpioPinPA10::Instance());
+			AddPin(bsp::GpioPinPB0::Instance());
+			AddPin(bsp::GpioPinPB5::Instance());
+			AddPin(bsp::GpioPinPD4::Instance());
+			AddPin(bsp::GpioPinPD5::Instance());
+			AddPin(bsp::GpioPinPE3::Instance());
+			AddPin(bsp::GpioPinPE4::Instance());
+			AddPin(bsp::GpioPinPE5::Instance());
+			AddPin(bsp::GpioPinPG0::Instance());
+			AddPin(bsp::GpioPinPG12::Instance());
+		}
+
 		int Count() const override
 		{
 			return _pin_map.size();
