@@ -124,7 +124,6 @@ void Lcd::InitGpio()
 		options->SetAlternateFunction("af_push_pull");
 		options->SetDirection(bsp::IGpioPinDirection::Output);
 		options->SetDriver(bsp::IGpioPinDriver::PushPull);
-		options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
 		options->SetSpeedLevel(2);
 		options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
 
