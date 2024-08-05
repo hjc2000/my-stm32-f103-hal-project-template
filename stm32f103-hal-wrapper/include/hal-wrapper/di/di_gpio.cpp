@@ -1,3 +1,4 @@
+#include <base/Initializer.h>
 #include <bsp-interface/di.h>
 #include <gpio/GpioPinOptions.h>
 #include <gpio/GpioPinPA0.h>
@@ -12,6 +13,12 @@
 #include <gpio/GpioPinPE5.h>
 #include <gpio/GpioPinPG0.h>
 #include <gpio/GpioPinPG12.h>
+
+static base::Initializer _initializer{
+	[]()
+	{
+		DI_GpioPinCollection();
+	}};
 
 std::shared_ptr<bsp::IGpioPinOptions> DICreate_GpioPinOptions()
 {
