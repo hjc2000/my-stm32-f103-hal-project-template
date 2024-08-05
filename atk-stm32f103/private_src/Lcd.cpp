@@ -129,21 +129,13 @@ void Lcd::InitGpio()
 			options->SetSpeedLevel(2);
 			options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
 
-			bsp::IGpioPin *pin = nullptr;
-			pin = DI_GpioPinCollection().Get("PD0");
-			pin->Open(*options);
-			pin = DI_GpioPinCollection().Get("PD1");
-			pin->Open(*options);
-			pin = DI_GpioPinCollection().Get("PD8");
-			pin->Open(*options);
-			pin = DI_GpioPinCollection().Get("PD9");
-			pin->Open(*options);
-			pin = DI_GpioPinCollection().Get("PD10");
-			pin->Open(*options);
-			pin = DI_GpioPinCollection().Get("PD14");
-			pin->Open(*options);
-			pin = DI_GpioPinCollection().Get("PD15");
-			pin->Open(*options);
+			DI_GpioPinCollection().Get("PD0")->Open(*options);
+			DI_GpioPinCollection().Get("PD1")->Open(*options);
+			DI_GpioPinCollection().Get("PD8")->Open(*options);
+			DI_GpioPinCollection().Get("PD9")->Open(*options);
+			DI_GpioPinCollection().Get("PD10")->Open(*options);
+			DI_GpioPinCollection().Get("PD14")->Open(*options);
+			DI_GpioPinCollection().Get("PD15")->Open(*options);
 		}
 
 		GpioPortE::Instance().EnableClock();
