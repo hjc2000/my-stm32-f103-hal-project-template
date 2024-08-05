@@ -1,18 +1,7 @@
 #include <base/Initializer.h>
 #include <bsp-interface/di.h>
 #include <gpio/GpioPinOptions.h>
-#include <gpio/GpioPinPA0.h>
-#include <gpio/GpioPinPA10.h>
-#include <gpio/GpioPinPA9.h>
-#include <gpio/GpioPinPB0.h>
-#include <gpio/GpioPinPB5.h>
-#include <gpio/GpioPinPD4.h>
-#include <gpio/GpioPinPD5.h>
-#include <gpio/GpioPinPE3.h>
-#include <gpio/GpioPinPE4.h>
-#include <gpio/GpioPinPE5.h>
-#include <gpio/GpioPinPG0.h>
-#include <gpio/GpioPinPG12.h>
+#include <gpio/pins.h>
 
 static base::Initializer _initializer{
 	[]()
@@ -53,8 +42,16 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 #pragma endregion
 
 #pragma region PD
+			AddPin(bsp::GpioPinPD0::Instance());
+			AddPin(bsp::GpioPinPD1::Instance());
 			AddPin(bsp::GpioPinPD4::Instance());
 			AddPin(bsp::GpioPinPD5::Instance());
+			AddPin(bsp::GpioPinPD8::Instance());
+			AddPin(bsp::GpioPinPD9::Instance());
+			AddPin(bsp::GpioPinPD10::Instance());
+			AddPin(bsp::GpioPinPD11::Instance());
+			AddPin(bsp::GpioPinPD14::Instance());
+			AddPin(bsp::GpioPinPD15::Instance());
 #pragma endregion
 
 #pragma region PE

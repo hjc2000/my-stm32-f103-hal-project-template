@@ -2,7 +2,6 @@
 #include <base/Initializer.h>
 
 using namespace bsp;
-using namespace hal;
 
 static base::Initializer _initializer{
 	[]()

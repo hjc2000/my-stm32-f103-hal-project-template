@@ -120,23 +120,37 @@ void Lcd::InitGpio()
 
 	auto init_data_bus = [&]()
 	{
-		GpioPortD::Instance().EnableClock();
-		GpioPortE::Instance().EnableClock();
+		{
+			auto options = DICreate_GpioPinOptions();
+			options->SetAlternateFunction("af_push_pull");
+			options->SetDirection(bsp::IGpioPinDirection::Output);
+			options->SetDriver(bsp::IGpioPinDriver::PushPull);
+			options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
+			options->SetSpeedLevel(2);
+			options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
 
+			bsp::IGpioPin *pin = nullptr;
+			pin = DI_GpioPinCollection().Get("PD0");
+			pin->Open(*options);
+			pin = DI_GpioPinCollection().Get("PD1");
+			pin->Open(*options);
+			pin = DI_GpioPinCollection().Get("PD8");
+			pin->Open(*options);
+			pin = DI_GpioPinCollection().Get("PD9");
+			pin->Open(*options);
+			pin = DI_GpioPinCollection().Get("PD10");
+			pin->Open(*options);
+			pin = DI_GpioPinCollection().Get("PD14");
+			pin->Open(*options);
+			pin = DI_GpioPinCollection().Get("PD15");
+			pin->Open(*options);
+		}
+
+		GpioPortE::Instance().EnableClock();
 		GpioPinConfig options;
 		options.SetMode(hal::GpioPinConfig::ModeOption::AlternateFunction_PushPull);
 		options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
 		options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
-
-		options.SetPin(hal::GpioPinConfig::PinEnum::Pin0 |
-					   hal::GpioPinConfig::PinEnum::Pin1 |
-					   hal::GpioPinConfig::PinEnum::Pin8 |
-					   hal::GpioPinConfig::PinEnum::Pin9 |
-					   hal::GpioPinConfig::PinEnum::Pin10 |
-					   hal::GpioPinConfig::PinEnum::Pin14 |
-					   hal::GpioPinConfig::PinEnum::Pin15);
-
-		GpioPortD::Instance().InitPin(options);
 
 		options.SetPin(
 			hal::GpioPinConfig::PinEnum::Pin7 |
