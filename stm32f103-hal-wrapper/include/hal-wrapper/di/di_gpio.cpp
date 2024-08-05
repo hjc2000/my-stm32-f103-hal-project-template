@@ -58,6 +58,15 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 			AddPin(bsp::GpioPinPE3::Instance());
 			AddPin(bsp::GpioPinPE4::Instance());
 			AddPin(bsp::GpioPinPE5::Instance());
+			AddPin(bsp::GpioPinPE7::Instance());
+			AddPin(bsp::GpioPinPE8::Instance());
+			AddPin(bsp::GpioPinPE9::Instance());
+			AddPin(bsp::GpioPinPE10::Instance());
+			AddPin(bsp::GpioPinPE11::Instance());
+			AddPin(bsp::GpioPinPE12::Instance());
+			AddPin(bsp::GpioPinPE13::Instance());
+			AddPin(bsp::GpioPinPE14::Instance());
+			AddPin(bsp::GpioPinPE15::Instance());
 #pragma endregion
 
 #pragma region PG

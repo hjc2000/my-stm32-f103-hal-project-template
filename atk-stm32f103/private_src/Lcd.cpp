@@ -120,42 +120,31 @@ void Lcd::InitGpio()
 
 	auto init_data_bus = [&]()
 	{
-		{
-			auto options = DICreate_GpioPinOptions();
-			options->SetAlternateFunction("af_push_pull");
-			options->SetDirection(bsp::IGpioPinDirection::Output);
-			options->SetDriver(bsp::IGpioPinDriver::PushPull);
-			options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
-			options->SetSpeedLevel(2);
-			options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
+		auto options = DICreate_GpioPinOptions();
+		options->SetAlternateFunction("af_push_pull");
+		options->SetDirection(bsp::IGpioPinDirection::Output);
+		options->SetDriver(bsp::IGpioPinDriver::PushPull);
+		options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
+		options->SetSpeedLevel(2);
+		options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
 
-			DI_GpioPinCollection().Get("PD0")->Open(*options);
-			DI_GpioPinCollection().Get("PD1")->Open(*options);
-			DI_GpioPinCollection().Get("PD8")->Open(*options);
-			DI_GpioPinCollection().Get("PD9")->Open(*options);
-			DI_GpioPinCollection().Get("PD10")->Open(*options);
-			DI_GpioPinCollection().Get("PD14")->Open(*options);
-			DI_GpioPinCollection().Get("PD15")->Open(*options);
-		}
+		DI_GpioPinCollection().Get("PD0")->Open(*options);
+		DI_GpioPinCollection().Get("PD1")->Open(*options);
+		DI_GpioPinCollection().Get("PD8")->Open(*options);
+		DI_GpioPinCollection().Get("PD9")->Open(*options);
+		DI_GpioPinCollection().Get("PD10")->Open(*options);
+		DI_GpioPinCollection().Get("PD14")->Open(*options);
+		DI_GpioPinCollection().Get("PD15")->Open(*options);
 
-		GpioPortE::Instance().EnableClock();
-		GpioPinConfig options;
-		options.SetMode(hal::GpioPinConfig::ModeOption::AlternateFunction_PushPull);
-		options.SetPull(hal::GpioPinConfig::PullOption::PullUp);
-		options.SetSpeed(hal::GpioPinConfig::SpeedOption::High);
-
-		options.SetPin(
-			hal::GpioPinConfig::PinEnum::Pin7 |
-			hal::GpioPinConfig::PinEnum::Pin8 |
-			hal::GpioPinConfig::PinEnum::Pin9 |
-			hal::GpioPinConfig::PinEnum::Pin10 |
-			hal::GpioPinConfig::PinEnum::Pin11 |
-			hal::GpioPinConfig::PinEnum::Pin12 |
-			hal::GpioPinConfig::PinEnum::Pin13 |
-			hal::GpioPinConfig::PinEnum::Pin14 |
-			hal::GpioPinConfig::PinEnum::Pin15);
-
-		GpioPortE::Instance().InitPin(options);
+		DI_GpioPinCollection().Get("PE7")->Open(*options);
+		DI_GpioPinCollection().Get("PE8")->Open(*options);
+		DI_GpioPinCollection().Get("PE9")->Open(*options);
+		DI_GpioPinCollection().Get("PE10")->Open(*options);
+		DI_GpioPinCollection().Get("PE11")->Open(*options);
+		DI_GpioPinCollection().Get("PE12")->Open(*options);
+		DI_GpioPinCollection().Get("PE13")->Open(*options);
+		DI_GpioPinCollection().Get("PE14")->Open(*options);
+		DI_GpioPinCollection().Get("PE15")->Open(*options);
 	};
 
 	init_control_line();

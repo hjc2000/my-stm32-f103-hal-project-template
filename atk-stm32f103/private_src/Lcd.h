@@ -4,7 +4,6 @@
 #include <bsp-interface/lcd/ST7789LcdDriver.h>
 #include <hal-wrapper/peripheral/fsmc/FsmcNorSramConfig.h>
 #include <hal-wrapper/peripheral/fsmc/FsmcNorSramTiming.h>
-#include <hal-wrapper/peripheral/gpio/GpioPort.h>
 #include <stdexcept>
 
 namespace bsp
