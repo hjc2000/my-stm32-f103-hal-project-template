@@ -27,7 +27,7 @@ int main(void)
 					// TestIndependentWatchDog();
 					// TestExtiKey();
 				},
-				1024);
+				512);
 
 			vTaskStartScheduler();
 		}
