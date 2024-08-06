@@ -1,7 +1,6 @@
 #pragma once
 #include <bsp-interface/interrupt/IExtiManager.h>
 #include <functional>
-#include <hal-wrapper/peripheral/gpio/GpioPort.h>
 
 extern "C"
 {

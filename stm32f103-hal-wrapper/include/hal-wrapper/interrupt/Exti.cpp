@@ -18,9 +18,9 @@ extern "C"
 	/// @param pin
 	void HAL_GPIO_EXTI_Callback(uint16_t pin)
 	{
-		switch (static_cast<hal::GpioPinConfig::PinEnum>(pin))
+		switch (pin)
 		{
-		case hal::GpioPinConfig::PinEnum::Pin0:
+		case GPIO_PIN_0:
 		{
 			if (Exti::Instance()._on_exti0_interrupt)
 			{
@@ -29,7 +29,7 @@ extern "C"
 
 			break;
 		}
-		case hal::GpioPinConfig::PinEnum::Pin1:
+		case GPIO_PIN_1:
 		{
 			if (Exti::Instance()._on_exti1_interrupt)
 			{
@@ -38,7 +38,7 @@ extern "C"
 
 			break;
 		}
-		case hal::GpioPinConfig::PinEnum::Pin2:
+		case GPIO_PIN_2:
 		{
 			if (Exti::Instance()._on_exti2_interrupt)
 			{
@@ -47,7 +47,7 @@ extern "C"
 
 			break;
 		}
-		case hal::GpioPinConfig::PinEnum::Pin3:
+		case GPIO_PIN_3:
 		{
 			if (Exti::Instance()._on_exti3_interrupt)
 			{
@@ -56,7 +56,7 @@ extern "C"
 
 			break;
 		}
-		case hal::GpioPinConfig::PinEnum::Pin4:
+		case GPIO_PIN_4:
 		{
 			if (Exti::Instance()._on_exti4_interrupt)
 			{
@@ -79,35 +79,35 @@ hal::Exti::Exti()
 		static_cast<uint32_t>(IRQn_Type::EXTI0_IRQn),
 		[]()
 		{
-			HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin0);
+			HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
 		});
 
 	DI_IsrManager().AddIsr(
 		static_cast<uint32_t>(IRQn_Type::EXTI1_IRQn),
 		[]()
 		{
-			HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin1);
+			HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
 		});
 
 	DI_IsrManager().AddIsr(
 		static_cast<uint32_t>(IRQn_Type::EXTI2_IRQn),
 		[]()
 		{
-			HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin2);
+			HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_2);
 		});
 
 	DI_IsrManager().AddIsr(
 		static_cast<uint32_t>(IRQn_Type::EXTI3_IRQn),
 		[]()
 		{
-			HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin3);
+			HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);
 		});
 
 	DI_IsrManager().AddIsr(
 		static_cast<uint32_t>(IRQn_Type::EXTI4_IRQn),
 		[]()
 		{
-			HAL_GPIO_EXTI_IRQHandler((uint16_t)hal::GpioPinConfig::PinEnum::Pin4);
+			HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);
 		});
 }
 
