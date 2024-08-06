@@ -21,6 +21,11 @@ namespace bsp
 			return key;
 		}
 
+		std::string KeyName() override
+		{
+			return "key0";
+		}
+
 		bool KeyIsDown() override;
 	};
 
@@ -38,6 +43,11 @@ namespace bsp
 		{
 			static Key1 key{};
 			return key;
+		}
+
+		std::string KeyName() override
+		{
+			return "key1";
 		}
 
 		bool KeyIsDown() override;

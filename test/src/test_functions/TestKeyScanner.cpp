@@ -8,12 +8,12 @@ void TestKeyScanner()
 	while (true)
 	{
 		DI_KeyScanner().ScanKeys();
-		if (DI_KeyScanner().HasKeyDownEvent(static_cast<int>(KeyIndex::Key0)))
+		if (DI_KeyScanner().HasKeyDownEvent("key0"))
 		{
 			DI_RedDigitalLed().Toggle();
 		}
 
-		if (DI_KeyScanner().HasKeyDownEvent(static_cast<int>(KeyIndex::Key1)))
+		if (DI_KeyScanner().HasKeyDownEvent("key1"))
 		{
 			DI_GreenDigitalLed().Toggle();
 		}

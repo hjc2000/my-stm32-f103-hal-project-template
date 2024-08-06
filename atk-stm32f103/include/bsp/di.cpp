@@ -21,38 +21,48 @@ static base::Initializer _initializer{
 	}};
 
 #pragma region DI_KeyScanner
-base::IReadOnlyCollection<int, bsp::IKey *> &DI_KeyCollection()
+base::IReadOnlyCollection<std::string, bsp::IKey *> &DI_KeyCollection()
 {
 	class Collection
-		: public base::IReadOnlyCollection<int, bsp::IKey *>
+		: public base::IReadOnlyCollection<std::string, bsp::IKey *>
 	{
 	private:
-		std::array<bsp::IKey *, static_cast<int>(KeyIndex::EnumEndFlag)> _array = {
-			&Key0::Instance(),
-			&Key1::Instance(),
-		};
+		std::map<std::string, bsp::IKey *> _map;
 
-		base::StdContainerEnumerable<bsp::IKey *, std::array<bsp::IKey *,
-															 static_cast<int>(KeyIndex::EnumEndFlag)>>
-			_array_enumerable{
-				base::RentedPtrFactory::Create(&_array),
-			};
-
-	public:
-		int
-		Count() const override
+		void AddKey(bsp::IKey *key)
 		{
-			return static_cast<int>(_array.size());
+			_map[key->KeyName()] = key;
 		}
 
-		bsp::IKey *Get(int key) const override
+	public:
+		Collection()
 		{
-			return _array[key];
+			AddKey(&Key0::Instance());
+			AddKey(&Key1::Instance());
+		}
+
+		int Count() const override
+		{
+			return static_cast<int>(_map.size());
+		}
+
+		bsp::IKey *Get(std::string key) const override
+		{
+			auto map = const_cast<Collection *>(this)->_map;
+			auto it = map.find(key);
+			if (it == map.end())
+			{
+				throw std::runtime_error{"找不到此按键"};
+			}
+
+			return it->second;
 		}
 
 		std::shared_ptr<base::IEnumerator<bsp::IKey *>> GetEnumerator() override
 		{
-			return _array_enumerable.GetEnumerator();
+			return std::shared_ptr<base::IEnumerator<bsp::IKey *>>{
+				new base::StdMapValuesEnumerator<std::string, bsp::IKey *>{&_map},
+			};
 		}
 	};
 

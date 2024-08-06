@@ -22,12 +22,12 @@ int main(void)
 				[]()
 				{
 					// bsp::TestSerial();
-					// TestKeyScanner();
-					TestLcd();
+					TestKeyScanner();
+					// TestLcd();
 					// TestIndependentWatchDog();
 					// TestExtiKey();
 				},
-				512);
+				1024);
 
 			vTaskStartScheduler();
 		}
