@@ -12,67 +12,6 @@ static base::Initializer _initializer{
 		hal::Exti::Instance();
 	}};
 
-extern "C"
-{
-	/// @brief 重写 HAL 库中的 weak 版本
-	/// @param pin
-	void HAL_GPIO_EXTI_Callback(uint16_t pin)
-	{
-		switch (pin)
-		{
-		case GPIO_PIN_0:
-		{
-			if (Exti::Instance()._on_exti0_interrupt)
-			{
-				Exti::Instance()._on_exti0_interrupt();
-			}
-
-			break;
-		}
-		case GPIO_PIN_1:
-		{
-			if (Exti::Instance()._on_exti1_interrupt)
-			{
-				Exti::Instance()._on_exti1_interrupt();
-			}
-
-			break;
-		}
-		case GPIO_PIN_2:
-		{
-			if (Exti::Instance()._on_exti2_interrupt)
-			{
-				Exti::Instance()._on_exti2_interrupt();
-			}
-
-			break;
-		}
-		case GPIO_PIN_3:
-		{
-			if (Exti::Instance()._on_exti3_interrupt)
-			{
-				Exti::Instance()._on_exti3_interrupt();
-			}
-
-			break;
-		}
-		case GPIO_PIN_4:
-		{
-			if (Exti::Instance()._on_exti4_interrupt)
-			{
-				Exti::Instance()._on_exti4_interrupt();
-			}
-
-			break;
-		}
-		default:
-		{
-			break;
-		}
-		}
-	}
-} // extern "C"
-
 hal::Exti::Exti()
 {
 	DI_IsrManager().AddIsr(
@@ -202,3 +141,64 @@ void hal::Exti::Unregister(int line_id)
 	}
 	}
 }
+
+extern "C"
+{
+	/// @brief 重写 HAL 库中的 weak 版本
+	/// @param pin
+	void HAL_GPIO_EXTI_Callback(uint16_t pin)
+	{
+		switch (pin)
+		{
+		case GPIO_PIN_0:
+		{
+			if (Exti::Instance()._on_exti0_interrupt)
+			{
+				Exti::Instance()._on_exti0_interrupt();
+			}
+
+			break;
+		}
+		case GPIO_PIN_1:
+		{
+			if (Exti::Instance()._on_exti1_interrupt)
+			{
+				Exti::Instance()._on_exti1_interrupt();
+			}
+
+			break;
+		}
+		case GPIO_PIN_2:
+		{
+			if (Exti::Instance()._on_exti2_interrupt)
+			{
+				Exti::Instance()._on_exti2_interrupt();
+			}
+
+			break;
+		}
+		case GPIO_PIN_3:
+		{
+			if (Exti::Instance()._on_exti3_interrupt)
+			{
+				Exti::Instance()._on_exti3_interrupt();
+			}
+
+			break;
+		}
+		case GPIO_PIN_4:
+		{
+			if (Exti::Instance()._on_exti4_interrupt)
+			{
+				Exti::Instance()._on_exti4_interrupt();
+			}
+
+			break;
+		}
+		default:
+		{
+			break;
+		}
+		}
+	}
+} // extern "C"
