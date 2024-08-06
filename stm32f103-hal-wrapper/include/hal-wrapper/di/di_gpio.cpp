@@ -1,4 +1,5 @@
 #include <base/Initializer.h>
+#include <base/container/StdMapValuesEnumerable.h>
 #include <bsp-interface/di.h>
 #include <gpio/GpioPinOptions.h>
 #include <gpio/pins.h>
@@ -90,6 +91,15 @@ base::IReadOnlyCollection<std::string, bsp::IGpioPin *> &DI_GpioPinCollection()
 			}
 
 			return it->second;
+		}
+
+		std::shared_ptr<base::IEnumerator<bsp::IGpioPin *>> GetEnumerator() override
+		{
+			return std::shared_ptr<base::IEnumerator<bsp::IGpioPin *>>{
+				new base::StdMapValuesEnumerator<std::string, bsp::IGpioPin *>{
+					&_pin_map,
+				},
+			};
 		}
 #pragma endregion
 	};

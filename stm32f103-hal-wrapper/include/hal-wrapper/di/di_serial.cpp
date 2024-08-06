@@ -1,4 +1,5 @@
 #include <base/Initializer.h>
+#include <base/container/StdMapValuesEnumerable.h>
 #include <bsp-interface/di.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>
 
@@ -43,6 +44,15 @@ base::IReadOnlyCollection<std::string, bsp::ISerial *> &DI_SerialCollection()
 			}
 
 			return it->second;
+		}
+
+		std::shared_ptr<base::IEnumerator<bsp::ISerial *>> GetEnumerator() override
+		{
+			return std::shared_ptr<base::IEnumerator<bsp::ISerial *>>{
+				new base::StdMapValuesEnumerator<std::string, bsp::ISerial *>{
+					&_map,
+				},
+			};
 		}
 	};
 

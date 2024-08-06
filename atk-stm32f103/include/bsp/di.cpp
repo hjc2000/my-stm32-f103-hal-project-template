@@ -2,6 +2,9 @@
 #include <DigitalLed.h>
 #include <Lcd.h>
 #include <base/Initializer.h>
+#include <base/RentedPtrFactory.h>
+#include <base/container/StdContainerEnumerable.h>
+#include <base/container/StdMapValuesEnumerable.h>
 #include <bsp-interface/di.h>
 #include <bsp-interface/key/KeyScanner.h>
 #include <bsp/bsp.h>
@@ -29,8 +32,15 @@ base::IReadOnlyCollection<int, bsp::IKey *> &DI_KeyCollection()
 			&Key1::Instance(),
 		};
 
+		base::StdContainerEnumerable<bsp::IKey *, std::array<bsp::IKey *,
+															 static_cast<int>(KeyIndex::EnumEndFlag)>>
+			_array_enumerable{
+				base::RentedPtrFactory::Create(&_array),
+			};
+
 	public:
-		int Count() const override
+		int
+		Count() const override
 		{
 			return static_cast<int>(_array.size());
 		}
@@ -38,6 +48,11 @@ base::IReadOnlyCollection<int, bsp::IKey *> &DI_KeyCollection()
 		bsp::IKey *Get(int key) const override
 		{
 			return _array[key];
+		}
+
+		std::shared_ptr<base::IEnumerator<bsp::IKey *>> GetEnumerator() override
+		{
+			return _array_enumerable.GetEnumerator();
 		}
 	};
 
@@ -79,6 +94,15 @@ base::IReadOnlyCollection<std::string, bsp::IDigitalLed *> &DI_DigitalLedCollect
 			}
 
 			return it->second;
+		}
+
+		std::shared_ptr<base::IEnumerator<bsp::IDigitalLed *>> GetEnumerator() override
+		{
+			return std::shared_ptr<base::IEnumerator<bsp::IDigitalLed *>>{
+				new base::StdMapValuesEnumerator<std::string, bsp::IDigitalLed *>{
+					&_led_map,
+				},
+			};
 		}
 	};
 
