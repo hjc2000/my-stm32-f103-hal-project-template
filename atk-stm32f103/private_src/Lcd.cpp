@@ -11,7 +11,7 @@ static base::Initializer _init{
 		Lcd::Instance();
 	}};
 
-Lcd::Lcd() : bsp::ST7789LcdDriver(DI_Delayer())
+Lcd::Lcd()
 {
 	InitGpio();
 	__HAL_RCC_FSMC_CLK_ENABLE();
