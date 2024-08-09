@@ -3,12 +3,6 @@
 #include <hal-wrapper/interrupt/Exti.h>
 #include <hal-wrapper/interrupt/Interrupt.h>
 
-static base::Initializer _initializer{
-	[]()
-	{
-		DI_InterruptSwitch();
-	}};
-
 bsp::IInterruptSwitch &DI_InterruptSwitch()
 {
 	class InterruptSwitch

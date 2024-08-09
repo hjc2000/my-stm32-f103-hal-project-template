@@ -5,6 +5,7 @@
 void DI_Reset()
 {
 	HAL_NVIC_SystemReset();
+	DI_InterruptSwitch();
 }
 
 bsp::ISysTick &DI_SysTick()
