@@ -26,10 +26,10 @@ int main(void)
 			}
 			catch (std::exception const &e)
 			{
-				bsp::TestSerial();
+				// bsp::TestSerial();
 				// TestIndependentWatchDog();
 				// TestExtiKey();
-				// TestLcd();
+				TestLcd();
 			}
 			catch (...)
 			{
