@@ -21,9 +21,9 @@ int main(void)
 		[]()
 		{
 			// bsp::TestSerial();
-			// TestIndependentWatchDog();
+			TestIndependentWatchDog();
 			// TestExtiKey();
-			TestLcd();
+			// TestLcd();
 			// TestKeyScanner();
 		},
 		512);

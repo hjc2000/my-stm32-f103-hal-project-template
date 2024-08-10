@@ -15,7 +15,6 @@
 #include <hal-wrapper/clock/SysTickClock.h>
 #include <hal-wrapper/clock/clock-signal-config/ClockSignalConfig.h>
 #include <hal-wrapper/peripheral/base-timer/BaseTimer1.h>
-#include <hal-wrapper/peripheral/independent-watch-dog/IndependentWatchDog.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>
 #include <hal-wrapper/peripheral/window-watch-dog/WindowWatchDog.h>
 #include <task.h>
