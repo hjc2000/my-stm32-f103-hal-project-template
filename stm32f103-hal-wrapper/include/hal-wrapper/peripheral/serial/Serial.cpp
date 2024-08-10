@@ -163,9 +163,9 @@ void Serial::Open(bsp::ISerialOptions const &options)
 				HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
 			});
 
-		hal::Interrupt::EnableIRQ(IRQn_Type::USART1_IRQn);
-		hal::Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
-		hal::Interrupt::EnableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
+		DI_InterruptSwitch().EnableInterrupt(IRQn_Type::USART1_IRQn);
+		DI_InterruptSwitch().EnableInterrupt(IRQn_Type::DMA1_Channel4_IRQn);
+		DI_InterruptSwitch().EnableInterrupt(IRQn_Type::DMA1_Channel5_IRQn);
 	};
 
 	enable_interrupt();
@@ -213,8 +213,8 @@ void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 void Serial::Close()
 {
 	HAL_UART_DMAStop(&_uart_handle);
-	hal::Interrupt::DisableIRQ(IRQn_Type::USART1_IRQn);
-	hal::Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel4_IRQn);
-	hal::Interrupt::DisableIRQ(IRQn_Type::DMA1_Channel5_IRQn);
+	DI_InterruptSwitch().DisableInterrupt(IRQn_Type::USART1_IRQn);
+	DI_InterruptSwitch().DisableInterrupt(IRQn_Type::DMA1_Channel4_IRQn);
+	DI_InterruptSwitch().DisableInterrupt(IRQn_Type::DMA1_Channel5_IRQn);
 }
 #pragma endregion

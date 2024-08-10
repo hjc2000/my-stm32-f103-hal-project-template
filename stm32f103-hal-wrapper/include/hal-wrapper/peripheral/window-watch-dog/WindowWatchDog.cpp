@@ -1,4 +1,5 @@
-#include"WindowWatchDog.h"
+#include "WindowWatchDog.h"
+#include <bsp-interface/di.h>
 
 using namespace hal;
 
@@ -14,7 +15,7 @@ void WindowWatchDog::OnMspInitCallback(WWDG_HandleTypeDef *handle)
 {
 	__HAL_RCC_WWDG_CLK_ENABLE();
 	Interrupt::SetPriority(IRQn_Type::WWDG_IRQn, 4, 0);
-	Interrupt::EnableIRQ(IRQn_Type::WWDG_IRQn);
+	DI_InterruptSwitch().EnableInterrupt(IRQn_Type::WWDG_IRQn);
 }
 
 void WindowWatchDog::OnEarlyWakeUpInterruptCallback(WWDG_HandleTypeDef *handle)
@@ -52,7 +53,7 @@ void hal::WindowWatchDog::Feed()
 
 void hal::WindowWatchDog::SetEarlyWakeupInterruptCallback(std::function<void()> func)
 {
-	hal::Interrupt::DisableIRQ(IRQn_Type::WWDG_IRQn);
+	DI_InterruptSwitch().DisableInterrupt(IRQn_Type::WWDG_IRQn);
 	_early_wakeup_interrupt_callback = func;
-	hal::Interrupt::EnableIRQ(IRQn_Type::WWDG_IRQn);
+	DI_InterruptSwitch().EnableInterrupt(IRQn_Type::WWDG_IRQn);
 }

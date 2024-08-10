@@ -71,7 +71,7 @@ void BaseTimer1::Initialize(std::chrono::milliseconds period)
 void BaseTimer1::Start()
 {
 	hal::Interrupt::SetPriority(TIM6_IRQn, 10, 0);
-	hal::Interrupt::EnableIRQ(TIM6_IRQn);
+	DI_InterruptSwitch().EnableInterrupt(TIM6_IRQn);
 	HAL_TIM_Base_Start_IT(&_handle);
 }
 
