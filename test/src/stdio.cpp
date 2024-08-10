@@ -13,14 +13,7 @@ extern "C"
 	/// @return
 	int _write(int file, char *ptr, int len)
 	{
-		try
-		{
-			BSP::Serial().Write((uint8_t *)ptr, 0, len);
-			return len;
-		}
-		catch (...)
-		{
-			return EIO;
-		}
+		BSP::Serial().Write((uint8_t *)ptr, 0, len);
+		return len;
 	}
 }

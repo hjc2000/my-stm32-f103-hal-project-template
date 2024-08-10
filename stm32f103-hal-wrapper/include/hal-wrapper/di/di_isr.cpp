@@ -45,145 +45,55 @@ extern "C"
 {
 	void TIM6_IRQHandler()
 	{
-		try
-		{
-			std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::TIM6_IRQn));
-			func();
-		}
-		catch (...)
-		{
-			while (true)
-			{
-				// 卡死，便于调试时发现问题
-			}
-		}
+		std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::TIM6_IRQn));
+		func();
 	}
 
 	void USART1_IRQHandler()
 	{
-		try
-		{
-			std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::USART1_IRQn));
-			func();
-		}
-		catch (...)
-		{
-			while (true)
-			{
-				// 卡死，便于调试时发现问题
-			}
-		}
+		std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::USART1_IRQn));
+		func();
 	}
 
 	void DMA1_Channel4_IRQHandler()
 	{
-		try
-		{
-			std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel4_IRQn));
-			func();
-		}
-		catch (...)
-		{
-			while (true)
-			{
-				// 卡死，便于调试时发现问题
-			}
-		}
+		std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel4_IRQn));
+		func();
 	}
 
 	void DMA1_Channel5_IRQHandler()
 	{
-		try
-		{
-			std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel5_IRQn));
-			func();
-		}
-		catch (...)
-		{
-			while (true)
-			{
-				// 卡死，便于调试时发现问题
-			}
-		}
+		std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel5_IRQn));
+		func();
 	}
 
 	void EXTI0_IRQHandler()
 	{
-		try
-		{
-			std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI0_IRQn));
-			func();
-		}
-		catch (...)
-		{
-			while (true)
-			{
-				// 卡死，便于调试时发现问题
-			}
-		}
+		std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI0_IRQn));
+		func();
 	}
 
 	void EXTI1_IRQHandler()
 	{
-		try
-		{
-			std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI1_IRQn));
-			func();
-		}
-		catch (...)
-		{
-			while (true)
-			{
-				// 卡死，便于调试时发现问题
-			}
-		}
+		std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI1_IRQn));
+		func();
 	}
 
 	void EXTI2_IRQHandler()
 	{
-		try
-		{
-			std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI2_IRQn));
-			func();
-		}
-		catch (...)
-		{
-			while (true)
-			{
-				// 卡死，便于调试时发现问题
-			}
-		}
+		std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI2_IRQn));
+		func();
 	}
 
 	void EXTI3_IRQHandler()
 	{
-		try
-		{
-			std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI3_IRQn));
-			func();
-		}
-		catch (...)
-		{
-			while (true)
-			{
-				// 卡死，便于调试时发现问题
-			}
-		}
+		std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI3_IRQn));
+		func();
 	}
 
 	void EXTI4_IRQHandler()
 	{
-		try
-		{
-			std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI4_IRQn));
-			func();
-		}
-		catch (...)
-		{
-			while (true)
-			{
-				// 卡死，便于调试时发现问题
-			}
-		}
+		std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI4_IRQn));
+		func();
 	}
 }

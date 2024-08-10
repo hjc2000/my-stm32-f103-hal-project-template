@@ -15,15 +15,9 @@ void BaseTimer1::Initialize(BaseTimerConfig const &config)
 	HAL_TIM_Base_Init(&_handle);
 	_handle.PeriodElapsedCallback = [](TIM_HandleTypeDef *handle)
 	{
-		try
+		if (BaseTimer1::Instance()._on_period_elapsed)
 		{
-			if (BaseTimer1::Instance()._on_period_elapsed)
-			{
-				BaseTimer1::Instance()._on_period_elapsed();
-			}
-		}
-		catch (...)
-		{
+			BaseTimer1::Instance()._on_period_elapsed();
 		}
 	};
 
