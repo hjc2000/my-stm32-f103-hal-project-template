@@ -2,8 +2,8 @@
 #include <FreeRTOS.h>
 #include <base/Initializer.h>
 #include <bsp-interface/di.h>
-#include <hal-wrapper/interrupt/Interrupt.h>
 #include <hal-wrapper/peripheral/dma/DmaConfig.h>
+#include <stm32f103zet6-interrupt/Interrupt.h>
 #include <task.h>
 
 using namespace hal;

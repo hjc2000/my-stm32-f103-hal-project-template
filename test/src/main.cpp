@@ -28,8 +28,8 @@ int main(void)
 			{
 				// bsp::TestSerial();
 				// TestIndependentWatchDog();
-				// TestExtiKey();
-				TestLcd();
+				TestExtiKey();
+				// TestLcd();
 			}
 			catch (...)
 			{

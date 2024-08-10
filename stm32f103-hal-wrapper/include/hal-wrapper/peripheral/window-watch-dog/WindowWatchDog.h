@@ -1,12 +1,11 @@
 #pragma once
-#include<functional>
-#include<hal-wrapper/interrupt/Interrupt.h>
-#include<hal-wrapper/peripheral/window-watch-dog/WindowWatchDogConfig.h>
+#include <functional>
+#include <hal-wrapper/peripheral/window-watch-dog/WindowWatchDogConfig.h>
+#include <stm32f103zet6-interrupt/Interrupt.h>
 
 namespace hal
 {
-	class WindowWatchDog :
-		public base::HandleWrapper<WWDG_HandleTypeDef>
+	class WindowWatchDog : public base::HandleWrapper<WWDG_HandleTypeDef>
 	{
 	private:
 		WWDG_HandleTypeDef _handle;

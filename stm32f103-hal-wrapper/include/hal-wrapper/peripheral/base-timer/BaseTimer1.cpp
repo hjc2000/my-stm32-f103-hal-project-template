@@ -1,8 +1,8 @@
 #include "BaseTimer1.h"
 #include <bsp-interface/di.h>
 #include <hal-wrapper/clock/ClockSignal.h>
-#include <hal-wrapper/interrupt/Interrupt.h>
 #include <stdexcept>
+#include <stm32f103zet6-interrupt/Interrupt.h>
 #include <task/Critical.h>
 
 using namespace hal;
