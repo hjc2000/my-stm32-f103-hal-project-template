@@ -14,19 +14,19 @@ using namespace bsp;
 
 int main(void)
 {
-	BSP::Initialize();
-	base::Initializer::Initialize();
+    BSP::Initialize();
+    base::Initializer::Initialize();
 
-	std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create(
-		[]()
-		{
-			// bsp::TestSerial();
-			TestIndependentWatchDog();
-			// TestExtiKey();
-			// TestLcd();
-			// TestKeyScanner();
-		},
-		512);
+    std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create(
+        []()
+        {
+            // bsp::TestSerial();
+            // TestIndependentWatchDog();
+            // TestExtiKey();
+            TestLcd();
+            // TestKeyScanner();
+        },
+        512);
 
-	vTaskStartScheduler();
+    vTaskStartScheduler();
 }
