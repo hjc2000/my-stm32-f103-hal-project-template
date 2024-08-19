@@ -39,7 +39,7 @@ namespace hal
 
         std::string Name()
         {
-            return "usart1";
+            return "serial";
         }
 
         /// @brief 打开串口
