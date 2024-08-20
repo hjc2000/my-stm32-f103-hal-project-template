@@ -7,6 +7,11 @@ bsp::DmaOptions::DmaOptions()
     _init_type_def.Mode = DMA_NORMAL;
 }
 
+bsp::DmaOptions::operator DMA_InitTypeDef() const
+{
+    return _init_type_def;
+}
+
 IDmaOptionsDirection bsp::DmaOptions::Direction() const
 {
     switch (_init_type_def.Direction)

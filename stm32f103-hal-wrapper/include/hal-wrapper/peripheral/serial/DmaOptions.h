@@ -14,6 +14,8 @@ namespace bsp
     public:
         DmaOptions();
 
+        operator DMA_InitTypeDef() const;
+
         /// @brief DMA 拷贝数据的方向。
         /// @return
         IDmaOptionsDirection Direction() const override;
