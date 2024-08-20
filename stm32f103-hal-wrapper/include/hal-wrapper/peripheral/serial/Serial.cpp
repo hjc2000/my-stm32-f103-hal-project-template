@@ -3,7 +3,6 @@
 #include <bsp-interface/di.h>
 #include <FreeRTOS.h>
 #include <hal-wrapper/peripheral/dma/DmaConfig.h>
-#include <stm32f103zet6-interrupt/Interrupt.h>
 #include <task.h>
 
 using namespace hal;
@@ -135,39 +134,27 @@ void Serial::Open(bsp::ISerialOptions const &options)
     // 启用中断
     auto enable_interrupt = []()
     {
-        hal::Interrupt::SetPriority(IRQn_Type::USART1_IRQn,
-                                    10,
-                                    0);
-        DI_IsrManager().AddIsr(
-            static_cast<uint32_t>(IRQn_Type::USART1_IRQn),
-            []()
-            {
-                HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
-            });
+        DI_IsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::USART1_IRQn),
+                               []()
+                               {
+                                   HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
+                               });
 
-        hal::Interrupt::SetPriority(IRQn_Type::DMA1_Channel4_IRQn,
-                                    10,
-                                    0);
-        DI_IsrManager().AddIsr(
-            static_cast<uint32_t>(IRQn_Type::DMA1_Channel4_IRQn),
-            []()
-            {
-                HAL_DMA_IRQHandler(&Serial::Instance()._tx_dma_handle);
-            });
+        DI_IsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel4_IRQn),
+                               []()
+                               {
+                                   HAL_DMA_IRQHandler(&Serial::Instance()._tx_dma_handle);
+                               });
 
-        hal::Interrupt::SetPriority(IRQn_Type::DMA1_Channel5_IRQn,
-                                    10,
-                                    0);
-        DI_IsrManager().AddIsr(
-            static_cast<uint32_t>(IRQn_Type::DMA1_Channel5_IRQn),
-            []()
-            {
-                HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
-            });
+        DI_IsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel5_IRQn),
+                               []()
+                               {
+                                   HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
+                               });
 
-        DI_InterruptSwitch().EnableInterrupt(IRQn_Type::USART1_IRQn);
-        DI_InterruptSwitch().EnableInterrupt(IRQn_Type::DMA1_Channel4_IRQn);
-        DI_InterruptSwitch().EnableInterrupt(IRQn_Type::DMA1_Channel5_IRQn);
+        DI_InterruptSwitch().EnableInterrupt(IRQn_Type::USART1_IRQn, 10);
+        DI_InterruptSwitch().EnableInterrupt(IRQn_Type::DMA1_Channel4_IRQn, 10);
+        DI_InterruptSwitch().EnableInterrupt(IRQn_Type::DMA1_Channel5_IRQn, 10);
     };
 
     enable_interrupt();

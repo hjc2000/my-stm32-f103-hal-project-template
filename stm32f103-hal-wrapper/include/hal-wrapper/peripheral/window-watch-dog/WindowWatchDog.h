@@ -1,7 +1,6 @@
 #pragma once
 #include <functional>
 #include <hal-wrapper/peripheral/window-watch-dog/WindowWatchDogConfig.h>
-#include <stm32f103zet6-interrupt/Interrupt.h>
 
 namespace hal
 {
