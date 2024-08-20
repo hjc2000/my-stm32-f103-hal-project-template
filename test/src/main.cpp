@@ -20,11 +20,27 @@ int main(void)
     std::shared_ptr<task::Task> lvgl_init_task = task::Task::Create(
         []()
         {
-            bsp::TestSerial();
-            // TestIndependentWatchDog();
-            // TestExtiKey();
-            // TestLcd();
-            // TestKeyScanner();
+            try
+            {
+                bsp::TestSerial();
+                // TestIndependentWatchDog();
+                // TestExtiKey();
+                // TestLcd();
+                // TestKeyScanner();
+            }
+            catch (std::exception const &e)
+            {
+                std::string msg = e.what();
+                while (1)
+                {
+                }
+            }
+            catch (...)
+            {
+                while (1)
+                {
+                }
+            }
         },
         512);
 

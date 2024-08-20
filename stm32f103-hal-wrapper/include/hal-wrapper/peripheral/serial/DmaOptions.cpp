@@ -28,9 +28,11 @@ IDmaOptionsDirection bsp::DmaOptions::Direction() const
         {
             return IDmaOptionsDirection::MomoryToMemory;
         }
+    default:
+        {
+            throw std::invalid_argument{"非法方向"};
+        }
     }
-
-    throw std::invalid_argument{"非法方向"};
 }
 
 void bsp::DmaOptions::SetDirection(IDmaOptionsDirection value)
@@ -52,9 +54,11 @@ void bsp::DmaOptions::SetDirection(IDmaOptionsDirection value)
             _init_type_def.Direction = DMA_MEMORY_TO_MEMORY;
             break;
         }
+    default:
+        {
+            throw std::invalid_argument{"非法方向"};
+        }
     }
-
-    throw std::invalid_argument{"非法方向"};
 }
 
 bool bsp::DmaOptions::PeripheralIncrement() const
@@ -103,9 +107,11 @@ int bsp::DmaOptions::PeripheralDataAlignment() const
         {
             return 4;
         }
+    default:
+        {
+            throw std::invalid_argument{"非法对齐方式"};
+        }
     }
-
-    throw std::invalid_argument{"非法对齐方式"};
 }
 
 void bsp::DmaOptions::SetPeripheralDataAlignment(int value)
@@ -127,9 +133,11 @@ void bsp::DmaOptions::SetPeripheralDataAlignment(int value)
             _init_type_def.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
             break;
         }
+    default:
+        {
+            throw std::invalid_argument{"非法对齐方式"};
+        }
     }
-
-    throw std::invalid_argument{"非法对齐方式"};
 }
 
 int bsp::DmaOptions::MemoryDataAlignment() const
@@ -148,9 +156,11 @@ int bsp::DmaOptions::MemoryDataAlignment() const
         {
             return 4;
         }
+    default:
+        {
+            throw std::invalid_argument{"非法对齐方式"};
+        }
     }
-
-    throw std::invalid_argument{"非法对齐方式"};
 }
 
 void bsp::DmaOptions::SetMemoryDataAlignment(int value)
@@ -172,9 +182,11 @@ void bsp::DmaOptions::SetMemoryDataAlignment(int value)
             _init_type_def.MemDataAlignment = DMA_MDATAALIGN_WORD;
             break;
         }
+    default:
+        {
+            throw std::invalid_argument{"非法对齐方式"};
+        }
     }
-
-    throw std::invalid_argument{"非法对齐方式"};
 }
 
 IDmaOptionsPriority bsp::DmaOptions::Priority() const
@@ -197,9 +209,11 @@ IDmaOptionsPriority bsp::DmaOptions::Priority() const
         {
             return IDmaOptionsPriority::VeryHigh;
         }
+    default:
+        {
+            throw std::invalid_argument{"非法优先级"};
+        }
     }
-
-    throw std::invalid_argument{"非法优先级"};
 }
 
 void bsp::DmaOptions::SetPriority(IDmaOptionsPriority value)
@@ -226,7 +240,9 @@ void bsp::DmaOptions::SetPriority(IDmaOptionsPriority value)
             _init_type_def.Priority = DMA_PRIORITY_VERY_HIGH;
             break;
         }
+    default:
+        {
+            throw std::invalid_argument{"非法优先级"};
+        }
     }
-
-    throw std::invalid_argument{"非法优先级"};
 }
