@@ -3,7 +3,6 @@
 #include <base/Initializer.h>
 #include <bsp-interface/di.h>
 #include <FreeRTOS.h>
-#include <hal-wrapper/peripheral/dma/DmaConfig.h>
 #include <task.h>
 
 using namespace hal;
