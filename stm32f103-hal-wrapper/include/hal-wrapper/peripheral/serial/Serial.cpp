@@ -3,6 +3,7 @@
 #include <base/Initializer.h>
 #include <bsp-interface/di/di.h>
 #include <bsp-interface/di/gpio.h>
+#include <bsp-interface/di/interrupt.h>
 #include <FreeRTOS.h>
 #include <task.h>
 

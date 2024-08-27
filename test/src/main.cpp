@@ -25,8 +25,8 @@ int main(void)
                 // bsp::TestSerial();
                 // TestIndependentWatchDog();
                 // TestExtiKey();
-                // TestLcd();
-                TestKeyScanner();
+                TestLcd();
+                // TestKeyScanner();
             }
             catch (std::exception const &e)
             {
