@@ -22,11 +22,11 @@ int main(void)
         {
             try
             {
-                bsp::TestSerial();
+                // bsp::TestSerial();
                 // TestIndependentWatchDog();
                 // TestExtiKey();
                 // TestLcd();
-                // TestKeyScanner();
+                TestKeyScanner();
             }
             catch (std::exception const &e)
             {
