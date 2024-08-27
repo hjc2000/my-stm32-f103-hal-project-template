@@ -18,8 +18,8 @@ namespace bsp
 
         /// @brief DMA 拷贝数据的方向。
         /// @return
-        IDmaOptionsDirection Direction() const override;
-        void SetDirection(IDmaOptionsDirection value) override;
+        IDmaOptions_Direction Direction() const override;
+        void SetDirection(IDmaOptions_Direction value) override;
 
         /// @brief DMA 拷贝数据的过程中，是否自动递增外设数据指针。
         /// @return 返回 true 表示递增，返回 false 表示不递增。
@@ -43,7 +43,7 @@ namespace bsp
 
         /// @brief DMA 优先级。
         /// @return
-        IDmaOptionsPriority Priority() const override;
-        void SetPriority(IDmaOptionsPriority value) override;
+        IDmaOptions_Priority Priority() const override;
+        void SetPriority(IDmaOptions_Priority value) override;
     };
 } // namespace bsp

@@ -12,21 +12,21 @@ bsp::DmaOptions::operator DMA_InitTypeDef() const
     return _init_type_def;
 }
 
-IDmaOptionsDirection bsp::DmaOptions::Direction() const
+IDmaOptions_Direction bsp::DmaOptions::Direction() const
 {
     switch (_init_type_def.Direction)
     {
     case DMA_PERIPH_TO_MEMORY:
         {
-            return IDmaOptionsDirection::PeripheralToMemory;
+            return IDmaOptions_Direction::PeripheralToMemory;
         }
     case DMA_MEMORY_TO_PERIPH:
         {
-            return IDmaOptionsDirection::MemoryToPeripheral;
+            return IDmaOptions_Direction::MemoryToPeripheral;
         }
     case DMA_MEMORY_TO_MEMORY:
         {
-            return IDmaOptionsDirection::MomoryToMemory;
+            return IDmaOptions_Direction::MomoryToMemory;
         }
     default:
         {
@@ -35,21 +35,21 @@ IDmaOptionsDirection bsp::DmaOptions::Direction() const
     }
 }
 
-void bsp::DmaOptions::SetDirection(IDmaOptionsDirection value)
+void bsp::DmaOptions::SetDirection(IDmaOptions_Direction value)
 {
     switch (value)
     {
-    case IDmaOptionsDirection::PeripheralToMemory:
+    case IDmaOptions_Direction::PeripheralToMemory:
         {
             _init_type_def.Direction = DMA_PERIPH_TO_MEMORY;
             break;
         }
-    case IDmaOptionsDirection::MemoryToPeripheral:
+    case IDmaOptions_Direction::MemoryToPeripheral:
         {
             _init_type_def.Direction = DMA_MEMORY_TO_PERIPH;
             break;
         }
-    case IDmaOptionsDirection::MomoryToMemory:
+    case IDmaOptions_Direction::MomoryToMemory:
         {
             _init_type_def.Direction = DMA_MEMORY_TO_MEMORY;
             break;
@@ -189,25 +189,25 @@ void bsp::DmaOptions::SetMemoryDataAlignment(int value)
     }
 }
 
-IDmaOptionsPriority bsp::DmaOptions::Priority() const
+IDmaOptions_Priority bsp::DmaOptions::Priority() const
 {
     switch (_init_type_def.Priority)
     {
     case DMA_PRIORITY_LOW:
         {
-            return IDmaOptionsPriority::Low;
+            return IDmaOptions_Priority::Low;
         }
     case DMA_PRIORITY_MEDIUM:
         {
-            return IDmaOptionsPriority::Medium;
+            return IDmaOptions_Priority::Medium;
         }
     case DMA_PRIORITY_HIGH:
         {
-            return IDmaOptionsPriority::High;
+            return IDmaOptions_Priority::High;
         }
     case DMA_PRIORITY_VERY_HIGH:
         {
-            return IDmaOptionsPriority::VeryHigh;
+            return IDmaOptions_Priority::VeryHigh;
         }
     default:
         {
@@ -216,26 +216,26 @@ IDmaOptionsPriority bsp::DmaOptions::Priority() const
     }
 }
 
-void bsp::DmaOptions::SetPriority(IDmaOptionsPriority value)
+void bsp::DmaOptions::SetPriority(IDmaOptions_Priority value)
 {
     switch (value)
     {
-    case IDmaOptionsPriority::Low:
+    case IDmaOptions_Priority::Low:
         {
             _init_type_def.Priority = DMA_PRIORITY_LOW;
             break;
         }
-    case IDmaOptionsPriority::Medium:
+    case IDmaOptions_Priority::Medium:
         {
             _init_type_def.Priority = DMA_PRIORITY_MEDIUM;
             break;
         }
-    case IDmaOptionsPriority::High:
+    case IDmaOptions_Priority::High:
         {
             _init_type_def.Priority = DMA_PRIORITY_HIGH;
             break;
         }
-    case IDmaOptionsPriority::VeryHigh:
+    case IDmaOptions_Priority::VeryHigh:
         {
             _init_type_def.Priority = DMA_PRIORITY_VERY_HIGH;
             break;

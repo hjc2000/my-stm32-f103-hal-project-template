@@ -52,12 +52,12 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
         __HAL_RCC_DMA1_CLK_ENABLE();
 
         auto options = DICreate_DmaOptions();
-        options->SetDirection(bsp::IDmaOptionsDirection::MemoryToPeripheral);
+        options->SetDirection(bsp::IDmaOptions_Direction::MemoryToPeripheral);
         options->SetMemoryDataAlignment(1);
         options->SetMemoryIncrement(true);
         options->SetPeripheralDataAlignment(1);
         options->SetPeripheralIncrement(false);
-        options->SetPriority(bsp::IDmaOptionsPriority::Medium);
+        options->SetPriority(bsp::IDmaOptions_Priority::Medium);
 
         Serial::Instance()._tx_dma_handle.Instance = DMA1_Channel4;
         Serial::Instance()._tx_dma_handle.Init = static_cast<bsp::DmaOptions &>(*options);
@@ -69,12 +69,12 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
         __HAL_RCC_DMA1_CLK_ENABLE();
 
         auto options = DICreate_DmaOptions();
-        options->SetDirection(bsp::IDmaOptionsDirection::PeripheralToMemory);
+        options->SetDirection(bsp::IDmaOptions_Direction::PeripheralToMemory);
         options->SetMemoryDataAlignment(1);
         options->SetMemoryIncrement(true);
         options->SetPeripheralDataAlignment(1);
         options->SetPeripheralIncrement(false);
-        options->SetPriority(bsp::IDmaOptionsPriority::Medium);
+        options->SetPriority(bsp::IDmaOptions_Priority::Medium);
 
         Serial::Instance()._rx_dma_handle.Instance = DMA1_Channel5;
         Serial::Instance()._rx_dma_handle.Init = static_cast<bsp::DmaOptions &>(*options);
