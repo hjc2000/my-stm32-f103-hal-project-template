@@ -1,5 +1,5 @@
 #pragma once
-#include <bsp-interface/di/di.h>
+#include <bsp-interface/di/dma.h>
 #include <hal.h>
 
 namespace bsp

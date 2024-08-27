@@ -1,6 +1,7 @@
 #include <base/container/StdMapValuesEnumerable.h>
 #include <base/Initializer.h>
 #include <bsp-interface/di/di.h>
+#include <bsp-interface/di/serial.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>
 
 static base::Initializer _initializer{
