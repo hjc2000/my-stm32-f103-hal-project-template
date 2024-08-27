@@ -1,6 +1,5 @@
 #pragma once
 #include <base/HandleWrapper.h>
-#include <bsp-interface/di/di.h>
 #include <bsp-interface/di/gpio.h>
 #include <bsp-interface/lcd/ST7789LcdDriver.h>
 #include <hal-wrapper/peripheral/fsmc/FsmcNorSramConfig.h>

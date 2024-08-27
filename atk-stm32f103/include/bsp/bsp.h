@@ -1,6 +1,5 @@
 #pragma once
 #include <bsp-interface/Console.h>
-#include <bsp-interface/di/di.h>
 #include <bsp-interface/IDelayer.h>
 #include <bsp-interface/IDigitalLed.h>
 #include <bsp-interface/IIndependentWatchDog.h>

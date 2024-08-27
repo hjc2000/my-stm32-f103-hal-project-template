@@ -1,5 +1,4 @@
 #include "BaseTimer1.h"
-#include <bsp-interface/di/di.h>
 #include <bsp-interface/di/interrupt.h>
 #include <hal-wrapper/clock/ClockSignal.h>
 #include <stdexcept>

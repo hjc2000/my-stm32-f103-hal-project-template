@@ -1,5 +1,4 @@
 #include <base/Initializer.h>
-#include <bsp-interface/di/di.h>
 #include <hal-wrapper/clock/SysTickClock.h>
 
 void DI_Reset()

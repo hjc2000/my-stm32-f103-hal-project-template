@@ -1,5 +1,4 @@
 #pragma once
-#include <bsp-interface/di/di.h>
 #include <bsp-interface/di/gpio.h>
 #include <bsp-interface/key/IKey.h>
 #include <hal-wrapper/clock/Delayer.h>

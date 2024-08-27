@@ -1,6 +1,5 @@
 #pragma once
 #include <atomic>
-#include <bsp-interface/di/di.h>
 #include <bsp-interface/di/gpio.h>
 #include <bsp-interface/key/IEventDrivenKey.h>
 
