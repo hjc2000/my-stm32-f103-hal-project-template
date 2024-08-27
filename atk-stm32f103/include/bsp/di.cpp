@@ -3,7 +3,7 @@
 #include <base/container/StdMapValuesEnumerable.h>
 #include <base/Initializer.h>
 #include <base/RentedPtrFactory.h>
-#include <bsp-interface/di.h>
+#include <bsp-interface/di/di.h>
 #include <bsp-interface/key/KeyScanner.h>
 #include <bsp/bsp.h>
 #include <DigitalLed.h>

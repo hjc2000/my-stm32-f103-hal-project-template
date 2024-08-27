@@ -1,5 +1,5 @@
 #include "BaseTimer1.h"
-#include <bsp-interface/di.h>
+#include <bsp-interface/di/di.h>
 #include <hal-wrapper/clock/ClockSignal.h>
 #include <stdexcept>
 #include <task/Critical.h>

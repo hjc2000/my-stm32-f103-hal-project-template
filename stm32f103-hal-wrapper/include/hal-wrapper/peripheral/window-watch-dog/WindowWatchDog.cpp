@@ -1,5 +1,5 @@
 #include "WindowWatchDog.h"
-#include <bsp-interface/di.h>
+#include <bsp-interface/di/di.h>
 
 using namespace hal;
 

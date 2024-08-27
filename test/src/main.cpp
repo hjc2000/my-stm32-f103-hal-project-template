@@ -1,6 +1,6 @@
 #include <base/Initializer.h>
 #include <base/math/Fraction.h>
-#include <bsp-interface/di.h>
+#include <bsp-interface/di/di.h>
 #include <bsp-interface/test/TestIndependentWatchDog.h>
 #include <bsp-interface/test/TestLcd.h>
 #include <bsp-interface/test/TestSerial.h>
