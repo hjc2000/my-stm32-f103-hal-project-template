@@ -14,17 +14,17 @@ add_executable(${ProjectName})
 target_import_src(${ProjectName})
 
 target_link_libraries(${ProjectName} PUBLIC -Wl,--start-group)
-target_link_libraries(${ProjectName} PUBLIC c m atk-stm32f103)
 target_import_freertos(${ProjectName} PUBLIC)
 target_import_task(${ProjectName} PUBLIC)
 target_import_bsp_interface(${ProjectName} PUBLIC)
+target_link_libraries(${ProjectName} PUBLIC c m atk-stm32f103)
 target_link_libraries(${ProjectName} PUBLIC -Wl,--end-group)
 
 
 
 
 
-add_custom_command(TARGET ${ProjectName} POST_BUILD 
+add_custom_command(TARGET ${ProjectName} POST_BUILD
 				   COMMAND ${CMAKE_SIZE} $<TARGET_FILE:${ProjectName}>)
 
 add_custom_command(TARGET ${ProjectName} POST_BUILD
