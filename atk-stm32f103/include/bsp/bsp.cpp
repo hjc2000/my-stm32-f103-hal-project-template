@@ -2,6 +2,7 @@
 #include <AtkKey.h>
 #include <atomic>
 #include <base/RentedPtrFactory.h>
+#include <bsp-interface/di/led.h>
 #include <bsp-interface/key/KeyScanner.h>
 #include <DigitalLed.h>
 #include <ExtiWakeUpKey.h>
