@@ -1,6 +1,5 @@
 #include <AtkKey.h>
-#include <base/container/StdContainerEnumerable.h>
-#include <base/container/StdMapValuesEnumerable.h>
+#include <base/container/Collection.h>
 #include <base/Initializer.h>
 #include <base/RentedPtrFactory.h>
 #include <bsp-interface/di/key.h>
@@ -22,18 +21,10 @@ static base::Initializer _initializer{
 
 #pragma region DI_KeyScanner
 
-base::IReadOnlyCollection<std::string, bsp::IKey *> &DI_KeyCollection()
+base::ICollection<std::string, bsp::IKey *> const &DI_KeyCollection()
 {
-    class Collection : public base::IReadOnlyCollection<std::string, bsp::IKey *>
+    class Collection
     {
-    private:
-        std::map<std::string, bsp::IKey *> _map;
-
-        void AddKey(bsp::IKey *key)
-        {
-            _map[key->KeyName()] = key;
-        }
-
     public:
         Collection()
         {
@@ -41,33 +32,16 @@ base::IReadOnlyCollection<std::string, bsp::IKey *> &DI_KeyCollection()
             AddKey(&Key1::Instance());
         }
 
-        int Count() const override
-        {
-            return static_cast<int>(_map.size());
-        }
+        base::Collection<std::string, bsp::IKey *> _collection;
 
-        bsp::IKey *Get(std::string key) const override
+        void AddKey(bsp::IKey *key)
         {
-            auto map = const_cast<Collection *>(this)->_map;
-            auto it = map.find(key);
-            if (it == map.end())
-            {
-                throw std::runtime_error{"找不到此按键"};
-            }
-
-            return it->second;
-        }
-
-        std::shared_ptr<base::IEnumerator<bsp::IKey *>> GetEnumerator() override
-        {
-            return std::shared_ptr<base::IEnumerator<bsp::IKey *>>{
-                new base::StdMapValuesEnumerator<std::string, bsp::IKey *>{&_map},
-            };
+            _collection.Put(key->KeyName(), key);
         }
     };
 
     static Collection o;
-    return o;
+    return o._collection;
 }
 
 bsp::IKeyScanner &DI_KeyScanner()
@@ -80,45 +54,19 @@ bsp::IKeyScanner &DI_KeyScanner()
 
 #pragma region LED
 
-base::IReadOnlyCollection<std::string, bsp::IDigitalLed *> &DI_DigitalLedCollection()
+base::ICollection<std::string, bsp::IDigitalLed *> const &DI_DigitalLedCollection()
 {
-    class Collection : public base::IReadOnlyCollection<std::string, bsp::IDigitalLed *>
+    class Collection
     {
-    private:
-        std::map<std::string, bsp::IDigitalLed *> _led_map{
+    public:
+        base::Collection<std::string, bsp::IDigitalLed *> _collection{
             {"red_led", &RedDigitalLed::Instance()},
             {"green_led", &GreenDigitalLed::Instance()},
         };
-
-    public:
-        int Count() const override
-        {
-            return static_cast<int>(_led_map.size());
-        }
-
-        bsp::IDigitalLed *Get(std::string key) const override
-        {
-            auto it = _led_map.find(key);
-            if (it == _led_map.end())
-            {
-                return nullptr;
-            }
-
-            return it->second;
-        }
-
-        std::shared_ptr<base::IEnumerator<bsp::IDigitalLed *>> GetEnumerator() override
-        {
-            return std::shared_ptr<base::IEnumerator<bsp::IDigitalLed *>>{
-                new base::StdMapValuesEnumerator<std::string, bsp::IDigitalLed *>{
-                    &_led_map,
-                },
-            };
-        }
     };
 
     static Collection o;
-    return o;
+    return o._collection;
 }
 
 bsp::IDigitalLed &DI_RedDigitalLed()

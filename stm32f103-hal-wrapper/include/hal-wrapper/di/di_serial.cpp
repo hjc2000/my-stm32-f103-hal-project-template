@@ -1,4 +1,4 @@
-#include <base/container/StdMapValuesEnumerable.h>
+#include <base/container/Collection.h>
 #include <base/Initializer.h>
 #include <bsp-interface/di/serial.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>
@@ -19,51 +19,24 @@ bsp::ISerial &DI_Serial()
     return hal::Serial::Instance();
 }
 
-class Collection :
-    public base::IReadOnlyCollection<std::string, bsp::ISerial *>
+class Collection
 {
-private:
-    std::map<std::string, bsp::ISerial *> _map;
-
-    void Add(bsp::ISerial *serial)
-    {
-        _map[serial->Name()] = serial;
-    }
-
 public:
     Collection()
     {
         Add(&hal::Serial::Instance());
     }
 
-    int Count() const override
-    {
-        return _map.size();
-    }
+    base::Collection<std::string, bsp::ISerial *> _collection;
 
-    bsp::ISerial *Get(std::string key) const override
+    void Add(bsp::ISerial *serial)
     {
-        auto it = _map.find(key);
-        if (it == _map.end())
-        {
-            return nullptr;
-        }
-
-        return it->second;
-    }
-
-    std::shared_ptr<base::IEnumerator<bsp::ISerial *>> GetEnumerator() override
-    {
-        return std::shared_ptr<base::IEnumerator<bsp::ISerial *>>{
-            new base::StdMapValuesEnumerator<std::string, bsp::ISerial *>{
-                &_map,
-            },
-        };
+        _collection.Put(serial->Name(), serial);
     }
 };
 
-base::IReadOnlyCollection<std::string, bsp::ISerial *> &DI_SerialCollection()
+base::ICollection<std::string, bsp::ISerial *> const &DI_SerialCollection()
 {
     static Collection o;
-    return o;
+    return o._collection;
 }
