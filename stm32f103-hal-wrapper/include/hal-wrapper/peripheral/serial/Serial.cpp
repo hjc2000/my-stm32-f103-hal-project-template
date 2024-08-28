@@ -85,7 +85,8 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
     auto link_dma_channel = []()
     {
         Serial::Instance()._uart_handle.hdmatx = &Serial::Instance()._tx_dma_handle;
-        Serial::Instance()._tx_dma_handle.Parent = &Serial::Instance()._uart_handle;
+        Serial::Instance()._uart_handle.hdmatx->Parent = &Serial::Instance()._uart_handle;
+        // Serial::Instance()._tx_dma_handle.Parent = &Serial::Instance()._uart_handle;
 
         Serial::Instance()._uart_handle.hdmarx = &Serial::Instance()._rx_dma_handle;
         Serial::Instance()._rx_dma_handle.Parent = &Serial::Instance()._uart_handle;
