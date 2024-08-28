@@ -1,4 +1,5 @@
 #include <AtkKey.h>
+#include <base/container/IDictionary.h>
 #include <base/container/StdContainerEnumerable.h>
 #include <base/container/StdMapValuesEnumerable.h>
 #include <base/Initializer.h>
@@ -22,9 +23,9 @@ static base::Initializer _initializer{
 
 #pragma region DI_KeyScanner
 
-base::IReadOnlyCollection<std::string, bsp::IKey *> &DI_KeyCollection()
+base::IReadOnlyDictionary<std::string, bsp::IKey *> &DI_KeyCollection()
 {
-    class Collection : public base::IReadOnlyCollection<std::string, bsp::IKey *>
+    class Collection : public base::IReadOnlyDictionary<std::string, bsp::IKey *>
     {
     private:
         std::map<std::string, bsp::IKey *> _map;
@@ -80,9 +81,9 @@ bsp::IKeyScanner &DI_KeyScanner()
 
 #pragma region LED
 
-base::IReadOnlyCollection<std::string, bsp::IDigitalLed *> &DI_DigitalLedCollection()
+base::IReadOnlyDictionary<std::string, bsp::IDigitalLed *> &DI_DigitalLedCollection()
 {
-    class Collection : public base::IReadOnlyCollection<std::string, bsp::IDigitalLed *>
+    class Collection : public base::IReadOnlyDictionary<std::string, bsp::IDigitalLed *>
     {
     private:
         std::map<std::string, bsp::IDigitalLed *> _led_map{

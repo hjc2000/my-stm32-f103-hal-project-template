@@ -20,7 +20,7 @@ bsp::ISerial &DI_Serial()
 }
 
 class Collection :
-    public base::IReadOnlyCollection<std::string, bsp::ISerial *>
+    public base::IReadOnlyDictionary<std::string, bsp::ISerial *>
 {
 private:
     std::map<std::string, bsp::ISerial *> _map;
@@ -62,7 +62,7 @@ public:
     }
 };
 
-base::IReadOnlyCollection<std::string, bsp::ISerial *> &DI_SerialCollection()
+base::IReadOnlyDictionary<std::string, bsp::ISerial *> &DI_SerialCollection()
 {
     static Collection o;
     return o;

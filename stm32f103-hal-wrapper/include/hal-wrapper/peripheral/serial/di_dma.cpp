@@ -17,7 +17,7 @@ std::shared_ptr<bsp::IDmaOptions> DICreate_DmaOptions()
 }
 
 class Collection :
-    public base::IReadOnlyCollection<std::string, bsp::IDmaChannel *>
+    public base::IReadOnlyDictionary<std::string, bsp::IDmaChannel *>
 {
 private:
     std::map<std::string, bsp::IDmaChannel *> _map;
@@ -59,7 +59,7 @@ public:
     }
 };
 
-base::IReadOnlyCollection<std::string, bsp::IDmaChannel *> &DI_DmaChannel()
+base::IReadOnlyDictionary<std::string, bsp::IDmaChannel *> &DI_DmaChannel()
 {
     static Collection o;
     return o;
