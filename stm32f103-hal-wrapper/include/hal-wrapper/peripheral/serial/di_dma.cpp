@@ -1,4 +1,4 @@
-#include "DmaChannel.h"
+#include "Dma1Channel5.h"
 #include "DmaOptions.h"
 #include <bsp-interface/di/dma.h>
 
