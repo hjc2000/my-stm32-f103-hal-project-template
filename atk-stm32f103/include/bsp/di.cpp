@@ -21,9 +21,9 @@ static base::Initializer _initializer{
 
 #pragma region DI_KeyScanner
 
-base::IReadOnlyCollection<std::string, bsp::IKey *> &DI_KeyCollection()
+base::ICollection<std::string, bsp::IKey *> const &DI_KeyCollection()
 {
-    class Collection : public base::IReadOnlyCollection<std::string, bsp::IKey *>
+    class Collection
     {
     public:
         Collection()
@@ -54,9 +54,9 @@ bsp::IKeyScanner &DI_KeyScanner()
 
 #pragma region LED
 
-base::IReadOnlyCollection<std::string, bsp::IDigitalLed *> &DI_DigitalLedCollection()
+base::ICollection<std::string, bsp::IDigitalLed *> const &DI_DigitalLedCollection()
 {
-    class Collection : public base::IReadOnlyCollection<std::string, bsp::IDigitalLed *>
+    class Collection
     {
     public:
         base::Collection<std::string, bsp::IDigitalLed *> _collection{
