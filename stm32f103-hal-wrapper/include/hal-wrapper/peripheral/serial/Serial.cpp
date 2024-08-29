@@ -1,6 +1,5 @@
 #include "Serial.h"
 #include "DmaOptions.h"
-#include <base/Initializer.h>
 #include <bsp-interface/di/gpio.h>
 #include <bsp-interface/di/interrupt.h>
 #include <FreeRTOS.h>
@@ -8,12 +7,6 @@
 
 using namespace hal;
 using namespace bsp;
-
-static base::Initializer _init{
-    []()
-    {
-        hal::Serial::Instance();
-    }};
 
 void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 {

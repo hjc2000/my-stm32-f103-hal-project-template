@@ -1,6 +1,8 @@
 #pragma once
 #include <base/HandleWrapper.h>
+#include <base/SingletonGetter.h>
 #include <bsp-interface/di/gpio.h>
+#include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/lcd/ST7789LcdDriver.h>
 #include <hal-wrapper/peripheral/fsmc/FsmcNorSramConfig.h>
 #include <hal-wrapper/peripheral/fsmc/FsmcNorSramTiming.h>
@@ -48,8 +50,27 @@ namespace bsp
     public:
         static Lcd &Instance()
         {
-            static Lcd o;
-            return o;
+            class Getter : public base::SingletonGetter<Lcd>
+            {
+            public:
+                std::unique_ptr<Lcd> Create() override
+                {
+                    return std::unique_ptr<Lcd>{new Lcd{}};
+                }
+
+                void Lock() override
+                {
+                    DI_InterruptSwitch().DisableGlobalInterrupt();
+                }
+
+                void Unlock() override
+                {
+                    DI_InterruptSwitch().EnableGlobalInterrupt();
+                }
+            };
+
+            Getter g;
+            return g.Instance();
         }
 
 #pragma region ST7789LcdDriver

@@ -1,6 +1,8 @@
 #pragma once
 #include <atomic>
+#include <base/SingletonGetter.h>
 #include <bsp-interface/di/gpio.h>
+#include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/key/IEventDrivenKey.h>
 
 namespace bsp
@@ -18,8 +20,27 @@ namespace bsp
     public:
         static ExtiWakeUpKey &Instance()
         {
-            static ExtiWakeUpKey instance;
-            return instance;
+            class Getter : public base::SingletonGetter<ExtiWakeUpKey>
+            {
+            public:
+                std::unique_ptr<ExtiWakeUpKey> Create() override
+                {
+                    return std::unique_ptr<ExtiWakeUpKey>{new ExtiWakeUpKey{}};
+                }
+
+                void Lock() override
+                {
+                    DI_InterruptSwitch().DisableGlobalInterrupt();
+                }
+
+                void Unlock() override
+                {
+                    DI_InterruptSwitch().EnableGlobalInterrupt();
+                }
+            };
+
+            Getter g;
+            return g.Instance();
         }
 
         bool IsPressed() override

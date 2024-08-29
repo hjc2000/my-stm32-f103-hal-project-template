@@ -1,5 +1,7 @@
 #pragma once
 #include <atomic>
+#include <base/SingletonGetter.h>
+#include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/serial/ISerial.h>
 #include <hal-wrapper/peripheral/serial/SerialOptions.h>
 #include <hal.h>
@@ -33,8 +35,27 @@ namespace hal
     public:
         static Serial &Instance()
         {
-            static Serial o;
-            return o;
+            class Getter : public base::SingletonGetter<Serial>
+            {
+            public:
+                std::unique_ptr<Serial> Create() override
+                {
+                    return std::unique_ptr<Serial>{new Serial{}};
+                }
+
+                void Lock() override
+                {
+                    DI_InterruptSwitch().DisableGlobalInterrupt();
+                }
+
+                void Unlock() override
+                {
+                    DI_InterruptSwitch().EnableGlobalInterrupt();
+                }
+            };
+
+            Getter g;
+            return g.Instance();
         }
 
         std::string Name()

@@ -1,6 +1,7 @@
 #include <base/container/Collection.h>
-#include <base/Initializer.h>
 #include <base/RentedPtrFactory.h>
+#include <base/SingletonGetter.h>
+#include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/di/led.h>
 #include <bsp/bsp.h>
 #include <DigitalLed.h>
@@ -8,27 +9,48 @@
 
 using namespace bsp;
 
-static base::Initializer _initializer{
-    []()
-    {
-        DI_DigitalLedCollection();
-    }};
-
 #pragma region LED
 
 base::ICollection<std::string, bsp::IDigitalLed *> const &DI_DigitalLedCollection()
 {
-    class Collection
+    class Initializer
     {
+    private:
+        Initializer() = default;
+
     public:
         base::Collection<std::string, bsp::IDigitalLed *> _collection{
             {"red_led", &RedDigitalLed::Instance()},
             {"green_led", &GreenDigitalLed::Instance()},
         };
+
+        static Initializer &Instance()
+        {
+            class Getter : public base::SingletonGetter<Initializer>
+            {
+            public:
+                std::unique_ptr<Initializer> Create() override
+                {
+                    return std::unique_ptr<Initializer>{new Initializer{}};
+                }
+
+                void Lock() override
+                {
+                    DI_InterruptSwitch().DisableGlobalInterrupt();
+                }
+
+                void Unlock() override
+                {
+                    DI_InterruptSwitch().EnableGlobalInterrupt();
+                }
+            };
+
+            Getter g;
+            return g.Instance();
+        }
     };
 
-    static Collection o;
-    return o._collection;
+    return Initializer::Instance()._collection;
 }
 
 bsp::IDigitalLed &DI_RedDigitalLed()

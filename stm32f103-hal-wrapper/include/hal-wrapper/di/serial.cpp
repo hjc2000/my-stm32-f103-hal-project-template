@@ -1,13 +1,8 @@
 #include <base/container/Collection.h>
-#include <base/Initializer.h>
+#include <base/SingletonGetter.h>
+#include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/di/serial.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>
-
-static base::Initializer _initializer{
-    []()
-    {
-        DI_SerialCollection();
-    }};
 
 std::shared_ptr<bsp::ISerialOptions> DICreate_ISerialOptions()
 {
@@ -19,24 +14,49 @@ bsp::ISerial &DI_Serial()
     return hal::Serial::Instance();
 }
 
-class Collection
-{
-public:
-    Collection()
-    {
-        Add(&hal::Serial::Instance());
-    }
-
-    base::Collection<std::string, bsp::ISerial *> _collection;
-
-    void Add(bsp::ISerial *serial)
-    {
-        _collection.Put(serial->Name(), serial);
-    }
-};
-
 base::ICollection<std::string, bsp::ISerial *> const &DI_SerialCollection()
 {
-    static Collection o;
-    return o._collection;
+    class Initializer
+    {
+    private:
+        Initializer()
+        {
+            Add(&hal::Serial::Instance());
+        }
+
+        void Add(bsp::ISerial *serial)
+        {
+            _collection.Put(serial->Name(), serial);
+        }
+
+    public:
+        base::Collection<std::string, bsp::ISerial *> _collection;
+
+        static Initializer &Instance()
+        {
+            class Getter : public base::SingletonGetter<Initializer>
+            {
+            public:
+                std::unique_ptr<Initializer> Create() override
+                {
+                    return std::unique_ptr<Initializer>{new Initializer{}};
+                }
+
+                void Lock() override
+                {
+                    DI_InterruptSwitch().DisableGlobalInterrupt();
+                }
+
+                void Unlock() override
+                {
+                    DI_InterruptSwitch().EnableGlobalInterrupt();
+                }
+            };
+
+            Getter g;
+            return g.Instance();
+        }
+    };
+
+    return Initializer::Instance()._collection;
 }

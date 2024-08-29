@@ -1,28 +1,25 @@
 #include "Dma1Channel5.h"
 #include "DmaOptions.h"
 #include <base/container/Collection.h>
-#include <base/Initializer.h>
+#include <base/SingletonGetter.h>
 #include <bsp-interface/di/dma.h>
+#include <bsp-interface/di/interrupt.h>
 #include <map>
-
-static base::Initializer _initializer{
-    []()
-    {
-        DI_DmaChannel();
-    }};
 
 std::shared_ptr<bsp::IDmaOptions> DICreate_DmaOptions()
 {
     return std::shared_ptr<bsp::IDmaOptions>{new bsp::DmaOptions{}};
 }
 
-class Collection
+class Initializer
 {
-public:
-    Collection()
+private:
+    Initializer()
     {
         Add(&bsp::Dma1Channel5::Instance());
     }
+
+public:
 
     base::Collection<std::string, bsp::IDmaChannel *> _collection;
 
@@ -30,10 +27,34 @@ public:
     {
         _collection.Put(o->Name(), o);
     }
+
+    static Initializer &Instance()
+    {
+        class Getter : public base::SingletonGetter<Initializer>
+        {
+        public:
+            std::unique_ptr<Initializer> Create() override
+            {
+                return std::unique_ptr<Initializer>{new Initializer{}};
+            }
+
+            void Lock() override
+            {
+                DI_InterruptSwitch().DisableGlobalInterrupt();
+            }
+
+            void Unlock() override
+            {
+                DI_InterruptSwitch().EnableGlobalInterrupt();
+            }
+        };
+
+        Getter g;
+        return g.Instance();
+    }
 };
 
 base::ICollection<std::string, bsp::IDmaChannel *> const &DI_DmaChannel()
 {
-    static Collection o;
-    return o._collection;
+    return Initializer::Instance()._collection;
 }
