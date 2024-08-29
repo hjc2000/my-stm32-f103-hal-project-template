@@ -19,10 +19,10 @@ int main(void)
         {
             try
             {
-                bsp::TestSerial();
-                // TestIndependentWatchDog();
+                // bsp::TestSerial();
+                // bsp::TestIndependentWatchDog();
                 // TestExtiKey();
-                // bsp::TestLcd();
+                bsp::TestLcd();
                 // bsp::TestKeyScanner();
             }
             catch (std::exception const &e)
