@@ -11,25 +11,25 @@ static base::Initializer _initializer{
         DI_KeyScanner();
     }};
 
+class Collection
+{
+public:
+    Collection()
+    {
+        AddKey(&bsp::Key0::Instance());
+        AddKey(&bsp::Key1::Instance());
+    }
+
+    base::Collection<std::string, bsp::IKey *> _collection;
+
+    void AddKey(bsp::IKey *key)
+    {
+        _collection.Put(key->KeyName(), key);
+    }
+};
+
 base::ICollection<std::string, bsp::IKey *> const &DI_KeyCollection()
 {
-    class Collection
-    {
-    public:
-        Collection()
-        {
-            AddKey(&bsp::Key0::Instance());
-            AddKey(&bsp::Key1::Instance());
-        }
-
-        base::Collection<std::string, bsp::IKey *> _collection;
-
-        void AddKey(bsp::IKey *key)
-        {
-            _collection.Put(key->KeyName(), key);
-        }
-    };
-
     static Collection o;
     return o._collection;
 }
