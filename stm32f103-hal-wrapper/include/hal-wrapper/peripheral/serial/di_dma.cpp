@@ -5,7 +5,7 @@
 #include <bsp-interface/di/dma.h>
 #include <map>
 
-base::Initializer _initializer{
+static base::Initializer _initializer{
     []()
     {
         DI_DmaChannel();
