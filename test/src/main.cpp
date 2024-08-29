@@ -1,15 +1,15 @@
 #include <base/Initializer.h>
 #include <base/math/Fraction.h>
 #include <bsp-interface/test/TestIndependentWatchDog.h>
+#include <bsp-interface/test/TestKeyScanner.h>
 #include <bsp-interface/test/TestLcd.h>
 #include <bsp-interface/test/TestSerial.h>
 #include <bsp/bsp.h>
 #include <stdexcept>
 #include <string>
 #include <task/Task.h>
-#include <test_functions.h>
-
-using namespace bsp;
+#include <TestBaseTimer.h>
+#include <TestExtiKey.h>
 
 int main(void)
 {
@@ -24,8 +24,8 @@ int main(void)
                 // bsp::TestSerial();
                 // TestIndependentWatchDog();
                 // TestExtiKey();
-                TestLcd();
-                // TestKeyScanner();
+                // TestLcd();
+                bsp::TestKeyScanner();
             }
             catch (std::exception const &e)
             {
