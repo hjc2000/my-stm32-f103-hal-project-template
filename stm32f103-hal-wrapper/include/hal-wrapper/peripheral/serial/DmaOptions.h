@@ -10,6 +10,7 @@ namespace bsp
     {
     private:
         DMA_InitTypeDef _init_type_def;
+        std::string _parent;
 
     public:
         DmaOptions();
@@ -45,5 +46,19 @@ namespace bsp
         /// @return
         IDmaOptions_Priority Priority() const override;
         void SetPriority(IDmaOptions_Priority value) override;
+
+        /// @brief 此 DMA 要被连接到哪里
+        /// @return
+        std::string Parent() const override
+        {
+            return _parent;
+        }
+
+        /// @brief 此 DMA 要被连接到哪里
+        /// @param value
+        void SetParent(std::string value) override
+        {
+            _parent = value;
+        }
     };
 } // namespace bsp
