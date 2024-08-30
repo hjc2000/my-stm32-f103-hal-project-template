@@ -1,4 +1,6 @@
 #pragma once
+#include <base/SingletonGetter.h>
+#include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/dma/IDmaChannel.h>
 #include <hal.h>
 
@@ -14,12 +16,31 @@ namespace bsp
     public:
         static Dma1Channel5 &Instance()
         {
-            static Dma1Channel5 o;
-            return o;
+            class Getter : public base::SingletonGetter<Dma1Channel5>
+            {
+            public:
+                std::unique_ptr<Dma1Channel5> Create() override
+                {
+                    return std::unique_ptr<Dma1Channel5>{new Dma1Channel5{}};
+                }
+
+                void Lock() override
+                {
+                    DI_InterruptSwitch().DisableGlobalInterrupt();
+                }
+
+                void Unlock() override
+                {
+                    DI_InterruptSwitch().EnableGlobalInterrupt();
+                }
+            };
+
+            Getter g;
+            return g.Instance();
         }
 
         std::string Name() const override;
-        void Open(bsp::IDmaOptions const &options) override;
+        void Open(bsp::IDmaOptions const &options, void *parent) override;
 
         bool IsOpen() const override
         {
@@ -29,13 +50,6 @@ namespace bsp
         void Close() override
         {
             _is_open = false;
-        }
-
-        /// @brief 返回底层的句柄。
-        /// @return
-        virtual void *Handle() override
-        {
-            return &_handle;
         }
     };
 } // namespace bsp

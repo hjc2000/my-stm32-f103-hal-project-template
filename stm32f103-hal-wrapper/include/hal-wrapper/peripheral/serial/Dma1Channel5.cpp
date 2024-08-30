@@ -6,7 +6,7 @@ std::string bsp::Dma1Channel5::Name() const
     return "dma1_channel5";
 }
 
-void bsp::Dma1Channel5::Open(bsp::IDmaOptions const &options)
+void bsp::Dma1Channel5::Open(bsp::IDmaOptions const &options, void *parent)
 {
     if (_is_open)
     {
