@@ -10,7 +10,6 @@ namespace bsp
     {
     private:
         DMA_InitTypeDef _init_type_def;
-        std::string _parent;
 
     public:
         DmaOptions();
@@ -47,18 +46,12 @@ namespace bsp
         IDmaOptions_Priority Priority() const override;
         void SetPriority(IDmaOptions_Priority value) override;
 
-        /// @brief 此 DMA 要被连接到哪里
+        /// @brief 返回底层的 DMA 句柄。
+        /// @note 注意，句柄不是指 IDmaOptions 或它的派生类的指针。
         /// @return
-        std::string Parent() const override
+        void *DmaHandle() override
         {
-            return _parent;
-        }
-
-        /// @brief 此 DMA 要被连接到哪里
-        /// @param value
-        void SetParent(std::string value) override
-        {
-            _parent = value;
+            return &_init_type_def;
         }
     };
 } // namespace bsp
