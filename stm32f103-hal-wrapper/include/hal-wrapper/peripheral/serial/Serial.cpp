@@ -12,7 +12,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 {
     __HAL_RCC_USART1_CLK_ENABLE();
 
-    auto init_gpio = []()
+    // 初始化 GPIO
     {
         // PA9
         {
@@ -38,9 +38,9 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
             bsp::IGpioPin *pin = DI_GpioPinCollection().Get("PA10");
             pin->Open(*options);
         }
-    };
+    }
 
-    auto init_tx_dma = []()
+    // 初始化发送 DMA
     {
         __HAL_RCC_DMA1_CLK_ENABLE();
 
@@ -55,9 +55,9 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
         Serial::Instance()._tx_dma_handle.Instance = DMA1_Channel4;
         Serial::Instance()._tx_dma_handle.Init = static_cast<bsp::DmaOptions &>(*options);
         HAL_DMA_Init(&Serial::Instance()._tx_dma_handle);
-    };
+    }
 
-    auto init_rx_dma = []()
+    // 初始化接收 DMA
     {
         __HAL_RCC_DMA1_CLK_ENABLE();
 
@@ -72,10 +72,9 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
         Serial::Instance()._rx_dma_handle.Instance = DMA1_Channel5;
         Serial::Instance()._rx_dma_handle.Init = static_cast<bsp::DmaOptions &>(*options);
         HAL_DMA_Init(&Serial::Instance()._rx_dma_handle);
-    };
+    }
 
     // 连接到 DMA 发送通道
-    auto link_dma_channel = []()
     {
         Serial::Instance()._uart_handle.hdmatx = &Serial::Instance()._tx_dma_handle;
         Serial::Instance()._uart_handle.hdmatx->Parent = &Serial::Instance()._uart_handle;
@@ -83,12 +82,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 
         Serial::Instance()._uart_handle.hdmarx = &Serial::Instance()._rx_dma_handle;
         Serial::Instance()._rx_dma_handle.Parent = &Serial::Instance()._uart_handle;
-    };
-
-    init_gpio();
-    init_tx_dma();
-    init_rx_dma();
-    link_dma_channel();
+    }
 }
 
 #pragma region 被中断处理函数回调的函数
