@@ -1,5 +1,5 @@
 #include "Serial.h"
-#include "DmaOptions.h"
+#include <bsp-interface/di/dma.h>
 #include <bsp-interface/di/gpio.h>
 #include <bsp-interface/di/interrupt.h>
 #include <FreeRTOS.h>
@@ -42,8 +42,6 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
 
     // 初始化发送 DMA
     {
-        __HAL_RCC_DMA1_CLK_ENABLE();
-
         auto options = DICreate_DmaOptions();
         options->SetDirection(bsp::IDmaOptions_Direction::MemoryToPeripheral);
         options->SetMemoryDataAlignment(1);
@@ -51,16 +49,11 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
         options->SetPeripheralDataAlignment(1);
         options->SetPeripheralIncrement(false);
         options->SetPriority(bsp::IDmaOptions_Priority::Medium);
-
-        Serial::Instance()._tx_dma_handle.Instance = DMA1_Channel4;
-        Serial::Instance()._tx_dma_handle.Init = static_cast<bsp::DmaOptions &>(*options);
-        HAL_DMA_Init(&Serial::Instance()._tx_dma_handle);
+        DI_DmaChannelCollection().Get("dma1_channel4")->Open(*options, &Serial::Instance()._uart_handle);
     }
 
     // 初始化接收 DMA
     {
-        __HAL_RCC_DMA1_CLK_ENABLE();
-
         auto options = DICreate_DmaOptions();
         options->SetDirection(bsp::IDmaOptions_Direction::PeripheralToMemory);
         options->SetMemoryDataAlignment(1);
@@ -68,20 +61,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
         options->SetPeripheralDataAlignment(1);
         options->SetPeripheralIncrement(false);
         options->SetPriority(bsp::IDmaOptions_Priority::Medium);
-
-        Serial::Instance()._rx_dma_handle.Instance = DMA1_Channel5;
-        Serial::Instance()._rx_dma_handle.Init = static_cast<bsp::DmaOptions &>(*options);
-        HAL_DMA_Init(&Serial::Instance()._rx_dma_handle);
-    }
-
-    // 连接到 DMA 发送通道
-    {
-        Serial::Instance()._uart_handle.hdmatx = &Serial::Instance()._tx_dma_handle;
-        Serial::Instance()._uart_handle.hdmatx->Parent = &Serial::Instance()._uart_handle;
-        // Serial::Instance()._tx_dma_handle.Parent = &Serial::Instance()._uart_handle;
-
-        Serial::Instance()._uart_handle.hdmarx = &Serial::Instance()._rx_dma_handle;
-        Serial::Instance()._rx_dma_handle.Parent = &Serial::Instance()._uart_handle;
+        DI_DmaChannelCollection().Get("dma1_channel5")->Open(*options, &Serial::Instance()._uart_handle);
     }
 }
 
@@ -132,13 +112,13 @@ void Serial::Open(bsp::ISerialOptions const &options)
         DI_IsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel4_IRQn),
                                []()
                                {
-                                   HAL_DMA_IRQHandler(&Serial::Instance()._tx_dma_handle);
+                                   HAL_DMA_IRQHandler(Serial::Instance()._uart_handle.hdmatx);
                                });
 
         DI_IsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel5_IRQn),
                                []()
                                {
-                                   HAL_DMA_IRQHandler(&Serial::Instance()._rx_dma_handle);
+                                   HAL_DMA_IRQHandler(Serial::Instance()._uart_handle.hdmarx);
                                });
 
         DI_InterruptSwitch().EnableInterrupt(IRQn_Type::USART1_IRQn, 10);
@@ -172,7 +152,7 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
                  *
                  * 这个操作需要在临界区中，并且 DMA 的中断要处于 freertos 的管理范围内，否则无效。
                  */
-                _rx_dma_handle.XferHalfCpltCallback = nullptr;
+                Serial::Instance()._uart_handle.hdmarx->XferHalfCpltCallback = nullptr;
             });
 
         _receive_complete_signal.Acquire();

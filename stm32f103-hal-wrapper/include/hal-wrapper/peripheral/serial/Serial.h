@@ -18,8 +18,6 @@ namespace hal
         Serial() = default;
 
         UART_HandleTypeDef _uart_handle{};
-        DMA_HandleTypeDef _tx_dma_handle{};
-        DMA_HandleTypeDef _rx_dma_handle{};
         task::BinarySemaphore _send_complete_signal;
         task::BinarySemaphore _receive_complete_signal;
         task::Mutex _read_lock{};
