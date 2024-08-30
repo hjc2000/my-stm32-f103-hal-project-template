@@ -11,50 +11,49 @@ std::shared_ptr<bsp::IDmaOptions> DICreate_DmaOptions()
     return std::shared_ptr<bsp::IDmaOptions>{new bsp::DmaOptions{}};
 }
 
-class Initializer
-{
-private:
-    Initializer()
-    {
-        Add(&bsp::Dma1Channel5::Instance());
-    }
-
-public:
-
-    base::Collection<std::string, bsp::IDmaChannel *> _collection;
-
-    void Add(bsp::IDmaChannel *o)
-    {
-        _collection.Put(o->Name(), o);
-    }
-
-    static Initializer &Instance()
-    {
-        class Getter : public base::SingletonGetter<Initializer>
-        {
-        public:
-            std::unique_ptr<Initializer> Create() override
-            {
-                return std::unique_ptr<Initializer>{new Initializer{}};
-            }
-
-            void Lock() override
-            {
-                DI_InterruptSwitch().DisableGlobalInterrupt();
-            }
-
-            void Unlock() override
-            {
-                DI_InterruptSwitch().EnableGlobalInterrupt();
-            }
-        };
-
-        Getter g;
-        return g.Instance();
-    }
-};
-
 base::ICollection<std::string, bsp::IDmaChannel *> const &DI_DmaChannel()
 {
+    class Initializer
+    {
+    private:
+        Initializer()
+        {
+            Add(&bsp::Dma1Channel5::Instance());
+        }
+
+        void Add(bsp::IDmaChannel *o)
+        {
+            _collection.Put(o->Name(), o);
+        }
+
+    public:
+        base::Collection<std::string, bsp::IDmaChannel *> _collection;
+
+        static Initializer &Instance()
+        {
+            class Getter : public base::SingletonGetter<Initializer>
+            {
+            public:
+                std::unique_ptr<Initializer> Create() override
+                {
+                    return std::unique_ptr<Initializer>{new Initializer{}};
+                }
+
+                void Lock() override
+                {
+                    DI_InterruptSwitch().DisableGlobalInterrupt();
+                }
+
+                void Unlock() override
+                {
+                    DI_InterruptSwitch().EnableGlobalInterrupt();
+                }
+            };
+
+            Getter g;
+            return g.Instance();
+        }
+    };
+
     return Initializer::Instance()._collection;
 }
