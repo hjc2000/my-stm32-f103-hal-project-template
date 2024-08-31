@@ -3,6 +3,7 @@
 #include <base/SingletonGetter.h>
 #include <bsp-interface/di/gpio.h>
 #include <bsp-interface/di/interrupt.h>
+#include <bsp-interface/di/systick.h>
 #include <bsp-interface/key/IEventDrivenKey.h>
 
 namespace bsp
