@@ -8,38 +8,38 @@
 using namespace hal;
 using namespace bsp;
 
-void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
+#pragma region 初始化
+
+void hal::Serial::InitializeGpio()
 {
-    __HAL_RCC_USART1_CLK_ENABLE();
-
-    // 初始化 GPIO
+    // PA9
     {
-        // PA9
-        {
-            auto options = DICreate_GpioPinOptions();
-            options->SetAlternateFunction("af_push_pull");
-            options->SetDirection(bsp::IGpioPinDirection::Output);
-            options->SetDriver(bsp::IGpioPinDriver::PushPull);
-            options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
-            options->SetSpeedLevel(2);
-            options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
-            bsp::IGpioPin *pin = DI_GpioPinCollection().Get("PA9");
-            pin->Open(*options);
-        }
-
-        // PA10
-        {
-            auto options = DICreate_GpioPinOptions();
-            options->SetAlternateFunction("af_input");
-            options->SetDirection(bsp::IGpioPinDirection::Input);
-            options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
-            options->SetSpeedLevel(2);
-            options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
-            bsp::IGpioPin *pin = DI_GpioPinCollection().Get("PA10");
-            pin->Open(*options);
-        }
+        auto options = DICreate_GpioPinOptions();
+        options->SetAlternateFunction("af_push_pull");
+        options->SetDirection(bsp::IGpioPinDirection::Output);
+        options->SetDriver(bsp::IGpioPinDriver::PushPull);
+        options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
+        options->SetSpeedLevel(2);
+        options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
+        bsp::IGpioPin *pin = DI_GpioPinCollection().Get("PA9");
+        pin->Open(*options);
     }
 
+    // PA10
+    {
+        auto options = DICreate_GpioPinOptions();
+        options->SetAlternateFunction("af_input");
+        options->SetDirection(bsp::IGpioPinDirection::Input);
+        options->SetPullMode(bsp::IGpioPinPullMode::PullUp);
+        options->SetSpeedLevel(2);
+        options->SetWorkMode(bsp::IGpioPinWorkMode::AlternateFunction);
+        bsp::IGpioPin *pin = DI_GpioPinCollection().Get("PA10");
+        pin->Open(*options);
+    }
+}
+
+void hal::Serial::InitializeDma()
+{
     // 初始化发送 DMA
     {
         auto options = DICreate_DmaOptions();
@@ -49,7 +49,7 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
         options->SetPeripheralDataAlignment(1);
         options->SetPeripheralIncrement(false);
         options->SetPriority(bsp::IDmaOptions_Priority::Medium);
-        DI_DmaChannelCollection().Get("dma1_channel4")->Open(*options, &Serial::Instance()._uart_handle);
+        DI_DmaChannelCollection().Get("dma1_channel4")->Open(*options, &_uart_handle);
     }
 
     // 初始化接收 DMA
@@ -61,9 +61,59 @@ void Serial::OnMspInitCallback(UART_HandleTypeDef *huart)
         options->SetPeripheralDataAlignment(1);
         options->SetPeripheralIncrement(false);
         options->SetPriority(bsp::IDmaOptions_Priority::Medium);
-        DI_DmaChannelCollection().Get("dma1_channel5")->Open(*options, &Serial::Instance()._uart_handle);
+        DI_DmaChannelCollection().Get("dma1_channel5")->Open(*options, &_uart_handle);
     }
 }
+
+void hal::Serial::InitializeUart(SerialOptions const &options)
+{
+    __HAL_RCC_USART1_CLK_ENABLE();
+
+    /*
+     * 先立刻释放一次信号量，等会 Write 方法被调用时直接通过，不被阻塞。
+     * 然后在发送完成之前，第二次 Write 就会被阻塞了，这还能防止 Write
+     * 被多线程同时调用。
+     */
+    _send_complete_signal.Release();
+    _uart_handle.Instance = USART1;
+    _uart_handle.Init = options;
+    _uart_handle.MspInitCallback = nullptr;
+    HAL_UART_Init(&_uart_handle);
+
+    /*
+     * HAL_UART_Init 函数会把中断处理函数中回调的函数都设为默认的，所以必须在 HAL_UART_Init
+     * 之后对函数指针赋值。
+     */
+    _uart_handle.RxEventCallback = OnReceiveEventCallback;
+    _uart_handle.TxCpltCallback = OnSendCompleteCallback;
+}
+
+void hal::Serial::InitializeInterrupt()
+{
+    DI_IsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::USART1_IRQn),
+                           [this]()
+                           {
+                               HAL_UART_IRQHandler(&_uart_handle);
+                           });
+
+    DI_IsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel4_IRQn),
+                           [this]()
+                           {
+                               HAL_DMA_IRQHandler(_uart_handle.hdmatx);
+                           });
+
+    DI_IsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel5_IRQn),
+                           [this]()
+                           {
+                               HAL_DMA_IRQHandler(_uart_handle.hdmarx);
+                           });
+
+    DI_InterruptSwitch().EnableInterrupt(IRQn_Type::USART1_IRQn, 10);
+    DI_InterruptSwitch().EnableInterrupt(IRQn_Type::DMA1_Channel4_IRQn, 10);
+    DI_InterruptSwitch().EnableInterrupt(IRQn_Type::DMA1_Channel5_IRQn, 10);
+}
+
+#pragma endregion
 
 #pragma region 被中断处理函数回调的函数
 
@@ -82,48 +132,10 @@ void Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 
 void Serial::Open(bsp::ISerialOptions const &options)
 {
-    /*
-     * 先立刻释放一次信号量，等会 Write 方法被调用时直接通过，不被阻塞。
-     * 然后在发送完成之前，第二次 Write 就会被阻塞了，这还能防止 Write
-     * 被多线程同时调用。
-     */
-    _send_complete_signal.Release();
-    _uart_handle.Instance = USART1;
-    _uart_handle.Init = static_cast<SerialOptions const &>(options);
-    _uart_handle.MspInitCallback = OnMspInitCallback;
-    HAL_UART_Init(&_uart_handle);
-
-    /*
-     * HAL_UART_Init 函数会把中断处理函数中回调的函数都设为默认的，所以必须在 HAL_UART_Init
-     * 之后对函数指针赋值。
-     */
-    _uart_handle.RxEventCallback = OnReceiveEventCallback;
-    _uart_handle.TxCpltCallback = OnSendCompleteCallback;
-
-    // 启用中断
-    {
-        DI_IsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::USART1_IRQn),
-                               []()
-                               {
-                                   HAL_UART_IRQHandler(&Serial::Instance()._uart_handle);
-                               });
-
-        DI_IsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel4_IRQn),
-                               []()
-                               {
-                                   HAL_DMA_IRQHandler(Serial::Instance()._uart_handle.hdmatx);
-                               });
-
-        DI_IsrManager().AddIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Channel5_IRQn),
-                               []()
-                               {
-                                   HAL_DMA_IRQHandler(Serial::Instance()._uart_handle.hdmarx);
-                               });
-
-        DI_InterruptSwitch().EnableInterrupt(IRQn_Type::USART1_IRQn, 10);
-        DI_InterruptSwitch().EnableInterrupt(IRQn_Type::DMA1_Channel4_IRQn, 10);
-        DI_InterruptSwitch().EnableInterrupt(IRQn_Type::DMA1_Channel5_IRQn, 10);
-    }
+    InitializeGpio();
+    InitializeDma();
+    InitializeUart(static_cast<SerialOptions const &>(options));
+    InitializeInterrupt();
 }
 
 #pragma region Stream
@@ -149,7 +161,7 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
                  *
                  * 这个操作需要在临界区中，并且 DMA 的中断要处于 freertos 的管理范围内，否则无效。
                  */
-                Serial::Instance()._uart_handle.hdmarx->XferHalfCpltCallback = nullptr;
+                _uart_handle.hdmarx->XferHalfCpltCallback = nullptr;
             });
 
         _receive_complete_signal.Acquire();

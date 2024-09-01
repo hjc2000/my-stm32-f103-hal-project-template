@@ -23,7 +23,12 @@ namespace hal
         task::Mutex _read_lock{};
         int32_t _current_receive_count = 0;
 
-        static void OnMspInitCallback(UART_HandleTypeDef *huart);
+#pragma region 初始化
+        void InitializeGpio();
+        void InitializeDma();
+        void InitializeUart(SerialOptions const &options);
+        void InitializeInterrupt();
+#pragma endregion
 
 #pragma region 被中断处理函数回调的函数
         static void OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos);
