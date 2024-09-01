@@ -1,12 +1,10 @@
 #pragma once
-#include <base/HandleWrapper.h>
 #include <hal.h>
 
 namespace hal
 {
     /// @brief 窗口看门狗初始化选项。
-    class WindowWatchDogConfig :
-        public base::HandleWrapper<WWDG_InitTypeDef>
+    class WindowWatchDogConfig
     {
     private:
         WWDG_InitTypeDef _handle{};
@@ -18,7 +16,10 @@ namespace hal
         WindowWatchDogConfig &operator=(WindowWatchDogConfig const &o) = default;
         WindowWatchDogConfig &operator=(WWDG_InitTypeDef const &o);
 
-        WWDG_InitTypeDef &Handle() override;
+        operator WWDG_InitTypeDef() const
+        {
+            return _handle;
+        }
 
         enum class PrescalerOption
         {

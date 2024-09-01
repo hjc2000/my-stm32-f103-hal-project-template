@@ -1,17 +1,15 @@
 #pragma once
-#include <base/HandleWrapper.h>
 #include <hal.h>
 
 namespace hal
 {
-    class FsmcNorSramConfig :
-        public base::HandleWrapper<FSMC_NORSRAM_InitTypeDef>
+    class FsmcNorSramConfig
     {
     private:
         FSMC_NORSRAM_InitTypeDef _handle{};
 
     public:
-        FSMC_NORSRAM_InitTypeDef &Handle() override
+        operator FSMC_NORSRAM_InitTypeDef() const
         {
             return _handle;
         }

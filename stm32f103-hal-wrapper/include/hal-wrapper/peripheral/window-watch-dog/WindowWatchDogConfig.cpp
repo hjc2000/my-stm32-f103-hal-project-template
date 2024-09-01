@@ -13,11 +13,6 @@ WindowWatchDogConfig &WindowWatchDogConfig::operator=(WWDG_InitTypeDef const &o)
     return *this;
 }
 
-WWDG_InitTypeDef &hal::WindowWatchDogConfig::Handle()
-{
-    return _handle;
-}
-
 WindowWatchDogConfig::PrescalerOption hal::WindowWatchDogConfig::Prescaler() const
 {
     return static_cast<PrescalerOption>(_handle.Prescaler);

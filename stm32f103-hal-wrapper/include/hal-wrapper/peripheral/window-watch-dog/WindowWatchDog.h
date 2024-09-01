@@ -4,12 +4,9 @@
 
 namespace hal
 {
-    class WindowWatchDog :
-        public base::HandleWrapper<WWDG_HandleTypeDef>
+    class WindowWatchDog
     {
     private:
-        WWDG_HandleTypeDef _handle;
-
         /// <summary>
         ///		提早唤醒中断发生时触发的回调。
         ///		* 不需要喂狗，因为本类的实现是先喂狗后再回调此函数的。
@@ -20,13 +17,14 @@ namespace hal
         static void OnEarlyWakeUpInterruptCallback(WWDG_HandleTypeDef *handle);
 
     public:
+        WWDG_HandleTypeDef _handle;
+
         static WindowWatchDog &Instance()
         {
             static WindowWatchDog o;
             return o;
         }
 
-        WWDG_HandleTypeDef &Handle() override;
         WWDG_TypeDef *HardwareInstance();
 
         void Initialize(WindowWatchDogConfig &options);

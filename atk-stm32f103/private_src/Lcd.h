@@ -1,5 +1,4 @@
 #pragma once
-#include <base/HandleWrapper.h>
 #include <base/SingletonGetter.h>
 #include <bsp-interface/di/gpio.h>
 #include <bsp-interface/di/interrupt.h>
@@ -10,7 +9,8 @@
 
 namespace bsp
 {
-    class Lcd : public bsp::ST7789LcdDriver, public base::HandleWrapper<SRAM_HandleTypeDef>
+    class Lcd :
+        public bsp::ST7789LcdDriver
     {
     private:
         Lcd();
@@ -83,10 +83,5 @@ namespace bsp
         void TurnOnBackLight() override;
         void TurnOffBackLight() override;
 #pragma endregion
-
-        SRAM_HandleTypeDef &Handle() override
-        {
-            return _sram_handle;
-        }
     };
 } // namespace bsp

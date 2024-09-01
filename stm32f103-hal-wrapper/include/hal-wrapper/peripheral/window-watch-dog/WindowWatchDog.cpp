@@ -7,7 +7,7 @@ extern "C"
 {
     void WWDG_IRQHandler()
     {
-        HAL_WWDG_IRQHandler(&WindowWatchDog::Instance().Handle());
+        HAL_WWDG_IRQHandler(&WindowWatchDog::Instance()._handle);
     }
 }
 
@@ -26,11 +26,6 @@ void WindowWatchDog::OnEarlyWakeUpInterruptCallback(WWDG_HandleTypeDef *handle)
     }
 }
 
-WWDG_HandleTypeDef &WindowWatchDog::Handle()
-{
-    return _handle;
-}
-
 WWDG_TypeDef *WindowWatchDog::HardwareInstance()
 {
     return WWDG;
@@ -39,7 +34,7 @@ WWDG_TypeDef *WindowWatchDog::HardwareInstance()
 void WindowWatchDog::Initialize(WindowWatchDogConfig &config)
 {
     _handle.Instance = HardwareInstance();
-    _handle.Init = config.Handle();
+    _handle.Init = config;
     _handle.MspInitCallback = OnMspInitCallback;
     _handle.EwiCallback = OnEarlyWakeUpInterruptCallback;
     HAL_WWDG_Init(&_handle);

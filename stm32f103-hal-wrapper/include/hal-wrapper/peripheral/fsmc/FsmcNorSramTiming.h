@@ -1,17 +1,14 @@
 #pragma once
-#include <base/HandleWrapper.h>
 #include <hal.h>
 
 namespace hal
 {
-    class FsmcNorSramTiming :
-        public base::HandleWrapper<FSMC_NORSRAM_TimingTypeDef>
+    class FsmcNorSramTiming
     {
-    private:
+    public:
         FSMC_NORSRAM_TimingTypeDef _handle{};
 
-    public:
-        FSMC_NORSRAM_TimingTypeDef &Handle() override
+        operator FSMC_NORSRAM_TimingTypeDef() const
         {
             return _handle;
         }
