@@ -1,6 +1,6 @@
 #pragma once
 #include <atomic>
-#include <base/SingletonGetter.h>
+#include <base/di/SingletonGetter.h>
 #include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/serial/ISerial.h>
 #include <hal-wrapper/peripheral/serial/SerialOptions.h>

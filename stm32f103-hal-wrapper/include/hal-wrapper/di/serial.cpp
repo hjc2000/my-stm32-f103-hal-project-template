@@ -1,5 +1,5 @@
 #include <base/container/Collection.h>
-#include <base/SingletonGetter.h>
+#include <base/di/SingletonGetter.h>
 #include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/di/serial.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>

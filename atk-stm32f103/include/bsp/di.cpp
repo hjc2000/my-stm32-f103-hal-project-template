@@ -1,6 +1,6 @@
 #include <base/container/Collection.h>
+#include <base/di/SingletonGetter.h>
 #include <base/RentedPtrFactory.h>
-#include <base/SingletonGetter.h>
 #include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/di/led.h>
 #include <bsp/bsp.h>
