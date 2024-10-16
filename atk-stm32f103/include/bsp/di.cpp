@@ -1,4 +1,4 @@
-#include <base/container/Collection.h>
+#include <base/container/Dictionary.h>
 #include <base/di/SingletonGetter.h>
 #include <base/RentedPtrFactory.h>
 #include <bsp-interface/di/interrupt.h>
@@ -11,7 +11,7 @@ using namespace bsp;
 
 #pragma region LED
 
-base::ICollection<std::string, bsp::IDigitalLed *> const &DI_DigitalLedCollection()
+base::IDictionary<std::string, bsp::IDigitalLed *> const &DI_DigitalLedCollection()
 {
     class Initializer
     {
@@ -19,14 +19,15 @@ base::ICollection<std::string, bsp::IDigitalLed *> const &DI_DigitalLedCollectio
         Initializer() = default;
 
     public:
-        base::Collection<std::string, bsp::IDigitalLed *> _collection{
+        base::Dictionary<std::string, bsp::IDigitalLed *> _collection{
             {"red_led", &RedDigitalLed::Instance()},
             {"green_led", &GreenDigitalLed::Instance()},
         };
 
         static Initializer &Instance()
         {
-            class Getter : public base::SingletonGetter<Initializer>
+            class Getter :
+                public base::SingletonGetter<Initializer>
             {
             public:
                 std::unique_ptr<Initializer> Create() override

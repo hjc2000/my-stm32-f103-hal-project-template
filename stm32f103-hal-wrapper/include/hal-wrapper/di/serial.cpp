@@ -1,4 +1,4 @@
-#include <base/container/Collection.h>
+#include <base/container/Dictionary.h>
 #include <base/di/SingletonGetter.h>
 #include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/di/serial.h>
@@ -14,7 +14,7 @@ bsp::ISerial &DI_Serial()
     return hal::Serial::Instance();
 }
 
-base::ICollection<std::string, bsp::ISerial *> const &DI_SerialCollection()
+base::IDictionary<std::string, bsp::ISerial *> const &DI_SerialCollection()
 {
     class Initializer
     {
@@ -26,11 +26,11 @@ base::ICollection<std::string, bsp::ISerial *> const &DI_SerialCollection()
 
         void Add(bsp::ISerial *serial)
         {
-            _collection.Put(serial->Name(), serial);
+            _collection.Add(serial->Name(), serial);
         }
 
     public:
-        base::Collection<std::string, bsp::ISerial *> _collection;
+        base::Dictionary<std::string, bsp::ISerial *> _collection;
 
         static Initializer &Instance()
         {

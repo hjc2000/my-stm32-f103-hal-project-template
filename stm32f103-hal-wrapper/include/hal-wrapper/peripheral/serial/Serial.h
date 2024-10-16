@@ -2,13 +2,11 @@
 #include <atomic>
 #include <base/di/SingletonGetter.h>
 #include <bsp-interface/di/interrupt.h>
+#include <bsp-interface/di/task.h>
 #include <bsp-interface/serial/ISerial.h>
 #include <hal-wrapper/peripheral/serial/SerialOptions.h>
 #include <hal.h>
 #include <memory>
-#include <task/BinarySemaphore.h>
-#include <task/Critical.h>
-#include <task/Mutex.h>
 
 namespace hal
 {
@@ -18,9 +16,9 @@ namespace hal
         Serial() = default;
 
         UART_HandleTypeDef _uart_handle{};
-        task::BinarySemaphore _send_complete_signal;
-        task::BinarySemaphore _receive_complete_signal;
-        task::Mutex _read_lock{};
+        std::shared_ptr<bsp::IBinarySemaphore> _send_complete_signal = DICreate_BinarySemaphore();
+        std::shared_ptr<bsp::IBinarySemaphore> _receive_complete_signal = DICreate_BinarySemaphore();
+        std::shared_ptr<bsp::IMutex> _read_lock = DICreate_Mutex();
         int32_t _current_receive_count = 0;
 
 #pragma region 初始化

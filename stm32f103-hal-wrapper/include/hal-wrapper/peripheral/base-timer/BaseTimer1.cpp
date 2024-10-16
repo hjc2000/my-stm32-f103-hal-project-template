@@ -2,7 +2,6 @@
 #include <bsp-interface/di/interrupt.h>
 #include <hal-wrapper/clock/ClockSignal.h>
 #include <stdexcept>
-#include <task/Critical.h>
 
 using namespace hal;
 
@@ -80,8 +79,9 @@ void BaseTimer1::Stop()
 
 void BaseTimer1::SetPeriodElapsedCallback(std::function<void()> func)
 {
-    task::Critical::Run([&]()
-                        {
-                            _on_period_elapsed = func;
-                        });
+    DI_InterruptSwitch().DoGlobalCriticalWork(
+        [&]()
+        {
+            _on_period_elapsed = func;
+        });
 }

@@ -1,11 +1,11 @@
 #include <AtkKey.h>
-#include <base/container/Collection.h>
+#include <base/container/Dictionary.h>
 #include <base/di/SingletonGetter.h>
 #include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/di/key.h>
 #include <bsp-interface/key/KeyScanner.h>
 
-base::ICollection<std::string, bsp::IKey *> const &DI_KeyCollection()
+base::IDictionary<std::string, bsp::IKey *> const &DI_KeyCollection()
 {
     class Initializer
     {
@@ -17,16 +17,17 @@ base::ICollection<std::string, bsp::IKey *> const &DI_KeyCollection()
         }
 
     public:
-        base::Collection<std::string, bsp::IKey *> _collection;
+        base::Dictionary<std::string, bsp::IKey *> _collection;
 
         void AddKey(bsp::IKey *key)
         {
-            _collection.Put(key->KeyName(), key);
+            _collection.Add(key->KeyName(), key);
         }
 
         static Initializer &Instance()
         {
-            class Getter : public base::SingletonGetter<Initializer>
+            class Getter :
+                public base::SingletonGetter<Initializer>
             {
             public:
                 std::unique_ptr<Initializer> Create() override

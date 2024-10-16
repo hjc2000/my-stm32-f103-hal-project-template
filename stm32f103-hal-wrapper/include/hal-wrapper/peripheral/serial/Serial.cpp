@@ -1,4 +1,5 @@
 #include "Serial.h"
+#include <base/LockGuard.h>
 #include <bsp-interface/di/dma.h>
 #include <bsp-interface/di/gpio.h>
 #include <bsp-interface/di/interrupt.h>
@@ -74,7 +75,7 @@ void hal::Serial::InitializeUart(SerialOptions const &options)
      * 然后在发送完成之前，第二次 Write 就会被阻塞了，这还能防止 Write
      * 被多线程同时调用。
      */
-    _send_complete_signal.Release();
+    _send_complete_signal->Release();
     _uart_handle.Instance = USART1;
     _uart_handle.Init = options;
     _uart_handle.MspInitCallback = nullptr;
@@ -120,12 +121,12 @@ void hal::Serial::InitializeInterrupt()
 void Serial::OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos)
 {
     Serial::Instance()._current_receive_count = pos;
-    Serial::Instance()._receive_complete_signal.ReleaseFromISR();
+    Serial::Instance()._receive_complete_signal->ReleaseFromISR();
 }
 
 void Serial::OnSendCompleteCallback(UART_HandleTypeDef *huart)
 {
-    Serial::Instance()._send_complete_signal.ReleaseFromISR();
+    Serial::Instance()._send_complete_signal->ReleaseFromISR();
 }
 
 #pragma endregion
@@ -147,10 +148,10 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
         throw std::invalid_argument{"count 太大"};
     }
 
-    task::MutexLockGuard l{_read_lock};
+    base::LockGuard l{*_read_lock};
     while (true)
     {
-        task::Critical::Run(
+        DI_InterruptSwitch().DoGlobalCriticalWork(
             [&]()
             {
                 HAL_UARTEx_ReceiveToIdle_DMA(&_uart_handle, buffer + offset, count);
@@ -164,7 +165,7 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
                 _uart_handle.hdmarx->XferHalfCpltCallback = nullptr;
             });
 
-        _receive_complete_signal.Acquire();
+        _receive_complete_signal->Acquire();
         if (_current_receive_count > 0)
         {
             return _current_receive_count;
@@ -174,7 +175,7 @@ int32_t Serial::Read(uint8_t *buffer, int32_t offset, int32_t count)
 
 void Serial::Write(uint8_t const *buffer, int32_t offset, int32_t count)
 {
-    _send_complete_signal.Acquire();
+    _send_complete_signal->Acquire();
     HAL_UART_Transmit_DMA(&_uart_handle, buffer + offset, count);
 }
 
