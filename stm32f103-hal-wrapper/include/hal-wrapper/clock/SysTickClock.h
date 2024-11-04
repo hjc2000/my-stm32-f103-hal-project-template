@@ -1,12 +1,13 @@
 #pragma once
-#include <bsp-interface/ISysTick.h>
+#include <bsp-interface/timer/ISysTick.h>
 #include <chrono>
 #include <hal.h>
 #include <stdint.h>
 
 namespace hal
 {
-    class SysTickClock : public bsp::ISysTick
+    class SysTickClock :
+        public bsp::ISysTick
     {
     private:
         SysTickClock() = default;

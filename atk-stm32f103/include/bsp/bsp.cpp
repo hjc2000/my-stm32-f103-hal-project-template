@@ -12,9 +12,7 @@
 #include <hal-wrapper/clock/clock-signal-config/ClockSignalConfig.h>
 #include <hal-wrapper/clock/ClockSignal.h>
 #include <hal-wrapper/clock/ConfigClockSignal.h>
-#include <hal-wrapper/clock/Delayer.h>
 #include <hal-wrapper/clock/Osc.h>
-#include <hal-wrapper/clock/SysTickClock.h>
 #include <hal-wrapper/peripheral/base-timer/BaseTimer1.h>
 #include <hal-wrapper/peripheral/serial/Serial.h>
 #include <hal-wrapper/peripheral/window-watch-dog/WindowWatchDog.h>
@@ -62,11 +60,6 @@ bsp::ISerial &BSP::Serial()
 bsp::IBaseTimer &BSP::BaseTimer()
 {
     return BaseTimer1::Instance();
-}
-
-bsp::Console &BSP::Console()
-{
-    return bsp::Console::Instance();
 }
 
 void TestWindowWatchDog()

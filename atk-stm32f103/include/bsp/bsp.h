@@ -1,8 +1,5 @@
 #pragma once
-#include <bsp-interface/Console.h>
-#include <bsp-interface/IDelayer.h>
 #include <bsp-interface/IDigitalLed.h>
-#include <bsp-interface/IIndependentWatchDog.h>
 #include <bsp-interface/key/IEventDrivenKey.h>
 #include <bsp-interface/key/IKeyScanner.h>
 #include <bsp-interface/lcd/ILcd.h>
@@ -32,8 +29,6 @@ public:
     static bsp::ISerial &Serial();
 
     static bsp::IBaseTimer &BaseTimer();
-
-    static bsp::Console &Console();
 };
 
 void TestWindowWatchDog();
