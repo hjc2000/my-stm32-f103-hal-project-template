@@ -1,5 +1,4 @@
 #include "ExtiWakeUpKey.h"
-#include <hal-wrapper/clock/SysTickClock.h>
 
 using namespace bsp;
 

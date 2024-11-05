@@ -43,8 +43,6 @@ void BSP::Initialize()
     HAL_Init();
     config_clock_source();
     ConfigClockSignal();
-
-    bsp::Console::Instance().SetOutStream(base::RentedPtrFactory::Create(&BSP::Serial()));
 }
 
 bsp::IEventDrivenKey &BSP::WakeUpKey()

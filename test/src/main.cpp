@@ -1,4 +1,7 @@
 #include <base/math/Fraction.h>
+#include <base/RentedPtrFactory.h>
+#include <bsp-interface/di/console.h>
+#include <bsp-interface/di/serial.h>
 #include <bsp-interface/di/task.h>
 #include <bsp-interface/test/TestIndependentWatchDog.h>
 #include <bsp-interface/test/TestKeyScanner.h>
@@ -17,27 +20,14 @@ int main(void)
     DI_TaskManager().Create(
         []()
         {
-            try
-            {
-                bsp::TestSerial();
-                // bsp::TestIndependentWatchDog();
-                // TestExtiKey();
-                // bsp::TestLcd();
-                // bsp::TestKeyScanner();
-            }
-            catch (std::exception const &e)
-            {
-                std::string msg = e.what();
-                while (1)
-                {
-                }
-            }
-            catch (...)
-            {
-                while (1)
-                {
-                }
-            }
+            DI_Serial().Open(*DICreate_ISerialOptions());
+            DI_Console().SetOutStream(base::RentedPtrFactory::Create(&DI_Serial()));
+
+            bsp::TestSerial();
+            // bsp::TestIndependentWatchDog();
+            // TestExtiKey();
+            // bsp::TestLcd();
+            // bsp::TestKeyScanner();
         },
         512);
 
