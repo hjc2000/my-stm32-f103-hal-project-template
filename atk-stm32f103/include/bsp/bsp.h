@@ -26,8 +26,6 @@ public:
     static_function void Initialize();
 
     static_function bsp::IEventDrivenKey &WakeUpKey();
-
-    static_function bsp::ISerial &Serial();
 };
 
 void TestWindowWatchDog();

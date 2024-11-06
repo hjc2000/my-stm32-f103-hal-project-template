@@ -13,7 +13,6 @@
 #include <hal-wrapper/clock/ClockSignal.h>
 #include <hal-wrapper/clock/ConfigClockSignal.h>
 #include <hal-wrapper/clock/Osc.h>
-#include <hal-wrapper/peripheral/serial/Serial.h>
 #include <hal-wrapper/peripheral/window-watch-dog/WindowWatchDog.h>
 #include <Lcd.h>
 #include <task.h>
@@ -47,11 +46,6 @@ void BSP::Initialize()
 bsp::IEventDrivenKey &BSP::WakeUpKey()
 {
     return bsp::ExtiWakeUpKey::Instance();
-}
-
-bsp::ISerial &BSP::Serial()
-{
-    return Serial::Instance();
 }
 
 void TestWindowWatchDog()
