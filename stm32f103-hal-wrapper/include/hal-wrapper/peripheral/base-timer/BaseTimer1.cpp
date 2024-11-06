@@ -27,7 +27,11 @@ void BaseTimer1::Initialize(BaseTimerConfig const &config)
         });
 }
 
-void BaseTimer1::Initialize(std::chrono::milliseconds period)
+void hal::BaseTimer1::Open()
+{
+}
+
+void hal::BaseTimer1::Start(std::chrono::milliseconds period)
 {
     uint32_t timer_clock_signal_freq = hal::ClockSignal::Pclk1Freq();
     hal::ClockSignalConfig clock_signal_config = hal::ClockSignal::GetConfig();
@@ -64,10 +68,7 @@ void BaseTimer1::Initialize(std::chrono::milliseconds period)
     options._period = count >> 16;
     options._is_auto_reload_preload_enabled = true;
     Initialize(options);
-}
 
-void BaseTimer1::Start()
-{
     DI_InterruptSwitch().EnableInterrupt(TIM6_IRQn, 10);
     HAL_TIM_Base_Start_IT(&_handle);
 }
@@ -77,7 +78,7 @@ void BaseTimer1::Stop()
     HAL_TIM_Base_Stop_IT(&_handle);
 }
 
-void BaseTimer1::SetPeriodElapsedCallback(std::function<void()> func)
+void hal::BaseTimer1::SetElapsedHandle(std::function<void()> func)
 {
     DI_InterruptSwitch().DoGlobalCriticalWork(
         [&]()
