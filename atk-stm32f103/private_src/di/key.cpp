@@ -24,7 +24,7 @@ base::IDictionary<std::string, bsp::IKey *> const &DI_KeyCollection()
             _collection.Add(key->KeyName(), key);
         }
 
-        static Initializer &Instance()
+        static_function Initializer &Instance()
         {
             class Getter :
                 public base::SingletonGetter<Initializer>

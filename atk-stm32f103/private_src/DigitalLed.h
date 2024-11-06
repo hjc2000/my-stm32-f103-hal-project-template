@@ -15,9 +15,10 @@ namespace bsp
         bsp::IGpioPin *_pin = nullptr;
 
     public:
-        static RedDigitalLed &Instance()
+        static_function RedDigitalLed &Instance()
         {
-            class Getter : public base::SingletonGetter<RedDigitalLed>
+            class Getter :
+                public base::SingletonGetter<RedDigitalLed>
             {
             public:
                 std::unique_ptr<RedDigitalLed> Create() override
@@ -54,9 +55,10 @@ namespace bsp
         bsp::IGpioPin *_pin = nullptr;
 
     public:
-        static GreenDigitalLed &Instance()
+        static_function GreenDigitalLed &Instance()
         {
-            class Getter : public base::SingletonGetter<GreenDigitalLed>
+            class Getter :
+                public base::SingletonGetter<GreenDigitalLed>
             {
             public:
                 std::unique_ptr<GreenDigitalLed> Create() override

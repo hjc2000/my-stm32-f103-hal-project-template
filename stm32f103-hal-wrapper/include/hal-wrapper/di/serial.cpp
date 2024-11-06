@@ -32,9 +32,10 @@ base::IDictionary<std::string, bsp::ISerial *> const &DI_SerialCollection()
     public:
         base::Dictionary<std::string, bsp::ISerial *> _collection;
 
-        static Initializer &Instance()
+        static_function Initializer &Instance()
         {
-            class Getter : public base::SingletonGetter<Initializer>
+            class Getter :
+                public base::SingletonGetter<Initializer>
             {
             public:
                 std::unique_ptr<Initializer> Create() override

@@ -1,4 +1,5 @@
 #pragma once
+#include <base/define.h>
 #include <bsp-interface/IDigitalLed.h>
 #include <bsp-interface/key/IEventDrivenKey.h>
 #include <bsp-interface/key/IKeyScanner.h>
@@ -22,11 +23,11 @@ public:
     /// <summary>
     ///		此函数必须在所有 BSP 函数被调用之前调用，否则 BSP 将无法工作。
     /// </summary>
-    static void Initialize();
+    static_function void Initialize();
 
-    static bsp::IEventDrivenKey &WakeUpKey();
+    static_function bsp::IEventDrivenKey &WakeUpKey();
 
-    static bsp::ISerial &Serial();
+    static_function bsp::ISerial &Serial();
 };
 
 void TestWindowWatchDog();

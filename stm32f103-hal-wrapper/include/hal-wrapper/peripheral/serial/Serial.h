@@ -29,14 +29,15 @@ namespace hal
 #pragma endregion
 
 #pragma region 被中断处理函数回调的函数
-        static void OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos);
-        static void OnSendCompleteCallback(UART_HandleTypeDef *huart);
+        static_function void OnReceiveEventCallback(UART_HandleTypeDef *huart, uint16_t pos);
+        static_function void OnSendCompleteCallback(UART_HandleTypeDef *huart);
 #pragma endregion
 
     public:
-        static Serial &Instance()
+        static_function Serial &Instance()
         {
-            class Getter : public base::SingletonGetter<Serial>
+            class Getter :
+                public base::SingletonGetter<Serial>
             {
             public:
                 std::unique_ptr<Serial> Create() override

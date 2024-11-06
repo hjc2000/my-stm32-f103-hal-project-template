@@ -19,9 +19,10 @@ namespace bsp
         bsp::IGpioPin *_pin = nullptr;
 
     public:
-        static ExtiWakeUpKey &Instance()
+        static_function ExtiWakeUpKey &Instance()
         {
-            class Getter : public base::SingletonGetter<ExtiWakeUpKey>
+            class Getter :
+                public base::SingletonGetter<ExtiWakeUpKey>
             {
             public:
                 std::unique_ptr<ExtiWakeUpKey> Create() override

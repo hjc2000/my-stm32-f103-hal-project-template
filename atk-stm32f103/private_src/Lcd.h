@@ -48,9 +48,10 @@ namespace bsp
         void InitGpio();
 
     public:
-        static Lcd &Instance()
+        static_function Lcd &Instance()
         {
-            class Getter : public base::SingletonGetter<Lcd>
+            class Getter :
+                public base::SingletonGetter<Lcd>
             {
             public:
                 std::unique_ptr<Lcd> Create() override

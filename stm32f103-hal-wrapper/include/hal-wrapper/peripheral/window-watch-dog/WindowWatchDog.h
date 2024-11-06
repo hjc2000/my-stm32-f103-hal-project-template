@@ -1,4 +1,7 @@
 #pragma once
+#include <base/define.h>
+#include <base/di/SingletonGetter.h>
+#include <bsp-interface/di/interrupt.h>
 #include <functional>
 #include <hal-wrapper/peripheral/window-watch-dog/WindowWatchDogConfig.h>
 
@@ -13,16 +16,36 @@ namespace hal
         /// </summary>
         std::function<void()> _early_wakeup_interrupt_callback;
 
-        static void OnMspInitCallback(WWDG_HandleTypeDef *handle);
-        static void OnEarlyWakeUpInterruptCallback(WWDG_HandleTypeDef *handle);
+        static_function void OnMspInitCallback(WWDG_HandleTypeDef *handle);
+        static_function void OnEarlyWakeUpInterruptCallback(WWDG_HandleTypeDef *handle);
 
     public:
         WWDG_HandleTypeDef _handle;
 
-        static WindowWatchDog &Instance()
+        static_function WindowWatchDog &Instance()
         {
-            static WindowWatchDog o;
-            return o;
+            class Getter :
+                public base::SingletonGetter<WindowWatchDog>
+            {
+            public:
+                std::unique_ptr<WindowWatchDog> Create() override
+                {
+                    return std::unique_ptr<WindowWatchDog>{new WindowWatchDog{}};
+                }
+
+                void Lock() override
+                {
+                    DI_InterruptSwitch().DisableGlobalInterrupt();
+                }
+
+                void Unlock() override
+                {
+                    DI_InterruptSwitch().EnableGlobalInterrupt();
+                }
+            };
+
+            Getter g;
+            return g.Instance();
         }
 
         WWDG_TypeDef *HardwareInstance();

@@ -24,7 +24,7 @@ base::IDictionary<std::string, bsp::IDigitalLed *> const &DI_DigitalLedCollectio
             {"green_led", &GreenDigitalLed::Instance()},
         };
 
-        static Initializer &Instance()
+        static_function Initializer &Instance()
         {
             class Getter :
                 public base::SingletonGetter<Initializer>

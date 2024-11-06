@@ -1,5 +1,8 @@
 #pragma once
+#include <base/define.h>
+#include <base/di/SingletonGetter.h>
 #include <bsp-interface/di/gpio.h>
+#include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/key/IKey.h>
 
 namespace bsp
@@ -13,10 +16,30 @@ namespace bsp
     public:
         Key0();
 
-        static Key0 &Instance()
+        static_function Key0 &Instance()
         {
-            static Key0 key{};
-            return key;
+            class Getter :
+                public base::SingletonGetter<Key0>
+            {
+            public:
+                std::unique_ptr<Key0> Create() override
+                {
+                    return std::unique_ptr<Key0>{new Key0{}};
+                }
+
+                void Lock() override
+                {
+                    DI_InterruptSwitch().DisableGlobalInterrupt();
+                }
+
+                void Unlock() override
+                {
+                    DI_InterruptSwitch().EnableGlobalInterrupt();
+                }
+            };
+
+            Getter g;
+            return g.Instance();
         }
 
         std::string KeyName() override
@@ -36,10 +59,30 @@ namespace bsp
     public:
         Key1();
 
-        static Key1 &Instance()
+        static_function Key1 &Instance()
         {
-            static Key1 key{};
-            return key;
+            class Getter :
+                public base::SingletonGetter<Key1>
+            {
+            public:
+                std::unique_ptr<Key1> Create() override
+                {
+                    return std::unique_ptr<Key1>{new Key1{}};
+                }
+
+                void Lock() override
+                {
+                    DI_InterruptSwitch().DisableGlobalInterrupt();
+                }
+
+                void Unlock() override
+                {
+                    DI_InterruptSwitch().EnableGlobalInterrupt();
+                }
+            };
+
+            Getter g;
+            return g.Instance();
         }
 
         std::string KeyName() override
