@@ -7,18 +7,7 @@ using namespace bsp;
 bsp::RedDigitalLed::RedDigitalLed()
 {
     _pin = DI_GpioPinCollection().Get("PB5");
-    if (_pin == nullptr)
-    {
-        throw std::runtime_error{"无法找到 PB5 引脚"};
-    }
-
-    std::shared_ptr<bsp::IGpioPinOptions> options = DICreate_GpioPinOptions();
-    options->SetWorkMode(bsp::IGpioPinWorkMode::Gpio);
-    options->SetDirection(bsp::IGpioPinDirection::Output);
-    options->SetDriver(bsp::IGpioPinDriver::PushPull);
-    options->SetPullMode(bsp::IGpioPinPullMode::NoPull);
-    options->SetSpeedLevel(2);
-    _pin->Open(*options);
+    _pin->OpenAsOutputMode(bsp::IGpioPinPullMode::NoPull, bsp::IGpioPinDriver::PushPull);
     TurnOff();
 }
 
@@ -46,18 +35,7 @@ void bsp::RedDigitalLed::Toggle()
 bsp::GreenDigitalLed::GreenDigitalLed()
 {
     _pin = DI_GpioPinCollection().Get("PE5");
-    if (_pin == nullptr)
-    {
-        throw std::runtime_error{"无法找到 PE5 引脚"};
-    }
-
-    std::shared_ptr<bsp::IGpioPinOptions> options = DICreate_GpioPinOptions();
-    options->SetWorkMode(bsp::IGpioPinWorkMode::Gpio);
-    options->SetDirection(bsp::IGpioPinDirection::Output);
-    options->SetDriver(bsp::IGpioPinDriver::PushPull);
-    options->SetPullMode(bsp::IGpioPinPullMode::NoPull);
-    options->SetSpeedLevel(2);
-    _pin->Open(*options);
+    _pin->OpenAsOutputMode(bsp::IGpioPinPullMode::NoPull, bsp::IGpioPinDriver::PushPull);
     TurnOff();
 }
 

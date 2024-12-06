@@ -4,7 +4,6 @@
 #include <base/RentedPtrFactory.h>
 #include <bsp-interface/di/delayer.h>
 #include <bsp-interface/di/led.h>
-#include <bsp-interface/key/KeyScanner.h>
 #include <DigitalLed.h>
 #include <ExtiWakeUpKey.h>
 #include <FreeRTOS.h>
