@@ -3,6 +3,7 @@
 #include <bsp-interface/di/console.h>
 #include <bsp-interface/di/serial.h>
 #include <bsp-interface/di/task.h>
+#include <bsp-interface/IConsole.h>
 #include <bsp-interface/test/TestIndependentWatchDog.h>
 #include <bsp-interface/test/TestKeyScanner.h>
 #include <bsp-interface/test/TestLcd.h>
