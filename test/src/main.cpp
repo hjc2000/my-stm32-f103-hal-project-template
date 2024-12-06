@@ -24,9 +24,9 @@ int main(void)
             // DI_Serial().Open(*DICreate_ISerialOptions());
             // DI_Console().SetOutStream(base::RentedPtrFactory::Create(&DI_Serial()));
 
-            bsp::TestSerial();
+            // bsp::TestSerial();
             // bsp::TestIndependentWatchDog();
-            // TestExtiKey();
+            TestExtiKey();
             // bsp::TestLcd();
             // bsp::TestKeyScanner();
         },

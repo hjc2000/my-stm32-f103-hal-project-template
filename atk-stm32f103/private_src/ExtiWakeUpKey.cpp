@@ -5,7 +5,8 @@ using namespace bsp;
 ExtiWakeUpKey::ExtiWakeUpKey()
 {
     _pin = DI_GpioPinCollection().Get("PA0");
-    _pin->OpenAsInputMode(bsp::IGpioPinPullMode::PullDown, bsp::IGpioPinTriggerEdge::RisingEdge);
+    _pin->OpenAsInputMode(bsp::IGpioPinPullMode::PullDown,
+                          bsp::IGpioPinTriggerEdge::RisingEdge);
 
     _pin->RegisterInterruptCallback(
         [&]()
