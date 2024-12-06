@@ -45,116 +45,69 @@ Lcd::Lcd()
 
 void Lcd::InitGpio()
 {
-    auto init_control_line = [&]()
+    // _bl_pin
     {
-        // _bl_pin
-        {
-            _bl_pin = DI_GpioPinCollection().Get("PB0");
-            _bl_pin->OpenAsOutputMode(bsp::IGpioPinPullMode::NoPull, bsp::IGpioPinDriver::PushPull);
-        }
+        _bl_pin = DI_GpioPinCollection().Get("PB0");
+        _bl_pin->OpenAsOutputMode(bsp::IGpioPinPullMode::NoPull, bsp::IGpioPinDriver::PushPull);
+    }
 
-        // _rd_pin
-        {
-            _rd_pin = DI_GpioPinCollection().Get("PD4");
-            _rd_pin->OpenAsAlternateFunctionMode("af_input",
-                                                 bsp::IGpioPinPullMode::PullUp,
-                                                 bsp::IGpioPinDriver::PushPull);
-        }
+    // _rd_pin
+    {
+        _rd_pin = DI_GpioPinCollection().Get("PD4");
+        _rd_pin->OpenAsAlternateFunctionMode("af_input",
+                                             bsp::IGpioPinPullMode::PullUp,
+                                             bsp::IGpioPinDriver::PushPull);
+    }
 
-        // _wr_pin
-        {
-            _wr_pin = DI_GpioPinCollection().Get("PD5");
-            _wr_pin->OpenAsAlternateFunctionMode("af_push_pull",
-                                                 bsp::IGpioPinPullMode::PullUp,
-                                                 bsp::IGpioPinDriver::PushPull);
-        }
+    // _wr_pin
+    {
+        _wr_pin = DI_GpioPinCollection().Get("PD5");
+        _wr_pin->OpenAsAlternateFunctionMode("af_push_pull",
+                                             bsp::IGpioPinPullMode::PullUp,
+                                             bsp::IGpioPinDriver::PushPull);
+    }
 
-        // _cs_pin
-        {
-            _cs_pin = DI_GpioPinCollection().Get("PG12");
-            _cs_pin->OpenAsAlternateFunctionMode("af_push_pull",
-                                                 bsp::IGpioPinPullMode::PullUp,
-                                                 bsp::IGpioPinDriver::PushPull);
-        }
+    // _cs_pin
+    {
+        _cs_pin = DI_GpioPinCollection().Get("PG12");
+        _cs_pin->OpenAsAlternateFunctionMode("af_push_pull",
+                                             bsp::IGpioPinPullMode::PullUp,
+                                             bsp::IGpioPinDriver::PushPull);
+    }
 
-        // _rs_pin
-        {
-            _rs_pin = DI_GpioPinCollection().Get("PG0");
-            _rs_pin->OpenAsAlternateFunctionMode("af_push_pull",
-                                                 bsp::IGpioPinPullMode::PullUp,
-                                                 bsp::IGpioPinDriver::PushPull);
-        }
+    // _rs_pin
+    {
+        _rs_pin = DI_GpioPinCollection().Get("PG0");
+        _rs_pin->OpenAsAlternateFunctionMode("af_push_pull",
+                                             bsp::IGpioPinPullMode::PullUp,
+                                             bsp::IGpioPinDriver::PushPull);
+    }
+
+    char const *pin_names[] = {
+        "PD0",
+        "PD1",
+        "PD8",
+        "PD9",
+        "PD10",
+        "PD14",
+        "PD15",
+        "PE7",
+        "PE8",
+        "PE9",
+        "PE10",
+        "PE11",
+        "PE12",
+        "PE13",
+        "PE14",
+        "PE15",
     };
 
-    auto init_data_bus = [&]()
+    for (char const *pin_name : pin_names)
     {
-        DI_GpioPinCollection().Get("PD0")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                       bsp::IGpioPinPullMode::PullUp,
-                                                                       bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PD1")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                       bsp::IGpioPinPullMode::PullUp,
-                                                                       bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PD8")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                       bsp::IGpioPinPullMode::PullUp,
-                                                                       bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PD9")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                       bsp::IGpioPinPullMode::PullUp,
-                                                                       bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PD10")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                        bsp::IGpioPinPullMode::PullUp,
-                                                                        bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PD14")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                        bsp::IGpioPinPullMode::PullUp,
-                                                                        bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PD15")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                        bsp::IGpioPinPullMode::PullUp,
-                                                                        bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PE7")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                       bsp::IGpioPinPullMode::PullUp,
-                                                                       bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PE8")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                       bsp::IGpioPinPullMode::PullUp,
-                                                                       bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PE9")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                       bsp::IGpioPinPullMode::PullUp,
-                                                                       bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PE10")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                        bsp::IGpioPinPullMode::PullUp,
-                                                                        bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PE11")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                        bsp::IGpioPinPullMode::PullUp,
-                                                                        bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PE12")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                        bsp::IGpioPinPullMode::PullUp,
-                                                                        bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PE13")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                        bsp::IGpioPinPullMode::PullUp,
-                                                                        bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PE14")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                        bsp::IGpioPinPullMode::PullUp,
-                                                                        bsp::IGpioPinDriver::PushPull);
-
-        DI_GpioPinCollection().Get("PE15")->OpenAsAlternateFunctionMode("af_push_pull",
-                                                                        bsp::IGpioPinPullMode::PullUp,
-                                                                        bsp::IGpioPinDriver::PushPull);
-    };
-
-    init_control_line();
-    init_data_bus();
+        DI_GpioPinCollection().Get(pin_name)->OpenAsAlternateFunctionMode("af_push_pull",
+                                                                          bsp::IGpioPinPullMode::PullUp,
+                                                                          bsp::IGpioPinDriver::PushPull);
+    }
 }
 
 void Lcd::WriteCommand(uint16_t cmd)
