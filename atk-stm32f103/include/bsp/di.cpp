@@ -1,8 +1,8 @@
 #include <base/container/Dictionary.h>
-#include <base/di/SingletonGetter.h>
 #include <base/RentedPtrFactory.h>
 #include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/di/led.h>
+#include <bsp-interface/TaskSingletonGetter.h>
 #include <bsp/bsp.h>
 #include <DigitalLed.h>
 #include <Lcd.h>
@@ -27,22 +27,12 @@ base::IDictionary<std::string, bsp::IDigitalLed *> const &DI_DigitalLedCollectio
         static_function Initializer &Instance()
         {
             class Getter :
-                public base::SingletonGetter<Initializer>
+                public bsp::TaskSingletonGetter<Initializer>
             {
             public:
                 std::unique_ptr<Initializer> Create() override
                 {
                     return std::unique_ptr<Initializer>{new Initializer{}};
-                }
-
-                void Lock() override
-                {
-                    DI_InterruptSwitch().DisableGlobalInterrupt();
-                }
-
-                void Unlock() override
-                {
-                    DI_InterruptSwitch().EnableGlobalInterrupt();
                 }
             };
 

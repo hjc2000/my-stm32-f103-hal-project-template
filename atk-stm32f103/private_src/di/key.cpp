@@ -1,8 +1,8 @@
 #include <AtkKey.h>
 #include <base/container/Dictionary.h>
-#include <base/di/SingletonGetter.h>
 #include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/di/key.h>
+#include <bsp-interface/TaskSingletonGetter.h>
 
 base::IDictionary<std::string, bsp::IKey *> const &DI_KeyCollection()
 {
@@ -26,22 +26,12 @@ base::IDictionary<std::string, bsp::IKey *> const &DI_KeyCollection()
         static_function Initializer &Instance()
         {
             class Getter :
-                public base::SingletonGetter<Initializer>
+                public bsp::TaskSingletonGetter<Initializer>
             {
             public:
                 std::unique_ptr<Initializer> Create() override
                 {
                     return std::unique_ptr<Initializer>{new Initializer{}};
-                }
-
-                void Lock() override
-                {
-                    DI_InterruptSwitch().DisableGlobalInterrupt();
-                }
-
-                void Unlock() override
-                {
-                    DI_InterruptSwitch().EnableGlobalInterrupt();
                 }
             };
 

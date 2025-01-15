@@ -14,7 +14,7 @@ extern "C"
 void WindowWatchDog::OnMspInitCallback(WWDG_HandleTypeDef *handle)
 {
     __HAL_RCC_WWDG_CLK_ENABLE();
-    DI_InterruptSwitch().EnableInterrupt(IRQn_Type::WWDG_IRQn, 4);
+    DI_EnableInterrupt(IRQn_Type::WWDG_IRQn, 4);
 }
 
 void WindowWatchDog::OnEarlyWakeUpInterruptCallback(WWDG_HandleTypeDef *handle)
@@ -47,7 +47,6 @@ void hal::WindowWatchDog::Feed()
 
 void hal::WindowWatchDog::SetEarlyWakeupInterruptCallback(std::function<void()> func)
 {
-    DI_InterruptSwitch().DisableInterrupt(IRQn_Type::WWDG_IRQn);
+    bsp::GlobalInterruptGuard g;
     _early_wakeup_interrupt_callback = func;
-    DI_InterruptSwitch().EnableInterrupt(IRQn_Type::WWDG_IRQn);
 }

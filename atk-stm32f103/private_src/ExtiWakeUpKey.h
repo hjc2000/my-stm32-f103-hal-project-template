@@ -1,10 +1,10 @@
 #pragma once
 #include <atomic>
-#include <base/di/SingletonGetter.h>
 #include <bsp-interface/di/gpio.h>
 #include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/di/systick.h>
 #include <bsp-interface/key/IEventDrivenKey.h>
+#include <bsp-interface/TaskSingletonGetter.h>
 
 namespace bsp
 {
@@ -22,22 +22,12 @@ namespace bsp
         static_function ExtiWakeUpKey &Instance()
         {
             class Getter :
-                public base::SingletonGetter<ExtiWakeUpKey>
+                public bsp::TaskSingletonGetter<ExtiWakeUpKey>
             {
             public:
                 std::unique_ptr<ExtiWakeUpKey> Create() override
                 {
                     return std::unique_ptr<ExtiWakeUpKey>{new ExtiWakeUpKey{}};
-                }
-
-                void Lock() override
-                {
-                    DI_InterruptSwitch().DisableGlobalInterrupt();
-                }
-
-                void Unlock() override
-                {
-                    DI_InterruptSwitch().EnableGlobalInterrupt();
                 }
             };
 

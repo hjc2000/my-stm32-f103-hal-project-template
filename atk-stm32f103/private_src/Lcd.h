@@ -1,8 +1,8 @@
 #pragma once
-#include <base/di/SingletonGetter.h>
 #include <bsp-interface/di/gpio.h>
 #include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/lcd/ST7789LcdDriver.h>
+#include <bsp-interface/TaskSingletonGetter.h>
 #include <hal-wrapper/peripheral/fsmc/FsmcNorSramConfig.h>
 #include <hal-wrapper/peripheral/fsmc/FsmcNorSramTiming.h>
 #include <stdexcept>
@@ -51,22 +51,12 @@ namespace bsp
         static_function Lcd &Instance()
         {
             class Getter :
-                public base::SingletonGetter<Lcd>
+                public bsp::TaskSingletonGetter<Lcd>
             {
             public:
                 std::unique_ptr<Lcd> Create() override
                 {
                     return std::unique_ptr<Lcd>{new Lcd{}};
-                }
-
-                void Lock() override
-                {
-                    DI_InterruptSwitch().DisableGlobalInterrupt();
-                }
-
-                void Unlock() override
-                {
-                    DI_InterruptSwitch().EnableGlobalInterrupt();
                 }
             };
 

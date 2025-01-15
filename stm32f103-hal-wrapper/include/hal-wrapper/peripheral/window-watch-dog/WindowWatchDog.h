@@ -1,7 +1,7 @@
 #pragma once
 #include <base/define.h>
-#include <base/di/SingletonGetter.h>
 #include <bsp-interface/di/interrupt.h>
+#include <bsp-interface/TaskSingletonGetter.h>
 #include <functional>
 #include <hal-wrapper/peripheral/window-watch-dog/WindowWatchDogConfig.h>
 
@@ -25,22 +25,12 @@ namespace hal
         static_function WindowWatchDog &Instance()
         {
             class Getter :
-                public base::SingletonGetter<WindowWatchDog>
+                public bsp::TaskSingletonGetter<WindowWatchDog>
             {
             public:
                 std::unique_ptr<WindowWatchDog> Create() override
                 {
                     return std::unique_ptr<WindowWatchDog>{new WindowWatchDog{}};
-                }
-
-                void Lock() override
-                {
-                    DI_InterruptSwitch().DisableGlobalInterrupt();
-                }
-
-                void Unlock() override
-                {
-                    DI_InterruptSwitch().EnableGlobalInterrupt();
                 }
             };
 
